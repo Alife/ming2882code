@@ -8,6 +8,10 @@ namespace Web.Controllers
 {
     public class DataController : Controller
     {
+        public ActionResult viewBaseGrid()
+        {
+            return View();
+        }
         public JsonResult datagrid_data(int? page, int rows, string sort, string order)
         {
             //page = (page ?? 0) == 1 ? 0 : page;

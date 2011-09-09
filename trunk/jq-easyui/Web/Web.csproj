@@ -74,6 +74,7 @@
     <Content Include="Js\jquery-1.6.min.js" />
     <Content Include="Js\jquery.easyui-1.2.3.min.js" />
     <Content Include="Js\jquery.easyui-1.2.4.min.js" />
+    <Content Include="Js\lib\util.js" />
     <Content Include="Js\themes\default\css\default.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\blocks.gif" />
@@ -257,6 +258,7 @@
     <Content Include="Js\themes\icons\sum.png" />
     <Content Include="Js\themes\icons\tip.png" />
     <Content Include="Js\themes\icons\undo.png" />
+    <Content Include="Views\Data\viewBaseGrid.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\Error.aspx" />
@@ -270,7 +272,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="demo\" />
-    <Folder Include="Js\lib\" />
     <Folder Include="Js\view\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

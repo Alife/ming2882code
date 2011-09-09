@@ -14,16 +14,17 @@
 
     <script src="<%= path%>/js/easyui-lang-zh_CN.js" type="text/javascript"></script>
 
+    <script src="<%= path%>/js/lib/util.js" type="text/javascript"></script>
     <script src="<%= path%>/js/main.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         var _menus = { "menus": [
 						{ "menuid": "1", "icon": "icon-sys", "menuname": "控件使用",
 						    "menus": [
-									{ "menuid": "13", "menuname": "用户管理", "icon": "icon-users", "url": "/demo/窗体.html" },
-									{ "menuid": "14", "menuname": "角色管理", "icon": "icon-role", "url": "/demo/表单.html" },
-									{ "menuid": "15", "menuname": "权限设置", "icon": "icon-set", "url": "/demo/数据网格.html" },
-									{ "menuid": "16", "menuname": "系统日志", "icon": "icon-log", "url": "/data/combobox_data" }
+									{ "menuid": "13", "menuname": "窗体", "icon": "icon-users", "url": "/demo/窗体.html" },
+									{ "menuid": "14", "menuname": "表单", "icon": "icon-role", "url": "/demo/表单.html" },
+									{ "menuid": "15", "menuname": "数据网格", "icon": "icon-set", "url": "/demo/数据网格.html" },
+									{ "menuid": "16", "menuname": "基础DataGrid", "icon": "icon-log", "url": "/data/viewBaseGrid" }
 								]
 						}, { "menuid": "8", "icon": "icon-sys", "menuname": "员工管理",
 						    "menus": [{ "menuid": "21", "menuname": "员工列表", "icon": "icon-nav", "url": "demo.html" },
@@ -96,95 +97,6 @@
                     if (r) { location.href = '/sys/logout'; }
                 });
             })
-            $('#kk6').datagrid({
-                //title:'列表区域',
-                url: '/data/datagrid_data',
-                headerCls: "header_cls",
-                nowrap: false,
-                striped: true,
-                fit: true,
-                border: false,
-                sortName: 'code',
-                sortOrder: 'desc',
-                idField: 'code',
-                fitColumns: true,
-                rownumbers: true,
-                pagination: true,
-                pageSize: 10,
-                pageList: [10, 20, 50, 100],
-                frozenColumns: [[
-	                { field: 'ck', checkbox: true },
-	                { title: '编码', field: 'code', align: 'center', width: $(this).width() * 0.1, sortable: true }
-				]],
-                columns: [[
-			        { title: '基本信息', colspan: 3 },
-					{ field: 'opt', title: '操作', width: $(this).width() * 0.1, align: 'center', rowspan: 2,
-					    formatter: function(value, rec) {
-					        return '<span style="color:red">Edit Delete</span>';
-					    }
-					}
-				], [
-					{ field: 'name', title: '姓名', align: 'center', width: $(this).width() * 0.16 },
-					{ field: 'addr', title: '地址', align: 'center', width: $(this).width() * 0.16, rowspan: 2, sortable: true },
-					{ field: 'col4', title: '代号', align: 'center', width: $(this).width() * 0.16, rowspan: 2 }
-				]],
-                toolbar: [{
-                    id: 'btnadd',
-                    text: '新增组名',
-                    iconCls: 'icon-group-add',
-                    handler: function() {
-                        $('#btnsave').linkbutton('enable');
-                        alert('add');
-                    }
-                }, '-', {
-                    id: 'btncut',
-                    text: '分组编辑',
-                    iconCls: 'icon-group-edit',
-                    handler: function() {
-                        $('#btnsave').linkbutton('enable');
-                        alert('cut');
-                    }
-                }, '-', {
-                    id: 'btnsave',
-                    text: '删除组',
-                    iconCls: 'icon-group-delete',
-                    handler: function() {
-                        $('#btnsave').linkbutton('disable');
-                        alert('save');
-                    }
-                }, '->', {
-                    id: 'btn_import',
-                    text: '导入',
-                    iconCls: 'icon-import',
-                    handler: function() {
-                        $('#btnsave').linkbutton('disable');
-                        alert('save');
-                    }
-                }, '-', {
-                    id: 'btn_add',
-                    text: '添加',
-                    iconCls: 'icon-add',
-                    handler: function() {
-                        $('#btnsave').linkbutton('disable');
-                        alert('save');
-                    }
-                }
-                ]
-            });
-            //            $('#kk6').datagrid('loadData', {
-            //                "total": 239,
-            //                "rows": [
-            //		            { "code": "001", "name": "Name 1", "addr": "Address 11", "col4": "col4 data" },
-            //		            { "code": "002", "name": "Name 2", "addr": "Address 13", "col4": "col4 data" },
-            //		            { "code": "003", "name": "Name 3", "addr": "Address 87", "col4": "col4 data" },
-            //		            { "code": "004", "name": "Name 4", "addr": "Address 63", "col4": "col4 data" },
-            //		            { "code": "005", "name": "Name 5", "addr": "Address 45", "col4": "col4 data" },
-            //		            { "code": "006", "name": "Name 6", "addr": "Address 16", "col4": "col4 data" },
-            //		            { "code": "007", "name": "Name 7", "addr": "Address 27", "col4": "col4 data" },
-            //		            { "code": "008", "name": "Name 8", "addr": "Address 81", "col4": "col4 data" },
-            //		            { "code": "009", "name": "Name 9", "addr": "Address 69", "col4": "col4 data" },
-            //		            { "code": "010", "name": "Name 10", "addr": "Address 78", "col4": "col4 data"}]
-            //            });
         });    </script>
 
 </head>
@@ -216,8 +128,6 @@
     <div id="mainPanle" region="center" style="background: #eee; overflow-y: hidden">
         <div id="tabs" class="easyui-tabs" fit="true" border="false">
             <div title="欢迎使用">
-                <table id="kk6">
-                </table>
             </div>
         </div>
     </div>
