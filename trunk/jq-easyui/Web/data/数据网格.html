@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<script>
+		var products = [
+		    {id:'FI-SW-01',text:'Address 81'},
+		    {id:'K9-DL-01',text:'Address 27'},
+		    {id:'RP-SN-01',text:'Address 16'},
+		    {id:'RP-LI-02',text:'Address 45'},
+		    {id:'FL-DSH-01',text:'Address 63'},
+		    {id:'FL-DLH-02',text:'Address 87'},
+		    {id:'AV-CB-01',text:'Address 13'},
+			{id:'AV-CB-02',text:'Address 11'}
+		];
+		$(function(){
+			$('#te').datagrid({
+				title:'My Title',
+				iconCls:'icon-save',
+				width:600,
+				height:350,
+				nowrap: false,
+				striped: true,
+				collapsible:true,
+				url:'data/datagrid_data',
+				sortName: 'code',
+				sortOrder: 'desc',
+				remoteSort: false,
+				idField:'code',
+				frozenColumns:[[
+	                {field:'ck',checkbox:true},
+	                {title:'code',field:'code',width:80,sortable:true}
+				]],
+				columns:[[
+			        {title:'Base Information',colspan:3},
+					{field:'opt',title:'Operation',width:100,align:'center', rowspan:2,
+						formatter:function(value,rec){
+							return '<span style="color:red">Edit Delete</span>';
+						}
+					}
+				],[
+					{field:'name',title:'Name',width:120},
+					{field:'addr',title:'Address',width:120,rowspan:2,sortable:true,
+						sorter:function(a,b){
+							return (a>b?1:-1);
+						}
+					},
+					{field:'col4',title:'Col41',width:150,rowspan:2}
+				]],
+				pagination:true,
+				rownumbers:true,
+				toolbar:[{
+					id:'btnadd',
+					text:'添加',
+					iconCls:'icon-add',
+					handler:function(){
+						$('#btnsave').linkbutton('enable');
+						alert('添加');
+					}
+				},{
+					id:'btncut',
+					text:'剪切',
+					iconCls:'icon-cut',
+					handler:function(){
+						$('#btnsave').linkbutton('enable');
+						alert('剪切');
+					}
+				},'->',{
+					id:'btnsave',
+					text:'保存',
+					disabled:true,
+					iconCls:'icon-save',
+					handler:function(){
+						$('#btnsave').linkbutton('disable');
+						alert('保存');
+					}
+				}],
+				 searchbar:{
+				
+					forms:[{
+							//id:'',
+							type:'text',
+							name:'name',
+							label:'名字'
+							
+						},{
+							id:"2",
+							type:'numberbox',
+							name:'number',
+							label:'数字',
+							
+							options:{
+								
+								required:true
+							}
+
+						},{
+							//id:'',
+							type:'combobox',
+							name:'addr',
+							label:'地址',
+						
+							options:
+								{
+									 valueField:'id',
+									 textField:'text',
+									 data:products,
+									 required:true
+								 }
+						
+						},
+						
+						{
+							
+							type:'datebox',
+							name:'s2',
+							label:'日期控件'
+						},{
+							//id:"",
+							type:'start_end',
+							options:[
+								{
+									label:'开始日期',
+									type:'datetimebox',
+									name:'s',
+									options:{showSeconds:false}
+								},{
+									label:'结束日期',
+									type:'datetimebox',
+									name:'ss',
+									options:{}
+								}
+							]
+						}
+					]
+			 }
+			});
+			var p = $('#te').datagrid('getPager');
+			if (p){
+				$(p).pagination({
+					onBeforeRefresh:function(){
+						alert('刷新');
+					}
+				});
+			}
+		});
+		function resize(){
+			$('#te').datagrid('resize', {
+				width:700,
+				height:400
+			});
+		}
+		function getSelected(){
+			var selected = $('#te').datagrid('getSelected');
+			if (selected){
+				alert(selected.code+":"+selected.name+":"+selected.addr+":"+selected.col4);
+			}
+		}
+		function getSelections(){
+			var ids = [];
+			var rows = $('#te').datagrid('getSelections');
+			for(var i=0;i<rows.length;i++){
+				ids.push(rows[i].code);
+			}
+			alert(ids.join(':'));
+		}
+		function clearSelections(){
+			$('#te').datagrid('clearSelections');
+		}
+		function selectRow(){
+			$('#te').datagrid('selectRow',2);
+		}
+		function selectRecord(){
+			$('#te').datagrid('selectRecord','002');
+		}
+		function unselectRow(){
+			$('#te').datagrid('unselectRow',2);
+		}
+		function mergeCells(){
+			$('#te').datagrid('mergeCells',{
+				index:2,
+				field:'addr',
+				rowspan:2,
+				colspan:2
+			});
+		}
+	</script>
+</head>
+<body>
+	<h1>数据网格    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新加功能: 添加了搜索栏</h1>
+	<div style="margin-bottom:20px;">
+		<a href="#" onclick="resize()">调整大小</a>
+		<a href="#" onclick="getSelected()">第一次选择的行记录</a>
+		<a href="#" onclick="getSelections()">所有选定行</a>
+		<a href="#" onclick="clearSelections()">取消所有选择</a>
+		<a href="#" onclick="selectRow()">通过索引选择某行</a>
+		<a href="#" onclick="selectRecord()">通过id选择一行</a>
+		<a href="#" onclick="unselectRow()">通过索引取消选择某行</a>
+		<a href="#" onclick="mergeCells()">合并单元格</a>
+	</div>
+	
+	<table id="te"></table>
+</body>
+</html>
