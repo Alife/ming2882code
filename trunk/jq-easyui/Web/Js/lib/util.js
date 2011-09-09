@@ -1,4 +1,39 @@
-﻿$.showMessage = function(message) {
+﻿/*
+    // class
+	$.Class("ming.net.Test", {
+				Extends : [],
+				Implements : [],
+				instance : function() {
+					alert("wwww");
+				},
+				kkk : function() {
+					alert("this is a supper method!");
+				}
+			});
+	var test = new ming.net.Test();
+	alert(test.isExt(ming.net.Test));
+	alert(test.isImp(ming.Interface));
+	// interface
+	$.Interface("ming.Interface", {
+				Extends : [],
+				Implements : [],
+				Methods : ['method1', 'method2']
+			});
+	// extends
+	$.Class("ming.Test2", {
+				Extends : [ming.net.Test],
+				Implements : [ming.Interface],
+				instance : function() {
+					alert("sub class");
+				}
+			})
+	var test2 = new ming.Test2();
+	alert(test2.isExt(ming.net.Test));
+	test2.kkk();
+	test2.mehod1();
+	alert(test2.isImp(ming.Interface));
+*/
+$.showMessage = function(message) {
     alert(message);
 }
 /**
@@ -182,3 +217,36 @@ $.Implements = function(Class) {
         }
     });
 }
+/*
+JS操作cookie
+if (!getcookie("mytheme")) {
+    setcookie("mytheme", "gray");
+}
+alert(getcookie("mytheme"));
+delcookie("mytheme");
+*/
+function setcookie(name, value) {
+    var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+}
+
+function getcookie(name) {
+    var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+    if (arr != null) {
+        return unescape(arr[2]);
+    } else {
+        return "";
+    }
+}
+
+function delcookie(name) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+}
+
+ 
+ 
