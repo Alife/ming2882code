@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Js\jquery-1.4.4.min.js" />
+    <Content Include="Js\jquery-1.6.min.js" />
     <Content Include="Js\jquery.easyui.min.js" />
     <Content Include="Js\themes\default\css\default.css" />
     <Content Include="Global.asax" />
