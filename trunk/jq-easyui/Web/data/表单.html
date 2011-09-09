@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>jQuery EasyUI</title>
+    <style type="text/css">
+        label
+        {
+            width: 120px;
+            display: block;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function loaddata1() {
+            $('#ff').form('load', 'data/loaduserinfo');
+        }
+        function loaddata2() {
+            $('#ff').form('load', {
+                users: { name: '我是谁', email: 'mymail@gmail.com', subject: 'subject2' },
+                infos: { message: '留言啦', language: 2 }
+            });
+        }
+        function cleardata() {
+            $('#ff').form('clear');
+        }
+        $(function() {
+            $('#ff').form({ url: 'data/adduserinfo', success: function(data) { },
+                fields: [{ name: 'name', mapping: 'users.name' }, { name: 'email', mapping: 'users.email' }, { name: 'subject', mapping: 'users.subject' },
+                        { name: 'message', mapping: 'infos.message' }, { name: 'language', mapping: 'infos.language'}]
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <h1>
+        表单例子</h1>
+    <div>
+        <a href="#" onclick="loaddata1()">加载1</a> <a href="#" onclick="loaddata2()">加载2</a>
+        <a href="#" onclick="cleardata()">清除</a>
+    </div>
+    <div style="background: #fafafa; padding: 10px; width: 300px; height: 300px;">
+        <form id="ff" method="post">
+        <div>
+            <label for="name">
+                姓名:</label>
+            <input class="easyui-validatebox" type="text" name="name" required="true" missingmessage="必填"></input>
+        </div>
+        <div>
+            <label for="email">
+                电子邮件:</label>
+            <input class="easyui-validatebox" type="text" name="email" validtype="email"></input>
+        </div>
+        <div>
+            <label for="subject">
+                专业:</label>
+            <input class="easyui-validatebox" type="text" name="subject"></input>
+        </div>
+        <div>
+            <label for="message">
+                信息:</label>
+            <textarea name="message" style="height: 60px;"></textarea>
+        </div>
+        <div>
+            <label for="language">
+                语言:</label>
+            <input class="easyui-combobox" name="language" url="data/combobox_data" valuefield="id"
+                textfield="text" panelheight="auto">
+        </div>
+        <div>
+            <input id="btns" type="submit" value="提交">
+        </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,302 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9FA547F8-8DC3-4FB8-AD9F-C9BB7062F27C}</ProjectGuid>
+    <ProjectTypeGuids>{F85E285D-A4E0-4152-9332-AB1D724D3325};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web</RootNamespace>
+    <AssemblyName>Web</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Microsoft ASP.NET\ASP.NET MVC 2\\Assemblies\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Js\jquery-1.4.4.min.js" />
+    <Content Include="Js\jquery.easyui.min.js" />
+    <Content Include="Js\themes\default\css\default.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\blocks.gif" />
+    <Content Include="Js\themes\default\css\images\CategorizeMenu.png" />
+    <Content Include="Js\themes\default\css\images\directory.png" />
+    <Content Include="Images\layout-browser-hd-bg.gif" />
+    <Content Include="Js\themes\default\css\images\nav_link.png" />
+    <Content Include="Images\noscript.gif" />
+    <Content Include="Js\themes\default\css\images\plugin_big.gif" />
+    <Content Include="Js\themes\default\css\images\ShowCustomPropertiesPage.png" />
+    <Content Include="Js\themes\default\css\images\tabicons.png" />
+    <Content Include="Js\themes\default\css\images\TableDrawTable.png" />
+    <Content Include="Js\themes\default\css\images\tools-sprites-trans.gif" />
+    <Content Include="Js\easyloader.js" />
+    <Content Include="Js\easyui-lang-zh_CN.js" />
+    <Content Include="Js\main.js" />
+    <Content Include="Js\themes\default\easyui.css" />
+    <Content Include="Js\themes\default\images\accordion_collapse.png" />
+    <Content Include="Js\themes\default\images\accordion_expand.png" />
+    <Content Include="Js\themes\default\images\blank.gif" />
+    <Content Include="Js\themes\default\images\button_a_bg.gif" />
+    <Content Include="Js\themes\default\images\button_plain_hover.png" />
+    <Content Include="Js\themes\default\images\button_span_bg.gif" />
+    <Content Include="Js\themes\default\images\calendar_nextmonth.gif" />
+    <Content Include="Js\themes\default\images\calendar_nextyear.gif" />
+    <Content Include="Js\themes\default\images\calendar_prevmonth.gif" />
+    <Content Include="Js\themes\default\images\calendar_prevyear.gif" />
+    <Content Include="Js\themes\default\images\combo_arrow.gif" />
+    <Content Include="Js\themes\default\images\datagrid_header_bg.gif" />
+    <Content Include="Js\themes\default\images\datagrid_row_collapse.gif" />
+    <Content Include="Js\themes\default\images\datagrid_row_expand.gif" />
+    <Content Include="Js\themes\default\images\datagrid_sort_asc.gif" />
+    <Content Include="Js\themes\default\images\datagrid_sort_desc.gif" />
+    <Content Include="Js\themes\default\images\datagrid_title_bg.png" />
+    <Content Include="Js\themes\default\images\datebox_arrow.png" />
+    <Content Include="Js\themes\default\images\layout_button_down.gif" />
+    <Content Include="Js\themes\default\images\layout_button_left.gif" />
+    <Content Include="Js\themes\default\images\layout_button_right.gif" />
+    <Content Include="Js\themes\default\images\layout_button_up.gif" />
+    <Content Include="Js\themes\default\images\menu.gif" />
+    <Content Include="Js\themes\default\images\menu_downarrow.png" />
+    <Content Include="Js\themes\default\images\menu_rightarrow.png" />
+    <Content Include="Js\themes\default\images\menu_sep.png" />
+    <Content Include="Js\themes\default\images\menu_split_downarrow.png" />
+    <Content Include="Js\themes\default\images\messager_error.gif" />
+    <Content Include="Js\themes\default\images\messager_info.gif" />
+    <Content Include="Js\themes\default\images\messager_question.gif" />
+    <Content Include="Js\themes\default\images\messager_warning.gif" />
+    <Content Include="Js\themes\default\images\pagination_first.gif" />
+    <Content Include="Js\themes\default\images\pagination_last.gif" />
+    <Content Include="Js\themes\default\images\pagination_load.png" />
+    <Content Include="Js\themes\default\images\pagination_loading.gif" />
+    <Content Include="Js\themes\default\images\pagination_next.gif" />
+    <Content Include="Js\themes\default\images\pagination_prev.gif" />
+    <Content Include="Js\themes\default\images\panel_loading.gif" />
+    <Content Include="Js\themes\default\images\panel_title.png" />
+    <Content Include="Js\themes\default\images\panel_tools.gif" />
+    <Content Include="Js\themes\default\images\panel_tool_collapse.gif" />
+    <Content Include="Js\themes\default\images\panel_tool_expand.gif" />
+    <Content Include="Js\themes\default\images\searchbox_button.png" />
+    <Content Include="Js\themes\default\images\spinner_arrow_down.gif" />
+    <Content Include="Js\themes\default\images\spinner_arrow_up.gif" />
+    <Content Include="Js\themes\default\images\tabs_active.png" />
+    <Content Include="Js\themes\default\images\tabs_close.gif" />
+    <Content Include="Js\themes\default\images\tabs_enabled.png" />
+    <Content Include="Js\themes\default\images\tabs_leftarrow.png" />
+    <Content Include="Js\themes\default\images\tabs_rightarrow.png" />
+    <Content Include="Js\themes\default\images\tree_arrows.gif" />
+    <Content Include="Js\themes\default\images\tree_checkbox_0.gif" />
+    <Content Include="Js\themes\default\images\tree_checkbox_1.gif" />
+    <Content Include="Js\themes\default\images\tree_checkbox_2.gif" />
+    <Content Include="Js\themes\default\images\tree_dnd_no.png" />
+    <Content Include="Js\themes\default\images\tree_dnd_yes.png" />
+    <Content Include="Js\themes\default\images\tree_file.gif" />
+    <Content Include="Js\themes\default\images\tree_folder.gif" />
+    <Content Include="Js\themes\default\images\tree_folder_open.gif" />
+    <Content Include="Js\themes\default\images\tree_loading.gif" />
+    <Content Include="Js\themes\default\images\validatebox_pointer.gif" />
+    <Content Include="Js\themes\default\images\validatebox_warning.png" />
+    <Content Include="Js\themes\gray\accordion.css" />
+    <Content Include="Js\themes\gray\calendar.css" />
+    <Content Include="Js\themes\gray\combo.css" />
+    <Content Include="Js\themes\gray\combobox.css" />
+    <Content Include="Js\themes\gray\datagrid.css" />
+    <Content Include="Js\themes\gray\datebox.css" />
+    <Content Include="Js\themes\gray\dialog.css" />
+    <Content Include="Js\themes\gray\easyui.css" />
+    <Content Include="Js\themes\gray\images\accordion_collapse.png" />
+    <Content Include="Js\themes\gray\images\accordion_expand.png" />
+    <Content Include="Js\themes\gray\images\blank.gif" />
+    <Content Include="Js\themes\gray\images\button_a_bg.gif" />
+    <Content Include="Js\themes\gray\images\button_plain_hover.png" />
+    <Content Include="Js\themes\gray\images\button_span_bg.gif" />
+    <Content Include="Js\themes\gray\images\calendar_nextmonth.gif" />
+    <Content Include="Js\themes\gray\images\calendar_nextyear.gif" />
+    <Content Include="Js\themes\gray\images\calendar_prevmonth.gif" />
+    <Content Include="Js\themes\gray\images\calendar_prevyear.gif" />
+    <Content Include="Js\themes\gray\images\combo_arrow.gif" />
+    <Content Include="Js\themes\gray\images\datagrid_header_bg.gif" />
+    <Content Include="Js\themes\gray\images\datagrid_row_collapse.gif" />
+    <Content Include="Js\themes\gray\images\datagrid_row_expand.gif" />
+    <Content Include="Js\themes\gray\images\datagrid_sort_asc.gif" />
+    <Content Include="Js\themes\gray\images\datagrid_sort_desc.gif" />
+    <Content Include="Js\themes\gray\images\datagrid_title_bg.gif" />
+    <Content Include="Js\themes\gray\images\datebox_arrow.png" />
+    <Content Include="Js\themes\gray\images\layout_button_down.gif" />
+    <Content Include="Js\themes\gray\images\layout_button_left.gif" />
+    <Content Include="Js\themes\gray\images\layout_button_right.gif" />
+    <Content Include="Js\themes\gray\images\layout_button_up.gif" />
+    <Content Include="Js\themes\gray\images\menu.gif" />
+    <Content Include="Js\themes\gray\images\menu_downarrow.png" />
+    <Content Include="Js\themes\gray\images\menu_rightarrow.png" />
+    <Content Include="Js\themes\gray\images\menu_sep.png" />
+    <Content Include="Js\themes\gray\images\menu_split_downarrow.png" />
+    <Content Include="Js\themes\gray\images\messager_error.gif" />
+    <Content Include="Js\themes\gray\images\messager_info.gif" />
+    <Content Include="Js\themes\gray\images\messager_question.gif" />
+    <Content Include="Js\themes\gray\images\messager_warning.gif" />
+    <Content Include="Js\themes\gray\images\pagination_first.gif" />
+    <Content Include="Js\themes\gray\images\pagination_last.gif" />
+    <Content Include="Js\themes\gray\images\pagination_load.png" />
+    <Content Include="Js\themes\gray\images\pagination_loading.gif" />
+    <Content Include="Js\themes\gray\images\pagination_next.gif" />
+    <Content Include="Js\themes\gray\images\pagination_prev.gif" />
+    <Content Include="Js\themes\gray\images\panel_loading.gif" />
+    <Content Include="Js\themes\gray\images\panel_title.gif" />
+    <Content Include="Js\themes\gray\images\panel_tools.gif" />
+    <Content Include="Js\themes\gray\images\panel_tool_collapse.gif" />
+    <Content Include="Js\themes\gray\images\panel_tool_expand.gif" />
+    <Content Include="Js\themes\gray\images\searchbox_button.png" />
+    <Content Include="Js\themes\gray\images\spinner_arrow_down.gif" />
+    <Content Include="Js\themes\gray\images\spinner_arrow_up.gif" />
+    <Content Include="Js\themes\gray\images\tabs_close.gif" />
+    <Content Include="Js\themes\gray\images\tabs_enabled.gif" />
+    <Content Include="Js\themes\gray\images\tabs_leftarrow.png" />
+    <Content Include="Js\themes\gray\images\tabs_rightarrow.png" />
+    <Content Include="Js\themes\gray\images\tree_arrows.gif" />
+    <Content Include="Js\themes\gray\images\tree_checkbox_0.gif" />
+    <Content Include="Js\themes\gray\images\tree_checkbox_1.gif" />
+    <Content Include="Js\themes\gray\images\tree_checkbox_2.gif" />
+    <Content Include="Js\themes\gray\images\tree_dnd_no.png" />
+    <Content Include="Js\themes\gray\images\tree_dnd_yes.png" />
+    <Content Include="Js\themes\gray\images\tree_file.gif" />
+    <Content Include="Js\themes\gray\images\tree_folder.gif" />
+    <Content Include="Js\themes\gray\images\tree_folder_open.gif" />
+    <Content Include="Js\themes\gray\images\tree_loading.gif" />
+    <Content Include="Js\themes\gray\images\validatebox_pointer.gif" />
+    <Content Include="Js\themes\gray\images\validatebox_warning.png" />
+    <Content Include="Js\themes\gray\layout.css" />
+    <Content Include="Js\themes\gray\linkbutton.css" />
+    <Content Include="Js\themes\gray\menu.css" />
+    <Content Include="Js\themes\gray\menubutton.css" />
+    <Content Include="Js\themes\gray\messager.css" />
+    <Content Include="Js\themes\gray\pagination.css" />
+    <Content Include="Js\themes\gray\panel.css" />
+    <Content Include="Js\themes\gray\progressbar.css" />
+    <Content Include="Js\themes\gray\propertygrid.css" />
+    <Content Include="Js\themes\gray\searchbox.css" />
+    <Content Include="Js\themes\gray\spinner.css" />
+    <Content Include="Js\themes\gray\splitbutton.css" />
+    <Content Include="Js\themes\gray\tabs.css" />
+    <Content Include="Js\themes\gray\tree.css" />
+    <Content Include="Js\themes\gray\validatebox.css" />
+    <Content Include="Js\themes\gray\window.css" />
+    <Content Include="Js\themes\icon.css" />
+    <Content Include="Js\themes\icons\back.png" />
+    <Content Include="Js\themes\icons\blank.gif" />
+    <Content Include="Js\themes\icons\cancel.png" />
+    <Content Include="Js\themes\icons\cut.png" />
+    <Content Include="Js\themes\icons\edit_add.png" />
+    <Content Include="Js\themes\icons\edit_remove.png" />
+    <Content Include="Js\themes\icons\filesave.png" />
+    <Content Include="Js\themes\icons\help.png" />
+    <Content Include="Js\themes\icons\no.png" />
+    <Content Include="Js\themes\icons\ok.png" />
+    <Content Include="Js\themes\icons\pencil.png" />
+    <Content Include="Js\themes\icons\print.png" />
+    <Content Include="Js\themes\icons\redo.png" />
+    <Content Include="Js\themes\icons\reload.png" />
+    <Content Include="Js\themes\icons\search.png" />
+    <Content Include="Js\themes\icons\sum.png" />
+    <Content Include="Js\themes\icons\tip.png" />
+    <Content Include="Js\themes\icons\undo.png" />
+    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Shared\Error.aspx" />
+    <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Js\themes\default\images\Thumbs.db" />
+    <None Include="Js\themes\gray\images\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="data\" />
+    <Folder Include="Js\lib\" />
+    <Folder Include="Js\view\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4783</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
