@@ -71,8 +71,9 @@ function addTab(menuid, subtitle, url, icon) {
             title: subtitle,
             //content: createFrame(url),
             href: url,
+            icon: icon,
             closable: true,
-            icon: icon
+            closed: true
         });
     } else {
         $('#tabs').tabs('select', subtitle);

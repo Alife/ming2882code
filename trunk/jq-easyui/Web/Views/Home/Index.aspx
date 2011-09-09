@@ -10,7 +10,7 @@
 
     <script src="<%= path%>/js/jquery-1.4.4.min.js" type="text/javascript"></script>
 
-    <script src="<%= path%>/js/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="<%= path%>/js/jquery.easyui-1.2.3.min.js" type="text/javascript"></script>
 
     <script src="<%= path%>/js/easyui-lang-zh_CN.js" type="text/javascript"></script>
 
@@ -20,10 +20,10 @@
         var _menus = { "menus": [
 						{ "menuid": "1", "icon": "icon-sys", "menuname": "控件使用",
 						    "menus": [
-									{ "menuid": "13", "menuname": "用户管理", "icon": "icon-users", "url": "/data/窗体.html" },
-									{ "menuid": "14", "menuname": "角色管理", "icon": "icon-role", "url": "/data/表单.html" },
-									{ "menuid": "15", "menuname": "权限设置", "icon": "icon-set", "url": "/data/数据网格.html" },
-									{ "menuid": "16", "menuname": "系统日志", "icon": "icon-log", "url": "demo1.html" }
+									{ "menuid": "13", "menuname": "用户管理", "icon": "icon-users", "url": "/demo/窗体.html" },
+									{ "menuid": "14", "menuname": "角色管理", "icon": "icon-role", "url": "/demo/表单.html" },
+									{ "menuid": "15", "menuname": "权限设置", "icon": "icon-set", "url": "/demo/数据网格.html" },
+									{ "menuid": "16", "menuname": "系统日志", "icon": "icon-log", "url": "/data/combobox_data" }
 								]
 						}, { "menuid": "8", "icon": "icon-sys", "menuname": "员工管理",
 						    "menus": [{ "menuid": "21", "menuname": "员工列表", "icon": "icon-nav", "url": "demo.html" },
