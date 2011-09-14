@@ -73,7 +73,12 @@ function addTab(menuid, subtitle, url, icon) {
             href: url,
             icon: icon,
             closable: true,
-            closed: true
+            extractor: function(data) {
+                var tmp = $('<div></div>').html(data);
+                data = tmp.find('#content').html();
+                tmp.remove();
+                return data;
+            }
         });
     } else {
         $('#tabs').tabs('select', subtitle);
