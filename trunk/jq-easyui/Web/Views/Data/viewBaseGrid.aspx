@@ -42,7 +42,7 @@
 					    { field: 'col4', title: '代号', align: 'center', width: $(this).width() * 0.16, rowspan: 2 }
 				    ]],
                     toolbar: [{
-                        //id: 'btnadd',
+                        id: 'btnadd',
                         text: '添加',
                         iconCls: 'icon-add',
                         handler: function() {
@@ -89,6 +89,7 @@
                 }
             });
             var test = new data.BaseGrid();
+            alert($('#viewBaseGrid').datagrid('options').toolbar[0].id)
         //});
     </script>
 
