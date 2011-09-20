@@ -15,11 +15,11 @@
             <div class="logo"></div>
             <div class="menu">
                 <ul class="clearfix">
-                    <li><a href="index.aspx" class="current">關于我們</a></li>
+                    <li><a href="index.aspx">關于我們</a></li>
                     <li><a href="portfolio.aspx">作品集</a></li>
                     <li><a href="album.aspx">相冊介紹</a></li>
-                    <li><a href="clothing.aspx">服裝</a></li>
-                    <li><a href="version.aspx">版型</a></li>
+                    <li><a href="clothing.aspx" class="current">服裝</a></li>
+                    <li><a href="version.aspx" class="current">版型</a></li>
                     <li><a href="contact.aspx">聯繫我們</a></li>
                 </ul>
                 <div class="menu_bottom"></div>
@@ -28,11 +28,13 @@
         </div>
         <div id="main">
             <div class="content">
-                <div class="content_left index">
-                    <h2 class="current"><label>迪士尼系列相冊</label></h2>
-                    <h2><label>自然沙龍</label></h2>
-                    <h2><label>校園精裝</label></h2>
-                    <h2><label>畢業書包</label></h2>
+                <div class="content_left">
+                    <h2><label>迪士尼系列相冊</label></h2>
+                    <ul>
+                        <li><a href="clothing.aspx?id=3">團體照版型</a></li>
+                        <li class="current"><a href="index.aspx?id=4">同學錄版型</a></li>
+                        <li><a href="index.aspx?id=5">生活小組照版型</a></li>
+                    </ul>
                 </div>
                 <div class="content_right">
                     <div id="gallery" class="ad-gallery"> 
@@ -44,7 +46,7 @@
                         <div class="ad-nav"> 
                             <div class="ad-thumbs">
                                 <ul class="ad-thumb-list">
-                                    <% int id = 0; int.TryParse(Request["id"], out id); id = id == 0 ? 1 : id;
+                                    <% int id = 0; int.TryParse(Request["id"], out id); id = id == 0 ? 3 : id;
                                        string currentfile = "images/graduation/";
                                        if (id == 1)
                                        {

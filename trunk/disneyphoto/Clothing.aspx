@@ -15,10 +15,10 @@
             <div class="logo"></div>
             <div class="menu">
                 <ul class="clearfix">
-                    <li><a href="index.aspx" class="current">關于我們</a></li>
+                    <li><a href="index.aspx">關于我們</a></li>
                     <li><a href="portfolio.aspx">作品集</a></li>
                     <li><a href="album.aspx">相冊介紹</a></li>
-                    <li><a href="clothing.aspx">服裝</a></li>
+                    <li><a href="clothing.aspx" class="current">服裝</a></li>
                     <li><a href="version.aspx">版型</a></li>
                     <li><a href="contact.aspx">聯繫我們</a></li>
                 </ul>
@@ -28,11 +28,12 @@
         </div>
         <div id="main">
             <div class="content">
-                <div class="content_left index">
-                    <h2 class="current"><label>迪士尼系列相冊</label></h2>
-                    <h2><label>自然沙龍</label></h2>
-                    <h2><label>校園精裝</label></h2>
-                    <h2><label>畢業書包</label></h2>
+                <div class="content_left">
+                    <h2><label>迪士尼系列相冊</label></h2>
+                    <ul>
+                        <li class="current"><a href="clothing.aspx?id=1">服裝介紹 男</a></li>
+                        <li><a href="clothing.aspx?id=2">服裝介紹 女</a></li>
+                    </ul>
                 </div>
                 <div class="content_right">
                     <div id="gallery" class="ad-gallery"> 
