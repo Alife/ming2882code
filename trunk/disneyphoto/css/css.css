@@ -1,5 +1,5 @@
 ﻿*{margin:0;padding:0;}
-body{margin:0 auto;color:#333;font-size:12px;font-family: Arial, Helvetica, sans-serif;background:#255583 url(../images/d/hhbg_1.jpg) no-repeat center center;}
+body{margin:0 auto;color:#333;font-size:12px;font-family: Arial, Helvetica, sans-serif;background:#255583 url(../images/d/hhbg_1.jpg) no-repeat center 0;}
 blockquote,q{quotes:none;}
 blockquote:before,blockquote:after,
 q:before,q:after{content:'';content:none;}
@@ -79,10 +79,28 @@ html>body #main .content{height:auto;min-height:300px;}
 #main .content .content_left{float:left;width:230px;}
 #main .content .content_left h2{background:url(../images/d/btn_1.png) no-repeat;width:208px;height:55px;font-size:large;color:#FF5050;}
 #main .content .content_left h2 label{background:url(../images/d/c1.png) no-repeat 10px 5px;display:block;height:55px;padding:10px 0 0 45px;}
+#main .content .content_left h2.current label{background:url(../images/d/c2.png) no-repeat 10px 5px;}
+#main .content .index h2{color:#000;}
 #main .content .content_left ul li{background:url(../images/d/btn_2.png) no-repeat;width:159px;height:45px;font-size:14px;font-weight:bold;text-align:center;}
 #main .content .content_left ul li a{color:#000;display:block;background:url(../images/d/c3.png) no-repeat 20px 4px;padding:7px 0px 0px 0px;height:45px;}
 #main .content .content_left ul li a:hover,#main .content .content_left ul li.current a{background:url(../images/d/c4.png) no-repeat 20px 4px;}
+#main .content .content_left_list{width:320px;}
+#main .content .content_left ul.list li{float:left;}
 #main .content .content_right{float:right;}
+.portfolio_list{width:600px;}
+.portfolio_list li{float:left;display:inline;padding:0 10px 10px 10px;overflow:hidden;}
+.portfolio_list li p{cursor:pointer;width:170px;height:120px;+font-size:105px;}
+.portfolio_list li img{vertical-align:middle;max-width:170px;max-height:120px;}
+.portfolio_list li p.pm{border:3px solid #5598DC;}
+.portfolio_list li p.pm:hover{border:3px solid #ccc;}
+.portfolio_list li div{text-align:center;}
+.album_list{width:600px;}
+.album_list li{float:left;display:inline;padding:0 10px 10px 10px;overflow:hidden;}
+.album_list li p{cursor:pointer;width:270px;height:285px;+font-size:200px;}
+.album_list li img{vertical-align:middle;max-width:270px;max-height:285px;}
+.album_list li p.pm{border:0px;}
+.album_list li p.pm:hover{border:0px;}
+
 #main .graduation_c li{float:left;margin-bottom:-3px;*margin-bottom:-4px;}
 #main .graduation_c .contact{position:relative;}
 #main .graduation_c .contact div{position:absolute;top:145px;left:300px}
