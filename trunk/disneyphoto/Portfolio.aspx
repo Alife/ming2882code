@@ -9,6 +9,11 @@
     <script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.ad-gallery.pack.js" type="text/javascript"></script>
     <style type="text/css">body{background:#255583 url(images/d/hhbg_3.jpg) no-repeat center 0;}</style>
+    <!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="css/ie_style.css" />
+	<script type="text/javascript" src="js/ie_png.js"></script>  
+	<script type="text/javascript">ie_png.fix('#header .logo,#header .menu,#header .menu li a:hover,#header .menu li a.current,#main .content .content_left h2,#main .content .content_left h2 label,#main .content .content_left h2.current label,#main .content .content_left ul li,#main .content .content_left ul li a,#main .content .content_left ul li a:hover,#main .content .content_left ul li.current a');</script>	
+	<![endif]-->
 </head>
 <body>
     <div id="container">
