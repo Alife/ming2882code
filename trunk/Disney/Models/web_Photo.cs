@@ -14,6 +14,8 @@ namespace Models
         public int PhotoTypeID { get; set; }
         public string Name { get; set; }
         public string FilePath { get; set; }
+        public string FileType { get; set; }
+        public int FileSize { get; set; }
         public string Remark { get; set; }
         public DateTime CreateTime { get; set; }
 		#endregion

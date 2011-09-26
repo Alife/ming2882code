@@ -47,6 +47,8 @@ namespace WebSite
                 item.PhotoTypeID = photoType;
                 item.CreateTime = DateTime.Now;
                 item.FilePath = path + saveFileName;
+                item.FileType = "." + saveFileName.Split('.')[1];
+                item.FileSize = fs.Length;
                 item.Name = fileName;
                 item.Remark = string.Empty;
                 web_PhotoBLL.Insert(item);
