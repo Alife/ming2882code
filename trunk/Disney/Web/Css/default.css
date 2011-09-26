@@ -70,6 +70,10 @@ input[type="checkbox"],input[type="radio"]{border:0px;}
 .icon-application_view_gallery {background: url(../images/icon-application_view_gallery.gif) no-repeat 0 0 !important;}
 .icon-tag_blue {background: url(../images/icon-tag_blue.gif) no-repeat 0 0 !important;}
 .icon-closed {background: url(../images/icon-closed.gif) no-repeat 0 0 !important;}
+.file-add {background: url(../images/file-add.gif) no-repeat 0 0 !important;}
+.upload-start {background: url(../images/upload-start.gif) no-repeat 0 0 !important;}
+.upload-stop {background: url(../images/upload-stop.gif) no-repeat 0 0 !important;}
+.file-remove {background: url(../images/file-remove.gif) no-repeat 0 0 !important;}
 .icontab{background-position:0 3px!important;}
 .iconmenu{background-position:0 -1px!important;}
 

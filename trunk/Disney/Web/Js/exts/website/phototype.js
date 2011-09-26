@@ -49,6 +49,27 @@
                     form.getForm().loadRecord(s);
                 }
             }, { xtype: 'tbseparator', hidden: levels.edit },
+            { text: "上传", iconCls: 'icon-edit', ref: '../appeditBtn', disabled: true, hidden: levels.edit,
+                handler: function() {
+                    var dialog = new Ext.Window({
+                        width: 650,
+                        title: '上传' + node.text,
+                        height: 300,
+                        layout: 'fit',
+                        items: [{
+                            xtype: 'uploadPanel',
+                            border: false,
+                            fileSize: 1024 * 550, //限制文件大小
+                            uploadUrl: '/website/uploads',
+                            filePostName: 'file', //后台接收参数
+                            fileTypes: '*.jpg;*.gif;*.png', //可上传文件类型
+                            postParams: { savePath: 'upload\\'} //上传文件存放目录
+                        }
+		            ]
+                    });
+                    dialog.show();
+                }
+            }, { xtype: 'tbseparator', hidden: levels.edit },
             {
                 text: '删除', iconCls: 'icon-delete', ref: '../removeBtn', disabled: true, hidden: levels.del,
                 handler: function() {

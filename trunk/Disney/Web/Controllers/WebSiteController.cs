@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Data;
 using System.IO;
+using Common;
 
 namespace Web.Controllers
 {
@@ -77,5 +78,31 @@ namespace Web.Controllers
         }
         #endregion
         #endregion
+        public ActionResult Uploads()
+        {
+            string strFileName = string.Empty;
+            foreach (HttpPostedFile fileUpload in Request.Files)
+            {
+                if (fileUpload != null && fileUpload.ContentLength > 0 && FileExtension.IsImages(fileUpload.InputStream))
+                    strFileName = string.Format("/images/uploads/{0:yyyyMMdd}/{0:yyyyMMddmmhhssffff}{1}", DateTime.Now, System.IO.Path.GetExtension(fileUpload.FileName));
+                if (strFileName != string.Empty)
+                {
+                    byte[] fileContent = new byte[fileUpload.ContentLength];
+                    //获得上传文件的名称
+                    string fileName = fileUpload.FileName;
+                    //实例化webservice
+                    DpUploads.Uploads uploads = new DpUploads.Uploads();
+                    if (uploads.UploadFile(fileContent, fileName))　//调用上传方法。
+                    {
+                        Response.Write("OK");
+                    }
+                    else
+                    {
+                        Response.Write("error");
+                    }
+                }
+            }
+            return Content("");
+        }
     }
 }

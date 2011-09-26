@@ -65,6 +65,7 @@
     <Compile Include="CSVUtil.cs" />
     <Compile Include="CutPhotoHelp.cs" />
     <Compile Include="DESEncrypt.cs" />
+    <Compile Include="FileExtension.cs" />
     <Compile Include="GetEnumBLL.cs" />
     <Compile Include="GridJSONHelper.cs" />
     <Compile Include="Hint.cs" />
