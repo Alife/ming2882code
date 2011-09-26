@@ -29,6 +29,8 @@
     <script type="text/javascript" src="/ext/ux/Spinner.js"></script>
     <script type="text/javascript" src="/ext/ux/TimePickerField.js"></script>
     <script type="text/javascript" src="/ext/ux/LockingGridView.js"></script> 
+    <script type="text/javascript" src="/ext/ux/swfupload.js"></script> 
+    <script type="text/javascript" src="/ext/ux/uploaderPanel.js"></script> 
 </head>
 <body>
     <div id="loading">

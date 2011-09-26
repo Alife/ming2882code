@@ -96,6 +96,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\DpUploads\Reference.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -1141,10 +1147,23 @@
     <None Include="Ext\resources\images\yourtheme\window\right-corners.psd" />
     <None Include="Ext\resources\images\yourtheme\window\top-bottom.psd" />
     <None Include="Ext\resources\resources.jsb" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\DpUploads\Reference.map" />
+    <None Include="Web References\DpUploads\Uploads.wsdl" />
     <Content Include="Areas\Sys\Views\Home\loadpermission.aspx" />
     <Content Include="Ext\resources\ext-lang-zh_TW.js" />
     <Content Include="Ext\ux\css\LockingGridView.css" />
+    <Content Include="Images\file-add.gif" />
+    <Content Include="Images\file-remove.gif" />
+    <Content Include="Images\upload-start.gif" />
+    <Content Include="Images\upload-stop.gif" />
     <Content Include="Ext\ux\LockingGridView.js" />
+    <Content Include="Ext\ux\swfupload.js" />
+    <Content Include="Ext\ux\swfupload.swf" />
+    <Content Include="Ext\ux\uploaderPanel.js" />
     <Content Include="Images\question-red.gif" />
     <Content Include="Images\icon-application_put.gif" />
     <Content Include="Images\icon-accept.gif" />
@@ -1200,6 +1219,13 @@
     <Content Include="Js\exts\website\phototype.js" />
     <Content Include="Setting.config" />
     <Content Include="Views\ShowPic\Index.aspx" />
+    <Content Include="Web References\DpUploads\Uploads.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Sys\Views\Shared\" />
