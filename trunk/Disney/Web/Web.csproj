@@ -101,7 +101,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Web References\DpUploads\Reference.cs" />
+    <Compile Include="Web References\DpUploads\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -1151,7 +1155,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\DpUploads\Reference.map" />
+    <None Include="Web References\DpUploads\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Web References\DpUploads\Uploads.wsdl" />
     <Content Include="Areas\Sys\Views\Home\loadpermission.aspx" />
     <Content Include="Ext\resources\ext-lang-zh_TW.js" />
@@ -1219,13 +1226,26 @@
     <Content Include="Js\exts\website\phototype.js" />
     <Content Include="Setting.config" />
     <Content Include="Views\ShowPic\Index.aspx" />
-    <Content Include="Web References\DpUploads\Uploads.disco" />
+    <None Include="Web References\DpUploads\Uploads.disco" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:2442/Uploads.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\DpUploads\</RelPath>
+      <UpdateFromURL>http://localhost:2442/Uploads.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Web_DpUploads_Uploads</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Sys\Views\Shared\" />

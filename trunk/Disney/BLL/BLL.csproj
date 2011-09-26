@@ -115,6 +115,7 @@
     <Compile Include="d_KitPhotoReturnBLL.cs" />
     <Compile Include="d_KitTemplateBLL.cs" />
     <Compile Include="web_PhotoTypeBLL.cs" />
+    <Compile Include="web_PhotoBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

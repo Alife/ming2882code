@@ -15,6 +15,13 @@ namespace BLL
                 _web_PhotoTypeData = new web_PhotoTypeData();
             return _web_PhotoTypeData;
         }
+        private static web_PhotoData _web_PhotoData;
+        public static web_PhotoData web_PhotoData()
+        {
+            if (_web_PhotoData == null)
+                _web_PhotoData = new web_PhotoData();
+            return _web_PhotoData;
+        }
         private static t_UserData _memberData;
         public static t_UserData t_UserData()
         {

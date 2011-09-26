@@ -51,6 +51,7 @@
             }, { xtype: 'tbseparator', hidden: levels.edit },
             { text: "上传", iconCls: 'icon-edit', ref: '../appeditBtn', disabled: true, hidden: levels.edit,
                 handler: function() {
+                    var s = grid.getSelectionModel().getSelected();
                     var dialog = new Ext.Window({
                         width: 650,
                         title: '上传' + node.text,
@@ -63,7 +64,7 @@
                             uploadUrl: '/website/uploads',
                             filePostName: 'file', //后台接收参数
                             fileTypes: '*.jpg;*.gif;*.png', //可上传文件类型
-                            postParams: { savePath: 'upload\\'} //上传文件存放目录
+                            postParams: { photoType: s.data.ID} //上传文件存放目录
                         }
 		            ]
                     });
