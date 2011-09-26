@@ -24,9 +24,11 @@ namespace WebSite
         /// </summary>
         /// <param name="fs">文件二进制流</param>
         /// <param name="fileName">文件名</param>
+        /// <param name="saveFileName">保存文件名</param>
+        /// <param name="photoType">文件类型</param>
         /// <returns></returns>
         [WebMethod(Description = "web提供的方法，上传文件到相应的地址")]
-        public bool UploadFile(byte[] fs, string fileName, int photoType)
+        public bool UploadFile(byte[] fs, string fileName, string saveFileName, int photoType)
         {
             MemoryStream m = null;
             FileStream fl = null;
@@ -34,14 +36,20 @@ namespace WebSite
             {
                 m = new MemoryStream(fs);
                 ///定义并实例化一个内存流，以存放提交上来的字节数组。
-                string path = Server.MapPath(string.Format("/images/uploads/{0:yyyyMMdd}/", DateTime.Now));
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
+                string path = string.Format("/images/uploads/{0:yyyyMMdd}/", DateTime.Now);
+                if (!Directory.Exists(Server.MapPath(path)))
+                    Directory.CreateDirectory(Server.MapPath(path));
                 ///定义实际文件对象，保存上载的文件。
-                fl = new FileStream(path + fileName, FileMode.OpenOrCreate);
+                fl = new FileStream(Server.MapPath(path) + saveFileName, FileMode.OpenOrCreate);
                 ///把内内存里的数据写入物理文件
                 m.WriteTo(fl);
-
+                web_Photo item = new web_Photo();
+                item.PhotoTypeID = photoType;
+                item.CreateTime = DateTime.Now;
+                item.FilePath = path + saveFileName;
+                item.Name = fileName;
+                item.Remark = string.Empty;
+                web_PhotoBLL.Insert(item);
                 return true;
             }
             catch(Exception ex)

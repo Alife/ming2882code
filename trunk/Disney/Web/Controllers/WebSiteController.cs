@@ -79,18 +79,18 @@ namespace Web.Controllers
         #endregion
         public JsonResult Uploads(int photoType)
         {
-            string strFileName = string.Empty;
+            string saveFileName = string.Empty;
             HttpPostedFileBase fileUpload = Request.Files[0];
             if (fileUpload != null && fileUpload.ContentLength > 0 && FileExtension.IsImages(fileUpload.InputStream))
-                strFileName = string.Format("{0:yyyyMMddmmhhssffff}{1}", DateTime.Now, System.IO.Path.GetExtension(fileUpload.FileName));
-            if (strFileName != string.Empty)
+                saveFileName = string.Format("{0:yyyyMMddmmhhssffff}{1}", DateTime.Now, System.IO.Path.GetExtension(fileUpload.FileName));
+            if (saveFileName != string.Empty)
             {
                 Stream stream = (Stream)fileUpload.InputStream;
                 stream.Position = 0;
                 byte[] buffer = new byte[stream.Length + 1];
                 stream.Read(buffer, 0, buffer.Length);  
                 DpUploads.Uploads uploads = new DpUploads.Uploads();
-                if (uploads.UploadFile(buffer, strFileName, photoType))
+                if (uploads.UploadFile(buffer, fileUpload.FileName.Split('.')[0], saveFileName, photoType))
                 {
                     stream.Close();
                     stream.Dispose();
