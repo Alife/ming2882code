@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E3C3781-4EDE-4C42-97D9-CA98B4D3B4D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SqlServerDAL</RootNamespace>
+    <AssemblyName>SqlServerDAL</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="d_KitChildData.cs" />
+    <Compile Include="ReportData.cs" />
+    <Compile Include="sys_AreaData.cs" />
+    <Compile Include="AriticleCategoryData.cs" />
+    <Compile Include="ArticleData.cs" />
+    <Compile Include="ArticleFileData.cs" />
+    <Compile Include="ArticleTopData.cs" />
+    <Compile Include="DALHelper.cs" />
+    <Compile Include="ArticleDotData.cs" />
+    <Compile Include="d_CoverTypeData.cs" />
+    <Compile Include="MessageData.cs" />
+    <Compile Include="OrderData.cs" />
+    <Compile Include="OrderProductData.cs" />
+    <Compile Include="PageData.cs" />
+    <Compile Include="ProductCategoryData.cs" />
+    <Compile Include="ProductCommentData.cs" />
+    <Compile Include="ProductData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ArticleCommentData.cs" />
+    <Compile Include="ShippingData.cs" />
+    <Compile Include="sys_Application.cs" />
+    <Compile Include="sys_DataPermission.cs" />
+    <Compile Include="sys_Field.cs" />
+    <Compile Include="sys_LinkData.cs" />
+    <Compile Include="sys_LogCategoryData.cs" />
+    <Compile Include="sys_LogData.cs" />
+    <Compile Include="sys_LogOpData.cs" />
+    <Compile Include="sys_Operation.cs" />
+    <Compile Include="sys_Permission.cs" />
+    <Compile Include="sys_PermissionField.cs" />
+    <Compile Include="sys_Role.cs" />
+    <Compile Include="sys_UserRole.cs" />
+    <Compile Include="ProductFileData.cs" />
+    <Compile Include="sys_SerialNumberData.cs" />
+    <Compile Include="t_UserAddressData.cs" />
+    <Compile Include="t_UserData.cs" />
+    <Compile Include="t_UserInfoData.cs" />
+    <Compile Include="t_UserPointData.cs" />
+    <Compile Include="w_PhotoData.cs" />
+    <Compile Include="w_PhotoCategoryData.cs" />
+    <Compile Include="d_DepartmentData.cs" />
+    <Compile Include="d_InsideTypeData.cs" />
+    <Compile Include="d_ClassTypeData.cs" />
+    <Compile Include="d_InsideMaterialData.cs" />
+    <Compile Include="d_CostumeData.cs" />
+    <Compile Include="d_KitTypeData.cs" />
+    <Compile Include="d_KitPhotoTypeData.cs" />
+    <Compile Include="d_KitData.cs" />
+    <Compile Include="d_KitClassData.cs" />
+    <Compile Include="d_KitQuestionData.cs" />
+    <Compile Include="d_KitCostumeData.cs" />
+    <Compile Include="t_UserTypeData.cs" />
+    <Compile Include="d_ArtistPriceData.cs" />
+    <Compile Include="d_KitPhotoData.cs" />
+    <Compile Include="d_KitWorkData.cs" />
+    <Compile Include="d_ConfirmPhotoData.cs" />
+    <Compile Include="d_ArtistMonthData.cs" />
+    <Compile Include="d_TotolMonthData.cs" />
+    <Compile Include="d_KitPhotoReturnData.cs" />
+    <Compile Include="d_KitTemplateData.cs" />
+    <Compile Include="web_PhotoTypeData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBUtility\DBUtility.csproj">
+      <Project>{B55FC860-E0BC-493D-A3A9-89127B0CF7BB}</Project>
+      <Name>DBUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{F4087BFB-A106-44E1-AC74-EDF061E4DE01}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

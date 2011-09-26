@@ -1,0 +1,34 @@
+﻿<%@ Master Language="C#" %>
+<%@ Import Namespace="System.Collections.Generic"%><%@ Import Namespace="System.Linq"%>
+<%@ Import Namespace="Common" %>
+<%@ Register src="Footer.ascx" tagname="Footer" tagprefix="uc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><% List<SettingEntity> sets = Setting.Instance.Get("sitesetting");%>
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="<%= sets.FirstOrDefault(p=>p.Key=="robots").Value%>" />
+    <meta name="description" content="<%= sets.FirstOrDefault(p=>p.Key=="description").Value%>" />
+    <meta name="keywords" content="<%= sets.FirstOrDefault(p=>p.Key=="keywords").Value%>" />
+    <meta name="generator" content="<%= sets.FirstOrDefault(p=>p.Key=="generator").Value%>" />
+    <meta name="copyright" content="<%= sets.FirstOrDefault(p=>p.Key=="copyright").Value%>" />
+    <link href="<%= Application["WebCssUrl"]%>style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<%= Application["WebJsUrl"]%>jquery-1.4.1.min.js?version=1.0"></script>
+    <script type="text/javascript" src="<%= Application["WebJsUrl"]%>ui.js?version=1.0"></script>
+    <script type="text/javascript" src="<%= Application["WebJsUrl"]%>alerts.js?version=1.0"></script>
+    <script type="text/javascript" src="<%= Application["WebJsUrl"]%>validate.js?version=1.0"></script>
+    <script type="text/javascript" src="<%= Application["WebJsUrl"]%>valmethod.js?version=1.0"></script>
+    <script type="text/javascript" src="<%= Application["WebJsUrl"]%>global.js?version=1.0"></script>
+    <!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="<%= Application["WebCssUrl"]%>ie_style.css" />
+	<script type="text/javascript" src="<%= Application["WebJsUrl"]%>ie_png.js"></script>  
+	<script type="text/javascript">ie_png.fix('#header .top .logo,#header .logo1');</script>	
+	<![endif]-->
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+</head>
+<body>
+    <div id="container"><asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        <uc1:Footer ID="Footer1" runat="server" />
+    </div>
+</body>
+</html>

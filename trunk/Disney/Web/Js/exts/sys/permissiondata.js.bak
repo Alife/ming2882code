@@ -1,0 +1,38 @@
+﻿permissiondata = function(node) {
+    var roleid = node.attributes.id;
+    var efields = Ext.data.Record.create([{ name: 'displayValue' }, { name: 'displayText'}]);
+    var confineStore = new Ext.data.Store({
+        reader: new Ext.data.JsonReader({ fields: efields, root: "data" }),
+        url: '/sys/confine'
+    });
+    confineStore.load();
+    var confineCmb = new Ext.form.ComboBox({
+        hiddenName: 'Confine', Name: 'Confine', emptyText: '请选择..', displayField: 'displayText', valueField: 'displayValue',
+        mode: 'local', triggerAction: 'all', forceSelection: true, editable: false, lazyRender: true, allowBlank: false, store: confineStore
+    });
+    var resourceTypeStore = new Ext.data.Store({
+        reader: new Ext.data.JsonReader({ fields: efields, root: "data" }),
+        url: '/sys/resourceType'
+    });
+    resourceTypeStore.load();
+    var resourceTypeCmb = new Ext.form.ComboBox({
+        hiddenName: 'ResourceType', Name: 'ResourceType', emptyText: '请选择..', displayField: 'displayText', valueField: 'displayValue',
+        mode: 'local', triggerAction: 'all', forceSelection: true, editable: false, lazyRender: true, allowBlank: false, store: resourceTypeStore
+    });
+    var check_select = new Ext.grid.CheckboxSelectionModel();
+    var fields = Ext.data.Record.create(['ID', 'RoleID', 'Confine', 'ConfineText', 'ResourceID', 'ResourceText', 'ResourceType', 'ResourceTypeText']);
+    var store = new Ext.data.Store({ reader: new Ext.data.JsonReader({ fields: fields }), url: '/sys/permissiondata/' + roleid });
+    store.load();
+    var grid = new Ext.grid.EditorGridPanel({
+        title: '当前位置:' + node.text,
+        expandable: false, autoScroll: true, animate: true, border: false, store: store, loadMask: true, sm: check_select, autoExpandColumn: 'ResourceID',
+        columns: [
+                new Ext.grid.RowNumberer(),
+                check_select,
+                { header: 'ID', width: 50, dataIndex: 'ID', hidden: true },
+                { header: '数据类型', width: 170, dataIndex: 'ResourceType', sortable: true, editor: resourceTypeCmb, renderer: Ext.util.Format.comboRenderer(resourceTypeCmb) },
+                { header: '级别', width: 150, dataIndex: 'Confine', sortable: true, editor: confineCmb, renderer: Ext.util.Format.comboRenderer(confineCmb) },
+                { header: '资源', width: 150, dataIndex: 'ResourceID', id: 'ResourceID', sortable: true}]
+    });
+    GridMain(node, grid);
+};

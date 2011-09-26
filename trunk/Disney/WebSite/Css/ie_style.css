@@ -1,0 +1,11 @@
+﻿@charset "utf-8";
+body {behavior:url("csshover.htc"); }
+
+.line .de_2 ul{padding:9px 0 0 0}
+.line .de_2 ul li{background-position:0 3px;}
+.line .de_2 ul li span{top:-2px;position:relative;}
+/*#header .indent .uitabspanel .block{background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/bg_1.png', sizingMethod='scale', enabled=true);}
+#header .logo h1{background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/logo.png', sizingMethod='crop', enabled=true);}*/
+#header .indent ul.tabsnav li{width:134px;}
+#header .indent{float:right;position:relative;bottom:10px;right:0px;margin-bottom:-10px}
+    #header .indent .tabsnav li.fragment-4,#header .indent .tabsnav li.fragment-5{width:135px;}

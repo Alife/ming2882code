@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entity>
+  <item id="r" text="礼服(\d*)-(\d*).jpg" spce="(\d*)-(\d*).jpg"></item>
+  <item id="f" text="封面(\d*)-f.jpg" spce="(\d*)-f.jpg"></item>
+  <item id="g" text="团照-g.jpg" spce="-g.jpg"></item>
+  <item id="l" text="小组照(\d*)-(\d*)pl.jpg" spce="(\d*)-(\d*)pl.jpg"></item>
+  <item id="c" text="同学录-c.jpg" spce="-c.jpg"></item>
+  <item id="fm" text="全家福(\d*)-(\d*)pf.jpg" spce="(\d*)-(\d*)pf.jpg"></item>
+  <item id="h" text="大头贴(\d*)-(d|h).jpg" spce="(\d*)-(d|h).jpg"></item>
+  <item id="y" text="年历(\d*)-y.jpg" spce="(\d*)-y.jpg"></item>
+</entity>
