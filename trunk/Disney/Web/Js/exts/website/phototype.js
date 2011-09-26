@@ -1,5 +1,6 @@
 ﻿phototype = function(node) {
     var levels = {};
+    levels.select = GetIsLevel(node.attributes.Code, 'select');
     levels.add = GetIsLevel(node.attributes.Code, 'add');
     levels.edit = GetIsLevel(node.attributes.Code, 'edit');
     levels.del = GetIsLevel(node.attributes.Code, 'del');
@@ -49,7 +50,7 @@
                     form.getForm().loadRecord(s);
                 }
             }, { xtype: 'tbseparator', hidden: levels.edit },
-            { text: "上传", iconCls: 'icon-edit', ref: '../appeditBtn', disabled: true, hidden: levels.edit,
+            { text: "上传", iconCls: 'upload-start', ref: '../uploadBtn', disabled: true, hidden: levels.edit,
                 handler: function() {
                     var s = grid.getSelectionModel().getSelected();
                     var dialog = new Ext.Window({
@@ -71,6 +72,18 @@
                     dialog.show();
                 }
             }, { xtype: 'tbseparator', hidden: levels.edit },
+            { text: "查看明细", iconCls: 'icon-nav', ref: '../selectBtn', disabled: true, hidden: levels.select,
+                handler: function() {
+                    var selectedItem = grid.getSelectionModel().getSelected().data;
+                    var id = selectedItem.ID;
+                    var tab = center.getComponent('photodetail_' + id);
+                    if (tab)
+                        center.setActiveTab(tab);
+                    else
+                        jsload('/js/exts/website/photodetail.js', 'photodetail',
+                        { 'id': 'photodetail_' + id, 'text': selectedItem.Name + '(明细)', 'attributes': { 'Icon': 'icontab ' + selectedItem.Icon, 'id': id} });
+                }
+            }, { xtype: 'tbseparator', hidden: levels.select },
             {
                 text: '删除', iconCls: 'icon-delete', ref: '../removeBtn', disabled: true, hidden: levels.del,
                 handler: function() {
@@ -121,6 +134,9 @@
     grid.getSelectionModel().on('selectionchange', function(sm) {
         grid.removeBtn.setDisabled(sm.getCount() < 1);
         grid.appeditBtn.setDisabled(sm.getCount() < 1);
+        var s = sm.getSelected();
+        grid.uploadBtn.setDisabled(sm.getCount() < 1 || (s && s.data.ParentID == 0));
+        grid.selectBtn.setDisabled(sm.getCount() < 1 || (s && s.data.ParentID == 0));
     });
     var record = Ext.data.Record.create([
      	{ name: 'ID' },

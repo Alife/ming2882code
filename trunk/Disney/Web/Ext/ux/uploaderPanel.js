@@ -10,12 +10,13 @@ keel.UploadPanel = function(cfg) {
     Ext.apply(this, cfg);
     this.gp = new Ext.grid.GridPanel({
         border: false,
+        autoExpandColumn: 'name',
         store: new Ext.data.Store({
             fields: ['id', 'name', 'type', 'size', 'state', 'percent']
         }),
         columns: [
 	    	new Ext.grid.RowNumberer(),
-	        { header: '文件名', width: 100, sortable: true, dataIndex: 'name', menuDisabled: true },
+	        { header: '文件名', width: 100, sortable: true, dataIndex: 'name', id: 'name', menuDisabled: true },
 	        { header: '类型', width: 70, sortable: true, dataIndex: 'type', menuDisabled: true },
 	        { header: '大小', width: 100, sortable: true, dataIndex: 'size', menuDisabled: true, renderer: this.formatFileSize },
 	        { header: '进度', width: 150, sortable: true, dataIndex: 'percent', menuDisabled: true, renderer: this.formatProgressBar, scope: this },
@@ -54,7 +55,7 @@ keel.UploadPanel = function(cfg) {
     };
     keel.UploadPanel.superclass.constructor.call(this, {
         tbar: [
-			{ text: '添加文件', ref: '../addBtn', iconCls: 'file-add', scope: this  }, '-',
+			{ text: '添加文件', ref: '../addBtn', iconCls: 'file-add', scope: this }, '-',
 			{ text: '上传', ref: '../uploadBtn', iconCls: 'upload-start', handler: this.startUpload, scope: this }, '-',
 			{ text: '停止上传', ref: '../stopBtn', iconCls: 'upload-stop', handler: this.stopUpload, scope: this, disabled: true }, '-',
 			{ text: '删除所有', ref: '../deleteBtn', iconCls: 'file-remove', handler: this.deleteAll, scope: this }, '-'

@@ -65,7 +65,7 @@ namespace Web.Controllers
             return Json(new MessageBox(false, "修改失败"), JsonRequestBehavior.AllowGet);
         }
         #endregion
-        #region 修改
+        #region 删除
         [AdminAuthorize("phototype", "del")]
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult phototypedelete()
@@ -77,6 +77,7 @@ namespace Web.Controllers
         }
         #endregion
         #endregion
+        #region 图片明细管理
         public JsonResult Uploads(int photoType)
         {
             string saveFileName = string.Empty;
@@ -99,5 +100,31 @@ namespace Web.Controllers
             }
             return Json(new MessageBox(false, "上传失败"), "text/html");
         }
+        [AdminAuthorize("phototype", "select")]
+        public JsonResult photodetail(int id)
+        {
+            return Json(web_PhotoBLL.GetList(id), JsonRequestBehavior.AllowGet);
+        }
+        [AdminAuthorize("phototype", "edit")]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult photodetailedit(int id)
+        {
+            web_Photo item = web_PhotoBLL.GetItem(id);
+            TryUpdateModel(item, Request.Form.AllKeys);
+            item.Name = item.Name.Trim().Replace("　", "");
+            if (web_PhotoBLL.Update(item) > 0)
+                return Json(new MessageBox(true, "修改成功"), JsonRequestBehavior.AllowGet);
+            return Json(new MessageBox(false, "修改失败"), JsonRequestBehavior.AllowGet);
+        }
+        [AdminAuthorize("phototype", "del")]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult photodetaildelete()
+        {
+            List<string> ids = Request["id"].Split(',').ToList();
+            if (web_PhotoBLL.Delete(ids) > 0)
+                return Json(new MessageBox(true, "删除成功"), JsonRequestBehavior.AllowGet);
+            return Json(new MessageBox(false, "删除失败"), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

@@ -14,14 +14,16 @@ namespace SqlServerDAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("INSERT INTO web_Photo(");
-            strSql.Append("PhotoTypeID,Name,FilePath,Remark,CreateTime)");
+            strSql.Append("PhotoTypeID,Name,FilePath,FileType,FileSize,Remark,CreateTime)");
             strSql.Append(" VALUES (");
-            strSql.Append("@PhotoTypeID,@Name,@FilePath,@Remark,@CreateTime)");
+            strSql.Append("@PhotoTypeID,@Name,@FilePath,@FileType,@FileSize,@Remark,@CreateTime)");
             strSql.Append(";select @@IDENTITY");
             DbParameter[] cmdParms = new DbParameter[]{
                 DBHelper.CreateInDbParameter("@PhotoTypeID", DbType.Int32, model.PhotoTypeID),
                 DBHelper.CreateInDbParameter("@Name", DbType.String, model.Name),
                 DBHelper.CreateInDbParameter("@FilePath", DbType.String, model.FilePath),
+                DBHelper.CreateInDbParameter("@FileType", DbType.String, model.FileType),
+                DBHelper.CreateInDbParameter("@FileSize", DbType.Int32, model.FileSize),
                 DBHelper.CreateInDbParameter("@Remark", DbType.String, model.Remark),
                 DBHelper.CreateInDbParameter("@CreateTime", DbType.DateTime, model.CreateTime)};
             object obj = DBHelper.ExecuteScalar(CommandType.Text, strSql.ToString(), cmdParms);
@@ -37,6 +39,8 @@ namespace SqlServerDAL
             strSql.Append("PhotoTypeID=@PhotoTypeID,");
             strSql.Append("Name=@Name,");
             strSql.Append("FilePath=@FilePath,");
+            strSql.Append("FileType=@FileType,");
+            strSql.Append("FileSize=@FileSize,");
             strSql.Append("Remark=@Remark,");
             strSql.Append("CreateTime=@CreateTime");
             strSql.Append(" WHERE ID=@in_ID");
@@ -44,6 +48,8 @@ namespace SqlServerDAL
                 DBHelper.CreateInDbParameter("@PhotoTypeID", DbType.Int32, model.PhotoTypeID),
                 DBHelper.CreateInDbParameter("@Name", DbType.String, model.Name),
                 DBHelper.CreateInDbParameter("@FilePath", DbType.String, model.FilePath),
+                DBHelper.CreateInDbParameter("@FileType", DbType.String, model.FileType),
+                DBHelper.CreateInDbParameter("@FileSize", DbType.Int32, model.FileSize),
                 DBHelper.CreateInDbParameter("@Remark", DbType.String, model.Remark),
                 DBHelper.CreateInDbParameter("@CreateTime", DbType.DateTime, model.CreateTime),
                 DBHelper.CreateInDbParameter("@in_ID", DbType.Int32, model.ID)};
@@ -78,7 +84,7 @@ namespace SqlServerDAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * FROM web_Photo ");
-            strSql.AppendFormat(" where photoType={0} Order by CreateTime desc", photoType);
+            strSql.AppendFormat(" where photoTypeid={0} Order by CreateTime desc", photoType);
             List<web_Photo> list = new List<web_Photo>();
             using (DbDataReader dr = DBHelper.ExecuteReader(CommandType.Text, strSql.ToString(), null))
                 GetItem(list, dr);
@@ -113,6 +119,8 @@ namespace SqlServerDAL
             model.ID = DBHelper.GetInt(dr["ID"]);
             model.Name = DBHelper.GetString(dr["Name"]); ;
             model.FilePath = DBHelper.GetString(dr["FilePath"]);
+            model.FileType = DBHelper.GetString(dr["FileType"]);
+            model.FileSize = DBHelper.GetInt(dr["FileSize"]);
             model.Remark = DBHelper.GetString(dr["Remark"]);
             model.PhotoTypeID = DBHelper.GetInt(dr["PhotoTypeID"]);
             model.CreateTime = DBHelper.GetDateTime(dr["CreateTime"]);

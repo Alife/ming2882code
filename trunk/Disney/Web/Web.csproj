@@ -1223,6 +1223,7 @@
     <Content Include="Js\exts\user\userpwd.js" />
     <Content Include="Js\exts\user\useredit.js" />
     <Content Include="Js\exts\user\staff.js" />
+    <Content Include="Js\exts\website\photodetail.js" />
     <Content Include="Js\exts\website\phototype.js" />
     <Content Include="Setting.config" />
     <Content Include="Views\ShowPic\Index.aspx" />
