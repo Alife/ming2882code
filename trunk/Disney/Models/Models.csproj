@@ -120,6 +120,7 @@
     <Compile Include="d_KitPhotoReturn.cs" />
     <Compile Include="d_KitTemplate.cs" />
     <Compile Include="web_PhotoType.cs" />
+    <Compile Include="web_Photo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

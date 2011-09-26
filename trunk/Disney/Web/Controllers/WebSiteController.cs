@@ -12,7 +12,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Data;
 using System.IO;
-using Common;
 
 namespace Web.Controllers
 {
@@ -78,31 +77,27 @@ namespace Web.Controllers
         }
         #endregion
         #endregion
-        public ActionResult Uploads()
+        public JsonResult Uploads(int photoType)
         {
             string strFileName = string.Empty;
-            foreach (HttpPostedFile fileUpload in Request.Files)
+            HttpPostedFileBase fileUpload = Request.Files[0];
+            if (fileUpload != null && fileUpload.ContentLength > 0 && FileExtension.IsImages(fileUpload.InputStream))
+                strFileName = string.Format("{0:yyyyMMddmmhhssffff}{1}", DateTime.Now, System.IO.Path.GetExtension(fileUpload.FileName));
+            if (strFileName != string.Empty)
             {
-                if (fileUpload != null && fileUpload.ContentLength > 0 && FileExtension.IsImages(fileUpload.InputStream))
-                    strFileName = string.Format("/images/uploads/{0:yyyyMMdd}/{0:yyyyMMddmmhhssffff}{1}", DateTime.Now, System.IO.Path.GetExtension(fileUpload.FileName));
-                if (strFileName != string.Empty)
+                Stream stream = (Stream)fileUpload.InputStream;
+                stream.Position = 0;
+                byte[] buffer = new byte[stream.Length + 1];
+                stream.Read(buffer, 0, buffer.Length);  
+                DpUploads.Uploads uploads = new DpUploads.Uploads();
+                if (uploads.UploadFile(buffer, strFileName, photoType))
                 {
-                    byte[] fileContent = new byte[fileUpload.ContentLength];
-                    //获得上传文件的名称
-                    string fileName = fileUpload.FileName;
-                    //实例化webservice
-                    DpUploads.Uploads uploads = new DpUploads.Uploads();
-                    if (uploads.UploadFile(fileContent, fileName))　//调用上传方法。
-                    {
-                        Response.Write("OK");
-                    }
-                    else
-                    {
-                        Response.Write("error");
-                    }
+                    stream.Close();
+                    stream.Dispose();
+                    return Json(new MessageBox(true, "上传成功"), "text/html");
                 }
             }
-            return Content("");
+            return Json(new MessageBox(false, "上传失败"), "text/html");
         }
     }
 }

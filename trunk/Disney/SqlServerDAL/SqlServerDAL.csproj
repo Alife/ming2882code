@@ -116,6 +116,7 @@
     <Compile Include="d_KitPhotoReturnData.cs" />
     <Compile Include="d_KitTemplateData.cs" />
     <Compile Include="web_PhotoTypeData.cs" />
+    <Compile Include="web_PhotoData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DBUtility\DBUtility.csproj">
