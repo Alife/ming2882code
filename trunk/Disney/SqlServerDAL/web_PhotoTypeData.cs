@@ -86,6 +86,16 @@ namespace SqlServerDAL
                 GetItem(list, dr);
             return list;
         }
+        public List<web_PhotoType> GetList(string code)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT * FROM web_PhotoType ");
+            strSql.AppendFormat(" where code='{0}' Order by OrderID", code);
+            List<web_PhotoType> list = new List<web_PhotoType>();
+            using (DbDataReader dr = DBHelper.ExecuteReader(CommandType.Text, strSql.ToString(), null))
+                GetItem(list, dr);
+            return list;
+        }
         #region 私有
         private web_PhotoType GetItem(web_PhotoType model, DbDataReader dr)
         {
