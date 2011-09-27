@@ -90,7 +90,7 @@ namespace SqlServerDAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SELECT * FROM web_PhotoType ");
-            strSql.AppendFormat(" where code='{0}' Order by OrderID", code);
+            strSql.AppendFormat(" where parentid=(SELECT id FROM web_PhotoType where code='{0}') Order by OrderID", code);
             List<web_PhotoType> list = new List<web_PhotoType>();
             using (DbDataReader dr = DBHelper.ExecuteReader(CommandType.Text, strSql.ToString(), null))
                 GetItem(list, dr);
