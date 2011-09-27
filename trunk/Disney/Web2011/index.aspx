@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Import Namespace="System.IO" %>
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="Common" %><%@ Import Namespace="BLL" %><%@ Import Namespace="Models" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

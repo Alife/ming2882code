@@ -176,6 +176,7 @@
     <Content Include="Uploads.asmx" />
     <Content Include="Version.aspx" />
     <Content Include="Web.config" />
+    <Content Include="PortfolioShow.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
