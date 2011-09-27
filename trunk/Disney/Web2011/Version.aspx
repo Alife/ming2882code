@@ -37,7 +37,7 @@
                 <div class="content_left">
                     <h2><label>版型</label></h2>
                     <ul><%int id = 0; int.TryParse(Request["id"], out id); List<web_PhotoType> list = web_PhotoTypeBLL.GetList("version");if(id==0 && list.Count>0)id=list[0].ID;for(int i=0;i<list.Count;i++){ %>
-                        <li<%= id==list[i].ID?" class=\"current\"":""%>><a href="clothing.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></li>
+                        <li<%= id==list[i].ID?" class=\"current\"":""%>><a href="clothing.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></li><%} %>
                     </ul>
                 </div>
                 <div class="content_right">
