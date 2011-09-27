@@ -1,0 +1,241 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5FF26C5E-AAAC-4B0A-9B5A-3DB6125B289E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web2011</RootNamespace>
+    <AssemblyName>Web2011</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Album.aspx" />
+    <Content Include="Clothing.aspx" />
+    <Content Include="Contact.aspx" />
+    <Content Include="css\css.css" />
+    <Content Include="css\csshover.htc" />
+    <Content Include="css\ie_style.css" />
+    <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="images\d\a1.gif" />
+    <Content Include="images\d\a2.gif" />
+    <Content Include="images\d\a3.gif" />
+    <Content Include="images\d\a4.gif" />
+    <Content Include="images\d\btn_1.png" />
+    <Content Include="images\d\btn_2.png" />
+    <Content Include="images\d\c1.png" />
+    <Content Include="images\d\c2.png" />
+    <Content Include="images\d\c3.png" />
+    <Content Include="images\d\c4.png" />
+    <Content Include="images\d\hhbg_1.jpg" />
+    <Content Include="images\d\hhbg_2.jpg" />
+    <Content Include="images\d\hhbg_3.jpg" />
+    <Content Include="images\d\logo.png" />
+    <Content Include="images\d\menubg.png" />
+    <Content Include="images\d\menu_bottom.png" />
+    <Content Include="images\d\menu_btn.png" />
+    <Content Include="images\d\p1.jpg" />
+    <Content Include="images\graduation\ad_next.png" />
+    <Content Include="images\graduation\ad_prev.png" />
+    <Content Include="images\graduation\ad_scroll_back.png" />
+    <Content Include="images\graduation\ad_scroll_forward.png" />
+    <Content Include="images\graduation\Boy\01 學士.jpg" />
+    <Content Include="images\graduation\Boy\02 Cars.jpg" />
+    <Content Include="images\graduation\Boy\03 胡迪.jpg" />
+    <Content Include="images\graduation\Boy\04 阿拉丁.jpg" />
+    <Content Include="images\graduation\Boy\05 王子.jpg" />
+    <Content Include="images\graduation\Boy\06 米奇.jpg" />
+    <Content Include="images\graduation\Boy\07 足球.jpg" />
+    <Content Include="images\graduation\Boy\08 神鬼奇航.jpg" />
+    <Content Include="images\graduation\Boy\09 宮廷.jpg" />
+    <Content Include="images\graduation\Boy\10.jpg" />
+    <Content Include="images\graduation\Boy\11 民族服.jpg" />
+    <Content Include="images\graduation\Classmates\01.jpg" />
+    <Content Include="images\graduation\Classmates\02.jpg" />
+    <Content Include="images\graduation\Girl\01 學士.jpg" />
+    <Content Include="images\graduation\Girl\02 Cars.jpg" />
+    <Content Include="images\graduation\Girl\03 胡迪.jpg" />
+    <Content Include="images\graduation\Girl\04 茉莉公主.jpg" />
+    <Content Include="images\graduation\Girl\05 白雪公主.jpg" />
+    <Content Include="images\graduation\Girl\06 美妮.jpg" />
+    <Content Include="images\graduation\Girl\07 足球.jpg" />
+    <Content Include="images\graduation\Girl\08 美人魚.jpg" />
+    <Content Include="images\graduation\Girl\09 宮廷.jpg" />
+    <Content Include="images\graduation\Girl\10 青蛙公主.jpg" />
+    <Content Include="images\graduation\Girl\11 民族服.jpg" />
+    <Content Include="images\graduation\Girl\12 精靈.jpg" />
+    <Content Include="images\graduation\Group Photo\01 團照.jpg" />
+    <Content Include="images\graduation\Group Photo\02.jpg" />
+    <Content Include="images\graduation\image-1_01.jpg" />
+    <Content Include="images\graduation\image-1_02.jpg" />
+    <Content Include="images\graduation\image-1_03.jpg" />
+    <Content Include="images\graduation\image-1_04.jpg" />
+    <Content Include="images\graduation\image-1_05.jpg" />
+    <Content Include="images\graduation\image-1_06.jpg" />
+    <Content Include="images\graduation\image-1_07.jpg" />
+    <Content Include="images\graduation\Life\01 4p-1.jpg" />
+    <Content Include="images\graduation\Life\02 4p-2.jpg" />
+    <Content Include="images\graduation\Life\03 4p-3.jpg" />
+    <Content Include="images\graduation\Life\04 5p-1.jpg" />
+    <Content Include="images\graduation\Life\05 6p-1.jpg" />
+    <Content Include="images\graduation\Life\06 6p-2.jpg" />
+    <Content Include="images\graduation\Life\07 7p-1.jpg" />
+    <Content Include="images\graduation\Life\08 8p-1.jpg" />
+    <Content Include="images\graduation\loader.gif" />
+    <Content Include="images\graduation\opa75.png" />
+    <Content Include="images\graduation\th\Boy\01_s.jpg" />
+    <Content Include="images\graduation\th\Boy\02_s.jpg" />
+    <Content Include="images\graduation\th\Boy\03_s.jpg" />
+    <Content Include="images\graduation\th\Boy\04_s.jpg" />
+    <Content Include="images\graduation\th\Boy\05_s.jpg" />
+    <Content Include="images\graduation\th\Boy\06_s.jpg" />
+    <Content Include="images\graduation\th\Boy\07_s.jpg" />
+    <Content Include="images\graduation\th\Boy\08_s.jpg" />
+    <Content Include="images\graduation\th\Boy\09_s.jpg" />
+    <Content Include="images\graduation\th\Boy\10_s.jpg" />
+    <Content Include="images\graduation\th\Boy\11_s.jpg" />
+    <Content Include="images\prettyPhoto\dark_rounded\btnNext.png" />
+    <Content Include="images\prettyPhoto\dark_rounded\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\dark_rounded\contentPattern.png" />
+    <Content Include="images\prettyPhoto\dark_rounded\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\dark_rounded\loader.gif" />
+    <Content Include="images\prettyPhoto\dark_rounded\sprite.png" />
+    <Content Include="images\prettyPhoto\dark_square\btnNext.png" />
+    <Content Include="images\prettyPhoto\dark_square\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\dark_square\contentPattern.png" />
+    <Content Include="images\prettyPhoto\dark_square\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\dark_square\loader.gif" />
+    <Content Include="images\prettyPhoto\dark_square\sprite.png" />
+    <Content Include="images\prettyPhoto\facebook\btnNext.png" />
+    <Content Include="images\prettyPhoto\facebook\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternBottom.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternLeft.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternRight.png" />
+    <Content Include="images\prettyPhoto\facebook\contentPatternTop.png" />
+    <Content Include="images\prettyPhoto\facebook\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\facebook\loader.gif" />
+    <Content Include="images\prettyPhoto\facebook\sprite.png" />
+    <Content Include="images\prettyPhoto\light_rounded\btnNext.png" />
+    <Content Include="images\prettyPhoto\light_rounded\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\light_rounded\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\light_rounded\loader.gif" />
+    <Content Include="images\prettyPhoto\light_rounded\sprite.png" />
+    <Content Include="images\prettyPhoto\light_square\btnNext.png" />
+    <Content Include="images\prettyPhoto\light_square\btnPrevious.png" />
+    <Content Include="images\prettyPhoto\light_square\default_thumbnail.gif" />
+    <Content Include="images\prettyPhoto\light_square\loader.gif" />
+    <Content Include="images\prettyPhoto\light_square\sprite.png" />
+    <Content Include="index.aspx" />
+    <Content Include="js\ie_png.js" />
+    <Content Include="js\jquery-1.4.1.min.js" />
+    <Content Include="js\jquery.ad-gallery.pack.js" />
+    <Content Include="Portfolio.aspx" />
+    <Content Include="Uploads.asmx" />
+    <Content Include="Version.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Uploads.asmx.cs">
+      <DependentUpon>Uploads.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{09653044-5E0D-4BDA-B27B-59CF3C46F064}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{D5DA6B06-C0E0-4308-97C3-61C321340764}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBUtility\DBUtility.csproj">
+      <Project>{B55FC860-E0BC-493D-A3A9-89127B0CF7BB}</Project>
+      <Name>DBUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{6A956177-A990-45C1-9E8B-FB332C689FC8}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqlServerDAL\SqlServerDAL.csproj">
+      <Project>{9E3C3781-4EDE-4C42-97D9-CA98B4D3B4D0}</Project>
+      <Name>SqlServerDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="images\uploads\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2186</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
