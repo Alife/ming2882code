@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" %>
-<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Common" %><%@ Import Namespace="BLL" %><%@ Import Namespace="Models" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -36,19 +37,13 @@
             <div class="content">
                 <div class="content_left">
                     <h2><label>迪士尼系列相冊</label></h2>
-                    <ul>
-                        <li class="current"><a href="album.aspx?id=1">精緻組</a></li>
-                        <li><a href="album.aspx?id=2">豪華組</a></li>
-                        <li><a href="album.aspx?id=3">尊貴組</a></li>
-                        <li><a href="album.aspx?id=4">旗艦組</a></li>
+                    <ul class="list"><%int id = 0; int.TryParse(Request["id"], out id); List<web_PhotoType> list = web_PhotoTypeBLL.GetList("album");if(id==0 && list.Count>0)id=list[0].ID;for(int i=0;i<list.Count;i++){ %>
+                        <li<%= id==list[i].ID?" class=\"current\"":""%>><a href="album.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></li>
                     </ul>
                 </div>
                 <div class="content_right"> 
-                    <ul class="album_list">
-                        <li><p class="pm"><a href=""><img src="images/d/a1.gif" alt="" /></a></p></li>
-                        <li><p class="pm"><a href=""><img src="images/d/a2.gif" alt="" /></a></p></li>
-                        <li><p class="pm"><a href=""><img src="images/d/a3.gif" alt="" /></a></p></li>
-                        <li><p class="pm"><a href=""><img src="images/d/a4.gif" alt="" /></a></p></li>
+                    <ul class="album_list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst){%>
+                        <li><p class="pm"><a href="albumshow.aspx?id=<%= fileItem.ID%>" target="_blank" title="<%= fileItem.Name%>"><img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" /></a></p></li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
