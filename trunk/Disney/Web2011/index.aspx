@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" %>
 <%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="Common" %><%@ Import Namespace="BLL" %><%@ Import Namespace="Models" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -32,12 +34,9 @@
             <div class="clear"></div>
         </div>
         <div id="main">
-            <div class="content">
-                <div class="content_left index">
-                    <h2 class="current"><label>迪士尼系列相冊</label></h2>
-                    <h2><label>自然沙龍</label></h2>
-                    <h2><label>校園精裝</label></h2>
-                    <h2><label>畢業書包</label></h2>
+            <div class="content"><%int id = 0; int.TryParse(Request["id"], out id); %>
+                <div class="content_left index"><%List<web_PhotoType> list = web_PhotoTypeBLL.GetList("about");if(id==0 && list.Count>0)id=list[0].ID;for(int i=0;i<list.Count;i++){ %>
+                    <h2<%= id==list[i].ID?" class=\"current\"":""%>><label><a href="index.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></label></h2><%} %>
                 </div>
                 <div class="content_right">
                     <div id="gallery" class="ad-gallery"> 
@@ -48,89 +47,8 @@
                         </div> 
                         <div class="ad-nav"> 
                             <div class="ad-thumbs">
-                                <ul class="ad-thumb-list">
-                                    <% int id = 0; int.TryParse(Request["id"], out id); id = id == 0 ? 1 : id;
-                                       string currentfile = "images/graduation/";
-                                       if (id == 1)
-                                       {
-                                           string currentfolder = Server.MapPath("images/graduation/boy/");
-                                           string[] arrfiles = Directory.GetFiles(currentfolder, "*.jpg", SearchOption.AllDirectories);
-                                           foreach (string fileItem in arrfiles)
-                                           {
-                                               FileInfo fileinfo = new FileInfo(fileItem);
-                                               string fdriname = fileinfo.Directory.Name;
-                                               string filename = fileinfo.Name;
-                                               string title = filename.Replace(".jpg", "");
-                                               string filepath = currentfile + fdriname + "/" + filename;
-                                    %>
-                                    <li><a href="<%= filepath%>"><img src="<%= filepath%>" alt="<%= fdriname%>" title="<%= title%>" /></a></li>
-                                    <%
-                                        }
-                                   }
-                                   else if (id == 2)
-                                   {
-                                       string currentfolder = Server.MapPath("images/graduation/girl/");
-                                       string[] arrfiles = Directory.GetFiles(currentfolder, "*.jpg", SearchOption.AllDirectories);
-                                       foreach (string fileItem in arrfiles)
-                                       {
-                                           FileInfo fileinfo = new FileInfo(fileItem);
-                                           string fdriname = fileinfo.Directory.Name;
-                                           string filename = fileinfo.Name;
-                                           string title = filename.Replace(".jpg", "");
-                                           string filepath = currentfile + fdriname + "/" + filename;
-                                    %>
-                                    <li><a href="<%= filepath%>"><img src="<%= filepath%>" alt="<%= fdriname%>" title="<%= title%>" /></a></li>
-                                    <%
-                                      }
-                                   } 
-                                   else if (id == 3)
-                                   {
-                                       string currentfolder = Server.MapPath("images/graduation/Group Photo/");
-                                       string[] arrfiles = Directory.GetFiles(currentfolder, "*.jpg", SearchOption.AllDirectories);
-                                       foreach (string fileItem in arrfiles)
-                                       {
-                                           FileInfo fileinfo = new FileInfo(fileItem);
-                                           string fdriname = fileinfo.Directory.Name;
-                                           string filename = fileinfo.Name;
-                                           string title = filename.Replace(".jpg", "");
-                                           string filepath = currentfile + fdriname + "/" + filename;
-                                    %>
-                                    <li><a href="<%= filepath%>"><img src="<%= filepath%>" alt="<%= fdriname%>" title="<%= title%>" /></a></li>
-                                    <%
-                                      }
-                                   }
-                                   else if (id == 4)
-                                   {
-                                       string currentfolder = Server.MapPath("images/graduation/classmates/");
-                                       string[] arrfiles = Directory.GetFiles(currentfolder, "*.jpg", SearchOption.AllDirectories);
-                                       foreach (string fileItem in arrfiles)
-                                       {
-                                           FileInfo fileinfo = new FileInfo(fileItem);
-                                           string fdriname = fileinfo.Directory.Name;
-                                           string filename = fileinfo.Name;
-                                           string title = filename.Replace(".jpg", "");
-                                           string filepath = currentfile + fdriname + "/" + filename;
-                                    %>
-                                    <li><a href="<%= filepath%>"><img src="<%= filepath%>" alt="<%= fdriname%>" title="<%= title%>" /></a></li>
-                                    <%
-                                      }
-                                   } 
-                                   else if (id == 5)
-                                   {
-                                       string currentfolder = Server.MapPath("images/graduation/life/");
-                                       string[] arrfiles = Directory.GetFiles(currentfolder, "*.jpg", SearchOption.AllDirectories);
-                                       foreach (string fileItem in arrfiles)
-                                       {
-                                           FileInfo fileinfo = new FileInfo(fileItem);
-                                           string fdriname = fileinfo.Directory.Name;
-                                           string filename = fileinfo.Name;
-                                           string title = filename.Replace(".jpg", "");
-                                           string filepath = currentfile + fdriname + "/" + filename;
-                                    %>
-                                    <li><a href="<%= filepath%>"><img src="<%= filepath%>" alt="<%= fdriname%>" title="<%= title%>" /></a></li>
-                                    <%
-                                      }
-                                   }  %>
+                                <ul class="ad-thumb-list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst){%>
+                                    <li><a href="<%= fileItem.FilePath%>"><img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" title="<%= fileItem.Name%>" /></a></li><%}%>
                                 </ul>
                             </div>
                         </div>
