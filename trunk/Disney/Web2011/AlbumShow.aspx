@@ -37,14 +37,13 @@
             <div class="content">
                 <div class="content_left">
                     <h2><label>相冊介紹</label></h2>
-                    <ul class="list"><%int id = 0; int.TryParse(Request["id"], out id); List<web_PhotoType> list = web_PhotoTypeBLL.GetList("album");if(id==0 && list.Count>0)id=list[0].ID;for(int i=0;i<list.Count;i++){ %>
-                        <li<%= id==list[i].ID?" class=\"current\"":""%>><a href="album.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></li>
+                    <ul class="list"><%int id = 0; int.TryParse(Request["id"], out id);web_Photo fileItem = web_PhotoBLL.GetItem(id);
+                                         List<web_PhotoType> list = web_PhotoTypeBLL.GetList("album");for(int i=0;i<list.Count;i++){ %>
+                        <li<%= fileItem.PhotoTypeID==list[i].ID?" class=\"current\"":""%>><a href="portfolio.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></li>
                     </ul>
                 </div>
                 <div class="content_right"> 
-                    <ul class="album_list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst){%>
-                        <li><p class="pm"><a href="albumshow.aspx?id=<%= fileItem.ID%>" target="_blank" title="<%= fileItem.Name%>"><img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" /></a></p></li>
-                    </ul>
+                    <img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" />
                 </div>
                 <div class="clearfix"></div>
             </div>

@@ -38,7 +38,7 @@
                 <div class="content_left content_left_list">
                     <h2><label>作品集</label></h2>
                     <ul class="list"><%int id = 0; int.TryParse(Request["id"], out id);web_Photo fileItem = web_PhotoBLL.GetItem(id);
-                                         List<web_PhotoType> list = web_PhotoTypeBLL.GetList("about");for(int i=0;i<list.Count;i++){ %>
+                                         List<web_PhotoType> list = web_PhotoTypeBLL.GetList("portfolio");for(int i=0;i<list.Count;i++){ %>
                         <li<%= fileItem.PhotoTypeID==list[i].ID?" class=\"current\"":""%>><a href="portfolio.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></li>
                     </ul>
                 </div>
