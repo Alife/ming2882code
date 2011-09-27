@@ -26,7 +26,7 @@ namespace Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:2442/Uploads.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.disneyphoto.com.tw/Uploads.asmx")]
         public string Web_DpUploads_Uploads {
             get {
                 return ((string)(this["Web_DpUploads_Uploads"]));
