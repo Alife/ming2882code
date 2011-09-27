@@ -1225,6 +1225,7 @@
     <Content Include="Js\exts\user\staff.js" />
     <Content Include="Js\exts\website\photodetail.js" />
     <Content Include="Js\exts\website\phototype.js" />
+    <Content Include="Js\vswd-ext_2.2.js" />
     <Content Include="Setting.config" />
     <Content Include="Views\ShowPic\Index.aspx" />
     <None Include="Web References\DpUploads\Uploads.disco" />
