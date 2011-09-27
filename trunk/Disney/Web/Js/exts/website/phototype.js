@@ -1,4 +1,5 @@
-﻿phototype = function(node) {
+﻿/// <reference path="../../vswd-ext_2.2.js" />
+phototype = function(node) {
     var levels = {};
     levels.select = GetIsLevel(node.attributes.Code, 'select');
     levels.add = GetIsLevel(node.attributes.Code, 'add');
@@ -167,7 +168,7 @@
         items: [
                 { xtype: 'hidden', name: 'ID', hidden: false },
                 { xtype: 'textfield', name: 'Name', fieldLabel: '名称', width: 180, allowBlank: false },
-                { xtype: 'textfield', name: 'Code', fieldLabel: '编号', width: 180, allowBlank: false },
+                { xtype: 'textfield', name: 'Code', fieldLabel: '编号', width: 180 },
                 {
                     xtype: 'combo', mode: 'local', triggerAction: 'all', forceSelection: true, editable: false, emptyText: '---请选择---',
                     fieldLabel: '父类', name: 'ParentID', hiddenName: 'ParentID', displayField: 'Name', valueField: 'ID', width: 180,
