@@ -35,6 +35,16 @@ namespace BLL
             return data;
         }
 
+        public static List<web_PhotoType> GetList(string code)
+        {
+            string key = "web_PhotoType-all-" + code;
+            if (BaseObject.Cache[key] != null)
+                return (List<web_PhotoType>)BaseObject.Cache[key];
+            List<web_PhotoType> data = DataFactory.web_PhotoTypeData().GetList(code);
+            BaseObject.CacheData(key, data);
+            return data;
+        }
+
         public static int Insert(web_PhotoType item)
         {
             int num = DataFactory.web_PhotoTypeData().Insert(item);
