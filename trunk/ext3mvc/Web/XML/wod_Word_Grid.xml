@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entity>
+  <GridList>
+    <Grid ID="wod_Word_Grid" Code="10000" Text="字典功能" AllowEdit="true" HasChecked="true" Url="sys/wordlist" Region="center">
+      <Column Field="ID_wod" HeaderText="ID" FieldType="int" Sortable="true" Hidden="true" Width="50"/>
+      <Column Field="Code_wod" HeaderText="代码" FieldType="string" Sortable="true" Width="100"/>
+      <Column Field="Text_wod" HeaderText="名称" FieldType="string" Sortable="true" Width="120"/>
+      <Column Field="Sort_wod" HeaderText="排序" FieldType="string" Sortable="true" Width="50"/>
+      <ChildGrid>
+        <Grid ID="wcd_WordChild_Grid" Text="字典明细" AllowEdit="true" HasChecked="true" Url="sys/wordchildlist/{0}" Region="south" width="300">
+          <Column Field="ID_wcd" HeaderText="ID" FieldType="int" Hidden="true" Width="50"/>
+          <Column Field="Code_wcd" HeaderText="拼音缩写" FieldType="string" Width="100"/>
+          <Column Field="Text_wcd" HeaderText="名称" FieldType="string" Width="120"/>
+          <Column Field="Sort_wcd" HeaderText="排序" FieldType="string" Width="50"/>
+        </Grid>
+      </ChildGrid>
+    </Grid>
+  </GridList>
+  <QueryList>
+    <Query ID="wod_Word_Query" Code="10000" Region="north" width="40">
+      <Column Field="ID_wod" FieldLabel="ID" FieldType="string" ControlType="numberfield"/>
+      <Column Field="Code_wod" FieldLabel="代码" FieldType="int" ControlType="textfield" MaxLength="50"/>
+      <Column Field="Text_wod" FieldLabel="名称" FieldType="string" ControlType="textfield" MaxLength="50"/>
+    </Query>
+  </QueryList>
+  <FormList>
+    <Form ID="wod_Word_From" Code="10000" Text="字典功能维护" WinWidth="400" WinHeight="0">
+      <!--<Tab tabIndex="0" Text="基本信息">-->
+      <!--<Container Layout="hbox" ControlType="textfield" LabelAlign="right" LabelWidth="60" Width="200">-->
+      <!--DIV宽度为原则的排版方式-->
+      <Column Field="ID_wod" FieldLabel="ID" ControlType="hiddenfield" width="0"/>
+      <Column Field="Code_wod" FieldLabel="代码" ControlType="textfield" MaxLength="50" AllowBlank="false">
+        <Validator Url="sys/wordcheckCode" Error="代码已存在，请重新填写"/>
+        <!--<Validator>
+          <![CDATA[
+          validator: {
+                        fn: function(code) {
+                            if (code) {
+                                var oldcode = ''; if (this.winType == 'edit') oldcode = this.getSelectionModel().getSelection()[0].data.Code;
+                                var json = ming.ajax({ url: 'sys/wordCheckCode', params: { code: code, oldcode: oldcode }, isEecode: true });
+                                if (json.success) return json.success;
+                                else return '代码已存在，请重新填写';
+                            } return true;
+                        }, scope: this.me
+                    }
+          ]]>
+        </Validator>-->
+        <!--验证是否存在，如果Validator节点有内容则以内容输出，否则默认方法-->
+      </Column>
+      <Column Field="Text_wod" FieldLabel="名称" ControlType="textfield" MaxLength="50" AllowBlank="false"/>
+      <Column Field="Sort_wod" FieldLabel="排序" ControlType="numberfield" MaxLength="10" AllowBlank="false" LabelWidth="50"/>
+      <!--</Container>-->
+      <!--</Tab>-->
+    </Form>
+  </FormList>
+  <ToolBarList>
+    <ToolBar Code="10000">
+      <GridButtons>
+        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="icon-add" OpenType="win_from" OpenWinID="wod_Word_From" Url="sys/wordadd" Handler="this._add" IsDynamics="false"/>
+        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="icon-edit" OpenType="win_from" OpenWinID="wod_Word_From" Url="sys/wordedit" Handler="this._edit" IsDynamics="false" Disabled="true" Ref="editBtn"/>
+        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="icon-edit" Handler="this._del" Disabled="true" Ref="delBtn"/>
+        <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="icon-refresh" Handler="this._refresh"/>
+        <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="icon-report" Handler="this._report"/>
+      </GridButtons>
+      <FormButtons>
+        <Button RuleName="add,edit" Text="保存" ToolTip="保存" Handler="this._save"/>
+        <Button RuleName="add,edit" Text="保存并新建" ToolTip="保存并新建" Handler="this._save(),this._add()"/>
+        <Button RuleName="add,edit" Text="保存并关闭" ToolTip="保存并关闭" Handler="this._save(),this._close()"/>
+        <Button RuleName="" Text="关闭" ToolTip="关闭" Handler="this._close"/>
+      </FormButtons>
+      <QueryButtons>
+        <Button RuleName="select" Text="保存" ToolTip="保存" Handler="this._refresh"/>
+        <Button RuleName="select" Text="清空" ToolTip="清空" Handler="this._reset"/>
+      </QueryButtons>
+    </ToolBar>
+  </ToolBarList>
+</Entity>
