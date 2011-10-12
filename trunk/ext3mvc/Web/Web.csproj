@@ -1667,6 +1667,7 @@
     <Content Include="Js\ValidateSession.js" />
     <Content Include="Js\View\DynamicGrid.js" />
     <Content Include="Js\View\fundyngird.js" />
+    <Content Include="Js\View\JScript1.js" />
     <Content Include="Js\View\ResourcePanel.js" />
     <Content Include="Js\View\ResourcePanel1.js" />
     <Content Include="Js\View\ResourcePanel2.js" />
