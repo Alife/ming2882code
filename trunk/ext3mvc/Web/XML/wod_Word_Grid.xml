@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entity>
   <GridList>
-    <Grid ID="wod_Word_Grid" Code="10000" Text="字典功能" AllowEdit="true" HasChecked="true" Url="sys/wordlist" Region="center">
+    <Grid ID="wod_Word_Grid" Code="10000" Text="字典功能" AllowEdit="true" HasChecked="true" Url="sys/wordlist" KeyID="ID_wod" Region="center">
       <Column Field="ID_wod" HeaderText="ID" FieldType="int" Sortable="true" Hidden="true" Width="50"/>
       <Column Field="Code_wod" HeaderText="代码" FieldType="string" Sortable="true" Width="100"/>
       <Column Field="Text_wod" HeaderText="名称" FieldType="string" Sortable="true" Width="120"/>
       <Column Field="Sort_wod" HeaderText="排序" FieldType="string" Sortable="true" Width="50"/>
+      <Rowdblclick Hander="_edit"></Rowdblclick>
       <ChildGrid>
         <Grid ID="wcd_WordChild_Grid" Text="字典明细" AllowEdit="true" HasChecked="true" Url="sys/wordchildlist/{0}" Region="south" width="300">
           <Column Field="ID_wcd" HeaderText="ID" FieldType="int" Hidden="true" Width="50"/>
@@ -18,9 +19,11 @@
   </GridList>
   <QueryList>
     <Query ID="wod_Word_Query" Code="10000" Region="north" width="40">
-      <Column Field="ID_wod" FieldLabel="ID" FieldType="string" ControlType="numberfield"/>
-      <Column Field="Code_wod" FieldLabel="代码" FieldType="int" ControlType="textfield" MaxLength="50"/>
-      <Column Field="Text_wod" FieldLabel="名称" FieldType="string" ControlType="textfield" MaxLength="50"/>
+      <Container Layout="column">
+        <Column Field="ID_wod" FieldLabel="ID" FieldType="string" ControlType="numberfield" LabelWidth="50" ColumnWidth=".2" Layout="form"/>
+        <Column Field="Code_wod" FieldLabel="代码" FieldType="int" ControlType="textfield" MaxLength="50" LabelWidth="50" ColumnWidth=".2" Layout="form"/>
+        <Column Field="Text_wod" FieldLabel="名称" FieldType="string" ControlType="textfield" MaxLength="50" LabelWidth="50" ColumnWidth=".6" Layout="form"/>
+      </Container>
     </Query>
   </QueryList>
   <FormList>
@@ -56,11 +59,11 @@
   <ToolBarList>
     <ToolBar Code="10000">
       <GridButtons>
-        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="icon-add" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_add" IsDynamics="false"/>
-        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="icon-edit" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_edit" IsDynamics="false" DetailUrl="sys/worddetail/" KeyID="" Disabled="true" Ref="editBtn"/>
-        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="icon-edit" Handler="_del" DeleteUrl="sys/worddel/" KeyID="ID_wod" Disabled="true" Ref="delBtn"/>
-        <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="icon-report" Handler="_report"/>
-        <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="icon-refresh" Handler="_refresh"/>
+        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="add" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_add" IsDynamics="false"/>
+        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="edit" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_edit" IsDynamics="false" DetailUrl="sys/worddetail/" Disabled="true" Ref="editBtn"/>
+        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="edit" Handler="_del" DeleteUrl="sys/worddel/" Disabled="true" Ref="delBtn"/>
+        <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="report" Handler="_report"/>
+        <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="refresh" Handler="_refresh"/>
       </GridButtons>
       <FormButtons>
         <Button RuleName="add,edit" Text="保存" ToolTip="保存" Handler="_save" AddUrl="sys/wordadd" EditUrl="sys/wordedit"/>
@@ -69,8 +72,8 @@
         <Button RuleName="" Text="关闭" ToolTip="关闭" Handler="_close"/>
       </FormButtons>
       <QueryButtons>
-        <Button RuleName="select" Text="保存" ToolTip="保存" Handler="_refresh"/>
-        <Button RuleName="select" Text="清空" ToolTip="清空" Handler="_reset"/>
+        <Button RuleName="" Text="查询" ToolTip="查询"/>
+        <Button RuleName="" Text="清空" ToolTip="清空"/>
       </QueryButtons>
     </ToolBar>
   </ToolBarList>
