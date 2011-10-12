@@ -31,7 +31,7 @@ namespace Web.Controllers
             lst.Add(new { id = 1, text = "动态GRID", jsUrl = "/js/view/DynamicGrid.js;/js/view/fundyngird.js", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.DynamicGrid", mainClass = "com.ms.basic.DynamicGrid" });
             lst.Add(new { id = 2, text = "功能测试2", jsUrl = "/js/view/ResourcePanel.js", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel", mainClass = "com.ms.basic.ResourcePanel" });
             lst.Add(new { id = 3, text = "功能测试3", jsUrl = "/js/view/ResourcePanel1.js", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel1", mainClass = "com.ms.basic.ResourcePanel1" });
-            lst.Add(new { id = 4, text = "功能测试4", jsUrl = "", url = "/home/loadxmlGrid", leaf = true, path = 1, type = "loadjs", namespace1 = "wod_Word_Grid", mainClass = "wod_Word_Grid" }); 
+            lst.Add(new { id = 4, text = "功能测试4", jsUrl = "", url = "/home/loadxmlGrid", leaf = true, path = 1, type = "loadjs", namespace1 = "wod_Word_Grid_Panel", mainClass = "wod_Word_Grid_Panel" }); 
             if (parantNodeId != 3)
                 return Json(lst, JsonRequestBehavior.AllowGet);
             return Json("", JsonRequestBehavior.AllowGet);
