@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Class\ReaderXml.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SysController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1665,9 +1666,9 @@
     <Content Include="Js\Util\export.js" />
     <Content Include="Js\Util\gridToExcel.js" />
     <Content Include="Js\ValidateSession.js" />
+    <Content Include="Js\View\ClientLibrary1.js" />
     <Content Include="Js\View\DynamicGrid.js" />
     <Content Include="Js\View\fundyngird.js" />
-    <Content Include="Js\View\JScript1.js" />
     <Content Include="Js\View\ResourcePanel.js" />
     <Content Include="Js\View\ResourcePanel1.js" />
     <Content Include="Js\View\ResourcePanel2.js" />
