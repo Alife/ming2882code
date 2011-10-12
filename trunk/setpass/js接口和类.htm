@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>js接口和类</title>
+<style type="text/css">code{display:block;}</style>
+</head>
+<body>
+<script type="text/javascript">
+    function run(v) {
+        eval(document.getElementById('code' + v).value);
+    }
+</script>
+<p>
+<textarea id="code1" rows="15" style="width:100%;">
+var Box = function() {}
+//Box.prototype.construtor.construtor.prototype.make = function(n, f) {
+Function.prototype.make = function(n, f) {
+    this.prototype[n] = f;
+}
+Box.make("set", function(x) {
+    this.x = x;
+})
+Box.make("get", function() {
+    return this.x;
+})
+var box = new Box();
+box.set('1');
+alert(box.get());
+</textarea>
+<input type="button" value="执行" onclick="run('1');" />
+<textarea id="code2" rows="15" style="width:100%;">
+Function.prototype.make = function(n, f) {
+    this.prototype[n] = f;
+    return this;
+}
+var Box = function() {}
+Box.make("set", function(x) {
+    this.x = x;
+}).make("get", function() {
+    return this.x;
+}).make("add", function() {
+    return this.x + this.x;
+})
+var box = new Box();
+box.set(1);
+alert(box.get());
+alert(box.add(3));
+</textarea>
+<input type="button" value="执行" onclick="run('2');" />
+</p>
+</body>
+</html>
