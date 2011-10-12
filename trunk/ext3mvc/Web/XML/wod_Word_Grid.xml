@@ -36,12 +36,12 @@
           validator: {
                         fn: function(code) {
                             if (code) {
-                                var oldcode = ''; if (this.winType == 'edit') oldcode = this.getSelectionModel().getSelection()[0].data.Code;
+                                var oldcode = ''; if (winType == 'edit') oldcode = getSelectionModel().getSelection()[0].data.Code;
                                 var json = ming.ajax({ url: 'sys/wordCheckCode', params: { code: code, oldcode: oldcode }, isEecode: true });
                                 if (json.success) return json.success;
                                 else return '代码已存在，请重新填写';
                             } return true;
-                        }, scope: this.me
+                        }, scope: me
                     }
           ]]>
         </Validator>-->
@@ -56,21 +56,21 @@
   <ToolBarList>
     <ToolBar Code="10000">
       <GridButtons>
-        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="icon-add" OpenType="win_from" OpenWinID="wod_Word_From" Url="sys/wordadd" Handler="this._add" IsDynamics="false"/>
-        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="icon-edit" OpenType="win_from" OpenWinID="wod_Word_From" Url="sys/wordedit" Handler="this._edit" IsDynamics="false" Disabled="true" Ref="editBtn"/>
-        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="icon-edit" Handler="this._del" Disabled="true" Ref="delBtn"/>
-        <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="icon-refresh" Handler="this._refresh"/>
-        <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="icon-report" Handler="this._report"/>
+        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="icon-add" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_add" IsDynamics="false"/>
+        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="icon-edit" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_edit" IsDynamics="false" DetailUrl="sys/worddetail/" KeyID="" Disabled="true" Ref="editBtn"/>
+        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="icon-edit" Handler="_del" DeleteUrl="sys/worddel/" KeyID="ID_wod" Disabled="true" Ref="delBtn"/>
+        <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="icon-report" Handler="_report"/>
+        <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="icon-refresh" Handler="_refresh"/>
       </GridButtons>
       <FormButtons>
-        <Button RuleName="add,edit" Text="保存" ToolTip="保存" Handler="this._save"/>
-        <Button RuleName="add,edit" Text="保存并新建" ToolTip="保存并新建" Handler="this._save(),this._add()"/>
-        <Button RuleName="add,edit" Text="保存并关闭" ToolTip="保存并关闭" Handler="this._save(),this._close()"/>
-        <Button RuleName="" Text="关闭" ToolTip="关闭" Handler="this._close"/>
+        <Button RuleName="add,edit" Text="保存" ToolTip="保存" Handler="_save" AddUrl="sys/wordadd" EditUrl="sys/wordedit"/>
+        <Button RuleName="add,edit" Text="保存并新建" ToolTip="保存并新建" Handler="_save(),_add()"/>
+        <Button RuleName="add,edit" Text="保存并关闭" ToolTip="保存并关闭" Handler="_save(),_close()"/>
+        <Button RuleName="" Text="关闭" ToolTip="关闭" Handler="_close"/>
       </FormButtons>
       <QueryButtons>
-        <Button RuleName="select" Text="保存" ToolTip="保存" Handler="this._refresh"/>
-        <Button RuleName="select" Text="清空" ToolTip="清空" Handler="this._reset"/>
+        <Button RuleName="select" Text="保存" ToolTip="保存" Handler="_refresh"/>
+        <Button RuleName="select" Text="清空" ToolTip="清空" Handler="_reset"/>
       </QueryButtons>
     </ToolBar>
   </ToolBarList>
