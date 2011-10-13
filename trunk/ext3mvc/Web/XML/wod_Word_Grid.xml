@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entity>
   <GridList>
-    <Grid ID="wod_Word_Grid" Code="10000" Text="字典功能" AllowEdit="true" HasChecked="true" Url="sys/wordlist" KeyID="ID_wod" Region="center">
+    <Grid ID="wod_Word_Grid" Code="10000" Text="字典功能" IsPage="true" PageSize="20" AllowEdit="true" HasChecked="true" Url="sys/wordlist" KeyID="ID_wod" Region="center">
       <Column Field="ID_wod" HeaderText="ID" FieldType="int" Sortable="true" Hidden="true" Width="50"/>
       <Column Field="Code_wod" HeaderText="代码" FieldType="string" Sortable="true" Width="100"/>
       <Column Field="Text_wod" HeaderText="名称" FieldType="string" Sortable="true" Width="120"/>
       <Column Field="Sort_wod" HeaderText="排序" FieldType="string" Sortable="true" Width="50"/>
       <Rowdblclick Hander="_edit"></Rowdblclick>
       <ChildGrid>
-        <Grid ID="wcd_WordChild_Grid" Text="字典明细" AllowEdit="true" HasChecked="true" Url="sys/wordchildlist/{0}" Region="south" width="300">
+        <Grid ID="wcd_WordChild_Grid" Text="字典明细" IsPage="true" PageSize="20" AllowEdit="true" HasChecked="true" Url="sys/wordchildlist/{0}" Region="south" width="300">
           <Column Field="ID_wcd" HeaderText="ID" FieldType="int" Hidden="true" Width="50"/>
           <Column Field="Code_wcd" HeaderText="拼音缩写" FieldType="string" Width="100"/>
           <Column Field="Text_wcd" HeaderText="名称" FieldType="string" Width="120"/>
