@@ -93,20 +93,16 @@
     <Content Include="ExtJs\resources\css\debug.css" />
     <Content Include="ExtJs\resources\css\ext-all-notheme.css" />
     <Content Include="ExtJs\resources\css\ext-all.css" />
-    <Content Include="ExtJs\resources\css\indigo\button\!cfRename_log20080212064700.txt" />
     <Content Include="ExtJs\resources\css\indigo\button_btn-arrow.gif" />
     <Content Include="ExtJs\resources\css\indigo\button_btn-sprite.gif" />
-    <Content Include="ExtJs\resources\css\indigo\editor\!cfRename_log20080212064727.txt" />
     <Content Include="ExtJs\resources\css\indigo\editor_tb-sprite.gif" />
     <Content Include="ExtJs\resources\css\indigo\example.gif" />
-    <Content Include="ExtJs\resources\css\indigo\form\!cfRename_log20080212064742.txt" />
     <Content Include="ExtJs\resources\css\indigo\form_clear-trigger.gif" />
     <Content Include="ExtJs\resources\css\indigo\form_date-trigger.gif" />
     <Content Include="ExtJs\resources\css\indigo\form_search-trigger.gif" />
     <Content Include="ExtJs\resources\css\indigo\form_trigger-tpl.gif" />
     <Content Include="ExtJs\resources\css\indigo\form_trigger.gif" />
     <Content Include="ExtJs\resources\css\indigo\gradient-bg.gif" />
-    <Content Include="ExtJs\resources\css\indigo\grid\!cfRename_log20080212064801.txt" />
     <Content Include="ExtJs\resources\css\indigo\grid_arrow-left-white.gif" />
     <Content Include="ExtJs\resources\css\indigo\grid_arrow-right-white.gif" />
     <Content Include="ExtJs\resources\css\indigo\grid_col-move-bottom.gif" />
@@ -136,12 +132,10 @@
     <Content Include="ExtJs\resources\css\indigo\grid_row-sel.gif" />
     <Content Include="ExtJs\resources\css\indigo\grid_sort_asc.gif" />
     <Content Include="ExtJs\resources\css\indigo\grid_sort_desc.gif" />
-    <Content Include="ExtJs\resources\css\indigo\menu\!cfRename_log20080212064825.txt" />
     <Content Include="ExtJs\resources\css\indigo\menu_item-over - Copy.gif" />
     <Content Include="ExtJs\resources\css\indigo\menu_item-over.gif" />
     <Content Include="ExtJs\resources\css\indigo\menu_menu-parent.gif" />
     <Content Include="ExtJs\resources\css\indigo\menu_menu.gif" />
-    <Content Include="ExtJs\resources\css\indigo\panel\!cfRename_log20080212064846.txt" />
     <Content Include="ExtJs\resources\css\indigo\panel_corners-sprite.gif" />
     <Content Include="ExtJs\resources\css\indigo\panel_left-right.gif" />
     <Content Include="ExtJs\resources\css\indigo\panel_light-hd.gif" />
@@ -153,19 +147,15 @@
     <Content Include="ExtJs\resources\css\indigo\panel_white-corners-sprite.gif" />
     <Content Include="ExtJs\resources\css\indigo\panel_white-left-right.gif" />
     <Content Include="ExtJs\resources\css\indigo\panel_white-top-bottom.gif" />
-    <Content Include="ExtJs\resources\css\indigo\progress\!cfRename_log20080212064905.txt" />
     <Content Include="ExtJs\resources\css\indigo\progress_progress-bg.gif" />
-    <Content Include="ExtJs\resources\css\indigo\qtip\!cfRename_log20080212064925.txt" />
     <Content Include="ExtJs\resources\css\indigo\qtip_bg.gif" />
     <Content Include="ExtJs\resources\css\indigo\qtip_close.gif" />
     <Content Include="ExtJs\resources\css\indigo\qtip_tip-sprite.gif" />
     <Content Include="ExtJs\resources\css\indigo\s.gif" />
-    <Content Include="ExtJs\resources\css\indigo\shared\!cfRename_log20080212064944.txt" />
     <Content Include="ExtJs\resources\css\indigo\shared_glass-bg.gif" />
     <Content Include="ExtJs\resources\css\indigo\shared_hd-sprite.gif" />
     <Content Include="ExtJs\resources\css\indigo\shared_left-btn.gif" />
     <Content Include="ExtJs\resources\css\indigo\shared_right-btn.gif" />
-    <Content Include="ExtJs\resources\css\indigo\sizer\!cfRename_log20080212065001.txt" />
     <Content Include="ExtJs\resources\css\indigo\sizer_e-handle-dark.gif" />
     <Content Include="ExtJs\resources\css\indigo\sizer_e-handle.gif" />
     <Content Include="ExtJs\resources\css\indigo\sizer_ne-handle-dark.gif" />
@@ -179,7 +169,6 @@
     <Content Include="ExtJs\resources\css\indigo\sizer_square.gif" />
     <Content Include="ExtJs\resources\css\indigo\sizer_sw-handle-dark.gif" />
     <Content Include="ExtJs\resources\css\indigo\sizer_sw-handle.gif" />
-    <Content Include="ExtJs\resources\css\indigo\tabs\!cfRename_log20080212065051.txt" />
     <Content Include="ExtJs\resources\css\indigo\tabs_scroll-left.gif" />
     <Content Include="ExtJs\resources\css\indigo\tabs_scroll-right.gif" />
     <Content Include="ExtJs\resources\css\indigo\tabs_scroller-bg.gif" />
@@ -192,7 +181,6 @@
     <Content Include="ExtJs\resources\css\indigo\tabs_tab-strip-bg.png" />
     <Content Include="ExtJs\resources\css\indigo\tabs_tab-strip-btm-bg.gif" />
     <Content Include="ExtJs\resources\css\indigo\tabs_tabs-sprite.gif" />
-    <Content Include="ExtJs\resources\css\indigo\toolbar\!cfRename_log20080212065127.txt" />
     <Content Include="ExtJs\resources\css\indigo\toolbar_bg.gif" />
     <Content Include="ExtJs\resources\css\indigo\toolbar_btn-arrow-light.gif" />
     <Content Include="ExtJs\resources\css\indigo\toolbar_btn-arrow.gif" />
@@ -200,7 +188,6 @@
     <Content Include="ExtJs\resources\css\indigo\toolbar_gray-bg.gif" />
     <Content Include="ExtJs\resources\css\indigo\toolbar_tb-bg.gif" />
     <Content Include="ExtJs\resources\css\indigo\toolbar_tb-btn-sprite.gif" />
-    <Content Include="ExtJs\resources\css\indigo\window\!cfRename_log20080212065155.txt" />
     <Content Include="ExtJs\resources\css\indigo\window_icon-error.gif" />
     <Content Include="ExtJs\resources\css\indigo\window_icon-info.gif" />
     <Content Include="ExtJs\resources\css\indigo\window_icon-question.gif" />
@@ -395,7 +382,6 @@
     <Content Include="ExtJs\resources\css\pink\window\left-right.png" />
     <Content Include="ExtJs\resources\css\pink\window\right-corners.png" />
     <Content Include="ExtJs\resources\css\pink\window\top-bottom.png" />
-    <Content Include="ExtJs\resources\css\README.txt" />
     <Content Include="ExtJs\resources\css\reset-min.css" />
     <Content Include="ExtJs\resources\css\silverCherry\box_corners-blue.gif" />
     <Content Include="ExtJs\resources\css\silverCherry\box_corners.gif" />
@@ -1666,7 +1652,6 @@
     <Content Include="Js\Util\export.js" />
     <Content Include="Js\Util\gridToExcel.js" />
     <Content Include="Js\ValidateSession.js" />
-    <Content Include="Js\View\ClientLibrary1.js" />
     <Content Include="Js\View\DynamicGrid.js" />
     <Content Include="Js\View\fundyngird.js" />
     <Content Include="Js\View\ResourcePanel.js" />
@@ -1681,32 +1666,13 @@
     <Content Include="XSLT\Grid.xslt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ExtJs\resources\css\indigo\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\box\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\button\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\dd\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\editor\Thumbs.db" />
     <None Include="ExtJs\resources\css\pink\form\clear-trigger.psd" />
     <None Include="ExtJs\resources\css\pink\form\date-trigger.psd" />
     <None Include="ExtJs\resources\css\pink\form\search-trigger.psd" />
-    <None Include="ExtJs\resources\css\pink\form\Thumbs.db" />
     <None Include="ExtJs\resources\css\pink\form\trigger.psd" />
-    <None Include="ExtJs\resources\css\pink\grid\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\layout\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\menu\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\panel\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\progress\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\qtip\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\shared\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\sizer\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\tabs\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\toolbar\Thumbs.db" />
-    <None Include="ExtJs\resources\css\pink\tree\Thumbs.db" />
     <None Include="ExtJs\resources\css\pink\window\left-corners.psd" />
     <None Include="ExtJs\resources\css\pink\window\left-right.psd" />
     <None Include="ExtJs\resources\css\pink\window\right-corners.psd" />
-    <None Include="ExtJs\resources\css\pink\window\Thumbs.db" />
     <None Include="ExtJs\resources\css\pink\window\top-bottom.psd" />
     <None Include="ExtJs\resources\images\access\form\clear-trigger.psd" />
     <None Include="ExtJs\resources\images\access\form\date-trigger.psd" />
@@ -1804,6 +1770,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ExtJs\resources\css\indigo\button\" />
+    <Folder Include="ExtJs\resources\css\indigo\editor\" />
+    <Folder Include="ExtJs\resources\css\indigo\form\" />
+    <Folder Include="ExtJs\resources\css\indigo\grid\" />
+    <Folder Include="ExtJs\resources\css\indigo\menu\" />
+    <Folder Include="ExtJs\resources\css\indigo\panel\" />
+    <Folder Include="ExtJs\resources\css\indigo\progress\" />
+    <Folder Include="ExtJs\resources\css\indigo\qtip\" />
+    <Folder Include="ExtJs\resources\css\indigo\shared\" />
+    <Folder Include="ExtJs\resources\css\indigo\sizer\" />
+    <Folder Include="ExtJs\resources\css\indigo\tabs\" />
+    <Folder Include="ExtJs\resources\css\indigo\toolbar\" />
+    <Folder Include="ExtJs\resources\css\indigo\window\" />
     <Folder Include="ExtJs\resources\images\vista\dd\" />
     <Folder Include="ExtJs\resources\images\vista\tree\" />
     <Folder Include="Models\" />

@@ -4,7 +4,7 @@
   <xsl:output method="text" indent="yes"/>
   <xsl:template match="/Page/Query/Container" name="query">
       <xsl:for-each select="Column">
-        {<xsl:if test="@LabelWidth != ''">labelWidth :<xsl:value-of select="@LabelWidth" />,</xsl:if>columnWidth :<xsl:value-of select="@ColumnWidth" />,layout :'<xsl:value-of select="@Layout" />',items:[{ xtype: '<xsl:value-of select="@ControlType" />', name: '<xsl:value-of select="@Field" />_<xsl:value-of select="@FieldType" />', fieldLabel: '<xsl:value-of select="@FieldLabel" />'<xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@LabelWidth != ''">,labelWidth:<xsl:value-of select="@LabelWidth"/></xsl:if><xsl:if test="@MaxLength != ''">,maxLength:'<xsl:value-of select="@MaxLength"/>'</xsl:if><xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@AllowBlank != ''">,allowBlank:<xsl:value-of select="@AllowBlank"/></xsl:if><xsl:if test="@BlankText != ''">,blankText:'<xsl:value-of select="@BlankText"/>'</xsl:if>}]}<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
+        {<xsl:if test="@LabelWidth != ''">labelWidth :<xsl:value-of select="@LabelWidth" />,</xsl:if>columnWidth :<xsl:value-of select="@ColumnWidth" />,layout :'<xsl:value-of select="@Layout" />',items:[{ xtype: '<xsl:value-of select="@ControlType" />', name: '<xsl:value-of select="@Field" />_<xsl:value-of select="@FieldType" />', fieldLabel: '<xsl:value-of select="@FieldLabel" />'<xsl:if test="@Format != ''">,format:<xsl:value-of select="@Format"/></xsl:if><xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@LabelWidth != ''">,labelWidth:<xsl:value-of select="@LabelWidth"/></xsl:if><xsl:if test="@MaxLength != ''">,maxLength:'<xsl:value-of select="@MaxLength"/>'</xsl:if><xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@AllowBlank != ''">,allowBlank:<xsl:value-of select="@AllowBlank"/></xsl:if><xsl:if test="@BlankText != ''">,blankText:'<xsl:value-of select="@BlankText"/>'</xsl:if>}]}<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
       </xsl:for-each>
   </xsl:template>
   <xsl:template match="/Page">
@@ -28,7 +28,7 @@
     </xsl:variable>
     <xsl:value-of select="$ID" />_Panel = Ext.extend(Ext.Panel, {
     initComponent: function() {
-        var sm = new Ext.grid.CheckboxSelectionModel({ singleSelect: true });
+        var sm = new Ext.grid.CheckboxSelectionModel();
         var cm = new Ext.grid.ColumnModel([
 			  <xsl:if test="$HasChecked = 'true'">sm,</xsl:if>
 			  new Ext.grid.RowNumberer(), 
@@ -40,9 +40,8 @@
           proxy: new Ext.data.HttpProxy({ url: '<xsl:value-of select="Grid/@Url"/>' }),
           remoteSort: true,
           reader: new Ext.data.JsonReader({
-              totalProperty: 'total',
-              idProperty: 'id',
-              root: 'data',
+              <xsl:if test="Grid/@IsPage = 'true'">totalProperty: 'total',root: 'data',</xsl:if>
+              idProperty: '<xsl:value-of select="$KeyID" />',
               fields: [
               <xsl:for-each select="Grid/Column">
                 {name:'<xsl:value-of select="@Field"/>'<xsl:if test="@FieldType != ''">,type:'<xsl:value-of select="@FieldType"/>'</xsl:if><xsl:if test="@Mapping != ''">,mapping:'<xsl:value-of select="@Mapping"/>'</xsl:if><xsl:if test="@Renderer != ''">,renderer:<xsl:value-of select="@Renderer"/></xsl:if>}<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
@@ -50,7 +49,10 @@
 			        ]
             })
         });
-        ds.load({ params: { start: 0, limit: 25} });
+        <xsl:choose>
+          <xsl:when test="Grid/@IsPage = 'true'">ds.load({ params: { start: 0, limit: <xsl:value-of select="Grid/@PageSize"/>} });</xsl:when>
+          <xsl:otherwise>ds.load();</xsl:otherwise>
+        </xsl:choose>
         this.<xsl:value-of select="$ID" /> = new Ext.grid.GridPanel({
             <xsl:if test="Grid/@Region != ''">region: '<xsl:value-of select="Grid/@Region"/>',</xsl:if>
             <xsl:if test="Grid/@Width != ''">width: '<xsl:value-of select="Grid/@Width"/>',</xsl:if>
@@ -64,7 +66,7 @@
                 emptyMsg: '没有记录'
             }),</xsl:if>
             tbar: new Ext.Toolbar({
-                buttons: [
+                buttons: [<xsl:if test="$QueryFromID!=''">
 					      {
 					          text: '查询',
 					          iconCls: 'find',
@@ -75,7 +77,7 @@
 					                  this.<xsl:value-of select="$QueryFromID" />.collapse();
 					          },
                     scope: this
-					      },
+					      },</xsl:if>
                 <xsl:for-each select="ToolBar/GridButtons/Button">
 					      {
 					          text: '<xsl:value-of select="@Text"/>',
@@ -109,6 +111,7 @@
         this.<xsl:value-of select="$ID" />.addListener('rowdblclick', function(grid, rowindex, e) {
             this.<xsl:value-of select="Grid/Rowdblclick/@Hander" />();
         });
+        <xsl:if test="$QueryFromID!=''">
         this.<xsl:value-of select="$QueryFromID" /> = new Ext.FormPanel({
             frame: true,
             title: '查询',
@@ -137,13 +140,15 @@
                     <xsl:choose>
                       <xsl:when test="position()=1">
 				              var fv = this.<xsl:value-of select="$QueryFromID" />.getForm().getValues();
-				              ds.baseParams = fv;
-				              ds.load({ params: { start: 0, limit: 20} });
+				              ds.baseParams = fv;<xsl:choose><xsl:when test="Grid/@IsPage = 'true'">
+				              ds.load({ params: { start: 0, limit: <xsl:value-of select="Grid/@PageSize"/>} });</xsl:when>
+                      <xsl:otherwise>ds.load();</xsl:otherwise></xsl:choose>
                       </xsl:when>
                       <xsl:otherwise>
 				              this.<xsl:value-of select="$QueryFromID" />.form.reset();
-				              ds.baseParams = {};
-				              ds.load({ params: { start: 0, limit: 20} });
+				              ds.baseParams = {};<xsl:choose><xsl:when test="Grid/@IsPage = 'true'">
+				              ds.load({ params: { start: 0, limit: <xsl:value-of select="Grid/@PageSize"/>} });</xsl:when>
+                      <xsl:otherwise>ds.load();</xsl:otherwise></xsl:choose>
                       </xsl:otherwise>
                     </xsl:choose>
                   },
@@ -152,13 +157,14 @@
               </xsl:for-each>
 			      ]
         });
+        </xsl:if>
         Ext.apply(this, {
             iconCls: 'tabs',
             autoScroll: false,
             closable: true,
             layout: 'border', 
             border: false,
-            items: [this.<xsl:value-of select="$ID" />,this.<xsl:value-of select="$QueryFromID" />]
+            items: [this.<xsl:value-of select="$ID" /><xsl:if test="$QueryFromID!=''">,this.<xsl:value-of select="$QueryFromID" /></xsl:if>]
         });
     <xsl:value-of select="$ID" />_Panel.superclass.initComponent.apply(this, arguments);
     },
@@ -167,17 +173,23 @@
       <xsl:choose>
       <xsl:when test="@Handler='_add'">
         this.winType='<xsl:value-of select="@Handler"/>';
+        <xsl:choose>
+        <xsl:when test="@OpenType='win_from'">
         this.<xsl:value-of select="@OpenWinID"/>.form.reset();
         <xsl:value-of select="."/>
         this.<xsl:value-of select="@OpenWinID"/>_Win.setTitle('新增<xsl:value-of select="$Text"/>');
-        this.<xsl:value-of select="@OpenWinID"/>_Win.show();
+        this.<xsl:value-of select="@OpenWinID"/>_Win.show();</xsl:when>
+        <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:when test="@Handler='_edit'">
-        this.winType='<xsl:value-of select="@Handler"/>';
+        this.winType='<xsl:value-of select="@Handler"/>'
         <xsl:choose>
-          <xsl:when test="@IsDynamics='false'">this.<xsl:value-of select="@OpenWinID"/>.form.loadRecord(this.<xsl:value-of select="$ID" />.getSelectionModel().getSelection()[0]);</xsl:when>
+        <xsl:when test="@OpenType='win_from'">;
+        <xsl:choose>
+          <xsl:when test="@IsDynamics='false'">this.<xsl:value-of select="@OpenWinID"/>.form.loadRecord(this.<xsl:value-of select="$ID" />.getSelectionModel().getSelections()[0]);</xsl:when>
           <xsl:otherwise>
-            var data = this.<xsl:value-of select="$ID" />.getSelectionModel().getSelection()[0].data;
+            var data = this.<xsl:value-of select="$ID" />.getSelectionModel().getSelections()[0].data;
             this.<xsl:value-of select="@OpenWinID"/>.getForm().load({
             url: '<xsl:value-of select="@DetailUrl"/>' + data.<xsl:value-of select="$KeyID"/>,
             waitMsg: '数据加载中...',
@@ -192,12 +204,14 @@
           </xsl:otherwise>
         </xsl:choose>
         this.<xsl:value-of select="@OpenWinID"/>_Win.setTitle('修改<xsl:value-of select="$Text"/>');
-        this.<xsl:value-of select="@OpenWinID"/>_Win.show();
+        this.<xsl:value-of select="@OpenWinID"/>_Win.show();</xsl:when>
+        <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:when test="@Handler='_del'">
         Ext.MessageBox.confirm('提示', '是否删除选择的记录', function(btn) {
         if (btn != 'yes') {return;}
-        var m = this.<xsl:value-of select="$ID" />.getSelectionModel().getSelection();
+        var m = this.<xsl:value-of select="$ID" />.getSelectionModel().getSelections();
         var ids = [];
         for (var i = 0; i &lt; m.length; i++) ids.push(m[i].get('<xsl:value-of select="$KeyID"/>'));
         Ext.Ajax.request({
@@ -216,10 +230,34 @@
         }
         }
         });
-        });
+        },this);
       </xsl:when>
       <xsl:when test="@Handler='_refresh'">
-        <xsl:value-of select="."/>this.<xsl:value-of select="$ID" />.getStore().reload();
+        <xsl:value-of select="."/>this.<xsl:value-of select="$ID" />.getStore().reload(this.<xsl:value-of select="$ID" />.getStore().lastOptions);
+      </xsl:when>
+      <xsl:when test="@Handler='_report'">
+        var vExportContent = this.<xsl:value-of select="$ID" />.getExcelXml();
+        if (Ext.isIE6 || Ext.isIE7 || Ext.isSafari || Ext.isSafari2 || Ext.isSafari3) {
+        if (! Ext.fly('<xsl:value-of select="$ID" />_Report')) {
+        var frmReport = document.createElement('form');
+        frmReport.id = '<xsl:value-of select="$ID" />_Report';
+        frmReport.name = '<xsl:value-of select="$ID" />_Report';
+        frmReport.className = 'x-hidden';
+        document.body.appendChild(frmReport);
+        }
+        Ext.Ajax.request({
+        url: 'sys/exportexcel',
+        method: 'POST',
+        form: Ext.fly('<xsl:value-of select="$ID" />_Report'),
+        callback: function(o, s, r) {
+        //alert(r.responseText);
+        },
+        isUpload: true,
+        params: {exportContent: vExportContent}
+        })
+        } else {
+        document.location = 'data:application/vnd.ms-excel;base64,' + Base64.encode(vExportContent);
+        }
       </xsl:when>
       <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
     </xsl:choose>

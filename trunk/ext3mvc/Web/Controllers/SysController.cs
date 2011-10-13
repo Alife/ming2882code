@@ -19,5 +19,15 @@ namespace Web.Controllers
             dt.Add("total", lst.Count);
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
+        public FileContentResult exportexcel(string exportContent)
+        {
+            Response.AddHeader("Pragma", "public");
+            Response.AddHeader("Expires", " 0");
+            Response.AddHeader("Cache-Control", " must-revalidate, post-check=0, pre-check=0");
+            Response.AddHeader("Content-Type", "application/force-download");
+            Response.AppendHeader("Content-Disposition", "attachment;filename=\"" + DateTime.Now.ToShortDateString() + ".xls\"");
+            Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8");
+            return File(System.Text.Encoding.GetEncoding("utf-8").GetBytes(exportContent), "application/vnd.ms-excel");
+        }
     }
 }

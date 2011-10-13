@@ -23,7 +23,7 @@
         com.ms.basic.DynamicGrid.superclass.initComponent.apply(this, arguments);
     },
     addForm: function() {
-        alert(this.grid.getId());
+        alert(this.grid.getSelectionModel().getSelections()[0].data.id);
     },
     initMethod: function() {
     }

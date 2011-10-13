@@ -24,7 +24,7 @@
 		<script type="text/javascript" src="/js/CookieTheme.js"></script>
 		<script type="text/javascript" src="/js/util/CommonRenderer.js"></script>
 		<script type="text/javascript" src="/js/util/export.js"></script>
-		
+        <script type="text/javascript" src="/js/util/gridToExcel.js"></script>		
 		<link rel="stylesheet" type="text/css" href="/css/buttons.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/menu.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/mytheme-blue.css"/>

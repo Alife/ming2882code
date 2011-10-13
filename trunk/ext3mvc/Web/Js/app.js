@@ -45,7 +45,25 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
             region: 'center',
             activeTab: 0,
             plugins: new Ext.ux.TabCloseMenu(),
-            items: [{ id: 'welcome-panel', title: 'API Home', html: 'home', iconCls: 'icon-docs', autoScroll: true}]
+            items: [{ id: 'welcome-panel', title: 'API Home', html: 'home', iconCls: 'icon-docs', autoScroll: true}],
+            initEvents: function() {
+                Ext.TabPanel.superclass.initEvents.call(this);
+                //this.on('add', this.onAdd, this, { target: this });
+                this.on('remove', this.onRemove, this, { target: this });
+                this.mon(this.strip, 'mousedown', this.onStripMouseDown, this);
+                this.mon(this.strip, 'contextmenu', this.onStripContextMenu, this);
+                if (this.enableTabScroll) {
+                    this.mon(this.strip, 'mousewheel', this.onWheel, this);
+                }
+                this.mon(this.strip, 'dblclick', this.onTitleDbClick, this);
+            },
+            onTitleDbClick: function(e, target, o) {
+                var t = this.findTargets(e);
+                if (t.item.fireEvent('beforeclose', t.item) !== false && t.item.closable) {
+                    t.item.fireEvent('close', t.item);
+                    this.remove(t.item);
+                }
+            }
         });
         this.mainTab.on('tabchange', this.changeTab, this);
 
@@ -236,7 +254,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
                         myApp.loadMask.hide();
                     });
                 }
-            } 
+            }
             else if (nodeAttr.type == 'jsclass') {
                 var moduleStr = this.findCachedModul(nodeAttr.id);
                 if (moduleStr) {
