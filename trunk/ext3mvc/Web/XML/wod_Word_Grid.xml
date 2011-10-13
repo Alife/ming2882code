@@ -27,7 +27,7 @@
     </Query>
   </QueryList>
   <FormList>
-    <Form ID="wod_Word_From" Code="10000" Text="字典功能维护" WinWidth="400" WinHeight="0">
+    <Form ID="wod_Word_Form" Code="10000" Text="字典功能维护" WinWidth="400" WinHeight="0">
       <!--<Tab tabIndex="0" Text="基本信息">-->
       <!--<Container Layout="hbox" ControlType="textfield" LabelAlign="right" LabelWidth="60" Width="200">-->
       <!--DIV宽度为原则的排版方式-->
@@ -59,9 +59,9 @@
   <ToolBarList>
     <ToolBar Code="10000">
       <GridButtons>
-        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="add" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_add" IsDynamics="false"/>
-        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="edit" OpenType="win_from" OpenWinID="wod_Word_From" Handler="_edit" IsDynamics="false" DetailUrl="sys/worddetail/" Disabled="true" Ref="editBtn"/>
-        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="edit" Handler="_del" DeleteUrl="sys/worddel/" Disabled="true" Ref="delBtn"/>
+        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="add" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_add" IsDynamics="false"/>
+        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="edit" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_edit" IsDynamics="false" DetailUrl="sys/worddetail/" Disabled="true" Ref="editBtn"/>
+        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="del" Handler="_del" DeleteUrl="sys/worddel/" Disabled="true" Ref="delBtn"/>
         <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="report" Handler="_report"/>
         <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="refresh" Handler="_refresh"/>
       </GridButtons>

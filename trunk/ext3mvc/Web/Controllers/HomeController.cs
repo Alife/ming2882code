@@ -28,11 +28,11 @@ namespace Web.Controllers
         public JsonResult getUserTree(int parantNodeId, string menuName)
         {
             ArrayList lst = new ArrayList();
-            lst.Add(new { id = 1, text = "动态GRID", jsUrl = "/js/view/DynamicGrid.js;/js/view/fundyngird.js", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.DynamicGrid", mainClass = "com.ms.basic.DynamicGrid" });
-            lst.Add(new { id = 2, text = "功能测试2", jsUrl = "/js/view/ResourcePanel.js", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel", mainClass = "com.ms.basic.ResourcePanel" });
-            lst.Add(new { id = 3, text = "功能测试3", jsUrl = "/js/view/ResourcePanel1.js", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel1", mainClass = "com.ms.basic.ResourcePanel1" });
-            lst.Add(new { id = 4, text = "功能测试4", jsUrl = "", url = "/home/loadxmlGrid", leaf = true, path = 1, type = "loadjs", namespace1 = "wod_Word_Grid_Panel", mainClass = "wod_Word_Grid_Panel" });
-            lst.Add(new { id = 3, text = "功能测试5", jsUrl = "/js/view/JScript1.js", leaf = true, path = 1, type = "jsclass", namespace1 = "wod_Word_Grid_Panel1", mainClass = "wod_Word_Grid_Panel1" });
+            lst.Add(new { id = 1, text = "动态GRID", jsUrl = "/js/view/DynamicGrid.js;/js/view/fundyngird.js", iconCls = "hotelmanage", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.DynamicGrid", mainClass = "com.ms.basic.DynamicGrid" });
+            lst.Add(new { id = 2, text = "功能测试2", jsUrl = "/js/view/ResourcePanel.js", iconCls = "roomtypeseeicon", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel", mainClass = "com.ms.basic.ResourcePanel" });
+            lst.Add(new { id = 3, text = "功能测试3", jsUrl = "/js/view/ResourcePanel1.js", iconCls = "allmanagemenu", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel1", mainClass = "com.ms.basic.ResourcePanel1" });
+            lst.Add(new { id = 4, text = "功能测试4", jsUrl = "", url = "/home/loadxmlGrid", iconCls = "publishicon", leaf = true, path = 1, type = "loadjs", namespace1 = "wod_Word_Grid_Panel", mainClass = "wod_Word_Grid_Panel" });
+            lst.Add(new { id = 5, text = "功能测试5", jsUrl = "/js/view/JScript1.js", leaf = true, iconCls = "roolrecordicon", path = 1, type = "jsclass", namespace1 = "wod_Word_Grid_Panel1", mainClass = "wod_Word_Grid_Panel1" });
             if (parantNodeId != 3)
                 return Json(lst, JsonRequestBehavior.AllowGet);
             return Json("", JsonRequestBehavior.AllowGet);
