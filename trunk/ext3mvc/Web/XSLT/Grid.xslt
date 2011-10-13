@@ -55,7 +55,7 @@
 		    ]);
         var ds = new Ext.data.Store({
           proxy: new Ext.data.HttpProxy({ url: '<xsl:value-of select="Grid/@Url"/>' }),
-          remoteSort: true,
+          <xsl:if test="Grid/@RemoteSort != ''">remoteSort: true,</xsl:if>
           reader: new Ext.data.JsonReader({
               <xsl:if test="$IsPage = 'true'">totalProperty: 'total',root: 'data',</xsl:if>
               idProperty: '<xsl:value-of select="$KeyID" />',
