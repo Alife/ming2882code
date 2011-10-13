@@ -45,7 +45,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
             region: 'center',
             activeTab: 0,
             plugins: new Ext.ux.TabCloseMenu(),
-            items: [{ id: 'welcome-panel', title: 'API Home', html: 'home', iconCls: 'icon-docs', autoScroll: true}],
+            items: [{ id: 'welcome-panel', title: 'API Home', html: 'home', iconCls: 'homemanage', autoScroll: true}],
             initEvents: function() {
                 Ext.TabPanel.superclass.initEvents.call(this);
                 //this.on('add', this.onAdd, this, { target: this });
@@ -103,7 +103,6 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
         this.themesCombo.on('select', function(c, re, index) {
             Ext.util.CSS.swapStyleSheet('theme', c.getValue());
             cp.set("AdStatEThemeCSS", c.getValue());
-            window.location.reload();
         });
 
         this.btoolBar = new Ext.Toolbar({
@@ -213,7 +212,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
         this.mainTab.add({
             id: 'tab-' + nodeAttr.id,
             title: nodeAttr.text,
-            iconCls: nodeAttr.cls,
+            iconCls: nodeAttr.iconCls,
             closable: true,
             layout: 'fit',
             items: [moduleInstance]
@@ -231,7 +230,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
                 var itemPanel = new Ext.Panel({
                     id: 'tab-' + nodeAttr.id,
                     title: nodeAttr.text,
-                    iconCls: nodeAttr.cls,
+                    iconCls: nodeAttr.iconCls,
                     closable: true,
                     layout: 'fit',
                     html: '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="' + nodeAttr.url + '"></iframe>'
@@ -277,7 +276,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
                 var itemPanel = this.mainTab.add(new Ext.Panel({
                     id: 'tab-' + nodeAttr.id,
                     title: nodeAttr.text,
-                    iconCls: nodeAttr.cls,
+                    iconCls: nodeAttr.iconCls,
                     autoLoad: autoLoad,
                     closable: true,
                     layout: 'fit'

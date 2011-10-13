@@ -23,12 +23,29 @@
     <xsl:variable name="KeyID">
       <xsl:value-of select="Grid/@KeyID"/>
     </xsl:variable> 
-    <xsl:variable name="QueryFromID">
+    <xsl:variable name="IsPage">
+      <xsl:value-of select="Grid/@IsPage"/>
+    </xsl:variable>
+    <xsl:variable name="PageSize">
+      <xsl:value-of select="Grid/@PageSize"/>
+    </xsl:variable>
+    <xsl:variable name="QueryFormID">
       <xsl:value-of select="Query/@ID"/>
+    </xsl:variable>
+    <xsl:variable name="FormID">
+      <xsl:value-of select="Form/@ID"/>
     </xsl:variable>
     <xsl:value-of select="$ID" />_Panel = Ext.extend(Ext.Panel, {
     initComponent: function() {
-        var sm = new Ext.grid.CheckboxSelectionModel();
+        var sm = new Ext.grid.CheckboxSelectionModel({
+            listeners: {
+                selectionchange: function(sm) {
+                    var n = sm.getCount() || 0;
+                    this.<xsl:value-of select="$ID" />.getTopToolbar().getComponent('_delBtn').setDisabled(n == 0);
+                    this.<xsl:value-of select="$ID" />.getTopToolbar().getComponent('_editBtn').setDisabled(n != 1);
+                }, scope: this
+            }
+        });
         var cm = new Ext.grid.ColumnModel([
 			  <xsl:if test="$HasChecked = 'true'">sm,</xsl:if>
 			  new Ext.grid.RowNumberer(), 
@@ -40,7 +57,7 @@
           proxy: new Ext.data.HttpProxy({ url: '<xsl:value-of select="Grid/@Url"/>' }),
           remoteSort: true,
           reader: new Ext.data.JsonReader({
-              <xsl:if test="Grid/@IsPage = 'true'">totalProperty: 'total',root: 'data',</xsl:if>
+              <xsl:if test="$IsPage = 'true'">totalProperty: 'total',root: 'data',</xsl:if>
               idProperty: '<xsl:value-of select="$KeyID" />',
               fields: [
               <xsl:for-each select="Grid/Column">
@@ -50,7 +67,7 @@
             })
         });
         <xsl:choose>
-          <xsl:when test="Grid/@IsPage = 'true'">ds.load({ params: { start: 0, limit: <xsl:value-of select="Grid/@PageSize"/>} });</xsl:when>
+          <xsl:when test="$IsPage = 'true'">ds.load({ params: { start: 0, limit: <xsl:value-of select="$PageSize"/>} });</xsl:when>
           <xsl:otherwise>ds.load();</xsl:otherwise>
         </xsl:choose>
         this.<xsl:value-of select="$ID" /> = new Ext.grid.GridPanel({
@@ -58,32 +75,33 @@
             <xsl:if test="Grid/@Width != ''">width: '<xsl:value-of select="Grid/@Width"/>',</xsl:if>
             <xsl:if test="Grid/@Height != ''">heigth: '<xsl:value-of select="Grid/@Height"/>',</xsl:if>
             border: false,ds: ds,cm: cm,sm: sm,viewConfig: { forceFit: true },
-            <xsl:if test="Grid/@IsPage = 'true'">bbar: new Ext.PagingToolbar({
-                pageSize: <xsl:value-of select="Grid/@PageSize"/>,
+            <xsl:if test="$IsPage = 'true'">bbar: new Ext.PagingToolbar({
+                pageSize: <xsl:value-of select="$PageSize"/>,
                 store: ds,
                 displayInfo: true,
                 displayMsg: '显示第{0}条到{1}条记录,一共{2}条',
                 emptyMsg: '没有记录'
             }),</xsl:if>
             tbar: new Ext.Toolbar({
-                buttons: [<xsl:if test="$QueryFromID!=''">
+                buttons: [<xsl:if test="$QueryFormID!=''">
 					      {
 					          text: '查询',
 					          iconCls: 'find',
 					          handler: function() {
-					              if (this.<xsl:value-of select="$QueryFromID" />.collapsed)
-					                  this.<xsl:value-of select="$QueryFromID" />.expand();
+					              if (this.<xsl:value-of select="$QueryFormID" />.collapsed)
+					                  this.<xsl:value-of select="$QueryFormID" />.expand();
 					              else
-					                  this.<xsl:value-of select="$QueryFromID" />.collapse();
+					                  this.<xsl:value-of select="$QueryFormID" />.collapse();
 					          },
                     scope: this
 					      },</xsl:if>
                 <xsl:for-each select="ToolBar/GridButtons/Button">
 					      {
 					          text: '<xsl:value-of select="@Text"/>',
-                    tooltip: 'this.<xsl:value-of select="@ToolTip"/>',
+                    tooltip: '<xsl:value-of select="@ToolTip"/>',
 					          iconCls: '<xsl:value-of select="@IconCls"/>',
                     handler: this.<xsl:value-of select="@Handler"/>,
+					          <xsl:if test="@Disabled = 'true'">disabled: true, itemId: '<xsl:value-of select="@Handler"/>Btn',</xsl:if>
                     scope: this
 					      }<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
                 </xsl:for-each>
@@ -95,7 +113,7 @@
               <xsl:for-each select="ToolBar/GridButtons/Button">
 					    {
 					        text: '<xsl:value-of select="@Text"/>',
-                  tooltip: 'this.<xsl:value-of select="@ToolTip"/>',
+                  tooltip: '<xsl:value-of select="@ToolTip"/>',
 					        iconCls: '<xsl:value-of select="@IconCls"/>',
                   handler: this.<xsl:value-of select="@Handler"/>,
                   scope: this
@@ -110,9 +128,9 @@
         });
         this.<xsl:value-of select="$ID" />.addListener('rowdblclick', function(grid, rowindex, e) {
             this.<xsl:value-of select="Grid/Rowdblclick/@Hander" />();
-        });
-        <xsl:if test="$QueryFromID!=''">
-        this.<xsl:value-of select="$QueryFromID" /> = new Ext.FormPanel({
+        }, this);
+        <xsl:if test="$QueryFormID!=''">
+        this.<xsl:value-of select="$QueryFormID" /> = new Ext.FormPanel({
             frame: true,
             title: '查询',
             collapsible: true,
@@ -133,21 +151,21 @@
               <xsl:for-each select="ToolBar/QueryButtons/Button">
 					    new Ext.Button({
 					        text: '<xsl:value-of select="@Text"/>',
-                  tooltip: 'this.<xsl:value-of select="@ToolTip"/>',
+                  tooltip: '<xsl:value-of select="@ToolTip"/>',
 					        <xsl:if test="IconCls!=''">iconCls: '<xsl:value-of select="@IconCls"/>',</xsl:if>
 					        <xsl:if test="Width!=''">width: '<xsl:value-of select="@Width"/>',</xsl:if>
                   handler:function() {
                     <xsl:choose>
                       <xsl:when test="position()=1">
-				              var fv = this.<xsl:value-of select="$QueryFromID" />.getForm().getValues();
-				              ds.baseParams = fv;<xsl:choose><xsl:when test="Grid/@IsPage = 'true'">
-				              ds.load({ params: { start: 0, limit: <xsl:value-of select="Grid/@PageSize"/>} });</xsl:when>
+				              var fv = this.<xsl:value-of select="$QueryFormID" />.getForm().getValues();
+				              ds.baseParams = fv;<xsl:choose><xsl:when test="$IsPage = 'true'">
+				              ds.load({ params: { start: 0, limit: <xsl:value-of select="$PageSize"/>} });</xsl:when>
                       <xsl:otherwise>ds.load();</xsl:otherwise></xsl:choose>
                       </xsl:when>
                       <xsl:otherwise>
-				              this.<xsl:value-of select="$QueryFromID" />.form.reset();
-				              ds.baseParams = {};<xsl:choose><xsl:when test="Grid/@IsPage = 'true'">
-				              ds.load({ params: { start: 0, limit: <xsl:value-of select="Grid/@PageSize"/>} });</xsl:when>
+				              this.<xsl:value-of select="$QueryFormID" />.form.reset();
+				              ds.baseParams = {};<xsl:choose><xsl:when test="$IsPage = 'true'">
+				              ds.load({ params: { start: 0, limit: <xsl:value-of select="$PageSize"/>} });</xsl:when>
                       <xsl:otherwise>ds.load();</xsl:otherwise></xsl:choose>
                       </xsl:otherwise>
                     </xsl:choose>
@@ -158,14 +176,57 @@
 			      ]
         });
         </xsl:if>
+        <xsl:if test="$FormID!=''">
+        this.<xsl:value-of select="$FormID" /> = new Ext.FormPanel({
+            frame: true,
+            autoScroll: true,
+            autoHeight: true,
+            split: true,
+            labelAlign: 'right',
+            items: [{ xtype: 'numberfield', name: 'ID_wod', fieldLabel: 'ID', labelWidth: 50 },
+                    { xtype: 'textfield', name: 'Code_wod', fieldLabel: '代码', labelWidth: 50, maxLength: '50' },
+                    { xtype: 'textfield', name: 'Text_wod', fieldLabel: '名称', labelWidth: 50, maxLength: '50' }
+            ],
+            buttons: [
+
+					    new Ext.Button({
+					        text: '保存',
+					        tooltip: '保存',
+
+					        handler: function() {
+					        },
+					        scope: this
+					    }),
+					    new Ext.Button({
+					        text: '取消',
+					        tooltip: '取消',
+
+					        handler: function() {
+					            this.<xsl:value-of select="$FormID" />.form.getEl().dom.reset();
+					            this.<xsl:value-of select="$FormID" />_Win.hide();
+					        },
+					        scope: this
+					    })
+			      ]
+        });
+        this.<xsl:value-of select="$FormID" />_Win = new Ext.Window({
+            title: '编辑',
+            border: false,
+            width: <xsl:value-of select="Form/@WinWidth" />,
+            closeAction: 'hide',
+            plain: true,
+            <xsl:if test="Form/@Model!=''">modal: <xsl:value-of select="Form/@Model" />, </xsl:if>
+            items: [this.<xsl:value-of select="$FormID" />]
+        });
         Ext.apply(this, {
             iconCls: 'tabs',
             autoScroll: false,
             closable: true,
             layout: 'border', 
             border: false,
-            items: [this.<xsl:value-of select="$ID" /><xsl:if test="$QueryFromID!=''">,this.<xsl:value-of select="$QueryFromID" /></xsl:if>]
+            items: [this.<xsl:value-of select="$ID" /><xsl:if test="$QueryFormID!=''">,this.<xsl:value-of select="$QueryFormID" /></xsl:if>]
         });
+        </xsl:if>
     <xsl:value-of select="$ID" />_Panel.superclass.initComponent.apply(this, arguments);
     },
     <xsl:for-each select="ToolBar/GridButtons/Button">
@@ -174,8 +235,8 @@
       <xsl:when test="@Handler='_add'">
         this.winType='<xsl:value-of select="@Handler"/>';
         <xsl:choose>
-        <xsl:when test="@OpenType='win_from'">
-        this.<xsl:value-of select="@OpenWinID"/>.form.reset();
+        <xsl:when test="@OpenType='win_form'">
+        this.<xsl:value-of select="@OpenWinID"/>.form.getEl().dom.reset();
         <xsl:value-of select="."/>
         this.<xsl:value-of select="@OpenWinID"/>_Win.setTitle('新增<xsl:value-of select="$Text"/>');
         this.<xsl:value-of select="@OpenWinID"/>_Win.show();</xsl:when>
@@ -185,7 +246,7 @@
       <xsl:when test="@Handler='_edit'">
         this.winType='<xsl:value-of select="@Handler"/>'
         <xsl:choose>
-        <xsl:when test="@OpenType='win_from'">;
+        <xsl:when test="@OpenType='win_form'">;
         <xsl:choose>
           <xsl:when test="@IsDynamics='false'">this.<xsl:value-of select="@OpenWinID"/>.form.loadRecord(this.<xsl:value-of select="$ID" />.getSelectionModel().getSelections()[0]);</xsl:when>
           <xsl:otherwise>
