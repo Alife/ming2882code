@@ -9,14 +9,14 @@ namespace Web.Controllers
 {
     public class SysController : Controller
     {
-        public JsonResult wordlist()
+        public JsonResult wordlist(int start, int limit)
         {
             ArrayList lst = new ArrayList();
-            lst.Add(new { ID_wod = 1, Code_wod = "1999", Text_wod = "订单状态", Sort_wod = 1 });
-            lst.Add(new { ID_wod = 2, Code_wod = "3229", Text_wod = "生肖", Sort_wod = 2 });
+            for (int i = 0; i < 41; i++)
+                lst.Add(new { ID_wod = 1 + i, Code_wod = 1999 + i, Text_wod = "订单状态" + i, Sort_wod = i });
             Hashtable dt = new Hashtable();
-            dt.Add("data", lst);
-            dt.Add("total", 2);
+            dt.Add("data", lst.ToArray().Skip(start).Take(limit).ToList());
+            dt.Add("total", lst.Count);
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
     }
