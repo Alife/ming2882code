@@ -101,5 +101,16 @@ namespace Web.Controllers
             dt.Add("total", 2);
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
+        public ContentResult icon()
+        {
+            string[] strs = System.IO.Directory.GetFiles(Server.MapPath("/images"), "*.png");
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            foreach (string item in strs)
+            {
+                System.IO.FileInfo fl = new System.IO.FileInfo(item);
+                sb.AppendLine("." + fl.Name.Replace(fl.Extension, string.Empty) + "{background-image:url(../images/" + fl.Name + ") !important;}");
+            }
+            return Content(sb.ToString());
+        }
     }
 }
