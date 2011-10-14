@@ -25,23 +25,8 @@
 		<script type="text/javascript" src="/js/util/CommonRenderer.js"></script>
 		<script type="text/javascript" src="/js/util/export.js"></script>
         <script type="text/javascript" src="/js/util/gridToExcel.js"></script>		
-		<link rel="stylesheet" type="text/css" href="/css/buttons.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/menu.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/icon.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/mytheme-blue.css"/>
-		<style type="text/css">
-			.loading-indicator {
-			    font:bold 13px Helvetica, Arial, Tahoma, Verdana, sans-serif;
-			    position:absolute;
-			    top:35%;
-			    left:43%;
-			    color:#444;
-			    background-image:url(/images/ani_ajaxload.gif);
-			    background-repeat: no-repeat;
-			    background-position:left 5px;
-			    padding:10px 10px 10px 38px;
-				text-align:left;
-			}
-		</style>
 	</head>
 	<body>
 	</body>
