@@ -19,7 +19,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
             layoutConfig: { padding: '0', align: 'top' },
             margins: '0 0 3 0',
             items: [
-				{ xtype: 'label', html: '<img class="icon-logo" src="../images/s.gif">管理系统', flex: 1 },
+				{ xtype: 'label', html: '<img class="logo" src="../images/s.gif">管理系统', flex: 1 },
 				{ id: 'userNameLabel', xtype: "label", html: '欢迎您,admin' }, { xtype: 'spacer', width: 5 },
 				{ id: 'deptNameLabel', xtype: "label", html: '管理部' }
 			]
