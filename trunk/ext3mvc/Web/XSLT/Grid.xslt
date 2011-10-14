@@ -2,11 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:output method="text" indent="yes"/>
-  <xsl:template match="/Page/Query/Container" name="query">
-      <xsl:for-each select="Column">
-        {<xsl:if test="@LabelWidth != ''">labelWidth :<xsl:value-of select="@LabelWidth" />,</xsl:if>columnWidth :<xsl:value-of select="@ColumnWidth" />,layout :'<xsl:value-of select="@Layout" />',items:[{ xtype: '<xsl:value-of select="@ControlType" />', name: '<xsl:value-of select="@Field" />_<xsl:value-of select="@FieldType" />', fieldLabel: '<xsl:value-of select="@FieldLabel" />'<xsl:if test="@Format != ''">,format:<xsl:value-of select="@Format"/></xsl:if><xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@LabelWidth != ''">,labelWidth:<xsl:value-of select="@LabelWidth"/></xsl:if><xsl:if test="@MaxLength != ''">,maxLength:'<xsl:value-of select="@MaxLength"/>'</xsl:if><xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@AllowBlank != ''">,allowBlank:<xsl:value-of select="@AllowBlank"/></xsl:if><xsl:if test="@BlankText != ''">,blankText:'<xsl:value-of select="@BlankText"/>'</xsl:if>}]}<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
-      </xsl:for-each>
-  </xsl:template>
   <xsl:template match="/Page">
     <xsl:variable name="ID">
       <xsl:value-of select="Grid/@ID"/>
@@ -50,7 +45,7 @@
 			  <xsl:if test="$HasChecked = 'true'">sm,</xsl:if>
 			  new Ext.grid.RowNumberer(), 
         <xsl:for-each select="Grid/Column">
-          {header:'<xsl:value-of select="@HeaderText"/>',dataIndex:'<xsl:value-of select="@Field"/>',sortable:<xsl:value-of select="@Sortable"/>,<xsl:if test="@Hidden = 'true'">hidden:<xsl:value-of select="@Hidden"/>,</xsl:if><xsl:if test="@Renderer != ''">renderer:<xsl:value-of select="@Renderer"/>,</xsl:if><xsl:if test="@Width &gt; 0">width:<xsl:value-of select="@Width"/></xsl:if>}<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
+          {header:'<xsl:value-of select="@HeaderText"/>',dataIndex:'<xsl:value-of select="@Field"/>',sortable:<xsl:value-of select="@Sortable"/>,<xsl:if test="@Hidden = 'true'">hidden:<xsl:value-of select="@Hidden"/>,</xsl:if><xsl:if test="@Renderer != ''">renderer:<xsl:value-of select="@Renderer"/>,</xsl:if><xsl:if test="@Width &gt; 0">width:<xsl:value-of select="@Width"/></xsl:if>}<xsl:if test="position()!=last()">,</xsl:if> 
         </xsl:for-each>
 		    ]);
         var ds = new Ext.data.Store({
@@ -61,7 +56,7 @@
               idProperty: '<xsl:value-of select="$KeyID" />',
               fields: [
               <xsl:for-each select="Grid/Column">
-                {name:'<xsl:value-of select="@Field"/>'<xsl:if test="@FieldType != ''">,type:'<xsl:value-of select="@FieldType"/>'</xsl:if><xsl:if test="@Mapping != ''">,mapping:'<xsl:value-of select="@Mapping"/>'</xsl:if><xsl:if test="@Renderer != ''">,renderer:<xsl:value-of select="@Renderer"/></xsl:if>}<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
+                {name:'<xsl:value-of select="@Field"/>'<xsl:if test="@FieldType != ''">,type:'<xsl:value-of select="@FieldType"/>'</xsl:if><xsl:if test="@Mapping != ''">,mapping:'<xsl:value-of select="@Mapping"/>'</xsl:if><xsl:if test="@Renderer != ''">,renderer:<xsl:value-of select="@Renderer"/></xsl:if>}<xsl:if test="position()!=last()">,</xsl:if> 
               </xsl:for-each>
 			        ]
             })
@@ -100,10 +95,10 @@
 					          text: '<xsl:value-of select="@Text"/>',
                     tooltip: '<xsl:value-of select="@ToolTip"/>',
 					          iconCls: '<xsl:value-of select="@IconCls"/>',
-                    handler: this.<xsl:value-of select="@Handler"/>,
+                    handler: this.<xsl:value-of select="$ID"/><xsl:value-of select="@Handler"/>,
 					          <xsl:if test="@Disabled = 'true'">disabled: true, itemId: '<xsl:value-of select="@Handler"/>Btn',</xsl:if>
                     scope: this
-					      }<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
+					      }<xsl:if test="position()!=last()">,</xsl:if> 
                 </xsl:for-each>
 				      ]
             })
@@ -115,9 +110,9 @@
 					        text: '<xsl:value-of select="@Text"/>',
                   tooltip: '<xsl:value-of select="@ToolTip"/>',
 					        iconCls: '<xsl:value-of select="@IconCls"/>',
-                  handler: this.<xsl:value-of select="@Handler"/>,
+                  handler: this.<xsl:value-of select="$ID"/><xsl:value-of select="@Handler"/>,
                   scope: this
-					    }<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
+					    }<xsl:if test="position()!=last()">,</xsl:if> 
               </xsl:for-each>
 			  ]
         });
@@ -143,8 +138,10 @@
             items: [
               <xsl:for-each select="Query/Container">
                 { layout: '<xsl:value-of select="@Layout" />',items:[
-                <xsl:call-template name="query"></xsl:call-template>
-                ]}<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
+                <xsl:for-each select="current()/Column">
+                  {<xsl:if test="@LabelWidth != ''">labelWidth :<xsl:value-of select="@LabelWidth" />,</xsl:if>columnWidth :<xsl:value-of select="@ColumnWidth" />,layout :'<xsl:value-of select="@Layout" />',items:[{ xtype: '<xsl:value-of select="@ControlType" />', name: '<xsl:value-of select="@Field" />_<xsl:value-of select="@FieldType" />', fieldLabel: '<xsl:value-of select="@FieldLabel" />'<xsl:if test="@Format != ''">,format:<xsl:value-of select="@Format"/></xsl:if><xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@LabelWidth != ''">,labelWidth:<xsl:value-of select="@LabelWidth"/></xsl:if><xsl:if test="@MaxLength != ''">,maxLength:'<xsl:value-of select="@MaxLength"/>'</xsl:if><xsl:if test="@Width != ''">,width:<xsl:value-of select="@Width"/></xsl:if><xsl:if test="@AllowBlank != ''">,allowBlank:<xsl:value-of select="@AllowBlank"/></xsl:if><xsl:if test="@BlankText != ''">,blankText:'<xsl:value-of select="@BlankText"/>'</xsl:if>}]}<xsl:if test="position()!=last()">,</xsl:if> 
+                </xsl:for-each>
+                ]}<xsl:if test="position()!=last()">,</xsl:if> 
               </xsl:for-each>
             ],
             buttons: [
@@ -171,7 +168,7 @@
                     </xsl:choose>
                   },
                   scope: this
-					    })<xsl:choose><xsl:when test="position()=last()"></xsl:when><xsl:otherwise>,</xsl:otherwise></xsl:choose>
+					    })<xsl:if test="position()!=last()">,</xsl:if> 						
               </xsl:for-each>
 			      ]
         });
@@ -186,28 +183,7 @@
             items: [{ xtype: 'numberfield', name: 'ID_wod', fieldLabel: 'ID', labelWidth: 50 },
                     { xtype: 'textfield', name: 'Code_wod', fieldLabel: '代码', labelWidth: 50, maxLength: '50' },
                     { xtype: 'textfield', name: 'Text_wod', fieldLabel: '名称', labelWidth: 50, maxLength: '50' }
-            ],
-            buttons: [
-
-					    new Ext.Button({
-					        text: '保存',
-					        tooltip: '保存',
-
-					        handler: function() {
-					        },
-					        scope: this
-					    }),
-					    new Ext.Button({
-					        text: '取消',
-					        tooltip: '取消',
-
-					        handler: function() {
-					            this.<xsl:value-of select="$FormID" />.form.getEl().dom.reset();
-					            this.<xsl:value-of select="$FormID" />_Win.hide();
-					        },
-					        scope: this
-					    })
-			      ]
+            ]
         });
         this.<xsl:value-of select="$FormID" />_Win = new Ext.Window({
             title: '编辑',
@@ -216,7 +192,19 @@
             closeAction: 'hide',
             plain: true,
             <xsl:if test="Form/@Model!=''">modal: <xsl:value-of select="Form/@Model" />, </xsl:if>
-            items: [this.<xsl:value-of select="$FormID" />]
+            items: [this.<xsl:value-of select="$FormID" />],
+            buttons: [
+              <xsl:for-each select="ToolBar/FormButtons/Button">
+					    new Ext.Button({
+					        text: '<xsl:value-of select="@Text"/>',
+                  tooltip: '<xsl:value-of select="@ToolTip"/>',
+					        <xsl:if test="IconCls!=''">iconCls: '<xsl:value-of select="@IconCls"/>',</xsl:if>
+					        <xsl:if test="Width!=''">width: '<xsl:value-of select="@Width"/>',</xsl:if>
+                  handler:this.<xsl:value-of select="$FormID"/><xsl:value-of select="@Handler"/>,
+                  scope: this
+					    })<xsl:if test="position()!=last()">,</xsl:if> 
+              </xsl:for-each>
+			      ]
         });
         Ext.apply(this, {
             iconCls: 'tabs',
@@ -230,13 +218,14 @@
     <xsl:value-of select="$ID" />_Panel.superclass.initComponent.apply(this, arguments);
     },
     <xsl:for-each select="ToolBar/GridButtons/Button">
-    <xsl:value-of select="@Handler"/>:function(){
+    <xsl:value-of select="$ID"/><xsl:value-of select="@Handler"/>:function(){
       <xsl:choose>
       <xsl:when test="@Handler='_add'">
         this.winType='<xsl:value-of select="@Handler"/>';
         <xsl:choose>
         <xsl:when test="@OpenType='win_form'">
-        this.<xsl:value-of select="@OpenWinID"/>.form.getEl().dom.reset();
+        if(this.<xsl:value-of select="@OpenWinID"/>.form.getEl()!=null)
+          this.<xsl:value-of select="@OpenWinID"/>.getForm().reset();
         <xsl:value-of select="."/>
         this.<xsl:value-of select="@OpenWinID"/>_Win.setTitle('新增<xsl:value-of select="$Text"/>');
         this.<xsl:value-of select="@OpenWinID"/>_Win.show();</xsl:when>
@@ -323,6 +312,26 @@
       <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
     </xsl:choose>
     },
+    </xsl:for-each>
+    <xsl:for-each select="ToolBar/FormButtons/Button">
+	<xsl:choose>
+		<xsl:when test="contains(@Handler,'_save')">
+			<xsl:copy>
+				<xsl:value-of select="."/>                
+			</xsl:copy>            
+		</xsl:when>
+		<xsl:otherwise>
+		<xsl:value-of select="$FormID"/><xsl:value-of select="@Handler"/>:function(){
+		  <xsl:choose>
+			<xsl:when test="@Handler='_close'">
+			  this.<xsl:value-of select="$FormID" />.form.getEl().dom.reset();
+			  this.<xsl:value-of select="$FormID" />_Win.hide();
+			</xsl:when>
+			<xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+		  </xsl:choose>
+		},
+		</xsl:otherwise>
+	</xsl:choose>
     </xsl:for-each>
     initMethod: function() {
     }

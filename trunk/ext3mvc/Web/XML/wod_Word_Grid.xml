@@ -59,16 +59,16 @@
   <ToolBarList>
     <ToolBar Code="10000">
       <GridButtons>
-        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="add" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_add" IsDynamics="false"/>
-        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="edit" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_edit" IsDynamics="false" DetailUrl="sys/worddetail/" Disabled="true" Ref="editBtn"/>
-        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="del" Handler="_del" DeleteUrl="sys/worddel/" Disabled="true" Ref="delBtn"/>
+        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="application_add" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_add" IsDynamics="false"/>
+        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="application_edit" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_edit" IsDynamics="false" DetailUrl="sys/worddetail/" Disabled="true" Ref="editBtn"/>
+        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="application_delete" Handler="_del" DeleteUrl="sys/worddel/" Disabled="true" Ref="delBtn"/>
         <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="report" Handler="_report"/>
         <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="refresh" Handler="_refresh"/>
       </GridButtons>
       <FormButtons>
         <Button RuleName="add,edit" Text="保存" ToolTip="保存" Handler="_save" AddUrl="sys/wordadd" EditUrl="sys/wordedit"/>
-        <Button RuleName="add,edit" Text="保存并新建" ToolTip="保存并新建" Handler="_save(),_add()"/>
-        <Button RuleName="add,edit" Text="保存并关闭" ToolTip="保存并关闭" Handler="_save(),_close()"/>
+        <Button RuleName="add,edit" Text="保存并新建" ToolTip="保存并新建" Handler="_save" Query="add"/>
+        <Button RuleName="add,edit" Text="保存并关闭" ToolTip="保存并关闭" Handler="_save" Query="colse"/>
         <Button RuleName="" Text="关闭" ToolTip="关闭" Handler="_close"/>
       </FormButtons>
       <QueryButtons>
