@@ -1635,7 +1635,6 @@
     <Content Include="Js\Util\CommonRenderer.js" />
     <Content Include="Js\Util\export.js" />
     <Content Include="Js\Util\gridToExcel.js" />
-    <Content Include="Js\ValidateSession.js" />
     <Content Include="Js\View\DynamicGrid.js" />
     <Content Include="Js\View\fundyngird.js" />
     <Content Include="Js\View\ResourcePanel.js" />
