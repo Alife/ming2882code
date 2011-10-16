@@ -11,17 +11,16 @@ eddy.office.app = function() {
 Ext.extend(eddy.office.app, Ext.util.Observable, {
     init: function() {
         this.top = new Ext.Panel({
-            region: 'north',
+            region: 'north', collapseMode: 'mini',
             height: 28,
             baseCls: 'x-panel-header',
             cls: 'topCls',
-            layout: 'hbox',
+            //layout: 'hbox',
             layoutConfig: { padding: '0', align: 'top' },
             margins: '0 0 3 0',
             items: [
-				{ xtype: 'label', html: '<img class="logo" src="../images/s.gif">管理系统', flex: 1 },
-				{ id: 'userNameLabel', xtype: "label", html: '欢迎您,admin' }, { xtype: 'spacer', width: 5 },
-				{ id: 'deptNameLabel', xtype: "label", html: '管理部' }
+				{ xtype: 'label', html: '<img class="logo" src="../images/s.gif">管理系统', style: 'float:left;display:block;' },
+				{ id: 'welcomeLabel', xtype: "label", html: '欢迎您,admin 管理部', style: 'float:right;display:block;' }
 			]
         })
 
@@ -30,7 +29,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
             region: 'west',
             split: true,
             border: true,
-            //collapseMode:'mini',//在分割线处出现按钮
+            collapseMode: 'mini', //在分割线处出现按钮
             collapsible: true,
             collapsed: false,
             width: 180,
@@ -156,14 +155,12 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
 	                flex: .5
 	            },
 	            {
-	                text: '收展',
-	                iconCls: 'expand',
+	                text: '收缩',
+	                iconCls: 'application_side_contract',
 	                scope: this,
-	                handler: function() {
-	                    if (this.top.collapsed)
-	                        myApp.top.expand();
-	                    else
-	                        this.top.collapse();
+	                handler: function(b) {
+	                    if (this.top.collapsed) { this.top.expand(); this.MenuTreePanel.expand(); b.setText('收缩'); b.setIconClass('application_side_contract'); }
+	                    else { this.top.collapse(); this.MenuTreePanel.collapse(); b.setText('展开'); b.setIconClass('application_side_expand'); }
 	                }
 	            },
 	            '-',
@@ -329,8 +326,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
             success: function(resp) {
                 var obj = Ext.util.JSON.decode(resp.responseText);
                 Ext.apply(this.userObj, obj);
-                Ext.getCmp('userNameLabel').getEl().update('欢迎您,' + this.userObj.realName);
-                Ext.getCmp('deptNameLabel').getEl().update(this.userObj.userDeptName);
+                Ext.getCmp('welcomeLabel').getEl().update('欢迎您,' + this.userObj.realName + ' ' + this.userObj.userDeptName);
             }
         });
     },
@@ -348,6 +344,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
 
 Ext.onReady(function() {
     Ext.QuickTips.init();
+    Ext.form.Field.prototype.msgTarget = 'side';
     myApp = new eddy.office.app();
     myApp.loadUserInfo();
 
