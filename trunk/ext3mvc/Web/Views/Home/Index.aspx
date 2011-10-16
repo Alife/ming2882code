@@ -18,12 +18,7 @@
 		<script type="text/javascript" src="/js/TabCloseMenu.js"></script>
 		<script type="text/javascript" src="/js/CookieTheme.js"></script>
 		<script type="text/javascript" src="/js/MenuTreePanel.js"></script>
-		<script type="text/javascript" src="/js/app.js"></script>
-		
-		<!-- 验证及导出等JS -->
-		<script type="text/javascript" src="/js/util/CommonRenderer.js"></script>
-		<script type="text/javascript" src="/js/util/export.js"></script>
-        <script type="text/javascript" src="/js/util/gridToExcel.js"></script>		
+		<script type="text/javascript" src="/js/app.js"></script>	
 	</head>
 	<body>
 	</body>

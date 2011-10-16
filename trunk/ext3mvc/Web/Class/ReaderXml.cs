@@ -62,4 +62,9 @@ namespace Web
         }
         #endregion
     }
+    public class Message
+    {
+        public string msg { get; set; }
+        public bool success { get; set; }
+    }
 }

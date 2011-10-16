@@ -1,4 +1,4 @@
-//Ext.namespace("eddy.office.MenuTreePanel");
+Ext.namespace("eddy.office.MenuTreePanel");
 eddy.office.MenuTreePanel = function(config) {
     Ext.apply(this, {
         items: []
