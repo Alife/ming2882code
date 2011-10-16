@@ -152,6 +152,28 @@ com.ms.basic.ResourcePanel2 = Ext.extend(Ext.Panel, {
 				                    grid.getStore().reload();
 				                    editWin.hide();
 				                }
+				            },
+				            failure: function(form, response) {
+				                switch (response.response.status) {
+				                    case 403:
+				                        Ext.Msg.show({ title: '提示', msg: '你请求的页面禁止访问!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+				                        break;
+				                    case 404:
+				                        Ext.Msg.show({ title: '提示', msg: '你请求的页面不存在!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+				                        break;
+				                    case 500:
+				                        Ext.Msg.show({ title: '提示', msg: '你请求的页面服务器内部错误!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+				                        break;
+				                    case 502:
+				                        Ext.Msg.show({ title: '提示', msg: 'Web服务器收到无效的响应!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+				                        break;
+				                    case 503:
+				                        Ext.Msg.show({ title: '提示', msg: '服务器繁忙，请稍后再试!!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+				                        break;
+				                    default:
+				                        Ext.Msg.show({ title: '提示', msg: '你请求的页面遇到问题，操作失败!错误代码:' + response.response.status, icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+				                        break;
+				                }
 				            }
 				        });
 				    }
@@ -306,14 +328,14 @@ com.ms.basic.ResourcePanel2 = Ext.extend(Ext.Panel, {
 
 
         var sm = new Ext.grid.CheckboxSelectionModel({ singleSelect: true });
-        var expander = new Ext.ux.grid.RowExpander({
-            tpl: new Ext.Template(
-            '<p><b>actionPath:</b> {actionPath}</p><br>',
-            '<p><b>description:</b> {description}</p>')
-        });
+//        var expander = new Ext.ux.grid.RowExpander({
+//            tpl: new Ext.Template(
+//            '<p><b>actionPath:</b> {actionPath}</p><br>',
+//            '<p><b>description:</b> {description}</p>')
+//        });
         var cm = new Ext.grid.ColumnModel([
 			sm,
-			new Ext.grid.RowNumberer(), expander,
+			new Ext.grid.RowNumberer(), //expander,
 			{ header: '节点ID', dataIndex: 'nodeId', sortable: true },
 			{ header: '菜单名称', dataIndex: 'menuName', sortable: true },
 			{ header: '父节点ID', dataIndex: 'parantNodeID', sortable: true },
@@ -327,6 +349,7 @@ com.ms.basic.ResourcePanel2 = Ext.extend(Ext.Panel, {
         var ds = new Ext.data.Store({
             proxy: new Ext.data.HttpProxy({ url: '/home/ResourcesList' }),
             remoteSort: true,
+            autoLoad: false,
             reader: new Ext.data.JsonReader({
                 totalProperty: 'total',
                 idProperty: 'id',
@@ -352,9 +375,9 @@ com.ms.basic.ResourcePanel2 = Ext.extend(Ext.Panel, {
         var grid = new Ext.grid.GridPanel({
             region: 'center', border: false,
             ds: ds,
-            cm: cm,
-            sm: sm,
-            plugins: expander,
+            cm: cm,loadMask: true,
+            sm: sm,stripeRows: true, //斑马线效果
+            //plugins: expander,
             viewConfig: { forceFit: true },
             tbar: new Ext.Toolbar({
                 buttons: [
@@ -440,14 +463,15 @@ com.ms.basic.ResourcePanel2 = Ext.extend(Ext.Panel, {
         });
 
         function showInfo(id) {
-            editForm.load({
-                url: '../basic/ResourcesAction/getDetailInfo.action',
-                params: { id: id },
-                success: function(form, action) {
-                    var v = editForm.getForm().findField('type').getValue();
-                    valiDateType(v);
-                }
-            });
+//            editForm.load({
+//                url: '../basic/ResourcesAction/getDetailInfo.action',
+//                params: { id: id },
+//                success: function(form, action) {
+//                    var v = editForm.getForm().findField('type').getValue();
+//                    valiDateType(v);
+//                }
+//            });
+            editForm.form.loadRecord(grid.getSelectionModel().getSelected());
             editWin.show();
         }
 

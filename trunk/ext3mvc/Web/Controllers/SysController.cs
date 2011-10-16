@@ -29,5 +29,9 @@ namespace Web.Controllers
             Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8");
             return File(System.Text.Encoding.GetEncoding("utf-8").GetBytes(exportContent), "application/vnd.ms-excel");
         }
+        public JsonResult wordedit()
+        {
+            return Json(new { success = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

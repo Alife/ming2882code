@@ -183,7 +183,8 @@ com.ms.basic.ResourcePanel1 = Ext.extend(Ext.Panel, {
 
         var editWin = new Ext.Window({
             title: '编辑',
-            modal: true, border: false,
+            //modal: true, 
+            border: false,
             layout: 'fit',
             width: 500,
             height: 380,
@@ -306,15 +307,15 @@ com.ms.basic.ResourcePanel1 = Ext.extend(Ext.Panel, {
 
 
         var sm = new Ext.grid.CheckboxSelectionModel({ singleSelect: true });
-        var expander = new Ext.ux.grid.RowExpander({
-            tpl: new Ext.Template(
-            '<p><b>actionPath:</b> {actionPath}</p><br>',
-            '<p><b>description:</b> {description}</p>')
-        });
+        //        var expander = new Ext.ux.grid.RowExpander({
+        //            tpl: new Ext.Template(
+        //            '<p><b>actionPath:</b> {actionPath}</p><br>',
+        //            '<p><b>description:</b> {description}</p>')
+        //        });
         var cm = new Ext.grid.ColumnModel([
 			sm,
-			new Ext.grid.RowNumberer(), expander,
-			{ header: '节点ID', dataIndex: 'nodeId', sortable: true },
+			new Ext.grid.RowNumberer(), // expander,
+			{header: '节点ID', dataIndex: 'nodeId', sortable: true },
 			{ header: '菜单名称', dataIndex: 'menuName', sortable: true },
 			{ header: '父节点ID', dataIndex: 'parantNodeID', sortable: true },
 			{ header: '图标', dataIndex: 'icon', sortable: true },
@@ -352,9 +353,9 @@ com.ms.basic.ResourcePanel1 = Ext.extend(Ext.Panel, {
         var grid = new Ext.grid.GridPanel({
             region: 'center', border: false,
             ds: ds,
-            cm: cm,
-            sm: sm,
-            plugins: expander,
+            cm: cm, loadMask: true,
+            sm: sm, stripeRows: true, //斑马线效果
+            //plugins: expander,
             viewConfig: { forceFit: true },
             tbar: new Ext.Toolbar({
                 buttons: [
