@@ -9,6 +9,7 @@ namespace Web.Controllers
 {
     public class SysController : Controller
     {
+        [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult wordlist(int start, int limit)
         {
             ArrayList lst = new ArrayList();
@@ -29,9 +30,10 @@ namespace Web.Controllers
             Response.ContentEncoding = System.Text.Encoding.GetEncoding("utf-8");
             return File(System.Text.Encoding.GetEncoding("utf-8").GetBytes(exportContent), "application/vnd.ms-excel");
         }
+        [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult wordedit()
         {
-            return Json(new { success = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new Message { success = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

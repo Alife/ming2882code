@@ -91,6 +91,7 @@ namespace Web.Controllers
         {
             return Json(new { realName = "admin", userDeptName = "功能测试" }, JsonRequestBehavior.AllowGet);
         }
+        [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult ResourcesList()
         {
             ArrayList lst = new ArrayList();
