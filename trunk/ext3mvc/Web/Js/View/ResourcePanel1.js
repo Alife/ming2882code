@@ -326,7 +326,7 @@ com.ms.basic.ResourcePanel1 = Ext.extend(Ext.Panel, {
 			{ header: '描述', dataIndex: 'description', sortable: true }
 		]);
         var ds = new Ext.data.Store({
-            proxy: new Ext.data.HttpProxy({ url: '/home/ResourcesList' }),
+        proxy: new Ext.data.HttpProxy({ type: 'ajax', actionMethods: 'post', timeout: 1000 * 60 * 3, url: '/home/ResourcesList' }),
             remoteSort: true,
             reader: new Ext.data.JsonReader({
                 totalProperty: 'total',
