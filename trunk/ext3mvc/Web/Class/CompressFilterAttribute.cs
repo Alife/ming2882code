@@ -26,11 +26,8 @@ namespace Web
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (!IsAvailable)
-            {
                 base.OnActionExecuting(filterContext);
-                return;
-            }
-            if (filterContext.HttpContext.IsCustomErrorEnabled)
+            else
             {
                 HttpRequestBase request = filterContext.HttpContext.Request;
                 string acceptEncoding = request.Headers["Accept-Encoding"];
