@@ -11,8 +11,8 @@
 		<link rel="stylesheet" type="text/css" href="/css/icon.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/mytheme-blue.css"/>
 		
-		<script type="text/javascript" src="/ExtJS/adapter/ext/ext-base.js"></script>
-		<script type="text/javascript" src="/ExtJS/ext-all.js"></script>
+		<script type="text/javascript" src="/ExtJS/adapter/ext/ext-base-min.js"></script>
+		<script type="text/javascript" src="home/GZIP?id=/ExtJS/ext-all.gzjs"></script>
 		<script type="text/javascript" src="/ExtJS/src/locale/ext-lang-zh_CN.js"></script>
         <script type="text/javascript" src="/ExtJs/ux/RowExpander.js"></script>
 		<script type="text/javascript" src="/js/TabCloseMenu.js"></script>

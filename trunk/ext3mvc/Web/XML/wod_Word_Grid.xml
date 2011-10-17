@@ -6,7 +6,10 @@
       <Column Field="Code_wod" HeaderText="代码" FieldType="string" Sortable="true" Width="100"/>
       <Column Field="Text_wod" HeaderText="名称" FieldType="string" Sortable="true" Width="120"/>
       <Column Field="Sort_wod" HeaderText="排序" FieldType="string" Sortable="true" Width="50"/>
-      <Rowdblclick Hander="_edit"></Rowdblclick>
+      <Listeners>
+        <Listener EventName="rowcontextmenu"></Listener>
+        <Listener EventName="rowdblclick" Hander="_edit"></Listener>
+      </Listeners>
       <ChildGrid>
         <Grid ID="wcd_WordChild_Grid" Text="字典明细" IsPage="true" PageSize="20" AllowEdit="true" HasChecked="true" Url="sys/wordchildlist/{0}" Region="south" width="300">
           <Column Field="ID_wcd" HeaderText="ID" FieldType="int" Hidden="true" Width="50"/>
@@ -59,26 +62,26 @@
   <ToolBarList>
     <ToolBar Code="10000">
       <GridButtons>
-        <Button RuleName="add" Text="新建" ToolTip="新建" IconCls="application_add" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_add" SaveUrl="sys/wordadd" IsDynamics="false"/>
-        <Button RuleName="edit" Text="编辑" ToolTip="编辑" IconCls="application_edit" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_edit" SaveUrl="sys/wordedit" IsDynamics="false" DetailUrl="sys/worddetail/" Disabled="true" ItemID="editBtn">
+        <Button RuleName="add" Text="新建" ToolTip="" IconCls="application_add" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_add" SaveUrl="sys/wordadd" IsDynamics="false"/>
+        <Button RuleName="edit" Text="编辑" ToolTip="" IconCls="application_edit" OpenType="win_form" OpenWinID="wod_Word_Form" Handler="_edit" SaveUrl="sys/wordedit" IsDynamics="false" DetailUrl="sys/worddetail/" Disabled="true" ItemID="editBtn">
           <Disabled Query="n != 1"></Disabled>
           <Script></Script>
         </Button>
-        <Button RuleName="del" Text="删除" ToolTip="删除" IconCls="application_delete" Handler="_del" DeleteUrl="sys/worddel/" Disabled="true" ItemID="delBtn">
+        <Button RuleName="del" Text="删除" ToolTip="" IconCls="application_delete" Handler="_del" DeleteUrl="sys/worddel/" Disabled="true" ItemID="delBtn">
           <Disabled Query="n == 0"></Disabled>
         </Button>
-        <Button RuleName="report" Text="导出Excel" ToolTip="导出Excel" IconCls="report" Handler="_report"/>
-        <Button RuleName="" Text="刷新" ToolTip="刷新" IconCls="refresh" Handler="_refresh"/>
+        <Button RuleName="report" Text="导出Excel" ToolTip="" IconCls="report" Handler="_report"/>
+        <Button RuleName="" Text="刷新" ToolTip="" IconCls="refresh" Handler="_refresh"/>
       </GridButtons>
       <FormButtons>
         <!--<Button RuleName="add,edit" Text="保存" ToolTip="保存" Handler="_save"/>-->
-        <Button RuleName="add,edit" Text="保存并新建" ToolTip="保存并新建" Handler="_save" Query="add" SaveUrl="sys/wordadd"/>
-        <Button RuleName="add,edit" Text="保存并关闭" ToolTip="保存并关闭" Handler="_save" Query="colse"/>
-        <Button RuleName="" Text="关闭" ToolTip="关闭" Handler="_close"/>
+        <Button RuleName="add,edit" Text="保存并新建" ToolTip="" Handler="_save" Query="add" SaveUrl="sys/wordadd"/>
+        <Button RuleName="add,edit" Text="保存并关闭" ToolTip="" Handler="_save" Query="colse"/>
+        <Button RuleName="" Text="关闭" ToolTip="" Handler="_close"/>
       </FormButtons>
       <QueryButtons>
-        <Button RuleName="" Text="查询" ToolTip="查询"/>
-        <Button RuleName="" Text="清空" ToolTip="清空"/>
+        <Button RuleName="" Text="查询" ToolTip=""/>
+        <Button RuleName="" Text="清空" ToolTip=""/>
       </QueryButtons>
     </ToolBar>
   </ToolBarList>
