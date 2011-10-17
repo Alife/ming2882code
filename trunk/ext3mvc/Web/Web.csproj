@@ -79,6 +79,7 @@
     <Content Include="Css\mytheme-silverCherry.css" />
     <Content Include="Css\namesearch.css" />
     <Content Include="ExtJs\adapter\ext\ext-base-debug.js" />
+    <Content Include="ExtJs\adapter\ext\ext-base-min.js" />
     <Content Include="ExtJs\adapter\ext\ext-base.js" />
     <Content Include="ExtJs\adapter\jquery\ext-jquery-adapter-debug.js" />
     <Content Include="ExtJs\adapter\jquery\ext-jquery-adapter.js" />
@@ -86,6 +87,7 @@
     <Content Include="ExtJs\adapter\prototype\ext-prototype-adapter.js" />
     <Content Include="ExtJs\adapter\yui\ext-yui-adapter-debug.js" />
     <Content Include="ExtJs\adapter\yui\ext-yui-adapter.js" />
+    <Content Include="ExtJs\ext-all-min.js" />
     <Content Include="ExtJs\ext-all.js" />
     <Content Include="ExtJs\plugin\AjaxRowExpander.js" />
     <Content Include="ExtJs\plugin\AjaxSubGrid.js" />
@@ -1650,6 +1652,9 @@
     <Content Include="XSLT\Grid.xslt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ExtJs\adapter\ext\ext-base-min.jsgz" />
+    <None Include="ExtJs\ext-all-min.jsgz" />
+    <None Include="ExtJs\ext-all.gzjs" />
     <None Include="ExtJs\resources\css\pink\form\clear-trigger.psd" />
     <None Include="ExtJs\resources\css\pink\form\date-trigger.psd" />
     <None Include="ExtJs\resources\css\pink\form\search-trigger.psd" />
@@ -1750,6 +1755,7 @@
     <None Include="ExtJs\resources\images\yourtheme\window\left-right.psd" />
     <None Include="ExtJs\resources\images\yourtheme\window\right-corners.psd" />
     <None Include="ExtJs\resources\images\yourtheme\window\top-bottom.psd" />
+    <None Include="Js\app.jsgz" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
