@@ -61,6 +61,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\CompressFilterAttribute.cs" />
     <Compile Include="Class\ReaderXml.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SysController.cs" />

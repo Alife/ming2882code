@@ -32,7 +32,7 @@
     </xsl:variable>
     <xsl:value-of select="$ID" />_Panel = Ext.extend(Ext.Panel, {
     initComponent: function() {
-        var sm = new Ext.grid.CheckboxSelectionModel({
+        this.<xsl:value-of select="$ID" />_sm = new Ext.grid.CheckboxSelectionModel({
             listeners: {
                 selectionchange: function(sm) {
                     var n = sm.getCount() || 0;
@@ -51,14 +51,14 @@
                 }, scope: this
             }
         });
-        var cm = new Ext.grid.ColumnModel([
-			  <xsl:if test="$HasChecked = 'true'">sm,</xsl:if>
+        this.<xsl:value-of select="$ID" />_cm = new Ext.grid.ColumnModel([
+			  <xsl:if test="$HasChecked = 'true'">this.<xsl:value-of select="$ID" />_sm,</xsl:if>
 			  new Ext.grid.RowNumberer(), 
         <xsl:for-each select="Grid/Column">
           {header:'<xsl:value-of select="@HeaderText"/>',dataIndex:'<xsl:value-of select="@Field"/>',sortable:<xsl:value-of select="@Sortable"/>,<xsl:if test="@Hidden = 'true'">hidden:<xsl:value-of select="@Hidden"/>,</xsl:if><xsl:if test="@Renderer != ''">renderer:<xsl:value-of select="@Renderer"/>,</xsl:if><xsl:if test="@Width &gt; 0">width:<xsl:value-of select="@Width"/></xsl:if>}<xsl:if test="position()!=last()">,</xsl:if> 
         </xsl:for-each>
 		    ]);
-        var ds = new Ext.data.Store({
+        this.<xsl:value-of select="$ID" />_Store = new Ext.data.Store({
           proxy: new Ext.data.HttpProxy({ url: '<xsl:value-of select="Grid/@Url"/>' }),
           <xsl:if test="Grid/@RemoteSort != ''">remoteSort: true,</xsl:if>
           reader: new Ext.data.JsonReader({
@@ -72,21 +72,21 @@
             })
         });
         <xsl:choose>
-          <xsl:when test="$IsPage = 'true'">ds.load({ params: { start: 0, limit: <xsl:value-of select="$PageSize"/>} });</xsl:when>
-          <xsl:otherwise>ds.load();</xsl:otherwise>
+          <xsl:when test="$IsPage = 'true'">this.<xsl:value-of select="$ID" />_Store.load({ params: { start: 0, limit: <xsl:value-of select="$PageSize"/>} });</xsl:when>
+          <xsl:otherwise>this.<xsl:value-of select="$ID" />_Store.load();</xsl:otherwise>
         </xsl:choose>
         this.<xsl:value-of select="$ID" /> = new Ext.grid.GridPanel({
             <xsl:if test="Grid/@Region != ''">region: '<xsl:value-of select="Grid/@Region"/>',</xsl:if>
             <xsl:if test="Grid/@Width != ''">width: '<xsl:value-of select="Grid/@Width"/>',</xsl:if>
             <xsl:if test="Grid/@Height != ''">heigth: '<xsl:value-of select="Grid/@Height"/>',</xsl:if>
-            loadMask: true,border: false,ds: ds,cm: cm,sm: sm,viewConfig: { forceFit: true },stripeRows: true, //斑马线效果
+            loadMask: true,border: false,cm: this.<xsl:value-of select="$ID" />_cm,sm: this.<xsl:value-of select="$ID" />_sm,viewConfig: { forceFit: true },stripeRows: true, //斑马线效果
             <xsl:if test="$IsPage = 'true'">bbar: new Ext.PagingToolbar({
                 pageSize: <xsl:value-of select="$PageSize"/>,
-                store: ds,
+                store: this.<xsl:value-of select="$ID" />_Store,
                 displayInfo: true,
                 displayMsg: '显示第{0}条到{1}条记录,一共{2}条',
                 emptyMsg: '没有记录'
-            }),</xsl:if>
+            }),</xsl:if><xsl:if test="$QueryFormID!='' or count(ToolBar/GridButtons/Button)>0">
             tbar: new Ext.Toolbar({
                 buttons: [<xsl:if test="$QueryFormID!=''">
 					      {
@@ -99,41 +99,55 @@
 					                  this.<xsl:value-of select="$QueryFormID" />.collapse();
 					          },
                     scope: this
-					      },</xsl:if><xsl:for-each select="ToolBar/GridButtons/Button">
+					      }<xsl:if test="count(ToolBar/GridButtons/Button)>0">,</xsl:if></xsl:if><xsl:for-each select="ToolBar/GridButtons/Button">
 					      {
-					          text: '<xsl:value-of select="@Text"/>',
-                    tooltip: '<xsl:value-of select="@ToolTip"/>',
+					          text: '<xsl:value-of select="@Text"/>',<xsl:if test="@ToolTip!=''">tooltip: '<xsl:value-of select="@ToolTip"/>',</xsl:if>
 					          iconCls: '<xsl:value-of select="@IconCls"/>',
                     handler: this.<xsl:value-of select="$ID"/><xsl:value-of select="@Handler"/>,
 					          <xsl:if test="@Disabled = 'true'">disabled: true, itemId: '<xsl:value-of select="@ItemID"/>',</xsl:if>
                     scope: this
 					      }<xsl:if test="position()!=last()">,</xsl:if></xsl:for-each>
 				      ]
-            })
+            }),</xsl:if>ds: this.<xsl:value-of select="$ID" />_Store,<xsl:if test="count(Grid/Listeners/Listener)>0">
+            listeners: {
+              <xsl:for-each select="Grid/Listeners/Listener"><xsl:choose>
+              <xsl:when test="@EventName='rowcontextmenu'">
+              'rowcontextmenu':{
+                fn:function(grid, index, event) {
+                    event.stopEvent();
+                    grid.getSelectionModel().selectRow(index);
+                    this.<xsl:value-of select="$ID" />_ContextMenu.showAt(event.getXY());
+                },
+                scope: this
+              }</xsl:when>
+              <xsl:when test="@EventName='rowdblclick'">
+              'rowdblclick':{
+                fn:function(grid, rowindex, e) {
+                <xsl:choose>
+                  <xsl:when test="@Hander!=''">this.<xsl:value-of select="$ID" /><xsl:value-of select="@Hander" />();</xsl:when>
+                  <xsl:otherwise><xsl:value-of select="." /></xsl:otherwise>
+                </xsl:choose>
+                },
+                scope: this
+              }</xsl:when>
+              <xsl:otherwise>'<xsl:value-of select="@EventName"/>':{
+                fn:<xsl:value-of select="." />,
+                scope: this
+              }</xsl:otherwise></xsl:choose><xsl:if test="position()!=last()">,</xsl:if></xsl:for-each>
+            }</xsl:if>
         });
-        var contextMenu = new Ext.menu.Menu({
+        <xsl:if test="count(ToolBar/GridButtons/Button)>0">
+        this.<xsl:value-of select="$ID" />_ContextMenu = new Ext.menu.Menu({
               items: [<xsl:for-each select="ToolBar/GridButtons/Button">
 					    {
-					        text: '<xsl:value-of select="@Text"/>',
-                  tooltip: '<xsl:value-of select="@ToolTip"/>',
+					        text: '<xsl:value-of select="@Text"/>',<xsl:if test="@ToolTip!=''">tooltip: '<xsl:value-of select="@ToolTip"/>',</xsl:if>
 					        iconCls: '<xsl:value-of select="@IconCls"/>',
                   handler: this.<xsl:value-of select="$ID"/><xsl:value-of select="@Handler"/>,
                   scope: this
 					    }<xsl:if test="position()!=last()">,</xsl:if></xsl:for-each>
 			  ]
         });
-        this.<xsl:value-of select="$ID" />.on('rowcontextmenu', function(grid, index, event) {
-            event.stopEvent();
-            grid.getSelectionModel().selectRow(index);
-            contextMenu.showAt(event.getXY());
-        });
-        <xsl:if test="Grid/Rowdblclick/@Hander!=''">
-        this.<xsl:value-of select="$ID" />.addListener('rowdblclick', function(grid, rowindex, e) {
-        <xsl:choose>
-          <xsl:when test="Grid/Rowdblclick=''">this.<xsl:value-of select="$ID" /><xsl:value-of select="Grid/Rowdblclick/@Hander" />();</xsl:when>
-          <xsl:otherwise><xsl:value-of select="Grid/Rowdblclick" /></xsl:otherwise>
-        </xsl:choose>
-        }, this);</xsl:if>
+        </xsl:if>
         <xsl:if test="$QueryFormID!=''">
         this.<xsl:value-of select="$QueryFormID" /> = new Ext.FormPanel({
             frame: true,
@@ -158,7 +172,7 @@
               <xsl:for-each select="ToolBar/QueryButtons/Button">
 					    new Ext.Button({
 					        text: '<xsl:value-of select="@Text"/>',
-                  tooltip: '<xsl:value-of select="@ToolTip"/>',
+                  <xsl:if test="ToolTip!=''">tooltip: '<xsl:value-of select="@ToolTip"/>',</xsl:if>
 					        <xsl:if test="IconCls!=''">iconCls: '<xsl:value-of select="@IconCls"/>',</xsl:if>
 					        <xsl:if test="Width!=''">width: '<xsl:value-of select="@Width"/>',</xsl:if>
                   handler:function() {
@@ -207,7 +221,7 @@
               <xsl:for-each select="ToolBar/FormButtons/Button">
 					    new Ext.Button({
 					        text: '<xsl:value-of select="@Text"/>',
-                  tooltip: '<xsl:value-of select="@ToolTip"/>',
+                  <xsl:if test="ToolTip!=''">tooltip: '<xsl:value-of select="@ToolTip"/>',</xsl:if>
 					        <xsl:if test="IconCls!=''">iconCls: '<xsl:value-of select="@IconCls"/>',</xsl:if>
 					        <xsl:if test="Width!=''">width: '<xsl:value-of select="@Width"/>',</xsl:if>
                   handler:<xsl:choose><xsl:when test="@Query!=''">function(){this.<xsl:value-of select="$FormID"/><xsl:value-of select="@Handler"/>('<xsl:value-of select="@Query"/>');}</xsl:when><xsl:otherwise>this.<xsl:value-of select="$FormID"/><xsl:value-of select="@Handler"/></xsl:otherwise></xsl:choose>,
@@ -217,15 +231,11 @@
 			      ]
         });
         Ext.apply(this, {
-            iconCls: 'tabs',
-            autoScroll: false,
-            closable: true,
-            border: false,
-            layout: 'border', 
+            iconCls: 'tabs',autoScroll: false,closable: true,border: false,layout: 'border', 
             items: [this.<xsl:value-of select="$ID" /><xsl:if test="$QueryFormID!=''">,this.<xsl:value-of select="$QueryFormID" /></xsl:if>]
         });
         </xsl:if>
-    <xsl:value-of select="$ID" />_Panel.superclass.initComponent.apply(this, arguments);
+        <xsl:value-of select="$ID" />_Panel.superclass.initComponent.apply(this, arguments);
     },
     <xsl:for-each select="ToolBar/GridButtons/Button">
     <xsl:value-of select="$ID"/><xsl:value-of select="@Handler"/>:function(){
@@ -330,7 +340,7 @@
 		<xsl:if test="count(ToolBar/FormButtons/Button[@Handler='_save'])>0">
     <xsl:value-of select="$FormID"/>_save:function(v){
         if (!this.<xsl:value-of select="$FormID"/>.getForm().isValid())
-        return;
+          return;
         this.<xsl:value-of select="$FormID"/>.getForm().submit({
         url: this.SaveUrl,
         method: 'post',<xsl:if test="Form/@IsUpload='true'">isUpload :true,</xsl:if>
@@ -338,11 +348,11 @@
         waitMsg: '正在提交...',
         scope: this,
         success: function(form, response) {
-        var rs = Ext.util.JSON.decode(response.response.responseText);
-        if (rs.success) {
-        this.<xsl:value-of select="$FormID"/>.form.getEl().dom.reset();
-        this.<xsl:value-of select="$ID"/>.getStore().reload();
-        }
+          var rs = Ext.util.JSON.decode(response.response.responseText);
+          if (rs.success) {
+            this.<xsl:value-of select="$FormID"/>.form.getEl().dom.reset();
+            this.<xsl:value-of select="$ID"/>.getStore().reload();
+          }
         <xsl:for-each select="ToolBar/FormButtons/Button[@Handler='_save']">
 			    <xsl:copy>
             <xsl:choose>
@@ -353,30 +363,30 @@
             <xsl:value-of select="current()/Script"/>
           </xsl:copy>  
         </xsl:for-each>
-        Ext.MessageBox.alert('系统提示', rs.msg);
+          Ext.MessageBox.alert('系统提示', rs.msg);
         },
         failure: function(form, response) {
-        switch (response.response.status) {
-        case 403:
-        Ext.Msg.show({ title: '提示', msg: '你请求的页面禁止访问!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-        break;
-        case 404:
-        Ext.Msg.show({ title: '提示', msg: '你请求的页面不存在!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-        break;
-        case 500:
-        Ext.Msg.show({ title: '提示', msg: '你请求的页面服务器内部错误!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-        break;
-        case 502:
-        Ext.Msg.show({ title: '提示', msg: 'Web服务器收到无效的响应!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-        break;
-        case 503:
-        Ext.Msg.show({ title: '提示', msg: '服务器繁忙，请稍后再试!!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-        break;
-        default:
-        Ext.Msg.show({ title: '提示', msg: '你请求的页面遇到问题，操作失败!错误代码:' + response.response.status, icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-        break;
-        }
-        }
+            switch (response.response.status) {
+              case 403:
+                Ext.Msg.show({ title: '提示', msg: '你请求的页面禁止访问!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+              break;
+              case 404:
+                Ext.Msg.show({ title: '提示', msg: '你请求的页面不存在!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+              break;
+              case 500:
+                Ext.Msg.show({ title: '提示', msg: '你请求的页面服务器内部错误!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+              break;
+              case 502:
+                Ext.Msg.show({ title: '提示', msg: 'Web服务器收到无效的响应!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+              break;
+              case 503:
+                Ext.Msg.show({ title: '提示', msg: '服务器繁忙，请稍后再试!!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+              break;
+              default:
+                Ext.Msg.show({ title: '提示', msg: '你请求的页面遇到问题，操作失败!错误代码:' + response.response.status, icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
+              break;
+            }
+          }
         });
       },
     </xsl:if>
@@ -391,6 +401,11 @@
 		  </xsl:choose>
 		},
     </xsl:for-each>
+    <!--destroy: function(){
+      for(var i=1;i&lt;this.all.items.length; i++)
+        this.all.items[i].destroy(); 
+      <xsl:value-of select="$ID" />_Panel.superclass.destroy.call(this)
+    },-->
     initMethod: function() {
     }
     });

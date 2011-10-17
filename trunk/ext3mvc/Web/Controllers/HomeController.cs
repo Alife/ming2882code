@@ -7,15 +7,47 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
+using System.Text;
+using System.IO;
+using System.IO.Compression;
+using System.Net;
 
 namespace Web.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
+        [CompressFilter]
         public ActionResult Index()
         {
             return View();
+        }
+        public ContentResult GZIP(string id)
+        {
+            HttpWebRequest Http = (HttpWebRequest)WebRequest.Create(Request.UrlReferrer.AbsoluteUri.TrimEnd('/')+id);
+
+            Http.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
+            Http.Method = "POST";
+
+            HttpWebResponse WebResponse = (HttpWebResponse)Http.GetResponse();
+
+            Stream responseStream = responseStream = WebResponse.GetResponseStream();
+            if (WebResponse.ContentEncoding.ToLower().Contains("gzip"))
+                responseStream = new GZipStream(responseStream, CompressionMode.Decompress);
+            else if (WebResponse.ContentEncoding.ToLower().Contains("deflate"))
+                responseStream = new DeflateStream(responseStream, CompressionMode.Decompress);
+
+            StreamReader Reader = new StreamReader(responseStream, Encoding.Default);
+
+            string Html = Reader.ReadToEnd();
+
+            WebResponse.Close();
+            responseStream.Close();
+
+            WebResponse.Close();
+            responseStream.Close();
+
+            return Content(Html);
         }
         public JsonResult getUserButtons(int sysMenuId)
         {
@@ -37,6 +69,7 @@ namespace Web.Controllers
                 return Json(lst, JsonRequestBehavior.AllowGet);
             return Json("", JsonRequestBehavior.AllowGet);
         }
+        [CompressFilter]
         public ContentResult loadxmlGrid()
         {
             ReaderXml x = new ReaderXml();
