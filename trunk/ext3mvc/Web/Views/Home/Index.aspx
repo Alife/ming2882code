@@ -6,12 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="pragma" content="no-cache" />
 		<title>管理系统</title>
-		<link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css"/>
-		<link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all-notheme.css"/>
-		<link rel="stylesheet" type="text/css" href="css/icon.css"/>
-		<link rel="stylesheet" type="text/css" href="css/mytheme-blue.css"/>
-		<script type="text/javascript" src="/extjs/adapter/ext/ext-base-min.jsgz"></script>
-		<script type="text/javascript" src="/extjs/ext-all-min.jsgz"></script>
+		<link rel="stylesheet" type="text/css" href="/cache/cachecontent/CSSInclude/12345/css"/>
+		<script type="text/javascript" src="/cache/cachecontent/JavaScriptInclude/12345/javascript"></script>
 		<script type="text/javascript" src="extjs/src/locale/ext-lang-zh_CN.js"></script>
         <script type="text/javascript" src="extjs/ux/RowExpander.js"></script>
 		<script type="text/javascript" src="js/TabCloseMenu.js"></script>
