@@ -1646,9 +1646,6 @@
     <Content Include="XSLT\Grid.xslt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ExtJs\adapter\ext\ext-base-min.jsgz" />
-    <None Include="ExtJs\ext-all-min.jsgz" />
-    <None Include="ExtJs\ext-all.gzjs" />
     <None Include="ExtJs\resources\images\pink\form\clear-trigger.psd" />
     <None Include="ExtJs\resources\images\pink\form\date-trigger.psd" />
     <None Include="ExtJs\resources\images\pink\form\search-trigger.psd" />
@@ -1748,7 +1745,6 @@
     <None Include="ExtJs\resources\images\yourtheme\window\left-right.psd" />
     <None Include="ExtJs\resources\images\yourtheme\window\right-corners.psd" />
     <None Include="ExtJs\resources\images\yourtheme\window\top-bottom.psd" />
-    <None Include="Js\app.jsgz" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FrameWork.Mvc\FrameWork.Mvc.csproj">
