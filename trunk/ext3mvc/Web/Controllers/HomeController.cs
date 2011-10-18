@@ -27,12 +27,14 @@ namespace Web.Controllers
         {
             string filePath = Server.MapPath(id);
             FileStream fsIn = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            GZipStream gzip = new GZipStream(fsIn, CompressionMode.Decompress, true);
-            StreamReader Reader = new StreamReader(gzip, Encoding.UTF8);
+            //GZipStream gzip = new GZipStream(fsIn, CompressionMode.Compress, true);
+            StreamReader Reader = new StreamReader(fsIn, Encoding.UTF8);
             string Html = Reader.ReadToEnd();
             fsIn.Close();
-            gzip.Close();
+            //gzip.Close();
             Reader.Close();
+            Response.AppendHeader("Cache-Control", "public");
+            Response.AppendHeader("Content-Type", "application/x-javascript");
             return Content(Html);
         }
         public JsonResult getUserButtons(int sysMenuId)
