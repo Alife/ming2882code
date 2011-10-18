@@ -12,13 +12,13 @@ using System.Web.Caching;
 
 namespace FrameWork.Mvc.HttpCompress
 {
-    public class CacheResult : ActionResult
+    public class CompressResult : ActionResult
     {
         private string _keyname;
         private string _version;
         private string _type;
 
-        public CacheResult(string keyname, string version, string type)
+        public CompressResult(string keyname, string version, string type)
         {
             this._keyname = keyname;
             this._version = version;
@@ -46,35 +46,10 @@ namespace FrameWork.Mvc.HttpCompress
 
     public static class CacheControllerExtensions
     {
-        public static CacheResult RenderCacheResult
+        public static CompressResult RenderCacheResult
             (string keyname, string version, string type)
         {
-            return new CacheResult(keyname, version, type);
+            return new CompressResult(keyname, version, type);
         }
     }
-
-    public class CacheController : Controller
-    {
-        #region Constructor Definitions
-        public CacheController()
-            : base()
-        {
-        }
-        #endregion
-
-        #region Method Definitions
-        #region public
-        public CacheResult CacheContent(string key, string version, string type)
-        {
-            return CacheControllerExtensions.RenderCacheResult(key, version, type);
-        }
-
-        //public CacheResult ClearCache()
-        //{
-        //    //LOGIC TO CLEAR OUT CACHE
-        //}
-        #endregion
-        #endregion
-
-    } // End class CacheController
 }
