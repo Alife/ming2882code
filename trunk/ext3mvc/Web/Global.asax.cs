@@ -19,14 +19,13 @@ namespace Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.Add(new
-                Route("cache/{action}/{key}/{version}/{type}", new MvcRouteHandler())
+                Route("compress/{action}/{key}/{type}", new MvcRouteHandler())
                 {
                     Defaults = new RouteValueDictionary(new
                     {
-                        controller = "Cache",
+                        controller = "Compress",
                         action = "CacheContent",
                         key = "",
-                        version = "",
                         type = ""
                     }),
                 }

@@ -27,50 +27,45 @@ namespace FrameWork.Mvc.HttpCompress
             this.context = context;
             HttpRequestBase request = context.Request;
 
-            // Read setName, version from query string
             string setName = _key;
             string version = _version;
             string contentType = _ContentType;
-            // Decide if browser supports compressed response
             bool isCompressed = this.CanGZip(context.Request);
 
-            // If the set has already been cached, write the response directly from
-            // cache. Otherwise generate the response and cache it
             if (!this.WriteFromCache(setName, version, isCompressed, contentType))
             {
                 using (MemoryStream memoryStream = new MemoryStream(8092))
                 {
-                    // Decide regular stream or gzip stream based on 
-                    // whether the response can be compressed or not
-                    //using (Stream writer = isCompressed ?  (Stream)(new GZipStream
-                    // (memoryStream, CompressionMode.Compress)) : memoryStream)
                     using (Stream writer = isCompressed ?
                          (Stream)(new GZipStream(memoryStream, CompressionMode.Compress)) :
                          memoryStream)
                     {
-                        // Read the files into one big string
                         StringBuilder allScripts = new StringBuilder();
                         foreach (string fileName in GetScriptFileNames(setName))
-                            allScripts.Append(File.ReadAllText(context.Server.MapPath(fileName)));
-
+                        {
+                            string minified = File.ReadAllText(context.Server.MapPath(fileName));
+                            if (this._ContentType == "text/css")
+                            {
+                                string path = fileName.Substring(0, fileName.LastIndexOf('/')).Replace("css", "images");
+                                minified = minified.Replace("../images", path);
+                            }
+                            allScripts.Append(minified);
+                        }
                         // Minify the combined script files and remove comments and white spaces
                         //var minifier = new JavaScriptMinifier();
-//                        string minified = JavaScriptMinifier.Minify(allScripts.ToString()).ToString();
-//#if DEBUG
-//                        minified = allScripts.ToString();
-//#endif
+                        //string minified = JavaScriptMinifier.Minify(allScripts.ToString()).ToString();
+                        //#if DEBUG
+                        //minified = allScripts.ToString();
+                        //#endif
                         byte[] bts = Encoding.UTF8.GetBytes(allScripts.ToString());
                         writer.Write(bts, 0, bts.Length);
                     }
 
-                    // Cache the combined response so that it can be directly written
-                    // in subsequent calls
                     byte[] responseBytes = memoryStream.ToArray();
                     context.Cache.Insert(GetCacheKey(setName, version, isCompressed),
                         responseBytes, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
                         CACHE_DURATION);
 
-                    // Generate the response
                     this.WriteBytes(responseBytes, isCompressed, contentType);
                 }
             }
@@ -126,8 +121,6 @@ namespace FrameWork.Mvc.HttpCompress
             get { return true; }
         }
 
-        // private helper method that return an array of file names 
-        // inside the text file stored in App_Data folder
         private static string[] GetScriptFileNames(string setName)
         {
             var scripts = new System.Collections.Generic.List<string>();

@@ -69,15 +69,15 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
         var cp = new Ext.state.CookieProvider();
         var AdStatETheme = cp.get("AdStatEThemeCSS");
         if (!AdStatETheme || AdStatETheme == '') {
-            AdStatETheme = '/ExtJS/resources/css/xtheme-blue.css';
+            AdStatETheme = '/compress/cachecontent/blue/css?version=1.0';
         }
 
         Ext.Themes = [
-			['默认主题', '/ExtJS/resources/css/xtheme-blue.css'],
-			['灰色主题', '/ExtJS/resources/css/xtheme-gray.css'],
-			['灰绿主题', '/ExtJS/resources/css/xtheme-tp.css'],
-			['深紫主题', '/ExtJS/resources/css/xtheme-indigo.css'],
-			['粉红主题', '/ExtJS/resources/css/xtheme-pink.css']
+			['默认主题', '/compress/cachecontent/blue/css?version=1.0'],
+			['灰色主题', '/compress/cachecontent/gray/css?version=1.0'],
+			['灰绿主题', '/compress/cachecontent/tp/css?version=1.0'],
+			['深紫主题', '/compress/cachecontent/indigo/css?version=1.0'],
+			['粉红主题', '/compress/cachecontent/pink/css?version=1.0']
 		];
 
         this.themesStore = new Ext.data.SimpleStore({

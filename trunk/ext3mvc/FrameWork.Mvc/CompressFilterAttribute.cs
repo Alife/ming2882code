@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.IO;
 using System.IO.Compression;
 
-namespace Web
+namespace FrameWork.Mvc
 {
     public class CompressFilterAttribute : ActionFilterAttribute
     {

@@ -57,8 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="HttpCompress\CacheResult.cs" />
+    <Compile Include="CompressFilterAttribute.cs" />
+    <Compile Include="HttpCompress\CompressController.cs" />
+    <Compile Include="HttpCompress\CompressResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HttpCompress\JavaScriptMinifier.cs" />
     <Compile Include="HttpCompress\ScriptCombiner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
