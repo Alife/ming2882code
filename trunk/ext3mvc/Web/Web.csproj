@@ -1746,9 +1746,13 @@
     <None Include="ExtJs\resources\images\yourtheme\window\top-bottom.psd" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MC.Mvc.Web\MC.Mvc.Web.csproj">
+    <ProjectReference Include="..\MC.Mvc\MC.Mvc.csproj">
       <Project>{819899B5-09C7-4C23-A090-BDEFB154772B}</Project>
-      <Name>MC.Mvc.Web</Name>
+      <Name>MC.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MC.UI\MC.UI.csproj">
+      <Project>{1E40ECBC-19BB-4864-BEB1-DCDE877E12C4}</Project>
+      <Name>MC.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

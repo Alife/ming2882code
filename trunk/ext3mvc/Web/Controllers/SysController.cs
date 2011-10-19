@@ -33,7 +33,7 @@ namespace Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult wordedit()
         {
-            return Json(new Message { success = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
         }
     }
 }
