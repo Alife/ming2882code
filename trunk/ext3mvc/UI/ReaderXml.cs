@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 using System.IO;
+using System.Reflection;
 
 namespace MC.UI
 {
@@ -46,7 +47,7 @@ namespace MC.UI
         /// <summary>
         /// 加载所有XML，并缓存（缓存暂时没加）
         /// </summary>
-        public void LoadXml()
+        public void LoadXml1()
         {
             string currentfolder = HttpContext.Current.Server.MapPath("/xml/");
             string[] arrfiles = Directory.GetFiles(currentfolder, "*.xml", SearchOption.AllDirectories);
@@ -59,11 +60,14 @@ namespace MC.UI
                 XmlDocs.Add(fileinfo.Name.Replace(fileinfo.Extension, string.Empty).ToLower(), xmldoc.SelectSingleNode("Entity"));
             }
         }
+        public void LoadXml()
+        {
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MC.UI.XML.wod_Word_Grid.xml");
+            XmlDocument xmldoc = new XmlDocument();
+            xmldoc.Load(stream);
+            if (XmlDocs == null) XmlDocs = new Dictionary<string, XmlNode>();
+            XmlDocs.Add("wod_Word_Grid".ToLower(), xmldoc.SelectSingleNode("Entity"));
+        }
         #endregion
-    }
-    public class Message
-    {
-        public string msg { get; set; }
-        public bool success { get; set; }
     }
 }
