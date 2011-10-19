@@ -1747,9 +1747,9 @@
     <None Include="ExtJs\resources\images\yourtheme\window\top-bottom.psd" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FrameWork.Mvc\FrameWork.Mvc.csproj">
+    <ProjectReference Include="..\MC.Mvc.Web\MC.Mvc.Web.csproj">
       <Project>{819899B5-09C7-4C23-A090-BDEFB154772B}</Project>
-      <Name>FrameWork.Mvc</Name>
+      <Name>MC.Mvc.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
