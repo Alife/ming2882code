@@ -61,7 +61,6 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\ReaderXml.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SysController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1754,6 +1753,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Class\" />
     <Folder Include="ExtJs\resources\images\indigo\button\" />
     <Folder Include="ExtJs\resources\images\indigo\editor\" />
     <Folder Include="ExtJs\resources\images\indigo\form\" />
