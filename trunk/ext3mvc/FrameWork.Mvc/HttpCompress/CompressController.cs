@@ -26,7 +26,7 @@ namespace FrameWork.Mvc.HttpCompress
 
         #region Method Definitions
         #region public
-        public CompressResult CompressContent(string key, string version, string type)
+        public CompressResult CacheContent(string key, string version, string type)
         {
             return CompressControllerExtensions.RenderCompressResult(key, version, type);
         }
