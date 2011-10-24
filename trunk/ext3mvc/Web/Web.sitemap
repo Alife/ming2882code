@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode id="sysConfig" url="" title="系统配置" description="一个系统" securityTrimmingEnabled="true">
+    <siteMapNode id="sys" url="" title="系统管理" description="一个模块" securityTrimmingEnabled="true">
+      <siteMapNode id="select" readxml="wod_Word_Grid" code="10000" xml="MC.UI.XML.wod_Word_Grid.xml" xslt="MC.UI.XSLT.grid.xslt" url="sys/wordlist" title="字典管理" description="一个功能" securityTrimmingEnabled="true">
+        <siteMapNode id="detail" url="sys/worddetail" title="明细" description="明细操作" securityTrimmingEnabled="true" />
+        <siteMapNode id="add" url="sys/wordadd" title="新建" description="新建操作" securityTrimmingEnabled="true" />
+        <siteMapNode id="edit" url="sys/wordedit" title="编辑" description="编辑操作" securityTrimmingEnabled="true" />
+        <siteMapNode id="del" url="sys/worddel" title="删除" description="删除操作" securityTrimmingEnabled="true" />
+      </siteMapNode>
+      <siteMapNode url="" title=""  description="" />
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>
