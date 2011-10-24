@@ -134,6 +134,26 @@ namespace Web.Controllers
                 System.IO.FileInfo fl = new System.IO.FileInfo(item);
                 sb.AppendLine("." + fl.Name.Replace(fl.Extension, string.Empty) + "{background-image:url(../images/" + fl.Name + ") !important;}");
             }
+            //SiteMapNode root = SiteMap.Providers["SecuritySiteMap"].RootNode;
+            //if (root != null)
+            //{
+            //    foreach (SiteMapNode adminNode in root.ChildNodes)
+            //    {
+            //        if (adminNode.IsAccessibleToUser(HttpContext.Current))
+            //        {
+            //            if (!Request.RawUrl.ToUpperInvariant().Contains("/ADMIN/") && (adminNode.Url.Contains("xmanager") || adminNode.Url.Contains("PingServices")))
+            //                continue;
+            //            HtmlAnchor a = new HtmlAnchor();
+            //            a.HRef = adminNode.Url;
+            //            a.InnerHtml = "<span>" + Translate(adminNode.Title) + "</span>";//"<span>" + Translate(info.Name.Replace(".aspx", string.Empty)) + "</span>";
+            //            if (Request.RawUrl.EndsWith(adminNode.Url, StringComparison.OrdinalIgnoreCase))
+            //                a.Attributes["class"] = "current";
+            //            HtmlGenericControl li = new HtmlGenericControl("li");
+            //            li.Controls.Add(a);
+            //            ulMenu.Controls.Add(li);
+            //        }
+            //    }
+            //}
             return Content(sb.ToString());
         }
     }

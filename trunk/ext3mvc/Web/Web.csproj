@@ -1744,6 +1744,7 @@
     <None Include="ExtJs\resources\images\yourtheme\window\left-right.psd" />
     <None Include="ExtJs\resources\images\yourtheme\window\right-corners.psd" />
     <None Include="ExtJs\resources\images\yourtheme\window\top-bottom.psd" />
+    <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MC.Mvc\MC.Mvc.csproj">
