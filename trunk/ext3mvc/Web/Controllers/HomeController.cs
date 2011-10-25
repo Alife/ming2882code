@@ -12,6 +12,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using MC.Mvc.Filter;
+using MC.Mvc.Helpers;
 using MC.UI;
 
 namespace Web.Controllers
@@ -155,6 +156,15 @@ namespace Web.Controllers
             //    }
             //}
             return Content(sb.ToString());
+        }
+        public ContentResult dynWebserice()
+        {
+            string url = "http://www.webservicex.net/globalweather.asmx";
+            string[] args = new string[2];
+            args[0] = "xiamen";
+            args[1] = "China";
+            object result = WebServiceHelper.InvokeWebService(url, "GetWeather", args);
+            return Content(result.ToString());
         }
     }
 }
