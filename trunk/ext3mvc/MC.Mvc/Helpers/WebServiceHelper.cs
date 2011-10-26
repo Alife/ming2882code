@@ -50,9 +50,14 @@ namespace MC.Mvc.Helpers
             {
                 //获取WSDL
                 WebClient wc = new WebClient();
-                WebProxy proxy = new WebProxy(new System.Uri("http://gln-route.gillion.com.cn"), false);
-                proxy.Credentials = new NetworkCredential("zhangs", "chong2882@qq.com", "GILLION");
-                wc.Proxy = proxy;
+                Uri address = WebProxy.GetDefaultProxy().Address;
+                if (address != null)
+                {
+                    //WebProxy proxy = new WebProxy(new System.Uri("http://gln-route.gillion.com.cn:8080"), true);
+                    WebProxy proxy = new WebProxy(address, true);
+                    proxy.Credentials = new NetworkCredential("zhangs", "chong2882@qq.com", "GILLION");
+                    wc.Proxy = proxy;
+                }
                 Stream stream = wc.OpenRead(url + "?WSDL");
                 ServiceDescription sd = ServiceDescription.Read(stream);
                 ServiceDescriptionImporter sdi = new ServiceDescriptionImporter();
