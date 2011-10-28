@@ -219,5 +219,9 @@ namespace Web.Controllers
                 System.Threading.Thread.Sleep(1000);
             }
         }
+        public ActionResult Websocket()
+        {
+            return View();
+        }
     }
 }
