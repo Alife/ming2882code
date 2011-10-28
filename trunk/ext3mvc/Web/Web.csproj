@@ -67,6 +67,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CometController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SysController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1770,6 +1771,9 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Js\jquery-1.4.4.min.js" />
+    <Content Include="Views\Home\comet.aspx" />
+    <Content Include="Views\Home\LongPolling.aspx" />
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>

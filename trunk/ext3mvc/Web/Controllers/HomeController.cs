@@ -157,6 +157,10 @@ namespace Web.Controllers
             //}
             return Content(sb.ToString());
         }
+        /// <summary>
+        /// 动态生成WebSerice
+        /// </summary>
+        /// <returns></returns>
         public ContentResult dynWebserice()
         {
             string url = "http://www.webservicex.net/globalweather.asmx";
@@ -170,6 +174,50 @@ namespace Web.Controllers
         {
             mcServiceReference.mcService mc = new Web.mcServiceReference.mcService();
             return Content(mc.HelloWorld());
+        }
+        /// <summary>
+        /// ajax长轮询的 Comet
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult LongPolling()
+        {
+            return View();
+        }
+        /// <summary>
+        /// ContentType的推送
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult comet()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 服务器推送http://localhost:6501/home/comet
+        /// 只有FF可以用
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult multipart()
+        {
+            //结束标志，这是随机生成的
+            string Boundary = "ABCDEFGHIJKLMNOPQRST";
+            Response.ContentType = "multipart/x-mixed-replace;boundary=\"" + Boundary + "\"";
+            Response.StatusCode = 200;
+            Response.Output.Write("--" + Boundary);
+            Response.Flush();
+            //每隔5秒种向客户端发送一次数据
+            while (true)
+            {
+                //发送给客户端的数据的MIME类型，如果是JSON，就用application/json
+                //注意这里一定要用WriteLine()
+                Response.Output.WriteLine("Content-Type: plain/text");
+                //这句生成空行的代码不能少
+                Response.Output.WriteLine();
+                Response.Output.WriteLine(DateTime.Now.ToString("yyyy/MM/dd hh:mm:s.FFF"));
+                //发送结束标志，客户端就知道完成了一次发送
+                Response.Output.WriteLine("--" + Boundary);
+                Response.Flush();
+                System.Threading.Thread.Sleep(1000);
+            }
         }
     }
 }
