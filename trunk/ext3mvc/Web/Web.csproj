@@ -1804,6 +1804,9 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Class\" />
     <Folder Include="ExtJs\resources\images\indigo\button\" />

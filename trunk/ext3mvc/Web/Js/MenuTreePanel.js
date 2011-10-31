@@ -1,16 +1,16 @@
-Ext.namespace("eddy.office.MenuTreePanel");
-eddy.office.MenuTreePanel = function(config) {
+Ext.namespace("mc.frame.MenuTreePanel");
+mc.frame.MenuTreePanel = function(config) {
     Ext.apply(this, {
         items: []
     });
 
-    eddy.office.MenuTreePanel.superclass.constructor.apply(this, arguments);
+    mc.frame.MenuTreePanel.superclass.constructor.apply(this, arguments);
 
     this.addEvents('menuClick');
     this.initMenuEvent();
 };
 
-Ext.extend(eddy.office.MenuTreePanel, Ext.Panel, {
+Ext.extend(mc.frame.MenuTreePanel, Ext.Panel, {
 
     initMenuEvent: function() {
     },
@@ -19,7 +19,7 @@ Ext.extend(eddy.office.MenuTreePanel, Ext.Panel, {
     },
 
     onRender: function() {
-        eddy.office.MenuTreePanel.superclass.onRender.apply(this, arguments);
+        mc.frame.MenuTreePanel.superclass.onRender.apply(this, arguments);
         this.loadMenuTree();
     },
 
@@ -91,7 +91,7 @@ Ext.extend(eddy.office.MenuTreePanel, Ext.Panel, {
                 text: nodeName,
                 jsUrl: jsUrl,
                 url: nodeAction,
-                panelClass: 'eddy.office.UserInfoPanel',
+                panelClass: 'mc.frame.UserInfoPanel',
                 listeners: {
                     "click": function(node, event) {
                         instanceTree.fireEvent('menuClick', node.attributes);

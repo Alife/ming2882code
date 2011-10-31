@@ -1,6 +1,6 @@
-Ext.namespace('eddy.office');
+Ext.namespace('mc.frame');
 
-eddy.office.app = function() {
+mc.frame.app = function() {
     this.cachedModuls = [];
     this.userObj = new Object();
     this.JsToLoad = undefined;
@@ -8,7 +8,7 @@ eddy.office.app = function() {
     this.init();
 }
 
-Ext.extend(eddy.office.app, Ext.util.Observable, {
+Ext.extend(mc.frame.app, Ext.util.Observable, {
     init: function() {
         this.top = new Ext.Panel({
             region: 'north', collapseMode: 'mini',
@@ -24,7 +24,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
 			]
         })
 
-        this.MenuTreePanel = new eddy.office.MenuTreePanel({
+        this.MenuTreePanel = new mc.frame.MenuTreePanel({
             title: '导航',
             region: 'west',
             split: true,
@@ -320,7 +320,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
     loadUserInfo: function() {
         Ext.Ajax.request({
             method: 'post',
-            url: '/home/LoginAction',
+            url: '/home/loadUserInfo',
             params: '',
             scope: this,
             success: function(resp) {
@@ -345,7 +345,7 @@ Ext.extend(eddy.office.app, Ext.util.Observable, {
 Ext.onReady(function() {
     Ext.QuickTips.init();
     Ext.form.Field.prototype.msgTarget = 'side';
-    myApp = new eddy.office.app();
+    myApp = new mc.frame.app();
     myApp.loadUserInfo();
 
     window.addTab = function(item) {
