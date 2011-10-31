@@ -44,19 +44,30 @@ namespace Web.Controllers
         {
             ArrayList lst = new ArrayList();
             lst.Add(new { nodeId = 1, menuName = "功能测试", actionPath = "" });
-            lst.Add(new { nodeId = 2, menuName = "功能测试2", actionPath = "" });
+            lst.Add(new { nodeId = 2, menuName = "wcf应用", actionPath = "" });
             lst.Add(new { nodeId = 3, menuName = "功能测试2", actionPath = "" });
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
         public JsonResult getUserTree(int parantNodeId, string menuName)
         {
             ArrayList lst = new ArrayList();
-            lst.Add(new { id = 1, text = "动态GRID", jsUrl = "/js/view/DynamicGrid.js;/js/view/fundyngird.js", iconCls = "chart_organisation", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.DynamicGrid", mainClass = "com.ms.basic.DynamicGrid" });
-            lst.Add(new { id = 2, text = "功能测试2", jsUrl = "/js/view/ResourcePanel.js", iconCls = "application_xp", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel", mainClass = "com.ms.basic.ResourcePanel" });
-            lst.Add(new { id = 3, text = "功能测试3", jsUrl = "/js/view/ResourcePanel1.js", iconCls = "application_view_icons", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel1", mainClass = "com.ms.basic.ResourcePanel1" });
-            lst.Add(new { id = 4, text = "XSLT+XML单表", jsUrl = "", url = "/home/loadxmlGrid", iconCls = "application_view_tile", leaf = true, path = 1, type = "loadjs", namespace1 = "wod_Word_Grid_Panel", mainClass = "wod_Word_Grid_Panel" });
-            lst.Add(new { id = 5, text = "功能测试5", jsUrl = "/js/view/JScript1.js", leaf = true, iconCls = "application_view_columns", path = 1, type = "jsclass", namespace1 = "wod_Word_Grid_Panel1", mainClass = "wod_Word_Grid_Panel1" });
-            if (parantNodeId != 3)
+            if (parantNodeId == 1)
+            {
+                lst.Add(new { id = 1, text = "动态GRID", jsUrl = "/js/view/DynamicGrid.js;/js/view/fundyngird.js", iconCls = "chart_organisation", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.DynamicGrid", mainClass = "com.ms.basic.DynamicGrid" });
+                lst.Add(new { id = 2, text = "纯extjs-Grid", jsUrl = "/js/view/ResourcePanel.js", iconCls = "application_xp", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel", mainClass = "com.ms.basic.ResourcePanel" });
+                lst.Add(new { id = 3, text = "测试是否同上冲突", jsUrl = "/js/view/ResourcePanel1.js", iconCls = "application_view_icons", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel1", mainClass = "com.ms.basic.ResourcePanel1" });
+                lst.Add(new { id = 4, text = "XSLT+XML单表", jsUrl = "", url = "/home/loadxmlGrid", iconCls = "application_view_tile", leaf = true, path = 1, type = "loadjs", namespace1 = "wod_Word_Grid_Panel", mainClass = "wod_Word_Grid_Panel" });
+                lst.Add(new { id = 5, text = "测试XSLT单表BUG", jsUrl = "/js/view/JScript1.js", leaf = true, iconCls = "application_view_columns", path = 1, type = "jsclass", namespace1 = "wod_Word_Grid_Panel1", mainClass = "wod_Word_Grid_Panel1" });
+                lst.Add(new { id = 6, text = "动态生成WebSerice,击冲代理", url = "/home/dynWebserice", leaf = true, iconCls = "asterisk_yellow", path = 1, type = "iframe" });
+                lst.Add(new { id = 7, text = "ajax长轮询的 Comet", url = "/home/LongPolling", leaf = true, iconCls = "book_addresses", path = 1, type = "iframe" });
+                lst.Add(new { id = 8, text = "ContentType的推送,可怜只在FF有效", url = "/home/LongPolling", leaf = true, iconCls = "bell", path = 1, type = "iframe" });
+                lst.Add(new { id = 9, text = "Websocket", url = "/home/Websocket", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+            }
+            else if (parantNodeId == 2)
+            {
+                lst.Add(new { id = 10, text = "Websocket", url = "/home/Websocket", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+            }
+            else
                 return Json(lst, JsonRequestBehavior.AllowGet);
             return Json("", JsonRequestBehavior.AllowGet);
         }
@@ -78,6 +89,7 @@ namespace Web.Controllers
             reader.Close();
             return Content("");
         }
+        #region 动态GRID
         public ContentResult dynamicGrid()
         {
             string json = @"{
@@ -111,10 +123,12 @@ namespace Web.Controllers
                 }";
             return Content(json);
         }
-        public JsonResult LoginAction()
+        #endregion
+        public JsonResult loadUserInfo()
         {
             return Json(new { realName = "admin", userDeptName = "功能测试" }, JsonRequestBehavior.AllowGet);
         }
+        #region 纯extjs-Grid
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult ResourcesList()
         {
@@ -126,6 +140,7 @@ namespace Web.Controllers
             dt.Add("total", 2);
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
+        #endregion
         public ContentResult icon()
         {
             string[] strs = System.IO.Directory.GetFiles(Server.MapPath("/images"), "*.png");
@@ -157,6 +172,7 @@ namespace Web.Controllers
             //}
             return Content(sb.ToString());
         }
+        #region 动态生成WebSerice
         /// <summary>
         /// 动态生成WebSerice
         /// </summary>
@@ -175,19 +191,13 @@ namespace Web.Controllers
             mcServiceReference.mcService mc = new Web.mcServiceReference.mcService();
             return Content(mc.HelloWorld());
         }
+        #endregion
+        #region ajax长轮询的 Comet
         /// <summary>
         /// ajax长轮询的 Comet
         /// </summary>
         /// <returns></returns>
         public ActionResult LongPolling()
-        {
-            return View();
-        }
-        /// <summary>
-        /// ContentType的推送
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult comet()
         {
             return View();
         }
@@ -219,9 +229,30 @@ namespace Web.Controllers
                 System.Threading.Thread.Sleep(1000);
             }
         }
+        #endregion
+        #region ContentType的推送
+        /// <summary>
+        /// ContentType的推送
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult comet()
+        {
+            return View();
+        }
+        #endregion
+        #region Websocket
         public ActionResult Websocket()
         {
             return View();
         }
+        #endregion
+        #region wcf hello
+        public ContentResult hellowcf(string name)
+        {
+            //string json = WebClientHelper.Client.UploadString("http://localhost:1503/Sample/Hello.svc/sample/" + name, "POST", string.Empty);
+            string json = new WebClient().DownloadString("http://localhost:1503/Sample/Hello.svc/sample/" + name);
+            return Content(json);
+        }
+        #endregion
     }
 }
