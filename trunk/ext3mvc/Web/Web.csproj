@@ -1777,6 +1777,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Js\jquery-1.4.4.min.js" />
+    <Content Include="Js\login.js" />
     <Content Include="Views\Home\comet.aspx" />
     <Content Include="Views\Home\LongPolling.aspx" />
     <Content Include="Views\Home\Websocket.aspx" />
