@@ -1,4 +1,3 @@
-Ext.namespace('mc.frame');
 mc.frame.login = Ext.extend(Ext.Window, {
     title: '用户登录',
     renderTo: Ext.getBody(),
@@ -35,94 +34,35 @@ mc.frame.login = Ext.extend(Ext.Window, {
     openLoingWin: function() {
         this.show();
     },
-    doLogin: function(btn) {
+    doLogin: function() {
         if (!this.loginForm.getForm().isValid())
             return;
-        this.loginForm.form.doAction('submit', {
-            url: '/home/Login',
-            method: 'post',
-            waitTitle: '请等待',
-            waitMsg: '正在登录...',
-            params: '',
-            scope: this,
-            success: function(form, resp) {
-                if (resp.response.responseText != null) {
-                    var obj = Ext.util.JSON.decode(resp.response.responseText);
-                    if (obj.success) {
-                        Ext.MessageBox.alert('提示', '用户名或者密码错误');
-                    }
-                    else {
-                        var myApp = new mc.frame.app();
-                        myApp.loadUserInfo(obj);
-                        this.hide();
-                    }
+        mc.frame.submit({ form: this.loginForm.getForm(), url: '/home/Login', scope: this,
+            onSuccess: function(rs, form) {
+                if (!rs.data) {
+                    Ext.MessageBox.alert('提示', '用户名或者密码错误');
+                    return;
                 }
-            },
-            failure: function(form, resp) {
-                switch (resp.response.status) {
-                    case 403:
-                        Ext.Msg.show({ title: '提示', msg: '你请求的页面禁止访问!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                        break;
-                    case 404:
-                        Ext.Msg.show({ title: '提示', msg: '你请求的页面不存在!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                        break;
-                    case 500:
-                        Ext.Msg.show({ title: '提示', msg: '你请求的页面服务器内部错误!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                        break;
-                    case 502:
-                        Ext.Msg.show({ title: '提示', msg: 'Web服务器收到无效的响应!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                        break;
-                    case 503:
-                        Ext.Msg.show({ title: '提示', msg: '服务器繁忙，请稍后再试!!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                        break;
-                    default:
-                        Ext.Msg.show({ title: '提示', msg: '你请求的页面遇到问题，操作失败!错误代码:' + resp.response.status, icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                        break;
-                }
+                var myApp = new mc.frame.app();
+                myApp.loadUserInfo(rs.data);
+                this.hide();
             }
         });
     }
 });
 
 Ext.onReady(function() {
+    Ext.BLANK_IMAGE_URL = (Ext.isIE6 || Ext.isIE7) ? "/extjs/resources/images/default/s.gif" : 'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
     Ext.QuickTips.init();
     Ext.form.Field.prototype.msgTarget = 'side';
-    Ext.Ajax.request({
-        method: 'post',
-        url: '/home/loadUserInfo',
-        params: '',
-        success: function(resp) {
-            var obj = Ext.util.JSON.decode(resp.responseText);
-            if (obj.success) {
-                var myApp = new mc.frame.app();
-                myApp.loadUserInfo(obj);
-            }
-            else {
-                var login = new mc.frame.login();
-                login.openLoingWin();
-            }
+    mc.frame.ajax({ url: '/home/loadUserInfo', scope: this, noErrMsg: true,
+        onSuccess: function(rs, opts) {
+            var myApp = new mc.frame.app();
+            myApp.loadUserInfo(rs.data);
         },
-        failure: function(resp) {
-            switch (resp.status) {
-                case 403:
-                    Ext.Msg.show({ title: '提示', msg: '你请求的页面禁止访问!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                    break;
-                case 404:
-                    Ext.Msg.show({ title: '提示', msg: '你请求的页面不存在!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                    break;
-                case 500:
-                    Ext.Msg.show({ title: '提示', msg: '你请求的页面服务器内部错误!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                    break;
-                case 502:
-                    Ext.Msg.show({ title: '提示', msg: 'Web服务器收到无效的响应!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                    break;
-                case 503:
-                    Ext.Msg.show({ title: '提示', msg: '服务器繁忙，请稍后再试!!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                    break;
-                default:
-                    Ext.Msg.show({ title: '提示', msg: '你请求的页面遇到问题，操作失败!错误代码:' + resp.status, icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-                    break;
-            }
+        onFailure: function(rs, opts) {
+            var login = new mc.frame.login();
+            login.openLoingWin();
         }
     });
 });

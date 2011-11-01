@@ -26,7 +26,7 @@ namespace MC.DAO
 
         public IBatiseHelper()
         {
-            string uri = "assembly://DAO/DAO/sqlmap.config";
+            string uri = "assembly://MC.DAO/MC.DAO/sqlmap.config";
             try
             {
                 IResource resource = ResourceLoaderRegistry.GetResource(uri);

@@ -123,11 +123,11 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
 
 				            Ext.Ajax.request({
 				                method: 'POST',
-				                url: '/home/logoutAction',
+				                url: '/home/logout',
 				                success: function(resp) {
 				                    var obj = Ext.util.JSON.decode(resp.responseText);
-				                    if (obj.result == 'success') {
-				                        window.location.href = '/index.html';
+				                    if (obj.success) {
+				                        window.location.reload();
 				                    }
 				                    else {
 				                        Ext.MessageBox.alert('报错了！！！', '错误！！！');

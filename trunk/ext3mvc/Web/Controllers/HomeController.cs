@@ -31,8 +31,8 @@ namespace Web.Controllers
         {
             //Configuration config = WebConfigurationManager.OpenWebConfiguration("/");
             //MachineKeySection configSection = (MachineKeySection)config.GetSection("system.web/machineKey");
-            //configSection.ValidationKey = CreateKey(2932);
-            //configSection.DecryptionKey = CreateKey(2493);
+            //configSection.ValidationKey = CreateKey(17);
+            //configSection.DecryptionKey = CreateKey(14);
             //configSection.Validation = MachineKeyValidation.SHA1;
             //if (!configSection.SectionInformation.IsLocked)
             //{
@@ -171,9 +171,9 @@ namespace Web.Controllers
                 authTicket = FormsAuthentication.Decrypt(authCookie.Value);
                 JsonSerializerSettings jsonSs = new JsonSerializerSettings();
                 MC.Model.mc_User userInfo = (MC.Model.mc_User)JsonConvert.DeserializeObject(authTicket.UserData, typeof(MC.Model.mc_User), jsonSs);
-                return Json(userInfo, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, data = userInfo }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "用户不存在" }, JsonRequestBehavior.AllowGet);
         }
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult Login(string userName,string password)
@@ -202,9 +202,16 @@ namespace Web.Controllers
                     Domain = FormsAuthentication.CookieDomain,
                 };
                 Response.Cookies.Add(userCookie);
-                return Json(userInfo, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, data = userInfo }, JsonRequestBehavior.AllowGet);
             }
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult logout()
+        {
+            FormsAuthentication.SignOut();
+            Request.Cookies.Clear();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
         #region 纯extjs-Grid
         [AcceptVerbs(HttpVerbs.Post)]
