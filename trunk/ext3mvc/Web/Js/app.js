@@ -1,5 +1,3 @@
-Ext.namespace('mc.frame');
-
 mc.frame.app = function() {
     this.cachedModuls = [];
     this.userObj = new Object();
@@ -317,18 +315,18 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
         this();
     },
 
-    loadUserInfo: function() {
-        Ext.Ajax.request({
-            method: 'post',
-            url: '/home/loadUserInfo',
-            params: '',
-            scope: this,
-            success: function(resp) {
-                var obj = Ext.util.JSON.decode(resp.responseText);
+    loadUserInfo: function(obj) {
+//        Ext.Ajax.request({
+//            method: 'post',
+//            url: '/home/loadUserInfo',
+//            params: '',
+//            scope: this,
+//            success: function(resp) {
+//                var obj = Ext.util.JSON.decode(resp.responseText);
                 Ext.apply(this.userObj, obj);
                 Ext.getCmp('welcomeLabel').getEl().update('欢迎您,' + this.userObj.realName + ' ' + this.userObj.userDeptName);
-            }
-        });
+//            }
+//        });
     },
 
     addTab: function(item) {
@@ -342,13 +340,13 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
     }
 });
 
-Ext.onReady(function() {
-    Ext.QuickTips.init();
-    Ext.form.Field.prototype.msgTarget = 'side';
-    myApp = new mc.frame.app();
-    myApp.loadUserInfo();
+//Ext.onReady(function() {
+//    Ext.QuickTips.init();
+//    Ext.form.Field.prototype.msgTarget = 'side';
+//    myApp = new mc.frame.app();
+//    myApp.loadUserInfo();
 
-    window.addTab = function(item) {
-        myApp.addTab(item);
-    }
-});
+//    window.addTab = function(item) {
+//        myApp.addTab(item);
+//    }
+//});
