@@ -316,17 +316,8 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
     },
 
     loadUserInfo: function(obj) {
-//        Ext.Ajax.request({
-//            method: 'post',
-//            url: '/home/loadUserInfo',
-//            params: '',
-//            scope: this,
-//            success: function(resp) {
-//                var obj = Ext.util.JSON.decode(resp.responseText);
-                Ext.apply(this.userObj, obj);
-                Ext.getCmp('welcomeLabel').getEl().update('欢迎您,' + this.userObj.realName + ' ' + this.userObj.userDeptName);
-//            }
-//        });
+        Ext.apply(this.userObj, obj);
+        Ext.getCmp('welcomeLabel').getEl().update('欢迎您,' + this.userObj.UserName + ' ' + this.userObj.DeptID);
     },
 
     addTab: function(item) {
