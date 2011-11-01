@@ -160,6 +160,7 @@ namespace Web.Controllers
             return Content(json);
         }
         #endregion
+        [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult loadUserInfo()
         {
             string cookieName = FormsAuthentication.FormsCookieName;
@@ -173,6 +174,37 @@ namespace Web.Controllers
                 return Json(userInfo, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult Login(string userName,string password)
+        {
+            var userInfo = MC.BLL.mc_UserBLL.GetUserLogin(userName, password, Request.UserHostAddress);
+            if (userInfo != null)
+            {
+                int expires = 60;
+                bool? rememberMe = true;
+                rememberMe = rememberMe ?? false;
+                if (rememberMe.HasValue)
+                    expires = 1440 * 365 * 10;
+                JsonSerializerSettings jsonSs = new JsonSerializerSettings();
+                jsonSs.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+                string userData = JsonConvert.SerializeObject(userInfo, Newtonsoft.Json.Formatting.None, jsonSs);
+                FormsAuthentication.SetAuthCookie(userName, rememberMe.HasValue, FormsAuthentication.FormsCookiePath);
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, userName, DateTime.Now, DateTime.Now.AddMinutes(expires),
+                    rememberMe.HasValue, userData, FormsAuthentication.FormsCookiePath);
+                FormsIdentity identity = new FormsIdentity(ticket);
+                string encTicket = FormsAuthentication.Encrypt(ticket);
+                HttpCookie userCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
+                {
+                    HttpOnly = true,
+                    Path = ticket.CookiePath,
+                    Expires = ticket.IsPersistent ? ticket.Expiration : DateTime.MinValue,
+                    Domain = FormsAuthentication.CookieDomain,
+                };
+                Response.Cookies.Add(userCookie);
+                return Json(userInfo, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
         #region 纯extjs-Grid
         [AcceptVerbs(HttpVerbs.Post)]
