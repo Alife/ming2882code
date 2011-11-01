@@ -81,13 +81,13 @@
         </isNotNull>
       </dynamic>
     </select>
-    <select id="MC.Model.mc_User.GetUserLogin" parameterClass="sys_User" resultMap="GetResult">
+    <select id="MC.Model.mc_User.GetUserLogin" parameterClass="mc_User" resultMap="SelectResult">
       <![CDATA[
       declare @ID int;
       if exists (select ID from mc_User where UserName=#UserName# and Password=#Password#)
       begin
       select @ID=ID from mc_User where UserName=#UserName# and Password=#Password#;
-      update mc_User set DeptID+1 where ID=@ID;
+      update mc_User set DeptID=DeptID+1 where ID=@ID;
       select ID,UserName,Password,DeptID,Email FROM mc_User where ID=@ID;
       end]]>
     </select>
