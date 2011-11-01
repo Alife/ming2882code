@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.Configuration;
+using System.Configuration;
+using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Xsl;
@@ -14,6 +18,8 @@ using System.Net;
 using MC.Mvc.Filter;
 using MC.Mvc.Helpers;
 using MC.UI;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Web.Controllers
 {
@@ -23,8 +29,34 @@ namespace Web.Controllers
         [CompressFilter]
         public ActionResult Index()
         {
+            //Configuration config = WebConfigurationManager.OpenWebConfiguration("/");
+            //MachineKeySection configSection = (MachineKeySection)config.GetSection("system.web/machineKey");
+            //configSection.ValidationKey = CreateKey(2932);
+            //configSection.DecryptionKey = CreateKey(2493);
+            //configSection.Validation = MachineKeyValidation.SHA1;
+            //if (!configSection.SectionInformation.IsLocked)
+            //{
+            //    config.Save();
+            //    Response.Write("写入成功！");
+            //}
+            //else
+            //{
+            //    Response.Write("写入失败！段被锁定！");
+            //}  
             return View();
         }
+        public static string CreateKey(int numBytes)
+        {
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[numBytes];
+            rng.GetBytes(buff);
+            System.Text.StringBuilder hexString = new System.Text.StringBuilder(64);
+            for (int i = 0; i < buff.Length; i++)
+            {
+                hexString.Append(String.Format("{0:X2}", buff[i]));
+            }
+            return hexString.ToString();
+        }      
         [CompressFilter]
         public ContentResult GZIP(string id)
         {
@@ -44,7 +76,7 @@ namespace Web.Controllers
         {
             ArrayList lst = new ArrayList();
             lst.Add(new { nodeId = 1, menuName = "功能测试", actionPath = "" });
-            lst.Add(new { nodeId = 2, menuName = "wcf应用", actionPath = "" });
+            lst.Add(new { nodeId = 2, menuName = "wcf REST应用", actionPath = "" });
             lst.Add(new { nodeId = 3, menuName = "功能测试2", actionPath = "" });
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
@@ -65,11 +97,15 @@ namespace Web.Controllers
             }
             else if (parantNodeId == 2)
             {
-                lst.Add(new { id = 10, text = "Websocket", url = "/home/Websocket", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+                lst.Add(new { id = 10, text = "WCF REST", url = "/home/wcfrest/abc", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+                lst.Add(new { id = 11, text = "WCF REST read return xml", url = "/home/wcfread?name=haode&position=china", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+                lst.Add(new { id = 12, text = "WCF REST add return xml", url = "/home/wcfadd", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+                lst.Add(new { id = 13, text = "UploadString add", url = "/home/wcfadd1/1", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+                lst.Add(new { id = 14, text = "WebRequest add", url = "/home/wcfadd1/2", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
             }
             else
-                return Json(lst, JsonRequestBehavior.AllowGet);
-            return Json("", JsonRequestBehavior.AllowGet);
+                return Json("", JsonRequestBehavior.AllowGet);
+            return Json(lst, JsonRequestBehavior.AllowGet);
         }
         [CompressFilter]
         public ContentResult loadxmlGrid()
@@ -126,7 +162,17 @@ namespace Web.Controllers
         #endregion
         public JsonResult loadUserInfo()
         {
-            return Json(new { realName = "admin", userDeptName = "功能测试" }, JsonRequestBehavior.AllowGet);
+            string cookieName = FormsAuthentication.FormsCookieName;
+            HttpCookie authCookie = Request.Cookies[cookieName];
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket authTicket = null;
+                authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                JsonSerializerSettings jsonSs = new JsonSerializerSettings();
+                MC.Model.mc_User userInfo = (MC.Model.mc_User)JsonConvert.DeserializeObject(authTicket.UserData, typeof(MC.Model.mc_User), jsonSs);
+                return Json(userInfo, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
         #region 纯extjs-Grid
         [AcceptVerbs(HttpVerbs.Post)]
@@ -246,12 +292,102 @@ namespace Web.Controllers
             return View();
         }
         #endregion
-        #region wcf hello
-        public ContentResult hellowcf(string name)
+        #region wcf rest
+        public ContentResult wcfrest(string id)
         {
-            //string json = WebClientHelper.Client.UploadString("http://localhost:1503/Sample/Hello.svc/sample/" + name, "POST", string.Empty);
-            string json = new WebClient().DownloadString("http://localhost:1503/Sample/Hello.svc/sample/" + name);
+            string json = WebClientHelper.Client.DownloadString("http://localhost:1503/Sample/Hello.svc/sample/" + id);
             return Content(json);
+        }
+        #endregion
+        #region wcf read
+        public ContentResult wcfread(string name, string position)
+        {
+            //string json = WebClientHelper.Client.DownloadString("http://localhost:1503/contract/test.svc/User/Get/" + name + "/" + position);
+            //return Content(json);
+            string serviceUrl = "http://localhost:1503/contract/test.svc/User/Get/" + name + "/" + position;
+            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(serviceUrl);
+
+            // 获得接口返回值
+            HttpWebResponse myResponse = (HttpWebResponse)myRequest.GetResponse();
+            StreamReader reader = new StreamReader(myResponse.GetResponseStream(), Encoding.UTF8);
+
+            string ReturnXml = HttpUtility.UrlDecode(reader.ReadToEnd());
+
+            reader.Close();
+            myResponse.Close();
+            return Content(ReturnXml);
+        }
+        #endregion
+        #region wcf add
+        public ContentResult wcfadd()
+        {
+            string serviceUrl = string.Format("{0}/{1}", "http://localhost:1503/contract/test.svc", "User/Create");
+            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(serviceUrl);
+
+            string data = "<User xmlns=\"http://rest-server/datacontract/user\"><ID>2</ID><Name>haobuhao</Name><Sex>1</Sex><Position>china fujian</Position><Email>wo@qq.com</Email></User>";
+            //转成网络流
+            byte[] buf = UnicodeEncoding.UTF8.GetBytes(data);
+
+            //设置
+            myRequest.Method = "POST";
+            myRequest.ContentLength = buf.Length;
+            myRequest.ContentType = "text/html";
+
+            // 发送请求
+            Stream newStream = myRequest.GetRequestStream();
+            newStream.Write(buf, 0, buf.Length);
+            newStream.Close();
+
+            // 获得接口返回值
+            HttpWebResponse myResponse = (HttpWebResponse)myRequest.GetResponse();
+            StreamReader reader = new StreamReader(myResponse.GetResponseStream(), Encoding.UTF8);
+
+            string ReturnXml = HttpUtility.HtmlDecode(reader.ReadToEnd());
+
+            reader.Close();
+            myResponse.Close();
+            return Content(ReturnXml);
+        }
+        #endregion
+        #region wcf add1
+        public ContentResult wcfadd1(int id)
+        {
+            string url = "http://localhost:1503/contract/test.svc/User/Create";
+            string reid = string.Empty;
+            if (id == 1)
+            {
+                string data = wcfadddata(3);
+                WebClient client = WebClientHelper.Client;
+                client.Encoding = System.Text.Encoding.UTF8;
+                client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                reid = client.UploadString(url, "POST", data);
+            }
+            else if (id == 2)
+            {
+                string data = wcfadddata(4);
+                byte[] buf = UnicodeEncoding.UTF8.GetBytes(data);
+                WebRequest request = WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/json";
+                request.ContentLength = buf.Length;
+                Stream newStream = request.GetRequestStream();
+                newStream.Write(buf, 0, buf.Length);
+                newStream.Close();
+                WebResponse response = (WebResponse)request.GetResponse();
+                StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                reid = reader.ReadToEnd();
+                reader.Close();
+                response.Close();
+            }
+            return Content(reid);
+        }
+        #endregion
+        #region wcf add data
+        private string wcfadddata(int id)
+        {
+            var data = new { ID = id, Name = "haobuhao", Sex = 1, Position = "china fujian", Email = "wo@qq.com" };
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.None, new JsonSerializerSettings());
+            return json;
         }
         #endregion
     }
