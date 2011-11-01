@@ -16,28 +16,28 @@ namespace MC.DAO
         object QueryForObject(QueryInfo queryInfo);
         #endregion
 
-        #region SelectCount　查询记录数，配置文件要写明返回一个整型
+        #region TotalCount　查询记录数，配置文件要写明返回一个整型
 
-        int SelectCount(string sTableName, IDictionary htParameters, string xmlID);
+        int TotalCount(string sTableName, IDictionary htParameters, string xmlID);
 
-        int SelectCount<T>(QueryInfo queryInfo) where T : Entity, new();
+        int TotalCount<T>(QueryInfo queryInfo) where T : Entity, new();
 
         #endregion
 
         #region IList　返回一个记录集合，配置文件要写明返回一个集合
-        IList<T> Find<T>(QueryInfo queryInfo) where T : Entity, new();
+        IList<T> GetList<T>(QueryInfo queryInfo) where T : Entity, new();
         #endregion
 
-        #region Find  返回一个集合，集合中可以是不同的实体
-        IList FindList(QueryInfo queryInfo);
+        #region GetList  返回一个集合，集合中可以是不同的实体
+        IList GetList(QueryInfo queryInfo);
         #endregion
 
-        #region Find　返回一个记录集合，配置文件要写明返回一个分页集合
-        T FindList<T>(QueryInfo queryInfo) where T : EntityList, new();
+        #region GetListPage　返回一个记录集合，配置文件要写明返回一个分页集合
+        T GetListPage<T>(QueryInfo queryInfo) where T : EntityList, new();
         #endregion
 
-        #region GetList　返回一个记录IDictionary集合，配置文件要写明返回一个分页集合 //可以是存储过程
-        IDictionary GetList<T>(QueryInfo queryInfo) where T : Entity, new();
+        #region GetListPages　返回一个记录IDictionary集合，配置文件要写明返回一个分页集合 //可以是存储过程
+        IDictionary GetListPages<T>(QueryInfo queryInfo) where T : Entity, new();
         #endregion
 
         #region GetItem 返回一条记录或值，配置文件要写明返回的类型
@@ -81,7 +81,7 @@ namespace MC.DAO
         #endregion
 
         #region 返回IDictionary，内容为分页的DataTable，不支持存储过程
-        IDictionary GetList(QueryInfo queryInfo);
+        IDictionary GetListPage(QueryInfo queryInfo);
         #endregion
     }
 }

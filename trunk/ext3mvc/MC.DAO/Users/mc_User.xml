@@ -81,6 +81,16 @@
         </isNotNull>
       </dynamic>
     </select>
+    <select id="MC.Model.mc_User.GetUserLogin" parameterClass="sys_User" resultMap="GetResult">
+      <![CDATA[
+      declare @ID int;
+      if exists (select ID from mc_User where UserName=#UserName# and Password=#Password#)
+      begin
+      select @ID=ID from mc_User where UserName=#UserName# and Password=#Password#;
+      update mc_User set DeptID+1 where ID=@ID;
+      select ID,UserName,Password,DeptID,Email FROM mc_User where ID=@ID;
+      end]]>
+    </select>
     <insert id="MC.Model.mc_User.Insert" parameterClass="mc_User">
       insert into mc_User(
       UserName
@@ -105,6 +115,12 @@
       ,Email = #Email#
       WHERE
       ID = #ID#
+    </update>
+    <update id="MC.Model.mc_User.UpdatePassword">
+      update mc_User set
+      Password = #NewPassword#
+      WHERE
+      ID = #ID# and Password = #OldPassword#
     </update>
     <delete id="MC.Model.mc_User.Delete" parameterClass="list">
       delete

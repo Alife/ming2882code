@@ -55,4 +55,8 @@ namespace MC.Model
         public string Email { get; set; }
         #endregion
     }
+    [Serializable]
+    public class mc_UserList : EntityList
+    {
+    }
 }

@@ -63,9 +63,9 @@ namespace MC.DAO
         }
         #endregion
 
-        #region SelectCount　查询记录数，配置文件要写明返回一个整型
+        #region TotalCount　查询记录数，配置文件要写明返回一个整型
 
-        public int SelectCount(string sTableName, IDictionary iDictionary, string xmlID)
+        public int TotalCount(string sTableName, IDictionary iDictionary, string xmlID)
         {
             xmlID = sPreFix + sTableName + (!string.IsNullOrEmpty(xmlID) ? "." + xmlID : ".Count");
             int i = 0;
@@ -86,7 +86,7 @@ namespace MC.DAO
         /// <param name="sTableName"></param>
         /// <param name="eParameters"></param>
         /// <returns></returns>
-        public int SelectCount<T>(QueryInfo queryInfo) where T : Entity, new()
+        public int TotalCount<T>(QueryInfo queryInfo) where T : Entity, new()
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
             if (queryInfo.MappingName == null || queryInfo.MappingName.Length == 0)
@@ -94,14 +94,14 @@ namespace MC.DAO
                 T obj = new T();
                 queryInfo.MappingName = obj.GetTableName();
             }
-            int iCount = SelectCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlID);
+            int iCount = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlID);
             return iCount;
         }
         #endregion
 
         #region Find　返回一个记录集合，配置文件要写明返回一个集合  //可以是存储过程
 
-        public IList<T> Find<T>(QueryInfo queryInfo) where T : Entity, new()
+        public IList<T> GetList<T>(QueryInfo queryInfo) where T : Entity, new()
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
 
@@ -155,7 +155,7 @@ namespace MC.DAO
         /// </summary>
         /// <param name="queryInfo"></param>
         /// <returns></returns>
-        public IList FindList(QueryInfo queryInfo)
+        public IList GetList(QueryInfo queryInfo)
         {
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadList");
             IList list = null;
@@ -174,9 +174,9 @@ namespace MC.DAO
         }
         #endregion
 
-        #region Find　返回一个记录集合，配置文件要写明返回一个分页集合 //可以是存储过程
+        #region GetListPage　返回一个记录集合，配置文件要写明返回一个分页集合 //可以是存储过程
 
-        public T FindList<T>(QueryInfo queryInfo) where T : EntityList, new()
+        public T GetListPage<T>(QueryInfo queryInfo) where T : EntityList, new()
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
 
@@ -214,7 +214,7 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
             try
             {
-                lstEntity.records = SelectCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                lstEntity.records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 if (lstEntity.records > 0)
                     lstEntity.data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
                 if (lstEntity.data == null) lstEntity.data = new List<Entity>();
@@ -227,9 +227,9 @@ namespace MC.DAO
         }
         #endregion
 
-        #region GetList　返回一个记录IDictionary集合，配置文件要写明返回一个分页集合 //可以是存储过程
+        #region GetListPage　返回一个记录IDictionary集合，配置文件要写明返回一个分页集合 //可以是存储过程
 
-        public IDictionary GetList<T>(QueryInfo queryInfo) where T : Entity, new()
+        public IDictionary GetListPages<T>(QueryInfo queryInfo) where T : Entity, new()
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
 
@@ -266,7 +266,7 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
             try
             {
-                int total = SelectCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                int total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 lstEntity.Add("total", total);
                 if (total > 0)
                 {
@@ -602,7 +602,7 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
             try
             {
-                records = SelectCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 if (records > 0)
                     dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
             }
@@ -615,7 +615,7 @@ namespace MC.DAO
         #endregion
 
         #region 返回IDictionary，内容为分页的DataTable，不支持存储过程
-        public IDictionary GetList(QueryInfo queryInfo)
+        public IDictionary GetListPage(QueryInfo queryInfo)
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
             #region order by
@@ -645,7 +645,7 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
             try
             {
-                int total = SelectCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                int total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 ht.Add("total", total);
                 if (total > 0)
                 {

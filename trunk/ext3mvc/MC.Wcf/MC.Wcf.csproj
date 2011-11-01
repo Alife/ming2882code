@@ -53,8 +53,9 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Contract\Test.svc" />
     <Content Include="Sample\Hello.svc" />
-    <Content Include="Sample\Web.config" />
+    <Content Include="Config\Web.config" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

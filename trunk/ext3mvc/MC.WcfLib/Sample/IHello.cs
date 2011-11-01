@@ -14,8 +14,7 @@ namespace MC.WcfLib.Sample
     public interface IHello
     {
         [OperationContract]
-        [WebGet(UriTemplate = "sample/{name}",
-            ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "sample/{name}", ResponseFormat = WebMessageFormat.Json)]
         string SayHello(string name);
     }
 }

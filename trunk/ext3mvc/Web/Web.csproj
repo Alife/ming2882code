@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -1662,6 +1666,7 @@
     <Content Include="XSLT\Grid.xslt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="database.config" />
     <None Include="ExtJs\resources\images\pink\form\clear-trigger.psd" />
     <None Include="ExtJs\resources\images\pink\form\date-trigger.psd" />
     <None Include="ExtJs\resources\images\pink\form\search-trigger.psd" />
@@ -1778,6 +1783,18 @@
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MC.BLL\MC.BLL.csproj">
+      <Project>{8BCBDDCE-5FC4-4956-B27A-9B1F4894A65F}</Project>
+      <Name>MC.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MC.DAO\MC.DAO.csproj">
+      <Project>{887273A6-9208-42B5-BC0D-928AF9A5C624}</Project>
+      <Name>MC.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MC.Model\MC.Model.csproj">
+      <Project>{5A9E9134-DA61-4869-9CA3-33EAF30CB1AC}</Project>
+      <Name>MC.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MC.Mvc\MC.Mvc.csproj">
       <Project>{819899B5-09C7-4C23-A090-BDEFB154772B}</Project>
       <Name>MC.Mvc</Name>
@@ -1824,6 +1841,8 @@
     <Folder Include="ExtJs\resources\images\indigo\window\" />
     <Folder Include="ExtJs\resources\images\vista\dd\" />
     <Folder Include="ExtJs\resources\images\vista\tree\" />
+    <Folder Include="Images\Files\" />
+    <Folder Include="Log\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
