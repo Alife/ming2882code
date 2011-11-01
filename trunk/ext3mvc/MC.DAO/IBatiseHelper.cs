@@ -55,7 +55,7 @@ namespace MC.DAO
             }
         }
 
-        protected const string sPreFix = "Models.";
+        protected const string sPreFix = "MC.Model.";
 
         protected void SetLoading<T>(IList<T> lis) where T : Entity, new()
         {
