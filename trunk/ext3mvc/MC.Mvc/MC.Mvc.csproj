@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -64,6 +68,7 @@
     <Compile Include="Filter\CompressFilterAttribute.cs" />
     <Compile Include="Controllers\CompressController.cs" />
     <Compile Include="Helpers\Html\McHtml.cs" />
+    <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\WebClientHelper.cs" />
     <Compile Include="Helpers\WebServiceHelper.cs" />
     <Compile Include="HttpCompress\FileBase.cs" />
