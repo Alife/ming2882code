@@ -133,7 +133,7 @@ mc.frame.submit = function(cfg) {
         },
         failure: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
-            var rs = response.response.responseText ? Ext.decode(response.response.responseText) : {};
+            var rs = action.response.responseText ? Ext.decode(action.response.responseText) : {};
             var msg = '';
             switch (action.response.status) {
                 case 403:

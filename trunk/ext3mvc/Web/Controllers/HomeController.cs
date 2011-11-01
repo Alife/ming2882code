@@ -204,7 +204,7 @@ namespace Web.Controllers
                 Response.Cookies.Add(userCookie);
                 return Json(new { success = true, data = userInfo }, JsonRequestBehavior.AllowGet);
             }
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "用户名或者密码错误" }, JsonRequestBehavior.AllowGet);
         }
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult logout()

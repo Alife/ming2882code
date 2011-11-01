@@ -39,10 +39,6 @@ mc.frame.login = Ext.extend(Ext.Window, {
             return;
         mc.frame.submit({ form: this.loginForm.getForm(), url: '/home/Login', scope: this,
             onSuccess: function(rs, form) {
-                if (!rs.data) {
-                    Ext.MessageBox.alert('提示', '用户名或者密码错误');
-                    return;
-                }
                 var myApp = new mc.frame.app();
                 myApp.loadUserInfo(rs.data);
                 this.hide();
