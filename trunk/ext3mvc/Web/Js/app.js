@@ -116,7 +116,7 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
 				        Ext.MessageBox.confirm('提示', "确定退出登录？？", function(btn) {
 				            if (btn != 'yes')
 				                return;
-				            mc.frame.ajax({ url: '/home/logout', scope: this, onSuccess: function(rs, opts) { window.location.reload(); } });
+				            mc.frame.ajax({ url: '/home/logout', scope: this, method: 'get', onSuccess: function(rs, opts) { window.location.reload(); } });
 				        });
 				    }
 				},
@@ -239,7 +239,7 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
                     this.loadMask.show();
                     Ext.namespace(nodeAttr.namespace1);
                     var jsFiles = nodeAttr.jsUrl.split(';');
-                    var me = this; 
+                    var me = this;
                     mc.frame.loadJs(jsFiles, function() {
                         var moduleStr = "new " + nodeAttr.mainClass + "();";
                         mc.frame.cachedModuls.push({ id: nodeAttr.id, module: moduleStr });

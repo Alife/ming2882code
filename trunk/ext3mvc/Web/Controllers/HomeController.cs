@@ -30,23 +30,30 @@ namespace Web.Controllers
         [CompressFilter]
         public ActionResult Index()
         {
-            //Configuration config = WebConfigurationManager.OpenWebConfiguration("/");
-            //MachineKeySection configSection = (MachineKeySection)config.GetSection("system.web/machineKey");
-            //configSection.ValidationKey = CreateKey(17);
-            //configSection.DecryptionKey = CreateKey(14);
-            //configSection.Validation = MachineKeyValidation.SHA1;
-            //if (!configSection.SectionInformation.IsLocked)
-            //{
-            //    config.Save();
-            //    Response.Write("写入成功！");
-            //}
-            //else
-            //{
-            //    Response.Write("写入失败！段被锁定！");
-            //}  
             return View();
         }
-        public static string CreateKey(int numBytes)
+        #region machineKey
+        public ContentResult machineKey()
+        {
+            Configuration config = WebConfigurationManager.OpenWebConfiguration("/");
+            MachineKeySection configSection = (MachineKeySection)config.GetSection("system.web/machineKey");
+            configSection.ValidationKey = CreateKey(64);
+            configSection.DecryptionKey = CreateKey(32);
+            configSection.Validation = MachineKeyValidation.SHA1;
+            configSection.Decryption = "AES";
+            string msg = string.Empty;
+            if (!configSection.SectionInformation.IsLocked)
+            {
+                config.Save();
+                msg = "写入成功！";
+            }
+            else
+            {
+                msg = "写入失败！段被锁定！";
+            }
+            return Content(msg);
+        }
+        public string CreateKey(int numBytes)
         {
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             byte[] buff = new byte[numBytes];
@@ -57,7 +64,20 @@ namespace Web.Controllers
                 hexString.Append(String.Format("{0:X2}", buff[i]));
             }
             return hexString.ToString();
-        }      
+        }
+        public ContentResult readCookies()
+        {
+            string cookieName = FormsAuthentication.FormsCookieName;
+            HttpCookie authCookie = Request.Cookies[cookieName];
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                return Content(authTicket.UserData);
+            }
+            return Content("");
+        }
+        #endregion
+        #region xml+xslt
         [CompressFilter]
         public ContentResult GZIP(string id)
         {
@@ -126,6 +146,7 @@ namespace Web.Controllers
             reader.Close();
             return Content("");
         }
+        #endregion
         #region 动态GRID
         public ContentResult dynamicGrid()
         {
@@ -169,8 +190,7 @@ namespace Web.Controllers
             HttpCookie authCookie = Request.Cookies[cookieName];
             if (authCookie != null)
             {
-                FormsAuthenticationTicket authTicket = null;
-                authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
                 JsonSerializerSettings jsonSs = new JsonSerializerSettings();
                 MC.Model.mc_User userInfo = (MC.Model.mc_User)JsonConvert.DeserializeObject(authTicket.UserData, typeof(MC.Model.mc_User), jsonSs);
                 return Json(new { success = true, data = userInfo }, JsonRequestBehavior.AllowGet);
@@ -243,7 +263,7 @@ namespace Web.Controllers
             catch { }
             return isSend;
         }
-        [AcceptVerbs(HttpVerbs.Post)]
+        //[AcceptVerbs(HttpVerbs.Post)]
         public JsonResult logout()
         {
             FormsAuthentication.SignOut();
@@ -264,6 +284,7 @@ namespace Web.Controllers
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
         #endregion
+        #region icon
         public ContentResult icon()
         {
             string[] strs = System.IO.Directory.GetFiles(Server.MapPath("/images"), "*.png");
@@ -295,6 +316,7 @@ namespace Web.Controllers
             //}
             return Content(sb.ToString());
         }
+        #endregion
         #region 动态生成WebSerice
         /// <summary>
         /// 动态生成WebSerice
