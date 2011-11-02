@@ -203,9 +203,9 @@ namespace Web.Controllers
             var userInfo = MC.BLL.mc_UserBLL.GetUserLogin(userName, password, Request.UserHostAddress);
             if (userInfo != null)
             {
-                int expires = 60;
+                int expires = 30;
                 rememberMe = rememberMe ?? false;
-                if (rememberMe.HasValue)
+                if (rememberMe.Value)
                     expires = 1440 * 365 * 10;
                 JsonSerializerSettings jsonSs = new JsonSerializerSettings();
                 jsonSs.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
