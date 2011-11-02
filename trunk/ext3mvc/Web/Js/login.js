@@ -87,7 +87,7 @@ mc.frame.login = Ext.extend(Ext.Window, {
             return;
         mc.frame.submit({ form: this.forgetForm.getForm(), url: '/home/forget', scope: this,
             onSuccess: function(rs, form) {
-                Ext.Msg.show({ title: '系统提示', msg: rs.msg });
+                Ext.Msg.alter({ title: '系统提示', msg: rs.msg });
                 this.forgetWin.hide();
             }
         });

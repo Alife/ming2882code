@@ -35,5 +35,10 @@ namespace Web.Controllers
         {
             return Json(new { success = true, msg = "成功" }, JsonRequestBehavior.AllowGet);
         }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult worddetail(int id)
+        {
+            return Json(new { ID_wod = 1 + id, Code_wod = 1999 + id, Text_wod = "订单状态" + id, Sort_wod = 1 + id }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
