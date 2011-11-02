@@ -68,7 +68,7 @@
     <Compile Include="Filter\CompressFilterAttribute.cs" />
     <Compile Include="Controllers\CompressController.cs" />
     <Compile Include="Helpers\Html\McHtml.cs" />
-    <Compile Include="Helpers\JsonNetResult.cs" />
+    <Compile Include="Result\JsonNetResult.cs" />
     <Compile Include="Helpers\WebClientHelper.cs" />
     <Compile Include="Helpers\WebServiceHelper.cs" />
     <Compile Include="HttpCompress\FileBase.cs" />
