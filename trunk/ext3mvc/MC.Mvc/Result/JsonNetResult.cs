@@ -8,7 +8,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace MC.Mvc.Helpers
+namespace MC.Mvc.Result
 {
     public class JsonNetResult : ActionResult
     {
