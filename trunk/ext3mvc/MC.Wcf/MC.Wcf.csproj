@@ -54,12 +54,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Contract\Test.svc" />
+    <Content Include="readCookies.aspx" />
     <Content Include="Sample\Hello.svc" />
     <Content Include="Config\Web.config" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="readCookies.aspx.cs">
+      <DependentUpon>readCookies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="readCookies.aspx.designer.cs">
+      <DependentUpon>readCookies.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MC.WcfLib\MC.WcfLib.csproj">
