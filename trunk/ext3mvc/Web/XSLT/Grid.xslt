@@ -207,7 +207,7 @@
             items: [{ xtype: 'numberfield', name: 'ID_wod', fieldLabel: 'ID', labelWidth: 50 },
                     { xtype: 'textfield', name: 'Code_wod', fieldLabel: '代码', labelWidth: 50, maxLength: '50' },
                     { xtype: 'textfield', name: 'Text_wod', fieldLabel: '名称', labelWidth: 50, maxLength: '50' }
-            ]<xsl:if test="Form/@IsDynamics='true'"/>,
+            ]<xsl:if test="Form/@IsDynamics='true'">,
             reader: new Ext.data.JsonReader({ id: 'ID_wod' },
                     new Ext.data.Record.create([
                         { name: 'ID_wod', type: 'int' },
