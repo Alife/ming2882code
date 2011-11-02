@@ -93,15 +93,15 @@ mc.frame.login = Ext.extend(Ext.Window, {
         });
     }
 });
-
+mc.frame.myApp = function() { }
 Ext.onReady(function() {
     Ext.BLANK_IMAGE_URL = (Ext.isIE6 || Ext.isIE7) ? "/extjs/resources/images/default/s.gif" : 'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
     Ext.QuickTips.init();
     Ext.form.Field.prototype.msgTarget = 'side';
-    mc.frame.ajax({ url: '/home/loadUserInfo', scope: this, noErrMsg: true,
+    mc.frame.ajax({ url: '/home/loadUserInfo', scope: this, noErrMsg: true, sync: true,
         onSuccess: function(rs, opts) {
-            var myApp = new mc.frame.app();
-            myApp.loadUserInfo(rs.data);
+            mc.frame.myApp = new mc.frame.app();
+            mc.frame.myApp.loadUserInfo(rs.data);
         },
         onFailure: function(rs, opts) {
             new mc.frame.login().show();
