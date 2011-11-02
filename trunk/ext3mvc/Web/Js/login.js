@@ -1,22 +1,8 @@
 mc.frame.login = Ext.extend(Ext.Window, {
-    title: '用户登录',
-    renderTo: Ext.getBody(),
-    layout: 'fit',
-    width: 350,
-    height: 160,
-    border: true,
-    closable: false,
-    resizable: true,
-    closeAction: 'hide',
-    plain: true,
-    layout: { type: 'vbox', align: 'stretch' },
+    title: '用户登录', renderTo: Ext.getBody(), width: 350, height: 160, border: true, plain: true, closable: false, closeAction: 'hide',
     initComponent: function() {
         this.loginForm = new Ext.form.FormPanel({
-            frame: true,
-            labelAlign: 'right',
-            labelWidth: 60,
-            labelPad: 0,
-            border: false,
+            frame: true, border: false, labelAlign: 'right', labelWidth: 60, labelPad: 0,
             items: [
                     { xtype: 'textfield', name: 'userName', value: 'admin', fieldLabel: '用户名', allowBlank: false, anchor: '95%' },
                     { xtype: 'textfield', name: 'password', inputType: 'password', value: 'admin', fieldLabel: '密&nbsp;&nbsp;&nbsp;码', allowBlank: false, anchor: '95%' },
@@ -35,7 +21,7 @@ mc.frame.login = Ext.extend(Ext.Window, {
                             }
                         }
                         ]
-                    },
+                    }
             ],
             buttons: [
 					{ text: '登录', scope: this, handler: this.onLogin },
@@ -44,11 +30,7 @@ mc.frame.login = Ext.extend(Ext.Window, {
             keys: [{ key: [13], scope: this, fn: this.onLogin}]
         });
         this.forgetForm = new Ext.form.FormPanel({
-            frame: true,
-            labelAlign: 'right',
-            labelWidth: 60,
-            labelPad: 0,
-            border: false,
+            frame: true, border: false, labelAlign: 'right', labelWidth: 60, labelPad: 0,
             items: [
                     { xtype: 'textfield', name: 'userName', fieldLabel: '用户名', allowBlank: false, anchor: '95%' },
                     { xtype: 'textfield', name: 'email', fieldLabel: '邮&nbsp;&nbsp;&nbsp;箱', allowBlank: false, anchor: '95%' }
@@ -58,16 +40,7 @@ mc.frame.login = Ext.extend(Ext.Window, {
 					{ text: '取消', scope: this, handler: function() { this.forgetForm.form.getEl().dom.reset(); this.forgetWin.hide(); } }
             ]
         });
-        this.forgetWin = new Ext.Window({
-            title: '找回密码',
-            width: 350,
-            height: 150,
-            border: true,
-            modal: true,
-            plain: true,
-            closeAction: 'hide',
-            items: [this.forgetForm]
-        });
+        this.forgetWin = new Ext.Window({ title: '找回密码', width: 350, height: 150, border: true, modal: true, plain: true, closeAction: 'hide', items: [this.forgetForm] });
         Ext.apply(this, { items: [this.loginForm] });
         mc.frame.login.superclass.initComponent.apply(this, arguments);
     },
