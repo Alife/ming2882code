@@ -76,7 +76,16 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
 				        Ext.MessageBox.confirm('系统提示', "确定退出登录？？", function(btn) {
 				            if (btn != 'yes')
 				                return;
-				            mc.frame.ajax({ url: '/home/logout', scope: this, method: 'get', onSuccess: function(rs, opts) { window.location.reload(); } });
+				            mc.frame.ajax({ url: '/home/logout', scope: this, method: 'get',
+				                onSuccess: function(rs, opts) {
+				                    if (Ext.isFunction(mc.frame.myLogin.onShow)) {
+				                        mc.frame.myApp.onHide();
+				                        mc.frame.myLogin.onShow();
+				                    }
+				                    else
+				                        window.location.reload();
+				                }
+				            });
 				        });
 				    }
 				}, '-', { xtype: 'spacer', flex: .5 }, '-',
@@ -92,8 +101,14 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
 	            }, '-', '-', this.themesCombo
 			]
         });
-        var viewport = new Ext.Viewport({ layout: 'border', items: [this.MenuTreePanel, this.mainTab, this.top, this.btoolBar] });
+        this.viewport = new Ext.Viewport({ layout: 'border', items: [this.MenuTreePanel, this.mainTab, this.top, this.btoolBar] });
         this.loadMask = new Ext.LoadMask(this.mainTab.body)
+    },
+    onHide: function() {
+        this.viewport.hide();
+    },
+    onShow: function() {
+        this.viewport.show();
     },
     changeTab: function(p, t) {
         if (!t) return;
