@@ -207,7 +207,13 @@
             items: [{ xtype: 'numberfield', name: 'ID_wod', fieldLabel: 'ID', labelWidth: 50 },
                     { xtype: 'textfield', name: 'Code_wod', fieldLabel: '代码', labelWidth: 50, maxLength: '50' },
                     { xtype: 'textfield', name: 'Text_wod', fieldLabel: '名称', labelWidth: 50, maxLength: '50' }
-            ]
+            ]<xsl:if test="Form/@IsDynamics='true'"/>,
+            reader: new Ext.data.JsonReader({ id: 'ID_wod' },
+                    new Ext.data.Record.create([
+                        { name: 'ID_wod', type: 'int' },
+                        { name: 'Code_wod', type: 'string' },
+                        { name: 'Text_wod', type: 'string' }])
+                    )</xsl:if>
         });
         this.<xsl:value-of select="$FormID" />_Win = new Ext.Window({
             title: '编辑',
@@ -263,16 +269,10 @@
           </xsl:when>
           <xsl:otherwise>
             var data = this.<xsl:value-of select="$ID" />.getSelectionModel().getSelections()[0].data;
-            this.<xsl:value-of select="@OpenWinID"/>.getForm().load({
-            url: '<xsl:value-of select="@DetailUrl"/>' + data.<xsl:value-of select="$KeyID"/>,
-            waitMsg: '数据加载中...',
-            scope: this,
-            success: function(frm, action) {
-            <xsl:value-of select="current()/Script"/>
-            },
-            failure: function(frm, action) {
-            Ext.Msg.alert('数据加载失败', 'error:data');
-            }
+            mc.frame.load({ form: this.<xsl:value-of select="@OpenWinID"/>.getForm(), url: '<xsl:value-of select="@DetailUrl"/>' + data.<xsl:value-of select="$KeyID"/>, scope: this,
+                onSuccess: function(rs, form) {
+                  <xsl:value-of select="current()/Script"/>
+                }
             });
           </xsl:otherwise>
         </xsl:choose>
@@ -282,29 +282,19 @@
         </xsl:choose>
       </xsl:when>
       <xsl:when test="@Handler='_del'">
-        Ext.MessageBox.confirm('提示', '是否删除选择的记录', function(btn) {
+        Ext.MessageBox.confirm('系统提示', '是否删除选择的记录', function(btn) {
         if (btn != 'yes') {return;}
         var m = this.<xsl:value-of select="$ID" />.getSelectionModel().getSelections();
         var ids = [];
         for (var i = 0; i &lt; m.length; i++) ids.push(m[i].get('<xsl:value-of select="$KeyID"/>'));
-        Ext.Ajax.request({
-        method: 'post',
-        scope: this,
-        url: '<xsl:value-of select="@DeleteUrl"/>',
-        params: { ids: ids.join(',') },
-        success: function(resp) {
-        var obj = Ext.util.JSON.decode(resp.responseText);
-        if (obj.success) {
+        mc.frame.ajax({ url: '<xsl:value-of select="@DeleteUrl"/>', scope: this, params: { ids: ids.join(',') },
+        onSuccess: function(rs, opts) {
         this.<xsl:value-of select="$ID" />.getStore().reload();
         <xsl:value-of select="current()/Script"/>
-        Ext.MessageBox.alert('提示', '删除成功!');
-        }
-        else {
-        Ext.MessageBox.alert('报错了!', '删除失败!');
-        }
+        Ext.Msg.alert('系统提示', rs.msg);
         }
         });
-        },this);
+        }, this);
       </xsl:when>
       <xsl:when test="@Handler='_refresh'">
         <xsl:value-of select="current()/Script"/>this.<xsl:value-of select="$ID" />.getStore().reload(this.<xsl:value-of select="$ID" />.getStore().lastOptions);
@@ -341,52 +331,28 @@
     <xsl:value-of select="$FormID"/>_save:function(v){
         if (!this.<xsl:value-of select="$FormID"/>.getForm().isValid())
           return;
-        this.<xsl:value-of select="$FormID"/>.getForm().submit({
-        url: this.SaveUrl,
-        method: 'post',<xsl:if test="Form/@IsUpload='true'">isUpload :true,</xsl:if>
-        waitTitle: '请等待',
-        waitMsg: '正在提交...',
-        scope: this,
-        success: function(form, response) {
-          var rs = Ext.util.JSON.decode(response.response.responseText);
-          if (rs.success) {
-            this.<xsl:value-of select="$FormID"/>.form.getEl().dom.reset();
-            this.<xsl:value-of select="$ID"/>.getStore().reload();
-          }
+        mc.frame.submit({ form: this.<xsl:value-of select="$FormID"/>.getForm(), url: this.SaveUrl, scope: this,<xsl:if test="Form/@IsUpload='true'">isUpload :true,</xsl:if>
+            onSuccess: function(rs, form) {
+                this.<xsl:value-of select="$FormID"/>.form.getEl().dom.reset();
+                this.<xsl:value-of select="$ID"/>.getStore().reload();
         <xsl:for-each select="ToolBar/FormButtons/Button[@Handler='_save']">
-			    <xsl:copy>
+          <xsl:copy>
             <xsl:choose>
-              <xsl:when test="@Query='colse'">if(v == 'colse')this.<xsl:value-of select="$FormID"/>_Win.hide();</xsl:when>
-              <xsl:when test="@Query='add'">if(v == 'add')this.SaveUrl='<xsl:value-of select="@SaveUrl"/>';</xsl:when>
-              <xsl:otherwise>if(Ext.type(v)!='string')this.<xsl:value-of select="$FormID"/>_Win.hide();</xsl:otherwise>
+              <xsl:when test="@Query='colse'">
+                if(v == 'colse')this.<xsl:value-of select="$FormID"/>_Win.hide();
+              </xsl:when>
+              <xsl:when test="@Query='add'">
+                if(v == 'add')this.SaveUrl='<xsl:value-of select="@SaveUrl"/>';
+              </xsl:when>
+              <xsl:otherwise>
+                if(Ext.type(v)!='string')this.<xsl:value-of select="$FormID"/>_Win.hide();
+              </xsl:otherwise>
             </xsl:choose>
             <xsl:value-of select="current()/Script"/>
-          </xsl:copy>  
+          </xsl:copy>
         </xsl:for-each>
-          Ext.MessageBox.alert('系统提示', rs.msg);
-        },
-        failure: function(form, response) {
-            switch (response.response.status) {
-              case 403:
-                Ext.Msg.show({ title: '提示', msg: '你请求的页面禁止访问!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-              break;
-              case 404:
-                Ext.Msg.show({ title: '提示', msg: '你请求的页面不存在!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-              break;
-              case 500:
-                Ext.Msg.show({ title: '提示', msg: '你请求的页面服务器内部错误!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-              break;
-              case 502:
-                Ext.Msg.show({ title: '提示', msg: 'Web服务器收到无效的响应!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-              break;
-              case 503:
-                Ext.Msg.show({ title: '提示', msg: '服务器繁忙，请稍后再试!!', icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-              break;
-              default:
-                Ext.Msg.show({ title: '提示', msg: '你请求的页面遇到问题，操作失败!错误代码:' + response.response.status, icon: Ext.Msg.WARNING, buttons: Ext.Msg.OK })
-              break;
+                Ext.MessageBox.alert('系统提示', rs.msg);
             }
-          }
         });
       },
     </xsl:if>

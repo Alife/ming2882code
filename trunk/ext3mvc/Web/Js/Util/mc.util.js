@@ -33,9 +33,10 @@ mc.frame.ajax = function(cfg) {
         },
         failure: function(response, opts) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
-            var rs = response.responseText ? Ext.decode(response.responseText) : {};
+            var rs = {};
+            if (response.responseText && response.status == 200) rs = Ext.decode(response.responseText);
             var msg = '';
-            switch (opts.status) {
+            switch (response.status) {
                 case 403:
                     msg = '你请求的页面禁止访问!';
                     break;
@@ -52,7 +53,7 @@ mc.frame.ajax = function(cfg) {
                     msg = '服务器繁忙，请稍后再试!';
                     break;
                 default:
-                    msg = '你请求的页面遇到问题，操作失败!错误代码:' + opts.status;
+                    msg = '你请求的页面遇到问题，操作失败!错误代码:' + response.status;
                     break;
             }
             Ext.Msg.show({
@@ -65,13 +66,14 @@ mc.frame.ajax = function(cfg) {
         }
     });
 }
-//表单/同步ajax
+//表单异步/同步ajax
 mc.frame.submit = function(cfg) {
     cfg = typeof cfg == 'object' ? cfg : {};
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     cfg.form.submit({
-    url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...', sync: cfg.sync || false,
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
+        sync: cfg.sync || false, isUpload: cfg.isUpload || false,
         success: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = action.response.responseText ? Ext.decode(action.response.responseText) : {};
@@ -90,7 +92,67 @@ mc.frame.submit = function(cfg) {
         },
         failure: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
+            var rs = {};
+            if (action.response.responseText && action.response.status == 200) rs = Ext.decode(action.response.responseText);
+            var msg = '';
+            switch (action.response.status) {
+                case 403:
+                    msg = '你请求的页面禁止访问!';
+                    break;
+                case 404:
+                    msg = '你请求的页面不存在!';
+                    break;
+                case 500:
+                    msg = '你请求的页面服务器内部错误!';
+                    break;
+                case 502:
+                    msg = 'Web服务器收到无效的响应!';
+                    break;
+                case 503:
+                    msg = '服务器繁忙，请稍后再试!';
+                    break;
+                default:
+                    msg = '你请求的页面遇到问题，操作失败!错误代码:' + action.response.status;
+                    break;
+            }
+            Ext.Msg.show({
+                title: '系统提示', msg: rs.msg || msg, width: 280, buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING, closable: false, scope: cfg.scope,
+                fn: function(btn) {
+                    if (Ext.isFunction(cfg.onFailure))
+                        cfg.onFailure.createDelegate(cfg.scope || window, [rs, form, btn])();
+                }
+            });
+        }
+    });
+}
+//表单load
+mc.frame.load = function(cfg) {
+    cfg = typeof cfg == 'object' ? cfg : {};
+    if (cfg.masker)
+        cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
+    cfg.form.load({
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
+        sync: cfg.sync || false, 
+        success: function(form, action) {
+            if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = action.response.responseText ? Ext.decode(action.response.responseText) : {};
+            if (action.response.responseText) {
+                if (Ext.isFunction(cfg.onSuccess))
+                    cfg.onSuccess.createDelegate(cfg.scope || window, [rs, form])();
+            } else {
+                Ext.Msg.show({
+                    title: '系统提示', msg: rs.msg || 'Error!!', width: 280, buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING, scope: cfg.scope, closable: false,
+                    fn: function(btn) {
+                        if (Ext.isFunction(cfg.onFailure))
+                            cfg.onFailure.createDelegate(cfg.scope || window, [rs, form, btn])();
+                    }
+                });
+            }
+        },
+        failure: function(form, action) {
+            if (cfg.masker) { cfg.masker.el.unmask(); }
+            var rs = {};
+            if (action.response.responseText && action.response.status == 200) rs = Ext.decode(action.response.responseText);
             var msg = '';
             switch (action.response.status) {
                 case 403:
