@@ -266,9 +266,9 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
             try
             {
-                int total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-                lstEntity.Add("total", total);
-                if (total > 0)
+                int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                lstEntity.Add("records", records);
+                if (records > 0)
                 {
                     var data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
                     lstEntity.Add("data", data);
@@ -645,9 +645,9 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
             try
             {
-                int total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-                ht.Add("total", total);
-                if (total > 0)
+                int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                ht.Add("records", records);
+                if (records > 0)
                 {
                     DataTable dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
                     if (dt != null) ht.Add("data", dt); else ht.Add("data", new DataTable());
