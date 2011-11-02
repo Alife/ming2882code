@@ -117,23 +117,9 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
 				    iconCls: 'logout',
 				    handler: function() {
 				        Ext.MessageBox.confirm('提示', "确定退出登录？？", function(btn) {
-				            if (btn != 'yes') {
+				            if (btn != 'yes')
 				                return;
-				            }
-
-				            Ext.Ajax.request({
-				                method: 'POST',
-				                url: '/home/logout',
-				                success: function(resp) {
-				                    var obj = Ext.util.JSON.decode(resp.responseText);
-				                    if (obj.success) {
-				                        window.location.reload();
-				                    }
-				                    else {
-				                        Ext.MessageBox.alert('报错了！！！', '错误！！！');
-				                    }
-				                }
-				            })
+				            mc.frame.ajax({ url: '/home/logout', scope: this, onSuccess: function(rs, opts) { window.location.reload(); } });
 				        });
 				    }
 				},

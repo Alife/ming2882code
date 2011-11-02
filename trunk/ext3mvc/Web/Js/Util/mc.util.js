@@ -169,6 +169,12 @@ function ForDight(Dight, How) {
     Dight = Math.round(Dight * Math.pow(10, How)) / Math.pow(10, How);
     return Dight;
 }
+Ext.form.Label.prototype.afterRender = Ext.form.Label.prototype.afterRender.createSequence(function() {
+    this.relayEvents(this.el, ['click']);
+});
+Ext.form.DisplayField.prototype.afterRender = Ext.form.DisplayField.prototype.afterRender.createSequence(function() {
+    this.relayEvents(this.el, ['click']);
+});
 Ext.apply(Ext.form.VTypes, {
     //首先定义一个vtype名称，和他的验证函数，val参数是文本框的值，field是文本框。一般我就使用val和正则表达式比较就OK了。
     //然后定义一个vtype的报错信息，与vtype名称加Text后缀。OK了。
