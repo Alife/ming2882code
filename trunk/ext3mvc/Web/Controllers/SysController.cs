@@ -38,7 +38,7 @@ namespace Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult worddetail(int id)
         {
-            return Json(new { ID_wod = 1 + id, Code_wod = 1999 + id, Text_wod = "订单状态" + id, Sort_wod = 1 + id }, JsonRequestBehavior.AllowGet);
+            return Json(new { ID_wod = id, Code_wod = 1999 + id - 1, Text_wod = "订单状态" + (id - 1).ToString(), Sort_wod =id }, JsonRequestBehavior.AllowGet);
         }
     }
 }
