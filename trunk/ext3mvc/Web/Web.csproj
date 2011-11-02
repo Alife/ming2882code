@@ -1783,6 +1783,7 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="ExtJs\ext-all-debug.js" />
     <Content Include="Js\jquery-1.4.4.min.js" />
     <Content Include="Js\login.js" />
     <Content Include="Js\Util\mc.util.js" />
