@@ -9,7 +9,7 @@ mc.frame.ajax = function(cfg) {
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     Ext.Ajax.request({
-        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', sync: cfg.sync || false,
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: Math.random() }, method: cfg.method || 'post', sync: cfg.sync || false,
         success: function(response, opts) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = response.responseText ? Ext.decode(response.responseText) : {};
@@ -72,7 +72,7 @@ mc.frame.submit = function(cfg) {
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     cfg.form.submit({
-        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: Math.random() }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
         sync: cfg.sync || false, isUpload: cfg.isUpload || false,
         success: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
@@ -131,8 +131,8 @@ mc.frame.load = function(cfg) {
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     cfg.form.load({
-        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
-        sync: cfg.sync || false, 
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: Math.random() }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
+        sync: cfg.sync || false,
         success: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = action.response.responseText ? Ext.decode(action.response.responseText) : {};
