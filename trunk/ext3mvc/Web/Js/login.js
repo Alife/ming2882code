@@ -49,8 +49,9 @@ mc.frame.login = Ext.extend(Ext.Window, {
             return;
         mc.frame.submit({ form: this.loginForm.getForm(), url: '/home/Login', scope: this,
             onSuccess: function(rs, form) {
-                var myApp = new mc.frame.app();
-                myApp.loadUserInfo(rs.data);
+                mc.frame.myApp = new mc.frame.app();
+                mc.frame.myApp.onShow();
+                mc.frame.myApp.loadUserInfo(rs.data);
                 this.hide();
             }
         });
@@ -64,9 +65,13 @@ mc.frame.login = Ext.extend(Ext.Window, {
                 this.forgetWin.hide();
             }
         });
+    },
+    onShow: function() {
+        this.show();
     }
 });
 mc.frame.myApp = function() { }
+mc.frame.myLogin = function() { }
 Ext.onReady(function() {
     Ext.BLANK_IMAGE_URL = (Ext.isIE6 || Ext.isIE7) ? "/extjs/resources/images/default/s.gif" : 'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
     Ext.QuickTips.init();
@@ -77,7 +82,8 @@ Ext.onReady(function() {
             mc.frame.myApp.loadUserInfo(rs.data);
         },
         onFailure: function(rs, opts) {
-            new mc.frame.login().show();
+            mc.frame.myLogin = new mc.frame.login();
+            mc.frame.myLogin.onShow();
         }
     });
 });
