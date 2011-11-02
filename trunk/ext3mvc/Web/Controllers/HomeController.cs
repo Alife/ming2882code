@@ -20,6 +20,7 @@ using MC.Mvc.Helpers;
 using MC.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Dimac.JMail;
 
 namespace Web.Controllers
 {
@@ -160,6 +161,7 @@ namespace Web.Controllers
             return Content(json);
         }
         #endregion
+        #region 用户部分
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult loadUserInfo()
         {
@@ -176,13 +178,12 @@ namespace Web.Controllers
             return Json(new { success = false, msg = "用户不存在" }, JsonRequestBehavior.AllowGet);
         }
         [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult Login(string userName,string password)
+        public JsonResult Login(string userName, string password, bool? rememberMe)
         {
             var userInfo = MC.BLL.mc_UserBLL.GetUserLogin(userName, password, Request.UserHostAddress);
             if (userInfo != null)
             {
                 int expires = 60;
-                bool? rememberMe = true;
                 rememberMe = rememberMe ?? false;
                 if (rememberMe.HasValue)
                     expires = 1440 * 365 * 10;
@@ -207,12 +208,49 @@ namespace Web.Controllers
             return Json(new { success = false, msg = "用户名或者密码错误" }, JsonRequestBehavior.AllowGet);
         }
         [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult forget(string userName,string email)
+        {
+            var userInfo = MC.BLL.mc_UserBLL.GetForget(userName, email);
+            if (userInfo != null)
+            {
+                Dimac.JMail.Message message = new Message();
+                message.Subject = "找回你的密码！";
+                message.BodyHtml = "<div style=\"font-size:13px;\"><span style=\"font-weight:bold;\">尊敬的客户：</span><br /><br />您好！<br /><br />你的密码是******<a href=\"\">确认</a>，激活您的密码！</div>";
+                string toEmail = "zhangs@gillion.com.cn";
+                message.To.Add(toEmail);
+                if (SendEMail(message))
+                    return Json(new { success = true, msg = "密码成功找回，请到注册邮件中找回密码" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, msg = "邮件发送失败，请重试" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false, msg = "密码找回失败，请正确填写相关信息" }, JsonRequestBehavior.AllowGet);
+        }
+        public bool SendEMail(Dimac.JMail.Message message)
+        {
+            bool isSend = false;
+            Smtp smtp = new Smtp();
+            smtp.Domain = "163.com";//服务器名
+            smtp.HostName = "smtp.163.com";//主机名
+            smtp.UserName = "zzc3434@163.com";//登录用户名
+            smtp.Password = "gillion";//登录密码
+            message.From = new Address("zzc3434@163.com");//发件人地址
+            message.Charset = System.Text.Encoding.UTF8;
+            try
+            {
+                smtp.Authentication = SmtpAuthentication.Login;//认证
+                smtp.Send(message);  //发送邮件
+                isSend = true;
+            }
+            catch { }
+            return isSend;
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult logout()
         {
             FormsAuthentication.SignOut();
             Request.Cookies.Clear();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
         #region 纯extjs-Grid
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult ResourcesList()
