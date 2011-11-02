@@ -1992,14 +1992,14 @@ Ext.TaskMgr = new Ext.util.TaskRunner();(function() {
                     initHeader('X-Requested-With', pub.defaultXhrHeader);
                 }
 
-                if (postData && pub.useDefaultHeader && (!pub.hasHeaders || !pub.headers['Content-Type'])) {
-                    initHeader('Content-Type', pub.defaultPostHeader);
+                if (postData && pub.useDefaultHeader && (!pub.hasHeaders || !pub.headers[CONTENTTYPE])) {
+                    initHeader(CONTENTTYPE, pub.defaultPostHeader);
                 }
 
                 if (pub.hasDefaultHeaders || pub.hasHeaders) {
                     setHeader(o);
                 }
-
+                
                 o.conn.send(postData || null);
                 handleTransactionResponse(o, callback);
             }
