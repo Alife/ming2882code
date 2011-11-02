@@ -3,56 +3,13 @@ mc.frame.defaultUrl = function() {
     return 'home/load';
 }
 mc.frame.mask = new Ext.LoadMask(Ext.getBody(), { msg: "数据下载中,请稍等..." });
-//同步ajax
-mc.frame.createRequest = function() {
-    var objXMLHttp = null;
-    if (window.XMLHttpRequest) {
-        objXMLHttp = new XMLHttpRequest();
-
-        if (objXMLHttp.overrideMimeType) {
-            objXMLHttp.overrideMimeType('text/xml');
-        }
-    }
-    else {
-        var MSXML = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'MSXML2.XMLHTTP.5.0', 'MSXML2.XMLHTTP.4.0', 'MSXML2.XMLHTTP.3.0'];
-
-        for (var n = 0; n < MSXML.length; n++) {
-            try {
-                objXMLHttp = new ActiveXObject(MSXML[n]);
-                break;
-            }
-            catch (e) { }
-        }
-    }
-    return objXMLHttp;
-};
-mc.frame.ajaxSync = function(cfg) {
-    cfg = typeof cfg == 'object' ? cfg : {};
-    var url = cfg.url;
-    var params = cfg.params || null;
-    var method = cfg.method || 'post';
-    var isEecode = cfg.isEecode || true;
-    if (cfg.masker) cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
-    var http_request = mc.frame.createRequest();
-    http_request.open(method, url, false);
-    http_request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    http_request.setRequestHeader("encoding", "utf-8");
-    if (cfg.params) {
-        params = Ext.Object.toQueryString(params);
-        http_request.setRequestHeader("Content-length", params.length);
-    }
-    http_request.send(params);
-    if (cfg.masker) { cfg.masker.el.unmask(); }
-    if (cfg.isEecode && http_request.responseText) return Ext.decode(http_request.responseText);
-    return http_request.responseText;
-}
-//异步ajax
+//异步/同步ajax
 mc.frame.ajax = function(cfg) {
     cfg = typeof cfg == 'object' ? cfg : {};
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     Ext.Ajax.request({
-        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post',
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', sync: cfg.sync || false,
         success: function(response, opts) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = response.responseText ? Ext.decode(response.responseText) : {};
@@ -108,13 +65,13 @@ mc.frame.ajax = function(cfg) {
         }
     });
 }
-//表单ajax
+//表单/同步ajax
 mc.frame.submit = function(cfg) {
     cfg = typeof cfg == 'object' ? cfg : {};
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     cfg.form.submit({
-        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
+    url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: '' }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...', sync: cfg.sync || false,
         success: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = action.response.responseText ? Ext.decode(action.response.responseText) : {};
@@ -164,6 +121,42 @@ mc.frame.submit = function(cfg) {
             });
         }
     });
+}
+//load js等
+mc.frame.Load = new function() { }
+mc.frame.cachedModuls = [];
+mc.frame.JsToLoad = undefined;
+mc.frame.JsLoadCallBack = undefined;
+mc.frame.loadJs = function(js, callback) {
+    mc.frame.JsToLoad = js;
+    mc.frame.JsLoadCallBack = callback;
+    mc.frame._loadJs();
+}
+mc.frame._loadJs = function() {
+    var js = mc.frame.JsToLoad;
+    var callback = mc.frame.JsLoadCallBack;
+
+    if (Ext.type(mc.frame.JsToLoad) != 'string') {
+        if (mc.frame.JsToLoad.length == 1) {
+            js = mc.frame.JsToLoad[0];
+            callback = mc.frame.JsLoadCallBack;
+        }
+        else {
+            js = mc.frame.JsToLoad.shift();
+            callback = mc.frame._loadJs;
+        }
+    }
+
+    Ext.Ajax.request({
+        url: js,
+        success: mc.frame._onLoadJs,
+        method: 'GET',
+        scope: callback
+    });
+}
+mc.frame._onLoadJs = function(response) {
+    eval(response.responseText);
+    this();
 }
 function ForDight(Dight, How) {
     Dight = Math.round(Dight * Math.pow(10, How)) / Math.pow(10, How);

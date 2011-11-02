@@ -1,8 +1,5 @@
 mc.frame.app = function() {
-    this.cachedModuls = [];
     this.userObj = new Object();
-    this.JsToLoad = undefined;
-    this.JsLoadCallBack = undefined;
     this.init();
 }
 
@@ -160,9 +157,6 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
         this.loadMask = new Ext.LoadMask(this.mainTab.body)
     },
 
-    toolAction: function(btn) {
-    },
-
     changeTab: function(p, t) {
         if (!t)
             return;
@@ -182,9 +176,9 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
     },
 
     findCachedModul: function(modulId) {
-        for (var i = 0; i < this.cachedModuls.length; i++) {
-            if (this.cachedModuls[i].id == modulId)
-                return this.cachedModuls[i].module;
+        for (var i = 0; i < mc.frame.cachedModuls.length; i++) {
+            if (mc.frame.cachedModuls[i].id == modulId)
+                return mc.frame.cachedModuls[i].module;
         }
     },
 
@@ -227,11 +221,12 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
                     this.loadMask.show();
                     Ext.namespace(nodeAttr.namespace1);
                     var jsFiles = nodeAttr.url.split(';');
-                    this.loadJs(jsFiles, function() {
+                    var me = this;
+                    mc.frame.loadJs(jsFiles, function() {
                         var moduleStr = "new " + nodeAttr.mainClass + "();";
-                        myApp.cachedModuls.push({ id: nodeAttr.id, module: moduleStr });
-                        myApp.addModul(moduleStr, nodeAttr);
-                        myApp.loadMask.hide();
+                        mc.frame.cachedModuls.push({ id: nodeAttr.id, module: moduleStr });
+                        me.addModul(moduleStr, nodeAttr);
+                        me.loadMask.hide();
                     });
                 }
             }
@@ -244,11 +239,12 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
                     this.loadMask.show();
                     Ext.namespace(nodeAttr.namespace1);
                     var jsFiles = nodeAttr.jsUrl.split(';');
-                    this.loadJs(jsFiles, function() {
+                    var me = this; 
+                    mc.frame.loadJs(jsFiles, function() {
                         var moduleStr = "new " + nodeAttr.mainClass + "();";
-                        myApp.cachedModuls.push({ id: nodeAttr.id, module: moduleStr });
-                        myApp.addModul(moduleStr, nodeAttr);
-                        myApp.loadMask.hide();
+                        mc.frame.cachedModuls.push({ id: nodeAttr.id, module: moduleStr });
+                        me.addModul(moduleStr, nodeAttr);
+                        me.loadMask.hide();
                     });
                 }
             } else if (nodeAttr.type == 'load') {
@@ -263,42 +259,9 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
                     layout: 'fit'
                 }));
                 this.mainTab.setActiveTab(itemPanel);
-                myApp.loadMask.hide();
+                this.loadMask.hide();
             }
         }
-    },
-
-    loadJs: function(js, callback) {
-        myApp.JsToLoad = js;
-        myApp.JsLoadCallBack = callback;
-        myApp._loadJs();
-    },
-
-    _loadJs: function() {
-        var js = myApp.JsToLoad;
-        var callback = myApp.JsLoadCallBack;
-        if (Ext.type(myApp.JsToLoad) != 'string') {
-            if (myApp.JsToLoad.length == 1) {
-                js = myApp.JsToLoad[0];
-                callback = myApp.JsLoadCallBack;
-            }
-            else {
-                js = myApp.JsToLoad.shift();
-                callback = myApp._loadJs;
-            }
-        }
-
-        Ext.Ajax.request({
-            url: js,
-            success: myApp._onLoadJs,
-            method: 'GET',
-            scope: callback
-        });
-    },
-
-    _onLoadJs: function(response) {
-        eval(response.responseText);
-        this();
     },
 
     loadUserInfo: function(obj) {
@@ -316,14 +279,3 @@ Ext.extend(mc.frame.app, Ext.util.Observable, {
         return this.mainTab.get(id);
     }
 });
-
-//Ext.onReady(function() {
-//    Ext.QuickTips.init();
-//    Ext.form.Field.prototype.msgTarget = 'side';
-//    myApp = new mc.frame.app();
-//    myApp.loadUserInfo();
-
-//    window.addTab = function(item) {
-//        myApp.addTab(item);
-//    }
-//});
