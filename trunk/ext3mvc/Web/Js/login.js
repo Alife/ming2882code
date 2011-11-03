@@ -76,24 +76,24 @@ Ext.onReady(function() {
     Ext.BLANK_IMAGE_URL = (Ext.isIE6 || Ext.isIE7) ? "/extjs/resources/images/default/s.gif" : 'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
     Ext.QuickTips.init();
     Ext.form.Field.prototype.msgTarget = 'side';
-    var rs = ajaxSyncCall('/home/loadUserInfo', '');
-    if (rs.success) {
-        mc.frame.myApp = new mc.frame.app();
-        mc.frame.myApp.loadUserInfo(rs.data);
-    } else {
-        mc.frame.myLogin = new mc.frame.login();
-        mc.frame.myLogin.onShow();
-    }
-//    mc.frame.ajax({ url: '/home/loadUserInfo', scope: this, noErrMsg: true, sync: true,
-//        onSuccess: function(rs, opts) {
-//            mc.frame.myApp = new mc.frame.app();
-//            mc.frame.myApp.loadUserInfo(rs.data);
-//        },
-//        onFailure: function(rs, opts) {
-//            mc.frame.myLogin = new mc.frame.login();
-//            mc.frame.myLogin.onShow();
-//        }
-//    });
+//    var rs = ajaxSyncCall('/home/loadUserInfo', '');
+//    if (rs.success) {
+//        mc.frame.myApp = new mc.frame.app();
+//        mc.frame.myApp.loadUserInfo(rs.data);
+//    } else {
+//        mc.frame.myLogin = new mc.frame.login();
+//        mc.frame.myLogin.onShow();
+//    }
+    mc.frame.ajax({ url: '/home/loadUserInfo', scope: this, noErrMsg: true, sync: true,
+        onSuccess: function(rs, opts) {
+            mc.frame.myApp = new mc.frame.app();
+            mc.frame.myApp.loadUserInfo(rs.data);
+        },
+        onFailure: function(rs, opts) {
+            mc.frame.myLogin = new mc.frame.login();
+            mc.frame.myLogin.onShow();
+        }
+    });
 });
 function ajaxSyncCall(urlStr, paramsStr) {
     var obj;
