@@ -76,85 +76,22 @@ Ext.onReady(function() {
     Ext.BLANK_IMAGE_URL = (Ext.isIE6 || Ext.isIE7) ? "/extjs/resources/images/default/s.gif" : 'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
     Ext.QuickTips.init();
     Ext.form.Field.prototype.msgTarget = 'side';
-    //    var rs = ajaxSyncCall('/home/loadUserInfo', '');
-    //    if (rs.success) {
-    //        mc.frame.myApp = new mc.frame.app();
-    //        mc.frame.myApp.loadUserInfo(rs.data);
-    //    } else {
-    //        mc.frame.myLogin = new mc.frame.login();
-    //        mc.frame.myLogin.onShow();
-    //    }
-    mc.frame.ajax({ url: '/home/loadUserInfo', scope: this, noErrMsg: true, sync: true,
-        onSuccess: function(rs, opts) {
-            mc.frame.myApp = new mc.frame.app();
-            mc.frame.myApp.loadUserInfo(rs.data);
-        },
-        onFailure: function(rs, opts) {
-            mc.frame.myLogin = new mc.frame.login();
-            mc.frame.myLogin.onShow();
-        }
-    });
-});
-function ajaxSyncCall(cfg) {
-    cfg = typeof cfg == 'object' ? cfg : {};
-    var scope = cfg.scope || this;
-    var httpRequest;
-    if (window.ActiveXObject) {
-        httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
-    } else if (window.XMLHttpRequest) {
-        httpRequest = new XMLHttpRequest();
+    var rs = mc.frame.ajaxSyncString({ url: '/home/loadUserInfo' });
+    if (rs.success) {
+        mc.frame.myApp = new mc.frame.app();
+        mc.frame.myApp.loadUserInfo(rs.data);
+    } else {
+        mc.frame.myLogin = new mc.frame.login();
+        mc.frame.myLogin.onShow();
     }
-    httpRequest.open(cfg.method || 'post', cfg.url, false);
-    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send(typeof (cfg.params) == 'string' ? cfg.params : Ext.Object.toQueryString(cfg.params || { e: Math.random() }));
-    setTimeout(function() { isTimeout = true; }, 5000);
-    httpRequest.onreadystatechange = function() {
-        if (httpRequest.readyState == 4 && !isTiemout) {
-            if (httpRequest.status == 200) {
-                var rs = httpRequest.responseText ? Ext.decode(httpRequest.responseText) : {};
-                try {
-                    if (cfg.noErrMsg && Ext.isFunction(cfg.onSuccess)) {
-                        cfg.onSuccess.createDelegate(cfg.scope || window, [rs, cfg])();
-                    }
-                }
-                catch (e) {
-                    Ext.Msg.alert({ title: '系统提示', msg: "实际错误消息为：" + e.message + "\n错误类型字符串为：" + e.name });
-                }
-            }
-            else {
-                var rs = {};
-                if (httpRequest.responseText && httpRequest.status == 200) rs = Ext.decode(httpRequest.responseText);
-                var msg = '';
-                switch (httpRequest.status) {
-                    case 403:
-                        msg = '你请求的页面禁止访问!';
-                        break;
-                    case 404:
-                        msg = '你请求的页面不存在!';
-                        break;
-                    case 500:
-                        msg = '你请求的页面服务器内部错误!';
-                        break;
-                    case 502:
-                        msg = 'Web服务器收到无效的响应!';
-                        break;
-                    case 503:
-                        msg = '服务器繁忙，请稍后再试!';
-                        break;
-                    default:
-                        msg = '你请求的页面遇到问题，操作失败!错误代码:' + httpRequest.status;
-                        break;
-                }
-                Ext.Msg.show({
-                    title: '系统提示', msg: rs.msg || msg, width: 280, buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING, closable: false, scope: cfg.scope,
-                    fn: function(btn) {
-                        if (Ext.isFunction(cfg.onFailure))
-                            cfg.onFailure.createDelegate(cfg.scope || window, [rs, cfg, btn])();
-                    }
-                });
-            }
-        }
-
-    };
-    return false;
-}
+    //    mc.frame.ajax({ url: '/home/loadUserInfo', scope: this, noErrMsg: true, sync: true,
+    //        onSuccess: function(rs, opts) {
+    //            mc.frame.myApp = new mc.frame.app();
+    //            mc.frame.myApp.loadUserInfo(rs.data);
+    //        },
+    //        onFailure: function(rs, opts) {
+    //            mc.frame.myLogin = new mc.frame.login();
+    //            mc.frame.myLogin.onShow();
+    //        }
+    //    });
+});
