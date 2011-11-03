@@ -72,8 +72,8 @@ mc.frame.submit = function(cfg) {
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     cfg.form.submit({
-        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: Math.random() }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
-        sync: cfg.sync || false, isUpload: cfg.isUpload || false,
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: Math.random() }, method: cfg.method || 'post',
+        waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...', sync: cfg.sync || false, isUpload: cfg.isUpload || false,
         success: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = action.response.responseText ? Ext.decode(action.response.responseText) : {};
@@ -131,8 +131,8 @@ mc.frame.load = function(cfg) {
     if (cfg.masker)
         cfg.masker.el.mask('数据提交中...', 'openLinkLoading');
     cfg.form.load({
-        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: Math.random() }, method: cfg.method || 'post', waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...',
-        sync: cfg.sync || false,
+        url: cfg.url || mc.frame.defaultUrl(), params: cfg.params || { e: Math.random() }, method: cfg.method || 'post',
+        waitTitle: cfg.waitTitle || '请等待', waitMsg: cfg.waitMsg || '数据提交中...', sync: cfg.sync || false,
         success: function(form, action) {
             if (cfg.masker) { cfg.masker.el.unmask(); }
             var rs = action.response.responseText ? Ext.decode(action.response.responseText) : {};
@@ -184,6 +184,86 @@ mc.frame.load = function(cfg) {
         }
     });
 }
+mc.frame.createRequest = function() {
+    var objXMLHttp = null;
+    if (window.XMLHttpRequest) {
+        objXMLHttp = new XMLHttpRequest();
+        if (objXMLHttp.overrideMimeType) {
+            objXMLHttp.overrideMimeType('text/xml');
+        }
+    }
+    else {
+        var MSXML = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'MSXML2.XMLHTTP.5.0', 'MSXML2.XMLHTTP.4.0', 'MSXML2.XMLHTTP.3.0'];
+        for (var n = 0; n < MSXML.length; n++) {
+            try {
+                objXMLHttp = new ActiveXObject(MSXML[n]);
+                break;
+            }
+            catch (e) { }
+        }
+    }
+    return objXMLHttp;
+};
+mc.frame.ajaxSyncString = function(cfg) {
+    cfg = typeof cfg == 'object' ? cfg : {};
+    var scope = cfg.scope || this;
+    var httpRequest = mc.frame.createRequest();
+    httpRequest.open(cfg.method || 'post', cfg.url, false);
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    httpRequest.send(Ext.urlEncode(cfg.params || { e: Math.random() }));
+    var rs = { success: false };
+    if (httpRequest.readyState == 4 && httpRequest.status == 200)
+        rs = Ext.decode(httpRequest.responseText);
+    return rs;
+};
+mc.frame.ajaxSync = function(cfg) {
+    cfg = typeof cfg == 'object' ? cfg : {};
+    var httpRequest = mc.frame.createRequest();
+    httpRequest.open(cfg.method || 'post', cfg.url, false);
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    httpRequest.send(Ext.urlEncode(cfg.params || { e: Math.random() }));
+    if (httpRequest.readyState == 4) {
+        if (httpRequest.status == 200) {
+            var rs = httpRequest.responseText ? Ext.decode(httpRequest.responseText) : {};
+            if (rs.success && Ext.isFunction(cfg.onSuccess))
+                cfg.onSuccess.createDelegate(cfg.scope || this, [rs, cfg])();
+            else if (Ext.isFunction(cfg.onFailure))
+                cfg.onFailure.createDelegate(cfg.scope || this, [rs, cfg])();
+        }
+        else {
+            var rs = {};
+            if (httpRequest.responseText && httpRequest.status == 200) rs = Ext.decode(httpRequest.responseText);
+            var msg = '';
+            switch (httpRequest.status) {
+                case 403:
+                    msg = '你请求的页面禁止访问!';
+                    break;
+                case 404:
+                    msg = '你请求的页面不存在!';
+                    break;
+                case 500:
+                    msg = '你请求的页面服务器内部错误!';
+                    break;
+                case 502:
+                    msg = 'Web服务器收到无效的响应!';
+                    break;
+                case 503:
+                    msg = '服务器繁忙，请稍后再试!';
+                    break;
+                default:
+                    msg = '你请求的页面遇到问题，操作失败!错误代码:' + httpRequest.status;
+                    break;
+            }
+            Ext.Msg.show({
+                title: '系统提示', msg: rs.msg || msg, width: 280, buttons: Ext.Msg.OK, icon: Ext.Msg.WARNING, closable: false, scope: cfg.scope,
+                fn: function(btn) {
+                    if (Ext.isFunction(cfg.onFailure))
+                        cfg.onFailure.createDelegate(cfg.scope || window, [rs, cfg, btn])();
+                }
+            });
+        }
+    }
+};
 //load js等
 mc.frame.Load = new function() { }
 mc.frame.cachedModuls = [];
