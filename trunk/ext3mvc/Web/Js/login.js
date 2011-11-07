@@ -9,8 +9,8 @@ mc.frame.login = Ext.extend(Ext.Window, {
                     {
                         xtype: 'compositefield', combineErrors: false,
                         items: [
-                        { xtype: 'checkbox', name: 'rememberMe', boxLabel: '记住登录', inputValue: true, uncheckedValue: false },
-                        { xtype: 'displayfield', value: '忘记密码', style: 'padding-top:4px;cursor:pointer', listeners: { 'click': { fn: this.forgetWin.show(), scope: this}} }
+                        { xtype: 'checkbox', name: 'rememberMe', boxLabel: '两周内自动登录', inputValue: true },
+                        { xtype: 'displayfield', value: '忘记密码', style: 'padding-top:4px;cursor:pointer', listeners: { 'click': { fn: function() { this.forgetWin.show() }, scope: this}} }
                         ]
                     }
             ],
@@ -43,6 +43,7 @@ mc.frame.login = Ext.extend(Ext.Window, {
                 mc.frame.myApp = new mc.frame.app();
                 mc.frame.myApp.onShow();
                 mc.frame.myApp.loadUserInfo(rs.data);
+                mc.frame.myLogin = this;
                 this.hide();
             }
         });

@@ -198,21 +198,19 @@ namespace Web.Controllers
             return Json(new { success = false, msg = "用户不存在" }, JsonRequestBehavior.AllowGet);
         }
         [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult Login(string userName, string password, bool? rememberMe)
+        public JsonResult Login(string userName, string password, int? rememberMe)
         {
             var userInfo = MC.BLL.mc_UserBLL.GetUserLogin(userName, password, Request.UserHostAddress);
             if (userInfo != null)
             {
-                int expires = 30;
-                rememberMe = rememberMe ?? false;
-                if (rememberMe.Value)
-                    expires = 1440 * 365 * 10;
+                bool isPersistent = rememberMe.HasValue;
+                int expires = rememberMe.HasValue ? 24 * 60 * 14 : 30;
                 JsonSerializerSettings jsonSs = new JsonSerializerSettings();
                 jsonSs.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
                 string userData = JsonConvert.SerializeObject(userInfo, Newtonsoft.Json.Formatting.None, jsonSs);
-                FormsAuthentication.SetAuthCookie(userName, rememberMe.HasValue, FormsAuthentication.FormsCookiePath);
+                FormsAuthentication.SetAuthCookie(userName, isPersistent, FormsAuthentication.FormsCookiePath);
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, userName, DateTime.Now, DateTime.Now.AddMinutes(expires),
-                    rememberMe.HasValue, userData, FormsAuthentication.FormsCookiePath);
+                    isPersistent, userData, FormsAuthentication.FormsCookiePath);
                 FormsIdentity identity = new FormsIdentity(ticket);
                 string encTicket = FormsAuthentication.Encrypt(ticket);
                 HttpCookie userCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
