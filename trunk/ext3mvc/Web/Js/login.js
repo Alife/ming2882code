@@ -10,16 +10,7 @@ mc.frame.login = Ext.extend(Ext.Window, {
                         xtype: 'compositefield', combineErrors: false,
                         items: [
                         { xtype: 'checkbox', name: 'rememberMe', boxLabel: '记住登录', inputValue: true, uncheckedValue: false },
-                        { xtype: 'displayfield', value: '忘记密码', style: 'padding-top:4px;cursor:pointer',
-                            listeners: {
-                                'click': {
-                                    fn: function(field) {
-                                        this.forgetWin.show();
-                                    },
-                                    scope: this
-                                }
-                            }
-                        }
+                        { xtype: 'displayfield', value: '忘记密码', style: 'padding-top:4px;cursor:pointer', listeners: { 'click': { fn: this.forgetWin.show(), scope: this}} }
                         ]
                     }
             ],
