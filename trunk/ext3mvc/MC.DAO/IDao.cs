@@ -33,11 +33,11 @@ namespace MC.DAO
         #endregion
 
         #region GetListPage　返回一个记录集合，配置文件要写明返回一个分页集合
-        T GetListPage<T>(QueryInfo queryInfo) where T : EntityList, new();
+        PagedList<T> GetListPage<T>(QueryInfo queryInfo) where T : Entity, new();
         #endregion
 
-        #region GetListPages　返回一个记录IDictionary集合，配置文件要写明返回一个分页集合 //可以是存储过程
-        IDictionary GetListPages<T>(QueryInfo queryInfo) where T : Entity, new();
+        #region GetListPages　返回一个记录IList集合，配置文件要写明返回一个分页集合 //可以是存储过程
+        PagedIList<T> GetIListPage<T>(QueryInfo queryInfo) where T : Entity, new();
         #endregion
 
         #region GetItem 返回一条记录或值，配置文件要写明返回的类型

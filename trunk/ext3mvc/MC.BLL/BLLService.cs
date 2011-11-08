@@ -91,7 +91,7 @@ namespace MC.BLL
         }
         #endregion
         #region GetListPage　返回一个记录集合，配置文件要写明返回一个分页集合
-        public static T GetListPage<T>(QueryInfo queryInfo) where T : EntityList, new()
+        public static PagedList<T> GetListPage<T>(QueryInfo queryInfo) where T : Entity, new()
         {
             return dao.GetListPage<T>(queryInfo);
         }
@@ -103,9 +103,9 @@ namespace MC.BLL
         }
         #endregion
         #region GetListPages　返回一个记录IDictionary集合，配置文件要写明返回一个分页集合 //可以是存储过程
-        public IDictionary GetListPages<T>(QueryInfo queryInfo) where T : Entity, new()
+        public static PagedIList<T> GetIListPage<T>(QueryInfo queryInfo) where T : Entity, new()
         {
-            return dao.GetListPages<T>(queryInfo);
+            return dao.GetIListPage<T>(queryInfo);
         }
         #endregion
         #region TotalCount　查询记录数，配置文件要写明返回一个整型

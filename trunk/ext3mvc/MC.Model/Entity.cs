@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Data;
 using System.Diagnostics;
 using System.Reflection;
@@ -98,9 +99,25 @@ namespace MC.Model
         #endregion
     }
     [Serializable]
-    public partial class EntityList
+    public class PagedList<T> where T : Entity, new()
     {
-        public virtual int records { get; set; }
-        public virtual IList<Entity> data { get; set; }
+        public PagedList(int _records, IList<Entity> _data)
+        {
+            records = _records;
+            data = _data;
+        }
+        public int records { get; set; }
+        public IList<Entity> data { get; set; }
+    }
+    [Serializable]
+    public class PagedIList<T> where T : Entity, new()
+    {
+        public PagedIList(int _records, IList _data)
+        {
+            records = _records;
+            data = _data;
+        }
+        public int records { get; set; }
+        public IList data { get; set; }
     }
 }

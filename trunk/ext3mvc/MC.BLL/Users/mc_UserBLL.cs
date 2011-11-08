@@ -8,9 +8,9 @@ namespace MC.BLL
 {
     public class mc_UserBLL
     {
-        public static mc_UserList GetListPage(QueryInfo queryInfo)
+        public static PagedList<mc_User> GetListPage(QueryInfo queryInfo)
         {
-            return BLLService.GetListPage<mc_UserList>(queryInfo);
+            return BLLService.GetListPage<mc_User>(queryInfo);
         }
         public static mc_User GetForget(string _userName, string _email)
         {

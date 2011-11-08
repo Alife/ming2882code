@@ -44,6 +44,28 @@ namespace MC.DAO
         {
             ErrorLog(xmlID, errorLog, new QueryInfo().Parameters);
         }
+        public T TryFunc<T>(string xmlID, Func<T> func)
+        {
+            try
+            {
+                return func();
+            }
+            catch (Exception ex)
+            {
+                if (_logger.IsErrorEnabled)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("XML ID=" + xmlID.PadRight(8));
+                    sb.AppendLine(ex.Message); 
+                    sb.AppendLine(ex.StackTrace);
+                    string user = System.Web.HttpContext.Current.User.Identity.Name;
+                    if (string.IsNullOrEmpty(user)) user = "游客";
+                    sb.Append("\r\n" + user + "----------------");
+                    _logger.Error(sb.ToString());
+                }
+                return default(T);
+            }
+        }
         #endregion
 
         #region 查询返回指定字段
@@ -68,16 +90,10 @@ namespace MC.DAO
         public int TotalCount(string sTableName, IDictionary iDictionary, string xmlID)
         {
             xmlID = sPreFix + sTableName + (!string.IsNullOrEmpty(xmlID) ? "." + xmlID : ".Count");
-            int i = 0;
-            try
+            return TryFunc(xmlID, () =>
             {
-                i = Convert.ToInt32(dataMapper.QueryForObject(xmlID, iDictionary));
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message, iDictionary);
-            }
-            return i;
+                return Convert.ToInt32(dataMapper.QueryForObject(xmlID, iDictionary));
+            });
         }
 
         /// <summary>
@@ -104,48 +120,41 @@ namespace MC.DAO
         public IList<T> GetList<T>(QueryInfo queryInfo) where T : Entity, new()
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
-
             if (queryInfo.MappingName == null || queryInfo.MappingName.Length == 0)
             {
                 //T obj = System.Activator.CreateInstance<T>();
                 T obj = new T();
                 queryInfo.MappingName = obj.GetTableName();
             }
-            #region order by
-            if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
-            {
-                string orderBy = string.Empty;
-                foreach (object obj in queryInfo.Orderby.Keys)
-                {
-                    if (obj.ToString().Trim().Length == 0) continue;
-                    orderBy += obj.ToString();
-                    if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
-                        orderBy += " ,";
-                    else
-                        orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
-                }
-                if (orderBy.Trim().Length > 0)
-                {
-                    orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
-                    if (queryInfo.Parameters.Contains("OrderBy"))
-                        queryInfo.Parameters["OrderBy"] = orderBy;
-                    else
-                        queryInfo.Parameters.Add("OrderBy", orderBy);
-                }
-
-            }
-            #endregion
-            IList<T> lstEntity = null;
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
-            try
+            return TryFunc(xmlID, () =>
             {
-                lstEntity = dataMapper.QueryForList<T>(xmlID, queryInfo.Parameters);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return lstEntity;
+                #region order by
+                if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
+                {
+                    string orderBy = string.Empty;
+                    foreach (object obj in queryInfo.Orderby.Keys)
+                    {
+                        if (obj.ToString().Trim().Length == 0) continue;
+                        orderBy += obj.ToString();
+                        if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
+                            orderBy += " ,";
+                        else
+                            orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
+                    }
+                    if (orderBy.Trim().Length > 0)
+                    {
+                        orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
+                        if (queryInfo.Parameters.Contains("OrderBy"))
+                            queryInfo.Parameters["OrderBy"] = orderBy;
+                        else
+                            queryInfo.Parameters.Add("OrderBy", orderBy);
+                    }
+
+                }
+                #endregion
+                return dataMapper.QueryForList<T>(xmlID, queryInfo.Parameters);
+            });
         }
         #endregion
 
@@ -158,128 +167,187 @@ namespace MC.DAO
         public IList GetList(QueryInfo queryInfo)
         {
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadList");
-            IList list = null;
-            try
+            return TryFunc(xmlID, () =>
             {
+                IList list = null;
                 if (queryInfo.MapQueryValue != null)
                     list = dataMapper.QueryForList(xmlID, queryInfo.MapQueryValue);
                 else
                     list = dataMapper.QueryForList(xmlID, queryInfo.Parameters);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return list;
+                return list;
+            });
         }
         #endregion
 
         #region GetListPage　返回一个记录集合，配置文件要写明返回一个分页集合 //可以是存储过程
+        #region old
+        //public T GetListPage<T>(QueryInfo queryInfo) where T : EntityList, new()
+        //{
+        //    if (queryInfo == null) queryInfo = new QueryInfo();
 
-        public T GetListPage<T>(QueryInfo queryInfo) where T : EntityList, new()
+        //    if (queryInfo.MappingName == null || queryInfo.MappingName.Length == 0)
+        //    {
+        //        //T obj = System.Activator.CreateInstance<T>();
+        //        T obj = new T();
+        //        queryInfo.MappingName = obj.GetType().Name.Replace("List", "");
+        //    }
+        //    #region order by
+        //    if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
+        //    {
+        //        string orderBy = string.Empty;
+        //        foreach (object obj in queryInfo.Orderby.Keys)
+        //        {
+        //            if (obj.ToString().Trim().Length == 0) continue;
+        //            orderBy += obj.ToString();
+        //            if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
+        //                orderBy += " ,";
+        //            else
+        //                orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
+        //        }
+        //        if (orderBy.Trim().Length > 0)
+        //        {
+        //            orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
+        //            //orderBy = orderBy.Substring(0, orderBy.Length - 1);
+        //            if (queryInfo.Parameters.Contains("OrderBy"))
+        //                queryInfo.Parameters["OrderBy"] = orderBy;
+        //            else
+        //                queryInfo.Parameters.Add("OrderBy", orderBy);
+        //        }
+        //    }
+        //    #endregion
+        //    T lstEntity = new T();
+        //    string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
+        //    try
+        //    {
+        //        lstEntity.records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+        //        if (lstEntity.records > 0)
+        //            lstEntity.data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
+        //        if (lstEntity.data == null) lstEntity.data = new List<Entity>();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
+        //    }
+        //    return lstEntity;
+        //}
+        #endregion
+        public PagedList<T> GetListPage<T>(QueryInfo queryInfo) where T : Entity, new()
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
-
             if (queryInfo.MappingName == null || queryInfo.MappingName.Length == 0)
             {
-                //T obj = System.Activator.CreateInstance<T>();
                 T obj = new T();
-                queryInfo.MappingName = obj.GetType().Name.Replace("List", "");
+                queryInfo.MappingName = obj.GetType().Name;
             }
-            #region order by
-            if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
-            {
-                string orderBy = string.Empty;
-                foreach (object obj in queryInfo.Orderby.Keys)
-                {
-                    if (obj.ToString().Trim().Length == 0) continue;
-                    orderBy += obj.ToString();
-                    if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
-                        orderBy += " ,";
-                    else
-                        orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
-                }
-                if (orderBy.Trim().Length > 0)
-                {
-                    orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
-                    //orderBy = orderBy.Substring(0, orderBy.Length - 1);
-                    if (queryInfo.Parameters.Contains("OrderBy"))
-                        queryInfo.Parameters["OrderBy"] = orderBy;
-                    else
-                        queryInfo.Parameters.Add("OrderBy", orderBy);
-                }
-            }
-            #endregion
-            T lstEntity = new T();
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
-            try
+            return TryFunc(xmlID, () =>
             {
-                lstEntity.records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-                if (lstEntity.records > 0)
-                    lstEntity.data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
-                if (lstEntity.data == null) lstEntity.data = new List<Entity>();
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return lstEntity;
+                #region order by
+                if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
+                {
+                    string orderBy = string.Empty;
+                    foreach (object obj in queryInfo.Orderby.Keys)
+                    {
+                        if (obj.ToString().Trim().Length == 0) continue;
+                        orderBy += obj.ToString();
+                        if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
+                            orderBy += " ,";
+                        else
+                            orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
+                    }
+                    if (orderBy.Trim().Length > 0)
+                    {
+                        orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
+                        //orderBy = orderBy.Substring(0, orderBy.Length - 1);
+                        if (queryInfo.Parameters.Contains("OrderBy"))
+                            queryInfo.Parameters["OrderBy"] = orderBy;
+                        else
+                            queryInfo.Parameters.Add("OrderBy", orderBy);
+                    }
+                }
+                #endregion
+                int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                IList<Entity> list = new List<Entity>();
+                if (records > 0)
+                    list = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
+                return new PagedList<T>(records, list);
+            });
         }
         #endregion
 
-        #region GetListPage　返回一个记录IDictionary集合，配置文件要写明返回一个分页集合 //可以是存储过程
+        #region GetListPage　返回一个记录IList集合，配置文件要写明返回一个分页集合 //可以是存储过程 //做报表很有用
+        #region old
+        //public IDictionary GetListPages<T>(QueryInfo queryInfo) where T : Entity, new()
+        //{
+        //    if (queryInfo == null) queryInfo = new QueryInfo();
 
-        public IDictionary GetListPages<T>(QueryInfo queryInfo) where T : Entity, new()
+        //    if (queryInfo.MappingName == null || queryInfo.MappingName.Length == 0)
+        //    {
+        //        T obj = new T();
+        //        queryInfo.MappingName = obj.GetTableName();
+        //    }
+        //    #region order by
+        //    if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
+        //    {
+        //        string orderBy = string.Empty;
+        //        foreach (object obj in queryInfo.Orderby.Keys)
+        //        {
+        //            if (obj.ToString().Trim().Length == 0) continue;
+        //            orderBy += obj.ToString();
+        //            if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
+        //                orderBy += " ,";
+        //            else
+        //                orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
+        //        }
+        //        if (orderBy.Trim().Length > 0)
+        //        {
+        //            orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
+        //            //orderBy = orderBy.Substring(0, orderBy.Length - 1);
+        //            if (queryInfo.Parameters.Contains("OrderBy"))
+        //                queryInfo.Parameters["OrderBy"] = orderBy;
+        //            else
+        //                queryInfo.Parameters.Add("OrderBy", orderBy);
+        //        }
+        //    }
+        //    #endregion
+        //    IDictionary lstEntity = new Hashtable();
+        //    string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
+        //    try
+        //    {
+        //        int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+        //        lstEntity.Add("records", records);
+        //        if (records > 0)
+        //        {
+        //            var data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
+        //            lstEntity.Add("data", data);
+        //            if (data == null) lstEntity.Add("data", new List<Entity>());
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
+        //    }
+        //    return lstEntity;
+        //}
+        #endregion
+        public PagedIList<T> GetIListPage<T>(QueryInfo queryInfo) where T : Entity, new()
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
-
             if (queryInfo.MappingName == null || queryInfo.MappingName.Length == 0)
             {
                 T obj = new T();
                 queryInfo.MappingName = obj.GetTableName();
             }
-            #region order by
-            if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
-            {
-                string orderBy = string.Empty;
-                foreach (object obj in queryInfo.Orderby.Keys)
-                {
-                    if (obj.ToString().Trim().Length == 0) continue;
-                    orderBy += obj.ToString();
-                    if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
-                        orderBy += " ,";
-                    else
-                        orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
-                }
-                if (orderBy.Trim().Length > 0)
-                {
-                    orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
-                    //orderBy = orderBy.Substring(0, orderBy.Length - 1);
-                    if (queryInfo.Parameters.Contains("OrderBy"))
-                        queryInfo.Parameters["OrderBy"] = orderBy;
-                    else
-                        queryInfo.Parameters.Add("OrderBy", orderBy);
-                }
-            }
-            #endregion
             IDictionary lstEntity = new Hashtable();
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
-            try
+            return TryFunc(xmlID, () =>
             {
                 int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-                lstEntity.Add("records", records);
+                IList list = new List<Entity>();
                 if (records > 0)
-                {
-                    var data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
-                    lstEntity.Add("data", data);
-                    if (data == null) lstEntity.Add("data", new List<Entity>());
-                }
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return lstEntity;
+                    list = dataMapper.QueryForList(xmlID, queryInfo.Parameters);
+                return new PagedIList<T>(records, list);
+            });
         }
         #endregion
 
