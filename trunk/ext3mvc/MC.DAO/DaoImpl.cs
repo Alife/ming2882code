@@ -18,32 +18,6 @@ namespace MC.DAO
         public DaoImpl() { }
 
         #region 错误日志
-        /// <summary>
-        /// 错误日志
-        /// </summary>
-        /// <param name="xmlID"></param>
-        /// <param name="_ErrorLog"></param>
-        public void ErrorLog(string xmlID, string errorLog, IDictionary iDictionary)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("XML ID=" + xmlID.PadRight(8));
-            sb.Append(" message=" + errorLog);
-            try
-            {
-                string user = System.Web.HttpContext.Current.User.Identity.Name;
-                if (string.IsNullOrEmpty(user)) user = "游客";
-                sb.Append("\r\n" + user + "----------------");
-            }
-            catch
-            {
-                sb.Append("\r\n游客----------------");
-            }
-            _logger.Error(sb.ToString());
-        }
-        public void ErrorLog(string xmlID, string errorLog)
-        {
-            ErrorLog(xmlID, errorLog, new QueryInfo().Parameters);
-        }
         public T TryFunc<T>(string xmlID, Func<T> func)
         {
             try
@@ -72,16 +46,10 @@ namespace MC.DAO
         public object QueryForObject(QueryInfo queryInfo)
         {
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
-            object obj = null;
-            try
+            return TryFunc(xmlID, () =>
             {
-                obj = dataMapper.QueryForObject(xmlID, queryInfo.Parameters);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message, queryInfo.Parameters);
-            }
-            return obj;
+                return dataMapper.QueryForObject(xmlID, queryInfo.Parameters);
+            });
         }
         #endregion
 
@@ -366,16 +334,10 @@ namespace MC.DAO
                 queryInfo.MappingName = obj.GetTableName();
             }
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
-            T entity = null;
-            try
+            return TryFunc(xmlID, () =>
             {
-                entity = dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return entity;
+                return dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
+            });
         }
         /// <summary>
         /// 通过一个实体查询
@@ -386,16 +348,10 @@ namespace MC.DAO
         public T GetItem<T>(T objEntity) where T : Entity, new()
         {
             string xmlID = objEntity.GetSelectXmlID();
-            T entity = null;
-            try
+            return TryFunc(xmlID, () =>
             {
-                entity = dataMapper.QueryForObject<T>(xmlID, objEntity);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return entity;
+                return dataMapper.QueryForObject<T>(xmlID, objEntity);
+            });
         }
 
         /// <summary>
@@ -412,18 +368,10 @@ namespace MC.DAO
             queryInfo.Parameters.Add(arrPK[0], sPK);
             queryInfo.MappingName = obj.GetTableName();
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
-            T entity = null;
-            try
+            return TryFunc(xmlID, () =>
             {
-                entity = dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            if (entity != null)
-                entity.SetLoading();
-            return entity;
+                return dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
+            });
         }
         #endregion
 
@@ -436,31 +384,19 @@ namespace MC.DAO
         public int Insert(Entity objEntity)
         {
             string xmlID = objEntity.GetInsertXmlID();
-            int i = 0;
-            try
+            return TryFunc(xmlID, () =>
             {
-                i = Convert.ToInt32(dataMapper.Insert(xmlID, objEntity));
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return i;
+                return Convert.ToInt32(dataMapper.Insert(xmlID, objEntity));
+            });
         }
 
         public int Insert(QueryInfo queryInfo)
         {
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Insert");
-            int i = 0;
-            try
+            return TryFunc(xmlID, () =>
             {
-                i = Convert.ToInt32(dataMapper.Insert(xmlID, queryInfo.Parameters));
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return i;
+                return Convert.ToInt32(dataMapper.Insert(xmlID, queryInfo.Parameters));
+            });
         }
         #endregion
 
@@ -472,31 +408,19 @@ namespace MC.DAO
         /// <returns></returns>
         public int Update(Entity objEntity)
         {
-            int i = 0;
             string xmlID = objEntity.GetUpdateXmlID();
-            try
+            return TryFunc(xmlID, () =>
             {
-                i = dataMapper.Update(xmlID, objEntity);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return i;
+                return dataMapper.Update(xmlID, objEntity);
+            });
         }
         public int Update(QueryInfo queryInfo)
         {
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Update");
-            int i = 0;
-            try
+            return TryFunc(xmlID, () =>
             {
-                i = Convert.ToInt32(dataMapper.Update(xmlID, queryInfo.Parameters));
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return i;
+                return Convert.ToInt32(dataMapper.Update(xmlID, queryInfo.Parameters));
+            });
         }
         #endregion
 
@@ -508,32 +432,20 @@ namespace MC.DAO
         /// <returns></returns>
         public int Delete(Entity objEntity)
         {
-            int i = 0;
             string xmlID = objEntity.GetDeleteXmlID();
-            try
+            return TryFunc(xmlID, () =>
             {
-                i = dataMapper.Delete(xmlID, objEntity);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return i;
+                return dataMapper.Delete(xmlID, objEntity);
+            });
         }
 
         public int Delete(QueryInfo queryInfo)
         {
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Delete");
-            int i = 0;
-            try
+            return TryFunc(xmlID, () =>
             {
-                i = Convert.ToInt32(dataMapper.Delete(xmlID, queryInfo.Parameters));
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return i;
+                return Convert.ToInt32(dataMapper.Delete(xmlID, queryInfo.Parameters));
+            });
         }
         #endregion
 
@@ -601,131 +513,74 @@ namespace MC.DAO
         public DataTable GetDataTable(QueryInfo queryInfo)
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
-            DataTable dt = new DataTable();
-            #region order by
-            if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
-            {
-                string orderBy = string.Empty;
-                foreach (object obj in queryInfo.Orderby.Keys)
-                {
-                    if (obj.ToString().Trim().Length == 0) continue;
-                    orderBy += obj.ToString();
-                    if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
-                        orderBy += " ,";
-                    else
-                        orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
-                }
-                if (orderBy.Trim().Length > 0)
-                {
-                    orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
-                    if (queryInfo.Parameters.Contains("OrderBy"))
-                        queryInfo.Parameters["OrderBy"] = orderBy;
-                    else
-                        queryInfo.Parameters.Add("OrderBy", orderBy);
-                }
-            }
-            #endregion
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
-            try
+            return TryFunc(xmlID, () =>
             {
-                dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return dt;
+                #region order by
+                if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
+                {
+                    string orderBy = string.Empty;
+                    foreach (object obj in queryInfo.Orderby.Keys)
+                    {
+                        if (obj.ToString().Trim().Length == 0) continue;
+                        orderBy += obj.ToString();
+                        if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
+                            orderBy += " ,";
+                        else
+                            orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
+                    }
+                    if (orderBy.Trim().Length > 0)
+                    {
+                        orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
+                        if (queryInfo.Parameters.Contains("OrderBy"))
+                            queryInfo.Parameters["OrderBy"] = orderBy;
+                        else
+                            queryInfo.Parameters.Add("OrderBy", orderBy);
+                    }
+                }
+                #endregion
+                return dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
+            });
         }
         #endregion
 
         #region 返回分页DataTable的查询，不支持存储过程
-        public DataTable GetDataTable(QueryInfo queryInfo, ref int records)
+        public PagedTable GetListPage(QueryInfo queryInfo)
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
-            records = 0;
-            DataTable dt = new DataTable();
-            #region order by
-            if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
-            {
-                string orderBy = string.Empty;
-                foreach (object obj in queryInfo.Orderby.Keys)
-                {
-                    if (obj.ToString().Trim().Length == 0) continue;
-                    orderBy += obj.ToString();
-                    if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
-                        orderBy += " ,";
-                    else
-                        orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
-                }
-                if (orderBy.Trim().Length > 0)
-                {
-                    orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
-                    if (queryInfo.Parameters.Contains("OrderBy"))
-                        queryInfo.Parameters["OrderBy"] = orderBy;
-                    else
-                        queryInfo.Parameters.Add("OrderBy", orderBy);
-                }
-            }
-            #endregion
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
-            try
+            return TryFunc(xmlID, () =>
             {
+                int records = 0;
+                DataTable dt = new DataTable();
+                #region order by
+                if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
+                {
+                    string orderBy = string.Empty;
+                    foreach (object obj in queryInfo.Orderby.Keys)
+                    {
+                        if (obj.ToString().Trim().Length == 0) continue;
+                        orderBy += obj.ToString();
+                        if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
+                            orderBy += " ,";
+                        else
+                            orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
+                    }
+                    if (orderBy.Trim().Length > 0)
+                    {
+                        orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
+                        if (queryInfo.Parameters.Contains("OrderBy"))
+                            queryInfo.Parameters["OrderBy"] = orderBy;
+                        else
+                            queryInfo.Parameters.Add("OrderBy", orderBy);
+                    }
+                }
+                #endregion
                 records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 if (records > 0)
                     dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return dt;
-        }
-        #endregion
-
-        #region 返回IDictionary，内容为分页的DataTable，不支持存储过程
-        public IDictionary GetListPage(QueryInfo queryInfo)
-        {
-            if (queryInfo == null) queryInfo = new QueryInfo();
-            #region order by
-            if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
-            {
-                string orderBy = string.Empty;
-                foreach (object obj in queryInfo.Orderby.Keys)
-                {
-                    if (obj.ToString().Trim().Length == 0) continue;
-                    orderBy += obj.ToString();
-                    if (queryInfo.Orderby[obj] == null || queryInfo.Orderby[obj].Equals("asc"))
-                        orderBy += " ,";
-                    else
-                        orderBy += string.Format(" {0} " + " ,", queryInfo.Orderby[obj]);
-                }
-                if (orderBy.Trim().Length > 0)
-                {
-                    orderBy = "order by " + orderBy.Substring(0, orderBy.Length - 1);
-                    if (queryInfo.Parameters.Contains("OrderBy"))
-                        queryInfo.Parameters["OrderBy"] = orderBy;
-                    else
-                        queryInfo.Parameters.Add("OrderBy", orderBy);
-                }
-            }
-            #endregion
-            IDictionary ht = new Hashtable();
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
-            try
-            {
-                int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-                ht.Add("records", records);
-                if (records > 0)
-                {
-                    DataTable dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
-                    if (dt != null) ht.Add("data", dt); else ht.Add("data", new DataTable());
-                }
-            }
-            catch (Exception e)
-            {
-                ErrorLog(xmlID, e.Message + "\r\n" + e.StackTrace);
-            }
-            return ht;
+                return new PagedTable(records, dt);
+            });
         }
         #endregion
 

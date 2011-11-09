@@ -76,12 +76,8 @@ namespace MC.DAO
         DataTable GetDataTable(QueryInfo queryInfo);
         #endregion
 
-        #region 返回分页DataTable的查询，不支持存储过程
-        DataTable GetDataTable(QueryInfo queryInfo, ref int records);
-        #endregion
-
-        #region 返回IDictionary，内容为分页的DataTable，不支持存储过程
-        IDictionary GetListPage(QueryInfo queryInfo);
+        #region 返回分页PagedTable的查询，不支持存储过程
+        PagedTable GetListPage(QueryInfo queryInfo);
         #endregion
     }
 }

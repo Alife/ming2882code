@@ -22,7 +22,7 @@ namespace MC.DAO
         protected static ISessionFactory sessionFactory = null;
         protected ISessionStore sessionStore = null;
         protected ConfigurationSetting configurationSetting;
-        protected readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public IBatiseHelper()
         {
