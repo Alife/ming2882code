@@ -25,6 +25,7 @@
                     <li><a href="album.aspx">相冊介紹</a></li>
                     <li><a href="clothing.aspx">服裝</a></li>
                     <li><a href="version.aspx">版型</a></li>
+                    <li><a href="file.aspx">資料下載</a></li>
                     <li><a href="contact.aspx" class="current">聯繫我們</a></li>
                 </ul>
                 <div class="menu_bottom"></div>
@@ -38,8 +39,8 @@
                 </div>
                 <div class="content_right" style="width:600px">
                     台灣獨家代理迪士尼畢業寫真專輯
-                    <p>地址：232323</p>
-                    <p>电话：232323</p>
+                    <p>地址：台北縣234永和市和平街27號</p>
+                    <p>電話：02-2232-4893 傳真:02-2920-6917</p>
                 </div>
                 <div class="clearfix"></div>
             </div>

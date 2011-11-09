@@ -17,40 +17,7 @@
 	<![endif]-->
 </head>
 <body>
-    <div id="container">
-        <div id="header">
-            <div class="logo"></div>
-            <div class="menu">
-                <ul class="clearfix">
-                    <li><a href="index.aspx">關于我們</a></li>
-                    <li><a href="portfolio.aspx" class="current">作品集</a></li>
-                    <li><a href="album.aspx">相冊介紹</a></li>
-                    <li><a href="clothing.aspx">服裝</a></li>
-                    <li><a href="version.aspx">版型</a></li>
-                    <li><a href="contact.aspx">聯繫我們</a></li>
-                </ul>
-                <div class="menu_bottom"></div>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div id="main">
-            <div class="content">
-                <div class="content_left content_left_list">
-                    <h2><label>作品集</label></h2>
-                    <ul class="list"><%int id = 0; int.TryParse(Request["id"], out id);web_Photo fileItem = web_PhotoBLL.GetItem(id);List<web_PhotoType> list = web_PhotoTypeBLL.GetList("portfolio");for(int i=0;i<list.Count;i++){ %>
-                        <li<%= fileItem.PhotoTypeID==list[i].ID?" class=\"current\"":""%>><a href="portfolio.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></li><%} %>
-                    </ul>
-                </div>
-                <div class="content_right">
-                    <img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" />
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-        $(function() {
-        });
-    </script>
+<%int id = 0; int.TryParse(Request["id"], out id);web_Photo fileItem = web_PhotoBLL.GetItem(id);%>
+    <img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" />
 </body>
 </html>

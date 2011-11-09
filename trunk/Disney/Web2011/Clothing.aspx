@@ -26,6 +26,7 @@
                     <li><a href="album.aspx">相冊介紹</a></li>
                     <li><a href="clothing.aspx" class="current">服裝</a></li>
                     <li><a href="version.aspx">版型</a></li>
+                    <li><a href="file.aspx">資料下載</a></li>
                     <li><a href="contact.aspx">聯繫我們</a></li>
                 </ul>
                 <div class="menu_bottom"></div>
