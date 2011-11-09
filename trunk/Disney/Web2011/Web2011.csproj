@@ -84,6 +84,7 @@
     <Content Include="images\graduation\ad_scroll_forward.png" />
     <Content Include="images\graduation\loader.gif" />
     <Content Include="images\graduation\opa75.png" />
+    <Content Include="images\loader.gif" />
     <Content Include="images\prettyPhoto\dark_rounded\btnNext.png" />
     <Content Include="images\prettyPhoto\dark_rounded\btnPrevious.png" />
     <Content Include="images\prettyPhoto\dark_rounded\contentPattern.png" />
@@ -125,6 +126,7 @@
     <Content Include="Web.config" />
     <Content Include="PortfolioShow.aspx" />
     <Content Include="AlbumShow.aspx" />
+    <Content Include="file.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

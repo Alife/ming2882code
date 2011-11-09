@@ -62,9 +62,9 @@ input.w60{width:60px;}input.w40{width:40px;}input.w100{width:100px;}input.w120{w
 
 #container{font-size:12px;margin:0px auto;overflow:hidden;zoom:1;}
 #header {height:150px;width:960px;margin:0px auto;}
-#header .logo{margin:5px 0px 0px 10px; background:url(../images/d/Logo.png) no-repeat; width:250px; height:135px;float:left;}
+#header .logo{margin:5px 0px 0px 5px; background:url(../images/d/Logo.png) no-repeat; width:250px; height:135px;float:left;}
 #header .logo a{width:250px; height:135px;display:block;}
-#header .menu{float:right;margin:80px 0 0 0px;width:600px;height:30px;background:url(../images/d/menubg.png) no-repeat;}
+#header .menu{float:right;margin:80px 0 0 0px;width:700px;height:30px;background:url(../images/d/menubg.png) no-repeat;}
 #header .menu li{float:left;text-align:center;height:30px;line-height:30px;padding:0px 0px 0px 5px;font-size:14px;font-weight:bold;}
 #header .menu li a{text-decoration:none;text-align:center;color:#fff;display:block;width:94px;}
 #header .menu li a:hover,#header .menu li a.current{background:url(../images/d/menu_btn.png) no-repeat 0px 2px;width:94px;height:27px;color:#FFCC00;}
@@ -88,7 +88,7 @@ html>body #main .content{height:auto;min-height:300px;}
 #main .content .content_left ul.list li{float:left;}
 #main .content .content_right{float:right;}
 .portfolio_list{width:600px;}
-.portfolio_list li{float:left;display:inline;padding:0 10px 10px 10px;overflow:hidden;}
+.portfolio_list li{float:left;display:inline;padding:0 10px 10px 10px;overflow:hidden;width:170px;height:145px;}
 .portfolio_list li p{cursor:pointer;width:170px;height:120px;+font-size:105px;}
 .portfolio_list li img{vertical-align:middle;max-width:170px;max-height:120px;}
 .portfolio_list li p.pm{border:3px solid #5598DC;}
