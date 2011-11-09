@@ -96,8 +96,8 @@ namespace MC.BLL
             return dao.GetListPage<T>(queryInfo);
         }
         #endregion
-        #region 返回IDictionary，内容为分页的DataTable，不支持存储过程
-        public static IDictionary GetListPage(QueryInfo queryInfo)
+        #region 返回PagedTable，内容为分页的DataTable，不支持存储过程
+        public static PagedTable GetListPage(QueryInfo queryInfo)
         {
             return dao.GetListPage(queryInfo);
         }
@@ -132,12 +132,6 @@ namespace MC.BLL
         public static DataTable GetDataTable(QueryInfo queryInfo)
         {
             return dao.GetDataTable(queryInfo);
-        }
-        #endregion
-        #region 返回分页DataTable的查询，不支持存储过程
-        public static DataTable GetDataTable(QueryInfo queryInfo, ref int records)
-        {
-            return dao.GetDataTable(queryInfo, ref records);
         }
         #endregion
     }

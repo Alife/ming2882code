@@ -120,4 +120,15 @@ namespace MC.Model
         public int records { get; set; }
         public IList data { get; set; }
     }
+    [Serializable]
+    public class PagedTable
+    {
+        public PagedTable(int _records, DataTable _data)
+        {
+            records = _records;
+            data = _data;
+        }
+        public int records { get; set; }
+        public DataTable data { get; set; }
+    }
 }

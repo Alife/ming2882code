@@ -12,6 +12,10 @@ namespace MC.BLL
         {
             return BLLService.GetListPage<mc_User>(queryInfo);
         }
+        public static IList<mc_User> GetList(QueryInfo queryInfo)
+        {
+            return BLLService.GetList<mc_User>(queryInfo);
+        }
         public static mc_User GetForget(string _userName, string _email)
         {
             QueryInfo query = new QueryInfo();
