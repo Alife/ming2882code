@@ -22,15 +22,5 @@ namespace Web.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:4991/mcService.asmx")]
-        public string Web_mcServiceReference_mcService {
-            get {
-                return ((string)(this["Web_mcServiceReference_mcService"]));
-            }
-        }
     }
 }

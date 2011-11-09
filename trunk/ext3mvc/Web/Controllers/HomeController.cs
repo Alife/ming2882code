@@ -329,11 +329,6 @@ namespace Web.Controllers
             object result = WebServiceHelper.InvokeWebService(url, "GetWeather", args);
             return Content(result.ToString());
         }
-        public ContentResult hollo()
-        {
-            mcServiceReference.mcService mc = new Web.mcServiceReference.mcService();
-            return Content(mc.HelloWorld());
-        }
         #endregion
         #region ajax长轮询的 Comet
         /// <summary>
