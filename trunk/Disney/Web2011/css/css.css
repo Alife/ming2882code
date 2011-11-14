@@ -68,6 +68,7 @@ input.w60{width:60px;}input.w40{width:40px;}input.w100{width:100px;}input.w120{w
 #header .menu li{float:left;text-align:center;height:30px;line-height:30px;padding:0px 0px 0px 5px;font-size:14px;font-weight:bold;}
 #header .menu li a{text-decoration:none;text-align:center;color:#fff;display:block;width:94px;}
 #header .menu li a:hover,#header .menu li a.current{background:url(../images/d/menu_btn.png) no-repeat 0px 2px;width:94px;height:27px;color:#FFCC00;}
+#header .menu_bottom{height:15px;width:700px;background:url(../images/d/menubg_bottom.png) no-repeat;margin-top:2px;} 
 #footer{width:810px;margin:0 auto;padding:10px;color:#fff;text-align:center;}
 #footer .footermenu{padding-left:125px;}
 #footer .footermenu li{float:left;}

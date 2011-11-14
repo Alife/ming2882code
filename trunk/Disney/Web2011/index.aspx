@@ -12,10 +12,10 @@
     <!--[if lt IE 7]>
 	<link rel="stylesheet" type="text/css" href="css/ie_style.css" />
 	<script type="text/javascript" src="js/ie_png.js"></script>  
-	<script type="text/javascript">ie_png.fix('#header .logo,#header .menu,#header .menu li a:hover,#header .menu li a.current,#main .content .content_left h2,#main .content .content_left h2 label,#main .content .content_left h2.current label,#main .content .content_left ul li,#main .content .content_left ul li a,#main .content .content_left ul li a:hover,#main .content .content_left ul li.current a');</script>	
+	<script type="text/javascript">ie_png.fix('#header .logo,#header .menu,#header .menu_bottom,#header .menu li a:hover,#header .menu li a.current,#main .content .content_left h2,#main .content .content_left h2 label,#main .content .content_left h2.current label,#main .content .content_left ul li,#main .content .content_left ul li a,#main .content .content_left ul li a:hover,#main .content .content_left ul li.current a');</script>	
 	<![endif]-->
 </head>
-<body>
+<body style="height:740px;">
     <div id="container">
         <div id="header">
             <div class="logo"></div>
@@ -34,35 +34,32 @@
             <div class="clear"></div>
         </div>
         <div id="main">
-            <div class="content"><%int id = 0; int.TryParse(Request["id"], out id); %>
-                <div class="content_left index"><%List<web_PhotoType> list = web_PhotoTypeBLL.GetList("about");if(id==0 && list.Count>0)id=list[0].ID;for(int i=0;i<list.Count;i++){ %>
-                    <h2<%= id==list[i].ID?" class=\"current\"":""%>><label><a href="index.aspx?id=<%= list[i].ID%>"><%= list[i].Name%></a></label></h2><%} %>
+            <div class="content">
+                <div class="content_left index">
                 </div>
                 <div class="content_right">
                     <div id="gallery" class="ad-gallery"> 
-                        <div class="ad-image-wrapper"> 
+                        <div class="ad-image-wrapper">
+                            <div class="ad-image" style="width:400px; height: 400px; top: 0px; left: 170px; ">
+                                <img id="ad-image" src="/images/d/i/bigimage00001.jpg" alt="巴斯光年" title="巴斯光年">
+                            </div>
                         </div> 
                         <div class="ad-controls"> 
-                            <div id="descriptions"></div>
+                            <div id="descriptions">巴斯光年</div>
                         </div> 
                         <div class="ad-nav"> 
                             <div class="ad-thumbs">
-                                <ul class="ad-thumb-list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst){%>
-                                    <li><a href="<%= fileItem.FilePath%>"><img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" title="<%= fileItem.Name%>" /></a></li><%}%>
+                                <ul class="ad-thumb-list" style="padding-left:50px;">
+                                    <li style="margin:0 5px"><img src="/images/d/i/image00001.jpg" bigsrc="/images/d/i/bigimage00001.jpg" oldsrc="/images/d/i/巴斯光年.jpg" alt="巴斯光年" title="巴斯光年" style="cursor:pointer;border:1px solid #000;" /></li>
+                                    <li style="margin:0 5px"><img src="/images/d/i/image00002.jpg" bigsrc="/images/d/i/bigimage00002.jpg" oldsrc="/images/d/i/貝兒.jpg" alt="貝兒" title="貝兒" style="cursor:pointer;border:1px solid #000;" /></li>
+                                    <li style="margin:0 5px"><img src="/images/d/i/image00003.jpg" bigsrc="/images/d/i/bigimage00003.jpg" oldsrc="/images/d/i/海軍.jpg" alt="海軍" title="海軍" style="cursor:pointer;border:1px solid #000;" /></li>
+                                    <li style="margin:0 5px"><img src="/images/d/i/image00004.jpg" bigsrc="/images/d/i/bigimage00004.jpg" oldsrc="/images/d/i/美妮.jpg" alt="美妮" title="美妮" style="cursor:pointer;border:1px solid #000;" /></li>
+                                    <li style="margin:0 5px"><img src="/images/d/i/image00005.jpg" bigsrc="/images/d/i/bigimage00005.jpg" oldsrc="/images/d/i/美人魚.jpg" alt="美人魚" title="美人魚" style="cursor:pointer;border:1px solid #000;" /></li>
+                                    <li style="margin:0 5px"><img src="/images/d/i/image00006.jpg" bigsrc="/images/d/i/bigimage00006.jpg" oldsrc="/images/d/i/威廉王子.jpg" alt="威廉王子" title="威廉王子" style="cursor:pointer;border:1px solid #000;" /></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <p>流覽方式: <select id="switch-effect"> 
-                      <option value="slide-hori">橫向流覽</option> 
-                      <option value="slide-vert">縱向流覽</option> 
-                      <option value="resize">收缩/展開</option> 
-                      <option value="fade">淡入/淡出</option> 
-                      <option value="">沒有</option> 
-                    </select>
-                    <a href="#" id="toggle-slideshow">切換幻燈片</a>
-                    <a href="#" id="toggle-description" style="display:none"> | 描述切換到圖片外顯示</a> 
-                    </p> 
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -70,16 +67,17 @@
     </div>
     <script type="text/javascript">
         $(function() {
-            var galleries = $('.ad-gallery').adGallery({ loader_image: 'images/graduation/loader.gif' });
-            galleries[0].settings.description_wrapper = $('#descriptions');
-            $('#switch-effect').change(function() {
-                galleries[0].settings.effect = $(this).val();
-                return false;
-            });
-            $('#toggle-slideshow').click(function() {
-                galleries[0].slideshow.toggle();
-                return false;
-            });
+            $('.ad-thumb-list img').each(function() {
+                $(this).click(function() {
+                    var old = $(this).attr('oldsrc');
+                    var bigsrc = $(this).attr('bigsrc');
+                    var alt = $(this).attr('alt');
+                    $('#ad-image').attr('src', bigsrc);
+                    $('#ad-image').attr('alt', alt);
+                    $('#ad-image').attr('title', alt);
+                    $('#descriptions').html(alt);
+                });
+            })
         });
     </script>
 </body>
