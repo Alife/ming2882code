@@ -8,10 +8,11 @@
     <link href="css/jquery.ad-gallery.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.ad-gallery.pack.js" type="text/javascript"></script>
+    <style type="text/css">body{height:768px;background:#255583 url(images/d/hhbg_4.jpg) no-repeat center 0;}</style>
     <!--[if lt IE 7]>
 	<link rel="stylesheet" type="text/css" href="css/ie_style.css" />
 	<script type="text/javascript" src="js/ie_png.js"></script>  
-	<script type="text/javascript">ie_png.fix('#header .logo,#header .menu,#header .menu li a:hover,#header .menu li a.current,#main .content .content_left h2,#main .content .content_left h2 label,#main .content .content_left h2.current label,#main .content .content_left ul li,#main .content .content_left ul li a,#main .content .content_left ul li a:hover,#main .content .content_left ul li.current a');</script>	
+	<script type="text/javascript">ie_png.fix('#header .logo,#header .menu,#header .menu_bottom,#header .menu li a:hover,#header .menu li a.current,#main .content .content_left h2,#main .content .content_left h2 label,#main .content .content_left h2.current label,#main .content .content_left ul li,#main .content .content_left ul li a,#main .content .content_left ul li a:hover,#main .content .content_left ul li.current a');</script>	
 	<![endif]-->
 </head>
 <body>
@@ -37,7 +38,7 @@
                 <div class="content_left">
                     <h2><label>迪士尼系列相冊</label></h2>
                 </div>
-                <div class="content_right" style="width:600px">
+                <div class="content_right" style="width:600px;display:none;">
                     台灣獨家代理迪士尼畢業寫真專輯
                     <p>地址：台北縣234永和市和平街27號</p>
                     <p>電話：02-2232-4893 傳真:02-2920-6917</p>

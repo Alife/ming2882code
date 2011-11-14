@@ -13,7 +13,7 @@
     <!--[if lt IE 7]>
 	<link rel="stylesheet" type="text/css" href="css/ie_style.css" />
 	<script type="text/javascript" src="js/ie_png.js"></script>  
-	<script type="text/javascript">ie_png.fix('#header .logo,#header .menu,#header .menu li a:hover,#header .menu li a.current,#main .content .content_left h2,#main .content .content_left h2 label,#main .content .content_left h2.current label,#main .content .content_left ul li,#main .content .content_left ul li a,#main .content .content_left ul li a:hover,#main .content .content_left ul li.current a');</script>	
+	<script type="text/javascript">ie_png.fix('#header .logo,#header .menu,#header .menu_bottom,#header .menu li a:hover,#header .menu li a.current,#main .content .content_left h2,#main .content .content_left h2 label,#main .content .content_left h2.current label,#main .content .content_left ul li,#main .content .content_left ul li a,#main .content .content_left ul li a:hover,#main .content .content_left ul li.current a');</script>	
 	<![endif]-->
 </head>
 <body>
@@ -43,13 +43,49 @@
                     </ul>
                 </div>
                 <div class="content_right"> 
-                    <ul class="album_list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst){%>
-                        <li><p class="pm"><a href="albumshow.aspx?id=<%= fileItem.ID%>" target="_blank" title="<%= fileItem.Name%>"><img src="<%= fileItem.FilePath%>" alt="<%= fileItem.Remark%>" /></a></p></li><%} %>
-                    </ul>
+                    <div id="gallery" class="ad-gallery"> 
+                        <div class="ad-image-wrapper"> 
+                        </div> 
+                        <div class="ad-controls"> 
+                            <div id="descriptions"></div>
+                        </div> 
+                        <div class="ad-nav"> 
+                            <div class="ad-thumbs">
+                                <ul class="ad-thumb-list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst){%>
+                                    <li><a href="<%= fileItem.FilePath%>"><img src="<%= fileItem.FilePath%>" alt="" title="<%= fileItem.Name%>" /></a></li><%}%>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="display:none">流覽方式: <select id="switch-effect"> 
+                      <option value="slide-hori">橫向流覽</option> 
+                      <option value="slide-vert">縱向流覽</option> 
+                      <option value="resize">收缩/展開</option> 
+                      <option value="fade">淡入/淡出</option> 
+                      <option value="">沒有</option> 
+                    </select>
+                    <a href="#" id="toggle-slideshow">切換幻燈片</a>
+                    <a href="#" id="toggle-description" style="display:none"> | 描述切換到圖片外顯示</a> 
+                    </p> 
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function() {
+            var galleries = $('.ad-gallery').adGallery({ loader_image: 'images/graduation/loader.gif' });
+            galleries[0].settings.description_wrapper = $('#descriptions');
+            $('#switch-effect').change(function() {
+                galleries[0].settings.effect = $(this).val();
+                return false;
+            });
+            $('#toggle-slideshow').click(function() {
+                galleries[0].slideshow.toggle();
+                return false;
+            });
+        });
+    </script>
+</body>
 </body>
 </html>

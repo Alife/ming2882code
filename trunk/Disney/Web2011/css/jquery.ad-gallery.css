@@ -70,7 +70,7 @@
       .ad-gallery .ad-image-wrapper .ad-image a img {
         border: 0;
       }
-      .ad-gallery .ad-image-wrapper .ad-image .ad-image-description {
+      .ad-gallery .ad-image-description {
         position: absolute;
         bottom: 0px;
         left: 0px;
@@ -81,11 +81,11 @@
         background: url(../images/graduation/opa75.png);
         color: #000;
       }
-      * html .ad-gallery .ad-image-wrapper .ad-image .ad-image-description {
+      * html .ad-gallery .ad-image-description {
         background: none;
         filter:progid:DXImageTransform.Microsoft.AlphaImageLoader (enabled=true, sizingMethod=scale, src='../images/graduation/opa75.png');
       }
-        .ad-gallery .ad-image-wrapper .ad-image .ad-image-description .ad-description-title {
+        .ad-gallery .ad-image-description .ad-description-title {
             color: #000;
           display: block;
         }
@@ -95,20 +95,20 @@
     position:relative;
   }
     .ad-gallery .ad-info {
-      float: left;
+      float: left;display:none;
     }
     .ad-gallery .ad-slideshow-controls {
-      float: right;
+      float: right;display:none;
     }
       .ad-gallery .ad-slideshow-controls .ad-slideshow-start, .ad-gallery .ad-slideshow-controls .ad-slideshow-stop {
         padding-left: 5px;
         cursor: pointer;
-        color:#fff;
+        color:#fff;display:none;
       }
       .ad-gallery .ad-slideshow-controls .ad-slideshow-countdown {
         padding-left: 5px;
         font-size: 0.9em;
-        color:#fff;
+        color:#fff;display:none;
       }
     .ad-gallery .ad-slideshow-running .ad-slideshow-start {
       cursor: default;
@@ -162,8 +162,8 @@
             .ad-gallery .ad-thumbs li a img {
               border: 1px solid #CCC;
               display: block;
-              width:60px;
-              height:40px;
+              width:90px;
+              height:60px;
             }
             .ad-gallery .ad-thumbs li a.ad-active img {
               border: 1px solid #616161;
