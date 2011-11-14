@@ -73,8 +73,10 @@
     <Content Include="images\d\hhbg_1.jpg" />
     <Content Include="images\d\hhbg_2.jpg" />
     <Content Include="images\d\hhbg_3.jpg" />
+    <Content Include="images\d\hhbg_4.jpg" />
     <Content Include="images\d\logo.png" />
     <Content Include="images\d\menubg.png" />
+    <Content Include="images\d\menubg_bottom.png" />
     <Content Include="images\d\menu_bottom.png" />
     <Content Include="images\d\menu_btn.png" />
     <Content Include="images\d\p1.jpg" />
