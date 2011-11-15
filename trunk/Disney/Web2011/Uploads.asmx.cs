@@ -46,7 +46,7 @@ namespace Web2011
                 m.WriteTo(fl);
                 string[] temStr = saveFileName.Split('.');
                 SmallPicFactory.CutSmallPic(System.Drawing.Image.FromStream(fl), Server.MapPath(path) + temStr[0] + "_s400." + temStr[1], 400, 400, 100);
-                SmallPicFactory.CutSmallPic(System.Drawing.Image.FromStream(fl), Server.MapPath(path) + temStr[0] + "_s." + temStr[1], 90, 70, 100);
+                SmallPicFactory.CutSmallPic(System.Drawing.Image.FromStream(fl), Server.MapPath(path) + temStr[0] + "_s." + temStr[1], 120, 90, 100);
                 web_Photo item = new web_Photo();
                 item.PhotoTypeID = photoType;
                 item.CreateTime = DateTime.Now;
