@@ -75,15 +75,15 @@
         bottom: 0px;
         left: 0px;
         padding: 7px;
-        text-align: left;
+        text-align: center;
         width: 100%;
         z-index: 2;
         background: url(../images/graduation/opa75.png);
-        color: #000;
+        color: #000;font-size:18px;
       }
       * html .ad-gallery .ad-image-wrapper .ad-image .ad-image-description {
         background: none;
-        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader (enabled=true, sizingMethod=scale, src='opa75.png');
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader (enabled=true, sizingMethod=scale, src='../images/graduation/opa75.png');
       }
         .ad-gallery .ad-image-wrapper .ad-image .ad-image-description .ad-description-title {
           display: block;
