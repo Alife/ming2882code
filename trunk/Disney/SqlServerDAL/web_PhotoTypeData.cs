@@ -54,7 +54,7 @@ namespace SqlServerDAL
             {
                 foreach (string id in ids)
                 {
-                    strSql.AppendFormat("if not exists (select id from web_Photo where CoverID={0}) \r\n", id);
+                    strSql.AppendFormat("if not exists (select id from web_Photo where PhotoTypeID={0}) \r\n", id);
                     strSql.Append("begin \r\n");
                     strSql.AppendFormat("DELETE FROM web_PhotoType WHERE ID={0};\r\n", id);
                     strSql.Append("end");
