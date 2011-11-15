@@ -22,7 +22,7 @@
             <div class="logo"></div>
             <div class="menu">
                 <ul class="clearfix">
-                    <li><a href="index.aspx">關于我們</a></li>
+                    <li><a href="index.aspx">首頁</a></li>
                     <li><a href="portfolio.aspx" class="current">作品集</a></li>
                     <li><a href="album.aspx">相冊介紹</a></li>
                     <li><a href="clothing.aspx">服裝</a></li>

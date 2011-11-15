@@ -21,7 +21,7 @@
             <div class="logo"></div>
             <div class="menu">
                 <ul class="clearfix">
-                    <li><a href="index.aspx">關于我們</a></li>
+                    <li><a href="index.aspx">首頁</a></li>
                     <li><a href="portfolio.aspx">作品集</a></li>
                     <li><a href="album.aspx">相冊介紹</a></li>
                     <li><a href="clothing.aspx">服裝</a></li>
@@ -46,7 +46,6 @@
                         <div class="ad-image-wrapper"> 
                         </div> 
                         <div class="ad-controls"> 
-                            <div id="descriptions"></div>
                         </div> 
                         <div class="ad-nav"> 
                             <div class="ad-thumbs">
@@ -74,7 +73,7 @@
     <script type="text/javascript">
         $(function() {
             var galleries = $('.ad-gallery').adGallery({ loader_image: 'images/graduation/loader.gif' });
-            galleries[0].settings.description_wrapper = $('#descriptions');
+            galleries[0].settings.slideshow.autostart = true;
             $('#switch-effect').change(function() {
                 galleries[0].settings.effect = $(this).val();
                 return false;
