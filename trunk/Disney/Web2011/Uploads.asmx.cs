@@ -45,8 +45,11 @@ namespace Web2011
                 ///把内内存里的数据写入物理文件
                 m.WriteTo(fl);
                 string[] temStr = saveFileName.Split('.');
-                SmallPicFactory.CutSmallPic(System.Drawing.Image.FromStream(fl), Server.MapPath(path) + temStr[0] + "_s400." + temStr[1], 400, 400, 100);
-                SmallPicFactory.CutSmallPic(System.Drawing.Image.FromStream(fl), Server.MapPath(path) + temStr[0] + "_s." + temStr[1], 120, 90, 100);
+                System.Drawing.Image img = System.Drawing.Image.FromStream(fl);
+                int width = 400, height = 400;
+                if (img.Width > img.Height) width = 600;
+                SmallPicFactory.CutSmallPic(img, Server.MapPath(path) + temStr[0] + "_s400." + temStr[1], width, height, 100);
+                SmallPicFactory.CutSmallPic(img, Server.MapPath(path) + temStr[0] + "_s." + temStr[1], 120, 90, 100);
                 web_Photo item = new web_Photo();
                 item.PhotoTypeID = photoType;
                 item.CreateTime = DateTime.Now;
