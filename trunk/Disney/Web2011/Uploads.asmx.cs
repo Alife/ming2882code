@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.IO;
 using Models;
 using BLL;
+using Common;
 
 namespace Web2011
 {
@@ -43,6 +44,9 @@ namespace Web2011
                 fl = new FileStream(Server.MapPath(path) + saveFileName, FileMode.OpenOrCreate);
                 ///把内内存里的数据写入物理文件
                 m.WriteTo(fl);
+                string[] temStr = saveFileName.Split('.');
+                SmallPicFactory.CutSmallPic(System.Drawing.Image.FromStream(fl), Server.MapPath(path) + temStr[0] + "_s400." + temStr[1], 400, 400, 100);
+                SmallPicFactory.CutSmallPic(System.Drawing.Image.FromStream(fl), Server.MapPath(path) + temStr[0] + "_s." + temStr[1], 90, 70, 100);
                 web_Photo item = new web_Photo();
                 item.PhotoTypeID = photoType;
                 item.CreateTime = DateTime.Now;
