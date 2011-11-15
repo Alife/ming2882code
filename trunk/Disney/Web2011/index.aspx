@@ -21,7 +21,7 @@
             <div class="logo"></div>
             <div class="menu">
                 <ul class="clearfix">
-                    <li><a href="index.aspx" class="current">關于我們</a></li>
+                    <li><a href="index.aspx" class="current">首頁</a></li>
                     <li><a href="portfolio.aspx">作品集</a></li>
                     <li><a href="album.aspx">相冊介紹</a></li>
                     <li><a href="clothing.aspx">服裝</a></li>
@@ -42,17 +42,16 @@
                         <div class="ad-image-wrapper">
                         </div> 
                         <div class="ad-controls"> 
-                            <div id="descriptions"></div>
                         </div> 
                         <div class="ad-nav"> 
                             <div class="ad-thumbs">
                                 <ul class="ad-thumb-list" style="padding-left:50px;">
-                                    <li><a href="/images/d/i/bigimage00001.jpg"><img src="/images/d/i/image00001.jpg" bigsrc="/images/d/i/bigimage00001.jpg" oldsrc="/images/d/i/巴斯光年.jpg" alt="" title="巴斯光年" style="cursor:pointer;border:1px solid #000;" /></a></li>
-                                    <li><a href="/images/d/i/bigimage00006.jpg"><img src="/images/d/i/image00006.jpg" bigsrc="/images/d/i/bigimage00006.jpg" oldsrc="/images/d/i/威廉王子.jpg" alt="" title="威廉王子" style="cursor:pointer;border:1px solid #000;" /></a></li>
-                                    <li><a href="/images/d/i/bigimage00003.jpg"><img src="/images/d/i/image00003.jpg" bigsrc="/images/d/i/bigimage00003.jpg" oldsrc="/images/d/i/海軍.jpg" alt="" title="海軍" style="cursor:pointer;border:1px solid #000;" /></a></li>
                                     <li><a href="/images/d/i/bigimage00002.jpg"><img src="/images/d/i/image00002.jpg" bigsrc="/images/d/i/bigimage00002.jpg" oldsrc="/images/d/i/貝兒.jpg" alt="" title="貝兒" style="cursor:pointer;border:1px solid #000;" /></a></li>
                                     <li><a href="/images/d/i/bigimage00004.jpg"><img src="/images/d/i/image00004.jpg" bigsrc="/images/d/i/bigimage00004.jpg" oldsrc="/images/d/i/美妮.jpg" alt="" title="美妮" style="cursor:pointer;border:1px solid #000;" /></a></li>
                                     <li><a href="/images/d/i/bigimage00005.jpg"><img src="/images/d/i/image00005.jpg" bigsrc="/images/d/i/bigimage00005.jpg" oldsrc="/images/d/i/美人魚.jpg" alt="" title="美人魚" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00001.jpg"><img src="/images/d/i/image00001.jpg" bigsrc="/images/d/i/bigimage00001.jpg" oldsrc="/images/d/i/巴斯光年.jpg" alt="" title="巴斯光年" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00006.jpg"><img src="/images/d/i/image00006.jpg" bigsrc="/images/d/i/bigimage00006.jpg" oldsrc="/images/d/i/威廉王子.jpg" alt="" title="威廉王子" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00003.jpg"><img src="/images/d/i/image00003.jpg" bigsrc="/images/d/i/bigimage00003.jpg" oldsrc="/images/d/i/海軍.jpg" alt="" title="海軍" style="cursor:pointer;border:1px solid #000;" /></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -75,7 +74,8 @@
     <script type="text/javascript">
         $(function() {
             var galleries = $('.ad-gallery').adGallery({ loader_image: 'images/graduation/loader.gif' });
-            galleries[0].settings.description_wrapper = $('#descriptions');
+            //galleries[0].settings.description_wrapper = $('#descriptions');
+            galleries[0].settings.slideshow.autostart = true;
             $('#switch-effect').change(function() {
                 galleries[0].settings.effect = $(this).val();
                 return false;
