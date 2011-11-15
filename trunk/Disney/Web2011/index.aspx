@@ -40,26 +40,33 @@
                 <div class="content_right">
                     <div id="gallery" class="ad-gallery"> 
                         <div class="ad-image-wrapper">
-                            <div class="ad-image" style="width:400px; height: 400px; top: 0px; left: 170px; ">
-                                <img id="ad-image" src="/images/d/i/bigimage00001.jpg" alt="巴斯光年" title="巴斯光年">
-                            </div>
                         </div> 
                         <div class="ad-controls"> 
-                            <div id="descriptions">巴斯光年</div>
+                            <div id="descriptions"></div>
                         </div> 
                         <div class="ad-nav"> 
                             <div class="ad-thumbs">
                                 <ul class="ad-thumb-list" style="padding-left:50px;">
-                                    <li style="margin:0 5px"><img src="/images/d/i/image00001.jpg" bigsrc="/images/d/i/bigimage00001.jpg" oldsrc="/images/d/i/巴斯光年.jpg" alt="巴斯光年" title="巴斯光年" style="cursor:pointer;border:1px solid #000;" /></li>
-                                    <li style="margin:0 5px"><img src="/images/d/i/image00002.jpg" bigsrc="/images/d/i/bigimage00002.jpg" oldsrc="/images/d/i/貝兒.jpg" alt="貝兒" title="貝兒" style="cursor:pointer;border:1px solid #000;" /></li>
-                                    <li style="margin:0 5px"><img src="/images/d/i/image00003.jpg" bigsrc="/images/d/i/bigimage00003.jpg" oldsrc="/images/d/i/海軍.jpg" alt="海軍" title="海軍" style="cursor:pointer;border:1px solid #000;" /></li>
-                                    <li style="margin:0 5px"><img src="/images/d/i/image00004.jpg" bigsrc="/images/d/i/bigimage00004.jpg" oldsrc="/images/d/i/美妮.jpg" alt="美妮" title="美妮" style="cursor:pointer;border:1px solid #000;" /></li>
-                                    <li style="margin:0 5px"><img src="/images/d/i/image00005.jpg" bigsrc="/images/d/i/bigimage00005.jpg" oldsrc="/images/d/i/美人魚.jpg" alt="美人魚" title="美人魚" style="cursor:pointer;border:1px solid #000;" /></li>
-                                    <li style="margin:0 5px"><img src="/images/d/i/image00006.jpg" bigsrc="/images/d/i/bigimage00006.jpg" oldsrc="/images/d/i/威廉王子.jpg" alt="威廉王子" title="威廉王子" style="cursor:pointer;border:1px solid #000;" /></li>
+                                    <li><a href="/images/d/i/bigimage00001.jpg"><img src="/images/d/i/image00001.jpg" bigsrc="/images/d/i/bigimage00001.jpg" oldsrc="/images/d/i/巴斯光年.jpg" alt="" title="巴斯光年" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00006.jpg"><img src="/images/d/i/image00006.jpg" bigsrc="/images/d/i/bigimage00006.jpg" oldsrc="/images/d/i/威廉王子.jpg" alt="" title="威廉王子" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00003.jpg"><img src="/images/d/i/image00003.jpg" bigsrc="/images/d/i/bigimage00003.jpg" oldsrc="/images/d/i/海軍.jpg" alt="" title="海軍" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00002.jpg"><img src="/images/d/i/image00002.jpg" bigsrc="/images/d/i/bigimage00002.jpg" oldsrc="/images/d/i/貝兒.jpg" alt="" title="貝兒" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00004.jpg"><img src="/images/d/i/image00004.jpg" bigsrc="/images/d/i/bigimage00004.jpg" oldsrc="/images/d/i/美妮.jpg" alt="" title="美妮" style="cursor:pointer;border:1px solid #000;" /></a></li>
+                                    <li><a href="/images/d/i/bigimage00005.jpg"><img src="/images/d/i/image00005.jpg" bigsrc="/images/d/i/bigimage00005.jpg" oldsrc="/images/d/i/美人魚.jpg" alt="" title="美人魚" style="cursor:pointer;border:1px solid #000;" /></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                    <p style="display:none">流覽方式: <select id="switch-effect"> 
+                      <option value="slide-hori">橫向流覽</option> 
+                      <option value="slide-vert">縱向流覽</option> 
+                      <option value="resize">收缩/展開</option> 
+                      <option value="fade">淡入/淡出</option> 
+                      <option value="">沒有</option> 
+                    </select>
+                    <a href="#" id="toggle-slideshow">切換幻燈片</a>
+                    <a href="#" id="toggle-description" style="display:none"> | 描述切換到圖片外顯示</a> 
+                    </p> 
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -67,17 +74,27 @@
     </div>
     <script type="text/javascript">
         $(function() {
-            $('.ad-thumb-list img').each(function() {
-                $(this).click(function() {
-                    var old = $(this).attr('oldsrc');
-                    var bigsrc = $(this).attr('bigsrc');
-                    var alt = $(this).attr('alt');
-                    $('#ad-image').attr('src', bigsrc);
-                    $('#ad-image').attr('alt', alt);
-                    $('#ad-image').attr('title', alt);
-                    $('#descriptions').html(alt);
-                });
-            })
+            var galleries = $('.ad-gallery').adGallery({ loader_image: 'images/graduation/loader.gif' });
+            galleries[0].settings.description_wrapper = $('#descriptions');
+            $('#switch-effect').change(function() {
+                galleries[0].settings.effect = $(this).val();
+                return false;
+            });
+            $('#toggle-slideshow').click(function() {
+                galleries[0].slideshow.toggle();
+                return false;
+            });
+//            $('.ad-thumb-list img').each(function() {
+//                $(this).click(function() {
+//                    var old = $(this).attr('oldsrc');
+//                    var bigsrc = $(this).attr('bigsrc');
+//                    var alt = $(this).attr('alt');
+//                    $('#ad-image').attr('src', bigsrc);
+//                    $('#ad-image').attr('alt', alt);
+//                    $('#ad-image').attr('title', alt);
+//                    $('#descriptions').html(alt);
+//                });
+//            })
         });
     </script>
 </body>
