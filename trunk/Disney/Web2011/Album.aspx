@@ -50,8 +50,16 @@
                         </div> 
                         <div class="ad-nav"> 
                             <div class="ad-thumbs">
-                                <ul class="ad-thumb-list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst){%>
-                                    <li><a href="<%= fileItem.FilePath%>"><img src="<%= fileItem.FilePath%>" alt="" title="<%= fileItem.Name%>" /></a></li><%}%>
+                                <ul class="ad-thumb-list"><%List<web_Photo> oLst = web_PhotoBLL.GetList(id); foreach (web_Photo fileItem in oLst)
+                                                            {
+                                                                string path = string.Empty, path4 = string.Empty; ;
+                                                                if (!string.IsNullOrEmpty(fileItem.FilePath))
+                                                                {
+                                                                    string[] strPath = fileItem.FilePath.Split('.');
+                                                                    path = strPath[0] + "_s." + strPath[1];
+                                                                    path4 = strPath[0] + "_s400." + strPath[1];
+                                                                }%>
+                                    <li><a href="<%= path4%>"><img src="<%= path%>" alt="<%= fileItem.Remark%>" title="<%= fileItem.Name%>" /></a></li><%}%>
                                 </ul>
                             </div>
                         </div>
