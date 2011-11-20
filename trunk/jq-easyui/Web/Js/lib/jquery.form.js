@@ -84,32 +84,35 @@
         function _11(_12) {
             var _13 = $(_c);
             var fields = _e.fields, ln = fields.length;
-            for (var l = 0; l < ln; l++) {
-                var field = fields[l];
-                var map = (field.mapping !== undefined && field.mapping !== null) ? field.mapping : field.name;
-                var val = '';
-                if (String(map).search(/[\[\.]/) >= 0)
-                    val = eval('_12.' + map);
-                else
-                    val = _12[map];
-                $("input[name=" + field.name + "]", _13).val(val);
-                $("textarea[name=" + field.name + "]", _13).val(val);
-                $("select[name=" + field.name + "]", _13).val(val);
-                var cc = ["combo", "combobox", "combotree", "combogrid", "datebox", "datetimebox"];
-                for (var i = 0; i < cc.length; i++) {
-                    _15(cc[i], field.name, val);
+            if (fields) {
+                for (var l = 0; l < ln; l++) {
+                    var field = fields[l];
+                    var map = (field.mapping !== undefined && field.mapping !== null) ? field.mapping : field.name;
+                    var val = '';
+                    if (String(map).search(/[\[\.]/) >= 0)
+                        val = eval('_12.' + map);
+                    else
+                        val = _12[map];
+                    $("input[name=" + field.name + "]", _13).val(val);
+                    $("textarea[name=" + field.name + "]", _13).val(val);
+                    $("select[name=" + field.name + "]", _13).val(val);
+                    var cc = ["combo", "combobox", "combotree", "combogrid", "datebox", "datetimebox"];
+                    for (var i = 0; i < cc.length; i++) {
+                        _15(cc[i], field.name, val);
+                    }
+                }
+            } else {
+                for (var _14 in _12) {
+                    var val = _12[_14];
+                    $("input[name=" + _14 + "]", _13).val(val);
+                    $("textarea[name=" + _14 + "]", _13).val(val);
+                    $("select[name=" + _14 + "]", _13).val(val);
+                    var cc = ["combo", "combobox", "combotree", "combogrid", "datebox", "datetimebox"];
+                    for (var i = 0; i < cc.length; i++) {
+                        _15(cc[i], _14, val);
+                    }
                 }
             }
-            /*for (var _14 in _12) {
-            var val = _12[_14];
-            $("input[name=" + _14 + "]", _13).val(val);
-            $("textarea[name=" + _14 + "]", _13).val(val);
-            $("select[name=" + _14 + "]", _13).val(val);
-            var cc = ["combo", "combobox", "combotree", "combogrid", "datebox", "datetimebox"];
-            for (var i = 0; i < cc.length; i++) {
-            _15(cc[i], _14, val);
-            }
-            }*/
             _e.onLoadSuccess.call(_c, _12);
             _20(_c);
         };
