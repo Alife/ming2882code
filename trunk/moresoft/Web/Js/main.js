@@ -88,10 +88,10 @@ function addTab(menuid, subtitle, url, icon) {
 }
 //增加URL框架
 function createFrame(url) {
-    //url = !url ? 'about:blank;' : url;
-    //return url;
-    var s = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
-    return s;
+    url = !url ? 'about:blank;' : url;
+    return url;
+//    var s = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+//    return s;
 }
 function tabClose() {
     /*双击关闭TAB选项卡*/
