@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Info\InfoType_iftBLL.cs" />
     <Compile Include="Users\mc_UserBLL.cs" />
     <Compile Include="BLLService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
