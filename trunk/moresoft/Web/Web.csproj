@@ -822,6 +822,13 @@
     <Compile Include="SysAdmin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysAdmin\InfoType.aspx.cs">
+      <DependentUpon>InfoType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\InfoType.aspx.designer.cs">
+      <DependentUpon>InfoType.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysAdmin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -833,6 +840,7 @@
   <ItemGroup>
     <Content Include="database.config" />
     <Content Include="Global.asax" />
+    <Content Include="SysAdmin\InfoType.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MC.BLL\MC.BLL.csproj">
