@@ -840,6 +840,9 @@
   <ItemGroup>
     <Content Include="database.config" />
     <Content Include="Global.asax" />
+    <Content Include="Js\themes\default\css\images\application_add.png" />
+    <Content Include="Js\themes\default\css\images\application_delete.png" />
+    <Content Include="Js\themes\default\css\images\application_edit.png" />
     <Content Include="SysAdmin\InfoType.aspx" />
   </ItemGroup>
   <ItemGroup>
