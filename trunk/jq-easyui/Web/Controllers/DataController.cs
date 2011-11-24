@@ -12,6 +12,10 @@ namespace Web.Controllers
         {
             return View();
         }
+        public ActionResult viewBaseGrid1()
+        {
+            return View();
+        }
         public JsonResult datagrid_data(int? page, int rows, string sort, string order)
         {
             //page = (page ?? 0) == 1 ? 0 : page;

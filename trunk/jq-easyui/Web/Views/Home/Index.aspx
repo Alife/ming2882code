@@ -24,7 +24,8 @@
 									{ "menuid": "13", "menuname": "窗体", "icon": "icon-users", "url": "/demo/窗体.html" },
 									{ "menuid": "14", "menuname": "表单", "icon": "icon-role", "url": "/demo/表单.html" },
 									{ "menuid": "15", "menuname": "数据网格", "icon": "icon-set", "url": "/demo/数据网格.html" },
-									{ "menuid": "16", "menuname": "基础DataGrid", "icon": "icon-log", "url": "/data/viewBaseGrid" }
+									{ "menuid": "16", "menuname": "基础DataGrid", "icon": "icon-log", "url": "/data/viewBaseGrid" },
+									{ "menuid": "16", "menuname": "基础DataGrid1", "icon": "icon-log", "url": "/data/viewBaseGrid1" }
 								]
 						}, { "menuid": "8", "icon": "icon-sys", "menuname": "员工管理",
 						    "menus": [{ "menuid": "21", "menuname": "员工列表", "icon": "icon-nav", "url": "demo.html" },

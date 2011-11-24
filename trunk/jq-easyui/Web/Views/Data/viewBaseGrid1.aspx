@@ -7,10 +7,10 @@
 
     <script type="text/javascript">
         //$(function() {
-            $.Class("data.BaseGrid", {
+            $.Class("data.BaseGrid1", {
                 Extends: [],
                 Implements: [],
-                grid: $('#viewBaseGrid').datagrid({
+                grid: $('#viewBaseGrid1').datagrid({
                     url: '/data/datagrid_data',
                     headerCls: "header_cls",
                     nowrap: false,
@@ -47,7 +47,7 @@
                         iconCls: 'icon-add',
                         handler: function() {
                             $('#btnsave').linkbutton('enable');
-                            test.add();
+                            test1.add();
                         }
                     }, '-', {
                         id: 'btncut',
@@ -62,9 +62,8 @@
                         text: '保存',
                         iconCls: 'icon-save',
                         handler: function() {
-                            //$('#btnsave').linkbutton('disable');
+                            $('#btnsave').linkbutton('disable');
                             //alert('save');
-                            test.grid.datagrid('options').toolbar[0].linkbutton('disable')    ;
                         }
                     }, '->', {
                         id: 'btn_import',
@@ -86,16 +85,17 @@
                     ]
                 }),
                 add: function() {
-                    alert("1");
+                    alert("2");
                 }
             });
-            var test = new data.BaseGrid();
+            var test1 = new data.BaseGrid1();
+            alert(test1.grid.datagrid('options').toolbar[0].id)
         //});
     </script>
 
 </head>
 <body>
-    <div id="viewBaseGrid">
+    <div id="viewBaseGrid1">
     </div>
 </body>
 </html>
