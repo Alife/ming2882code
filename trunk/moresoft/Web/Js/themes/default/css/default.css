@@ -37,6 +37,6 @@ a:hover{ color:Red; text-decoration:underline;}
 .icon-database{ background-position:-20px -140px;}
 .icon-save{background-position: 0px -20px;}
 .icon-cancel{background-position: -360px -200px;}
-.application_add{ background:url(images/application_add.png) no-repeat;width:16px;line-height:16px; display:inline-block;}
-.application_edit{ background:url(images/application_edit.png) no-repeat;width:16px;line-height:16px; display:inline-block;}
-.application_delete{ background:url(images/application_delete.png) no-repeat;width:16px;line-height:16px; display:inline-block;}
+.application_add{ background:url(images/application_add.png) no-repeat;}
+.application_edit{ background:url(images/application_edit.png) no-repeat;}
+.application_delete{ background:url(images/application_delete.png) no-repeat;}
