@@ -259,6 +259,7 @@
     <Content Include="Js\themes\icons\tip.png" />
     <Content Include="Js\themes\icons\undo.png" />
     <Content Include="Views\Data\viewBaseGrid.aspx" />
+    <Content Include="Views\Data\viewBaseGrid1.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\Error.aspx" />
