@@ -9,7 +9,7 @@
         $(function() {
             $('#infoTypeGrid').treegrid({
                 title: '文章分类',
-                width:1000,height:600, rownumbers: true, animate: true, border: false,
+                width: 1000, height: 600, rownumbers: true, animate: true, border: false,
                 url: 'InfoType.aspx?type=load',
                 idField: 'ID_ift',
                 treeField: 'Name_ift',
@@ -38,14 +38,16 @@
                     iconCls: 'application_add',
                     handler: function() {
                         win.window('open');
+                        form.form('clear');
+                        formAction = 'add';
                     }
                 }, '-', {
                     id: 'btnEdit_ift',
                     text: '编辑',
                     iconCls: 'application_edit',
                     handler: function() {
-                        $('#btnsave').linkbutton('enable');
-                        alert('cut');
+                        win.window('open');
+                        formAction = 'edit';
                     }
                 }, '-', {
                     id: 'btnDelete_ift',
@@ -57,8 +59,23 @@
                 }
                 ]
             });
-            var win = $('#infoTypeGrid_Win').window({ closed: false, modal: true, shadow: true, resizable: false });
+            var win = $('#infoType_Win').window({ closed: false, modal: true, shadow: true, resizable: false });
             var form = win.find('form');
+            var formAction = '';
+            $('#btn_InfoType_Save').click(function() {
+                if (form.form('validate')) {
+                    form.form('submit', {
+                        url: 'InfoType.aspx?type=form&action=' + formAction,
+                        success: function(data) {
+                            data = eval("(" + data + ")"); ;
+                            $.messager.alert('系统提示', data.msg, "info", function() { if (data.success) { win.window('close'); form.form('clear'); } });
+                        }
+                    });
+                }
+            });
+            $('#btn_InfoType_Cancel').click(function() {
+                form.form('clear');
+            });
         });
     </script>
 
@@ -66,18 +83,19 @@
 <body>
     <div id="infoTypeGrid">
     </div>
-    <div id="infoTypeGrid_Win" class="easyui-window" title="文章分类" collapsible="false" minimizable="false"
+    <div id="infoType_Win" class="easyui-window" title="文章分类" collapsible="false" minimizable="false"
         maximizable="false" icon="icon icon-users" style="width: 400px; height: 290px; padding: 5px;
         background: #fafafa;">
         <div class="easyui-layout" fit="true">
             <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
-                <form id="frmInfoType" method="post">
+                <form id="infoType_frm" method="post">
                 <table cellpadding="3">
                     <tr>
                         <td>
                             分类名称：
                         </td>
                         <td>
+                            <input name="ID_ift" type="hidden" />
                             <input name="Name_ift" type="text" class="easyui-validatebox" required="true" missingmessage="分类名称必须填写" />
                         </td>
                     </tr>
@@ -94,7 +112,7 @@
                             上级：
                         </td>
                         <td>
-                            <input id="Parent_ift" class="easyui-combotree" url="InfoType.aspx?type=load" value="" style="width:200px;">
+                            <input id="Parent_ift" class="easyui-combotree" url="InfoType.aspx?type=loadtree" value="" style="width:200px;" />
                         </td>
                     </tr>
                     <tr>
@@ -109,8 +127,8 @@
                 </form>
             </div>
             <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
-                <a id="btnSave" class="easyui-linkbutton" href="javascript:void(0)">确定</a>
-                <a id="btnCancel" class="easyui-linkbutton" href="javascript:void(0)">
+                <a id="btn_InfoType_Save" class="easyui-linkbutton" href="javascript:void(0)">确定</a>
+                <a id="btn_InfoType_Cancel" class="easyui-linkbutton" href="javascript:void(0)">
                     取消</a>
             </div>
         </div>

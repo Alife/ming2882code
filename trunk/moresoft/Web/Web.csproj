@@ -804,6 +804,25 @@
     <Compile Include="Class\AdminBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Class\CoolCode\BindAttribute.cs" />
+    <Compile Include="Class\CoolCode\Controller.cs" />
+    <Compile Include="Class\CoolCode\ControllerBase.cs" />
+    <Compile Include="Class\CoolCode\ControllerContext.cs" />
+    <Compile Include="Class\CoolCode\CustomModelBinderAttribute.cs" />
+    <Compile Include="Class\CoolCode\DefaultModelBinder.cs" />
+    <Compile Include="Class\CoolCode\DictionaryHelpers.cs" />
+    <Compile Include="Class\CoolCode\IModelBinder.cs" />
+    <Compile Include="Class\CoolCode\ModelBinderDictionary.cs" />
+    <Compile Include="Class\CoolCode\ModelBinders.cs" />
+    <Compile Include="Class\CoolCode\ModelBindingContext.cs" />
+    <Compile Include="Class\CoolCode\ModelError.cs" />
+    <Compile Include="Class\CoolCode\ModelErrorCollection.cs" />
+    <Compile Include="Class\CoolCode\ModelState.cs" />
+    <Compile Include="Class\CoolCode\ModelStateDictionary.cs" />
+    <Compile Include="Class\CoolCode\TypeHelpers.cs" />
+    <Compile Include="Class\CoolCode\ValueProviderDictionary.cs" />
+    <Compile Include="Class\CoolCode\ValueProviderResult.cs" />
+    <Compile Include="Class\PageExtension.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
