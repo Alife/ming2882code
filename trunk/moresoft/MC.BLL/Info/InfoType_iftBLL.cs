@@ -26,10 +26,10 @@ namespace MC.BLL
             item.SetState(EntityState.Modified);
             return BLLService.Save(item);
         }
-        public static int Delete(List<string> ids)
+        public static int Delete(int id)
         {
             QueryInfo query = new QueryInfo();
-            query.Parameters.Add("ids", ids);
+            query.MapQueryValue = id;
             query.MappingName = typeof(InfoType_ift).Name;
             return BLLService.Delete(query);
         }

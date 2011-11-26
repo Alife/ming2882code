@@ -46,11 +46,11 @@ namespace Web.SysAdmin
                             json = JsonConvert.SerializeObject(new { success = false, msg = "保存失败" }, Formatting.None);
                         break;
                     case "del":
-                        v = 1;// InfoType_iftBLL.Delete(ReqHelper.Get<string>("id").Split(',').ToList());
+                        v = InfoType_iftBLL.Delete(ReqHelper.Get<int>("id"));
                         if (v > 0)
                             json = JsonConvert.SerializeObject(new { success = true, msg = "删除成功" }, Formatting.None);
                         else
-                            json = JsonConvert.SerializeObject(new { success = false, msg = "删除失败" }, Formatting.None);
+                            json = JsonConvert.SerializeObject(new { success = false, msg = "删除失败，分类下有子类无法删除" }, Formatting.None);
                         break;
                 }
                 Response.ContentType = "application/json;charset=utf-8";

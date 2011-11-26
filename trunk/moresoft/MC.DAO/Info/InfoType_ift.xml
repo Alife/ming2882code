@@ -116,13 +116,11 @@
       WHERE
       ID_ift = #ID_ift#
     </update>
-    <delete id="MC.Model.InfoType_ift.Delete" parameterClass="list">
-      delete
-      FROM InfoType_ift
-      WHERE ID_ift IN
-      <iterate property="ids" open="(" close=")"  conjunction="," >
-        #ids[]#
-      </iterate>
+    <delete id="MC.Model.InfoType_ift.Delete" parameterClass="int">
+      if not exists (select ID_ift from InfoType_ift where Parent_ift=#value#)
+      begin
+      delete FROM InfoType_ift WHERE ID_ift=#value#
+      end
     </delete>
   </statements>
 </sqlMap>
