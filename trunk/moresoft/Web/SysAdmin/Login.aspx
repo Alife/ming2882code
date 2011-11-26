@@ -60,7 +60,7 @@
                             
                         </td>
                         <td>
-                            <input name="rememberMe" type="checkbox" value="" /> 记住登录
+                            <input name="rememberMe" type="checkbox" value="true" /> 记住登录
                         </td>
                     </tr>
                 </table>

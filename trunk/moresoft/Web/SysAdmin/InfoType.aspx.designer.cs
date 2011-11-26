@@ -11,6 +11,6 @@
 namespace Web.SysAdmin {
     
     
-    public partial class InfoType1 {
+    public partial class InfoType {
     }
 }

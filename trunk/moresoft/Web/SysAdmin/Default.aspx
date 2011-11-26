@@ -1,84 +1,79 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Web.SysAdmin.Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>摩尔社区优化系统后台</title>
     <link rel="stylesheet" type="text/css" href="../js/themes/default/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../js/themes/default/css/default.css" />
+
     <script src="../js/jquery-1.4.4.min.js" type="text/javascript"></script>
+
     <script src="../js/jquery.easyui-1.2.3.min.js" type="text/javascript"></script>
+
     <script src="../js/easyui-lang-zh_CN.js" type="text/javascript"></script>
+
     <script src="../js/lib/util.js" type="text/javascript"></script>
+
     <script src="../js/main.js" type="text/javascript"></script>
+
     <%--<link id="skin" rel="stylesheet" href="../js/jBox/Skins/Default/jbox.css" />    <script type="text/javascript" src="../js/jBox/jquery.jBox-2.3.min.js"></script>    <script type="text/javascript" src="../js/jBox/i18n/jquery.jBox-zh-CN.js"></script>--%>
+
     <script type="text/javascript">
         var _menus = { "menus": [
 						{ "menuid": "1", "icon": "icon-sys", "menuname": "文章管理",
 						    "menus": [
-									{ "menuid": "2", "menuname": "文章管理", "icon": "icon-info", "url": "info.aspx" },
-									{ "menuid": "3", "menuname": "文章分类", "icon": "icon-nav", "url": "infotype.aspx" }
+									{ "menuid": "2", "menuname": "文章管理", "icon": "icon-info", "url": "info.aspx", "urlType": "load" },
+									{ "menuid": "3", "menuname": "文章分类", "icon": "icon-nav", "url": "infotype.aspx", "urlType": "load" }
 								]
-					    }, { "menuid": "4", "icon": "icon-set", "menuname": "系统设置",
-						    "menus": [{ "menuid": "5", "menuname": "管理员管理", "icon": "icon-users", "url": "users.aspx" },
-									{ "menuid": "6", "menuname": "系统设置", "icon": "icon-set", "url": "setting.aspx" },
-									{ "menuid": "7", "menuname": "日志查看", "icon": "icon-log", "url": "log.aspx" }
+						}, { "menuid": "4", "icon": "icon-set", "menuname": "系统设置",
+						    "menus": [{ "menuid": "5", "menuname": "管理员管理", "icon": "icon-users", "url": "users.aspx", "urlType": "load" },
+									{ "menuid": "6", "menuname": "系统设置", "icon": "icon-set", "url": "setting.aspx", "urlType": "load" },
+									{ "menuid": "7", "menuname": "日志查看", "icon": "icon-log", "url": "log.aspx", "urlType": "load" }
 								]
 						}
 				]
         };
-        //设置登录窗口
         function openPwd() {
-            $('#w').window({
-                title: '修改密码',
-                width: 300,
-                modal: true,
-                shadow: true,
-                closed: true,
-                height: 160,
-                resizable: false
-            });
+            $('#changePwd').window({ title: '修改密码', width: 300, modal: true, shadow: true, closed: true, resizable: false, icon: "icon icon-users" });
         }
-        //关闭登录窗口
         function closePwd() {
-            $('#w').window('close');
+            $('#changePwd').window('close');
         }
-        //修改密码
         function serverLogin() {
             var $newpass = $('#txtNewPass');
             var $rePass = $('#txtRePass');
             if ($newpass.val() == '') {
-                msgShow('系统提示', '请输入密码！', 'warning');
+                $.messager.alert('系统提示', '请输入密码！', 'warning');
                 return false;
             }
             if ($rePass.val() == '') {
-                msgShow('系统提示', '请在一次输入密码！', 'warning');
+                $.messager.alert('系统提示', '请在一次输入密码！', 'warning');
                 return false;
             }
             if ($newpass.val() != $rePass.val()) {
-                msgShow('系统提示', '两次密码不一至！请重新输入', 'warning');
+                $.messager.alert('系统提示', '两次密码不一至！请重新输入', 'warning');
                 return false;
             }
             $.post('/editpassword.aspx?newpass=' + $newpass.val(), function(msg) {
-                msgShow('系统提示', '恭喜，密码修改成功！<br>您的新密码为：' + msg, 'info');
+                $.messager.alert('系统提示', '恭喜，密码修改成功！<br>您的新密码为：' + msg, 'info');
                 $newpass.val('');
                 $rePass.val('');
-                close();
-            })
+                closePwd();
+            });
         }
-
         $(function() {
             openPwd();
-            $('#editpass').click(function() { $('#w').window('open'); });
+            $('#editpass').click(function() { $('#changePwd').window('open'); });
             $('#btnEp').click(function() { serverLogin(); });
             $('#btnCa').click(function() { closePwd(); })
             $('#loginOut').click(function() {
                 $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function(r) {
-                    if (r) { location.href = 'logout.aspx'; } else { test.add(); }
+                    if (r) { location.href = 'logout.aspx'; }
                 });
             })
         });    </script>
+
 </head>
 <body class="easyui-layout" style="overflow-y: hidden" scroll="no">
     <noscript>
@@ -112,8 +107,8 @@
         </div>
     </div>
     <!--修改密码窗口-->
-    <div id="w" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
-        maximizable="false" icon="icon-save" style="width: 300px; height: 150px; padding: 5px;
+    <div id="changePwd" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
+        maximizable="false" icon="icon icon-users" style="width: 300px; height: 170px; padding: 5px;
         background: #fafafa;">
         <div class="easyui-layout" fit="true">
             <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
