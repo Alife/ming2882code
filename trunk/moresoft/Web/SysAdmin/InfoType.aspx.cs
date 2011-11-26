@@ -12,14 +12,15 @@ using CoolCode.Web;
 
 namespace Web.SysAdmin
 {
-    public partial class InfoType1 : System.Web.UI.Page
+    public partial class InfoType : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack && Request.QueryString.Count > 0)
+            if (!Page.IsPostBack && Request.QueryString.Count > 0 && string.IsNullOrEmpty(Request.QueryString["_"]))
             {
                 string type = ReqHelper.Get<string>("type");
                 string json = string.Empty;
+                int v = 0;
                 switch (type)
                 {
                     case "load":
@@ -27,13 +28,29 @@ namespace Web.SysAdmin
                         break;
                     case "loadtree":
                         var tree = LoadTree(0);
-                        tree.Insert(0, new TreeEntity { id = 0, text = "" });
+                        tree.Insert(0, new TreeEntity { id = 0, text = "请选择" });
                         json = JsonConvert.SerializeObject(tree, Formatting.None);
                         break;
                     case "form":
                         InfoType_ift ift = new InfoType_ift();
                         this.TryUpdateModel(ift);
-                        InfoType_iftBLL.Insert(ift);
+                        if (!ift.Parent_ift.HasValue) ift.Parent_ift = 0;
+                        if (!ift.Sort_ift.HasValue) ift.Sort_ift = 99;
+                        if (ReqHelper.Get<string>("action") == "add")
+                            v = InfoType_iftBLL.Insert(ift);
+                        else
+                            v = InfoType_iftBLL.Update(ift);
+                        if (v > 0)
+                            json = JsonConvert.SerializeObject(new { success = true, msg = "保存成功" }, Formatting.None);
+                        else
+                            json = JsonConvert.SerializeObject(new { success = false, msg = "保存失败" }, Formatting.None);
+                        break;
+                    case "del":
+                        v = 1;// InfoType_iftBLL.Delete(ReqHelper.Get<string>("id").Split(',').ToList());
+                        if (v > 0)
+                            json = JsonConvert.SerializeObject(new { success = true, msg = "删除成功" }, Formatting.None);
+                        else
+                            json = JsonConvert.SerializeObject(new { success = false, msg = "删除失败" }, Formatting.None);
                         break;
                 }
                 Response.ContentType = "application/json;charset=utf-8";

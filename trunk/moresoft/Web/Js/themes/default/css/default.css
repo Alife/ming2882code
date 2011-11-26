@@ -19,7 +19,7 @@ a:hover{ color:Red; text-decoration:underline;}
 .easyui-accordion ul li div.selected{border:1px solid #99BBE8; background:#E0ECFF;cursor:default;}
 .easyui-accordion ul li div.selected a{color:#416AA3; font-weight:bold;}
 
-
+.frmText{border:1px solid #A4BED4;line-height:18px;height:18px;*height:18px;*line-height:18px;_height:18px;_line-height:18px;}
 
 .icon{ background:url(images/tabicons.png) no-repeat;width:18px; line-height:18px; display:inline-block;}
 .icon-sys{ background-position:0px -200px;}
@@ -40,3 +40,4 @@ a:hover{ color:Red; text-decoration:underline;}
 .application_add{ background:url(images/application_add.png) no-repeat;}
 .application_edit{ background:url(images/application_edit.png) no-repeat;}
 .application_delete{ background:url(images/application_delete.png) no-repeat;}
+.refresh{ background:url(images/refresh.png) no-repeat;}

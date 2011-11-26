@@ -2,18 +2,6 @@
     InitLeftMenu();
     tabClose();
     tabCloseEven();
-    //    $('#tabs').tabs('add', {
-    //        title: 'test',
-    //        content: createFrame('http://www.cnblogs.com')
-    //    }).tabs({
-    //        onSelect: function(title) {
-    //            var currTab = $('#tabs').tabs('getTab', title);
-    //            var iframe = $(currTab.panel('options').content);
-    //            var src = iframe.attr('src');
-    //            if (src)
-    //                $('#tabs').tabs('update', { tab: currTab, options: { content: createFrame(src)} });
-    //        }
-    //    });
 })
 
 //初始化左侧
@@ -23,7 +11,7 @@ function InitLeftMenu() {
         var menulist = '';
         menulist += '<ul>';
         $.each(n.menus, function(j, o) {
-            menulist += '<li><div><a ref="' + o.menuid + '" href="#" rel="' + o.url + '" ><span class="icon ' + o.icon + '" >&nbsp;</span><span class="nav">' + o.menuname + '</span></a></div></li> ';
+            menulist += '<li><div><a ref="' + o.menuid + '" href="#" rel="' + o.url + '" urlType="' + o.urlType + '"><span class="icon ' + o.icon + '" >&nbsp;</span><span class="nav">' + o.menuname + '</span></a></div></li> ';
         })
         menulist += '</ul>';
         $('#nav').accordion('add', {
@@ -35,9 +23,10 @@ function InitLeftMenu() {
     $('.easyui-accordion li a').click(function() {
         var tabTitle = $(this).children('.nav').text();
         var url = $(this).attr("rel");
+        var urlType = $(this).attr("urlType");
         var menuid = $(this).attr("ref");
         var icon = getIcon(menuid, icon);
-        addTab(menuid, tabTitle, url, icon);
+        addTab(menuid, tabTitle, url, urlType, icon);
         $('.easyui-accordion li div').removeClass("selected");
         $(this).parent().addClass("selected");
     }).hover(function() {
@@ -63,23 +52,22 @@ function getIcon(menuid) {
     return icon;
 }
 //增加tab
-function addTab(menuid, subtitle, url, icon) {
+function addTab(menuid, subtitle, url, urlType, icon) {
     //var tab = $('#tabs').tabs('getTab', subtitle); tab.panel('options').id
     if (!$('#tabs').tabs('exists', subtitle)) {
-        $('#tabs').tabs('add', {
-            id: menuid,
-            title: subtitle,
-            //content: createFrame(url),
-            href: url,
-            icon: icon,
-            closable: true,
-            extractor: function(data) {
-                var tmp = $('<div></div>').html(data);
-                data = tmp.find('#content').html();
-                tmp.remove();
-                return data;
-            }
-        });
+        if (urlType == 'load') {
+            $('#tabs').tabs('add', {
+                id: menuid, title: subtitle, urlType: urlType, icon: icon, closable: true,
+                href: createContent(url, urlType),
+                extractor: function(data) { var tmp = $('<div></div>').html(data); data = tmp.find('#content').html(); tmp.remove(); return data; }
+            });
+        } else {
+            $('#tabs').tabs('add', {
+                id: menuid, title: subtitle, urlType: urlType, icon: icon, closable: true,
+                content: createContent(url, urlType),
+                extractor: function(data) { var tmp = $('<div></div>').html(data); data = tmp.find('#content').html(); tmp.remove(); return data; }
+            });
+        }
     } else {
         $('#tabs').tabs('select', subtitle);
         //$('#mm-tabupdate').click();
@@ -87,11 +75,13 @@ function addTab(menuid, subtitle, url, icon) {
     tabClose();
 }
 //增加URL框架
-function createFrame(url) {
-    url = !url ? 'about:blank;' : url;
-    return url;
-//    var s = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
-//    return s;
+function createContent(url, urlType) {
+    var c = '';
+    if (urlType == 'load')
+        c = !url ? 'about:blank;' : url;
+    else
+        c = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+    return c;
 }
 function tabClose() {
     /*双击关闭TAB选项卡*/
@@ -116,11 +106,19 @@ function tabCloseEven() {
     //刷新
     $('#mm-tabupdate').click(function() {
         var currTab = $('#tabs').tabs('getSelected');
-        var url = $(currTab.panel('options').content).attr('src');
-        $('#tabs').tabs('update', {
-            tab: currTab,
-            options: { content: createFrame(url) }
-        })
+        var url = currTab.panel('options').href;
+        var urlType = currTab.panel('options').urlType;
+        if (urlType == 'load') {
+            $('#tabs').tabs('update', {
+                tab: currTab,
+                options: { href: createContent(url, urlType) }
+            });
+        } else {
+            $('#tabs').tabs('update', {
+                tab: currTab,
+                options: { content: createContent(url, urlType) }
+            });
+        }
     })
     //关闭当前
     $('#mm-tabclose').click(function() {
