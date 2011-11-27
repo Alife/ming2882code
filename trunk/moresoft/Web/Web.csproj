@@ -822,6 +822,7 @@
     <Compile Include="Class\CoolCode\TypeHelpers.cs" />
     <Compile Include="Class\CoolCode\ValueProviderDictionary.cs" />
     <Compile Include="Class\CoolCode\ValueProviderResult.cs" />
+    <Compile Include="Class\Funs.cs" />
     <Compile Include="Class\PageExtension.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -840,6 +841,13 @@
     </Compile>
     <Compile Include="SysAdmin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysAdmin\IndexTag.aspx.cs">
+      <DependentUpon>IndexTag.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\IndexTag.aspx.designer.cs">
+      <DependentUpon>IndexTag.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysAdmin\InfoType.aspx.cs">
       <DependentUpon>InfoType.aspx</DependentUpon>
@@ -863,6 +871,7 @@
     <Content Include="Js\themes\default\css\images\application_delete.png" />
     <Content Include="Js\themes\default\css\images\application_edit.png" />
     <Content Include="Js\themes\default\css\images\refresh.png" />
+    <Content Include="SysAdmin\IndexTag.aspx" />
     <Content Include="SysAdmin\InfoType.aspx" />
   </ItemGroup>
   <ItemGroup>

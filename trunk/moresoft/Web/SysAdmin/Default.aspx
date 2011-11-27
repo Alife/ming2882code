@@ -24,7 +24,8 @@
 						{ "menuid": "1", "icon": "icon-sys", "menuname": "文章管理",
 						    "menus": [
 									{ "menuid": "2", "menuname": "文章管理", "icon": "icon-info", "url": "info.aspx", "urlType": "load" },
-									{ "menuid": "3", "menuname": "文章分类", "icon": "icon-nav", "url": "infotype.aspx", "urlType": "load" }
+									{ "menuid": "3", "menuname": "文章分类", "icon": "icon-nav", "url": "infotype.aspx", "urlType": "load" },
+									{ "menuid": "3", "menuname": "主页分类", "icon": "icon-nav", "url": "indextag.aspx", "urlType": "load" }
 								]
 						}, { "menuid": "4", "icon": "icon-set", "menuname": "系统设置",
 						    "menus": [{ "menuid": "5", "menuname": "管理员管理", "icon": "icon-users", "url": "users.aspx", "urlType": "load" },

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Info_inf" xmlns="http://ibatis.apache.org/mapping"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  >
+  <alias>
+    <typeAlias alias="Info_inf" type="MC.Model.Info_inf,MC.Model" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="Info_inf" >
+      <result property="ID_inf" column="ID_inf" />
+      <result property="InfoTypeID_inf" column="InfoTypeID_inf" />
+      <result property="Title_inf" column="Title_inf" />
+      <result property="Content_inf" column="Content_inf" />
+      <result property="Hits_inf" column="Hits_inf" />
+      <result property="TopType_inf" column="TopType_inf" />
+      <result property="IndexTag_inf" column="IndexTag_inf" />
+      <result property="CreateTime" column="CreateTime" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <sql id="MC.Model.Info_inf.sqlwhere">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID_inf">
+          ID_inf = #ID_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="InfoTypeID_inf">
+          InfoTypeID_inf = #InfoTypeID_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Title_inf">
+          Title_inf = #Title_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Content_inf">
+          Content_inf = #Content_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Hits_inf">
+          Hits_inf = #Hits_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="TopType_inf">
+          TopType_inf = #TopType_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="IndexTag_inf">
+          IndexTag_inf = #IndexTag_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">
+          CreateTime = #CreateTime#
+        </isNotNull>
+      </dynamic>
+    </sql>
+    <select id="MC.Model.Info_inf.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
+      Select count(1) FROM Info_inf <include refid="MC.Model.Info_inf.sqlwhere"/>
+    </select>
+    <select id="MC.Model.Info_inf.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTag_inf,CreateTime FROM(
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTag_inf,CreateTime
+      ,ROW_NUMBER() Over(
+      <dynamic>
+        <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
+        <isNull property="sort">order by ID_inf desc</isNull>
+      </dynamic>) as rowNum
+      FROM Info_inf
+      <include refid="MC.Model.Info_inf.sqlwhere"/>
+      ) as temptable
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="start">
+          rowNum BETWEEN #start#+1
+          <isNotNull prepend="AND" property="limit">
+            #start#+#limit#
+          </isNotNull>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="MC.Model.Info_inf.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTag_inf,CreateTime FROM Info_inf
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID_inf">
+          ID_inf = #ID_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="InfoTypeID_inf">
+          InfoTypeID_inf = #InfoTypeID_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Title_inf">
+          Title_inf = #Title_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Content_inf">
+          Content_inf = #Content_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Hits_inf">
+          Hits_inf = #Hits_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="TopType_inf">
+          TopType_inf = #TopType_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="IndexTag_inf">
+          IndexTag_inf = #IndexTag_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="CreateTime">
+          CreateTime = #CreateTime#
+        </isNotNull>
+      </dynamic>
+      <dynamic>
+        <isNotNull property="OrderBy">
+          $OrderBy$
+        </isNotNull>
+      </dynamic>
+    </select>
+    <insert id="MC.Model.Info_inf.Insert" parameterClass="Info_inf">
+      insert into Info_inf(
+      InfoTypeID_inf
+      ,Title_inf
+      ,Content_inf
+      ,Hits_inf
+      ,TopType_inf
+      ,IndexTag_inf
+      ,CreateTime
+      )values (
+      #InfoTypeID_inf#
+      ,#Title_inf#
+      ,#Content_inf#
+      ,#Hits_inf#
+      ,#TopType_inf#
+      ,#IndexTag_inf#
+      ,#CreateTime#
+      )
+      <selectKey property="ID_inf" type="post" resultClass="int">
+        ${selectKey}
+      </selectKey>
+    </insert>
+    <update id="MC.Model.Info_inf.Update" parameterClass="Info_inf">
+      update Info_inf set
+      InfoTypeID_inf = #InfoTypeID_inf#
+      ,Title_inf = #Title_inf#
+      ,Content_inf = #Content_inf#
+      ,Hits_inf = #Hits_inf#
+      ,TopType_inf = #TopType_inf#
+      ,IndexTag_inf = #IndexTag_inf#
+      ,CreateTime = #CreateTime#
+      WHERE
+      ID_inf = #ID_inf#
+    </update>
+    <delete id="MC.Model.Info_inf.Delete" parameterClass="list">
+      delete
+      FROM Info_inf
+      WHERE ID_inf IN
+      <iterate property="ids" open="(" close=")"  conjunction="," >
+        #ids[]#
+      </iterate>
+    </delete>
+  </statements>
+</sqlMap>
+

@@ -39,28 +39,4 @@ namespace Web
             }
         }
     }
-    public class TreeEntity
-    {
-        public int id { get; set; }
-        public string text { get; set; }
-        public List<TreeEntity> children { get; set; }
-    }
-    public class ReqHelper
-    {
-        public static T Get<T>(string paramName)
-        {
-            string value = HttpContext.Current.Request[paramName];
-            Type type = typeof(T);
-            object result;
-            try
-            {
-                result = Convert.ChangeType(value, type);
-            }
-            catch
-            {
-                result = default(T);
-            }
-            return (T)result;
-        }
-    }
 }
