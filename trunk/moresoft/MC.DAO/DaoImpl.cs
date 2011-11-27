@@ -187,8 +187,8 @@ namespace MC.DAO
         //    string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
         //    try
         //    {
-        //        lstEntity.records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-        //        if (lstEntity.records > 0)
+        //        lstEntity.total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+        //        if (lstEntity.total > 0)
         //            lstEntity.data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
         //        if (lstEntity.data == null) lstEntity.data = new List<Entity>();
         //    }
@@ -234,11 +234,11 @@ namespace MC.DAO
                     }
                 }
                 #endregion
-                int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                int total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 IList<Entity> list = new List<Entity>();
-                if (records > 0)
+                if (total > 0)
                     list = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
-                return new PagedList<T>(records, list);
+                return new PagedList<T>(total, list);
             });
         }
         #endregion
@@ -282,9 +282,9 @@ namespace MC.DAO
         //    string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
         //    try
         //    {
-        //        int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-        //        lstEntity.Add("records", records);
-        //        if (records > 0)
+        //        int total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+        //        lstEntity.Add("total", total);
+        //        if (total > 0)
         //        {
         //            var data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
         //            lstEntity.Add("data", data);
@@ -310,11 +310,11 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
             return TryFunc(xmlID, () =>
             {
-                int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                int total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 IList list = new List<Entity>();
-                if (records > 0)
+                if (total > 0)
                     list = dataMapper.QueryForList(xmlID, queryInfo.Parameters);
-                return new PagedIList<T>(records, list);
+                return new PagedIList<T>(total, list);
             });
         }
         #endregion
@@ -551,7 +551,7 @@ namespace MC.DAO
             string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
             return TryFunc(xmlID, () =>
             {
-                int records = 0;
+                int total = 0;
                 DataTable dt = new DataTable();
                 #region order by
                 if (queryInfo.Orderby != null && queryInfo.Orderby.Count > 0)
@@ -576,10 +576,10 @@ namespace MC.DAO
                     }
                 }
                 #endregion
-                records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
-                if (records > 0)
+                total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
+                if (total > 0)
                     dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
-                return new PagedTable(records, dt);
+                return new PagedTable(total, dt);
             });
         }
         #endregion
