@@ -8,8 +8,7 @@
     <script type="text/javascript">
         $(function() {
             var IndexTag_Grid = $('#IndexTag_Grid').datagrid({
-                title: '主页分类',
-                fit: true, rownumbers: true, animate: true, border: false, singleSelect: false,
+                title: '主页分类',rownumbers: true, animate: true, border: false, singleSelect: false,
                 url: 'IndexTag.aspx?type=load',
                 idField: 'ID_itg',
                 remoteSort: false, pagination: true,
@@ -114,7 +113,7 @@
     <div id="IndexTag_Grid">
     </div>
     <div id="IndexTag_Dialog" class="easyui-dialog" icon="icon icon-nav" closed="true"
-        modal="true" style="width: 400px; height: 250px; padding: 10px 30px;" title="主页分类"
+        modal="true" style="padding: 10px 30px;" title="主页分类"
         buttons="#IndexTag_buttons">
         <form id="IndexTag_Form" method="post" action="">
         <table cellpadding="3">

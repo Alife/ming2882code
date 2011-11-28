@@ -65,12 +65,12 @@ namespace Web
             {
                 HttpRequest request = HttpContext.Current.Request;
                 string[] arrQuery = request.Form.AllKeys.Concat(request.QueryString.AllKeys)
-                    .Where(p => !p.ToLower().Contains("_dc") && !p.ToLower().Contains("page")).ToArray();
+                    .Where(p => !p.ToLower().Contains("_dc")).ToArray();
                 foreach (var query in arrQuery)
                 {
                     if (query.Contains("sort"))
                         Orderby(queryInfo, request["sort"]);
-                    else if (query.Contains("start") || query.Contains("limit"))
+                    else if (query.Contains("page") || query.Contains("rows"))
                         queryInfo.Parameters.Add(query, ReqHelper.Get<int>(query));
                     else if (!string.IsNullOrEmpty(request[query]))
                     {
