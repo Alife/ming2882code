@@ -13,7 +13,7 @@ using CoolCode.Web;
 namespace Web.SysAdmin
 {
 
-    public partial class IndexTag : System.Web.UI.Page
+    public partial class IndexTag : AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
