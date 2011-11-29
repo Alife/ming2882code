@@ -62,12 +62,19 @@ namespace MC.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? IndexTag_inf { get; set; }
+        public int? IndexTagID_inf { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public DateTime CreateTime { get; set; }
+        public DateTime CreateTime_inf { get; set; }
+
+        private string _CreateTime_inf_Str;
+        public string CreateTime_inf_Str
+        {
+            get { _CreateTime_inf_Str = CreateTime_inf.ToString("yyyy-MM-dd hh:mm:ss"); return _CreateTime_inf_Str; }
+            set { _CreateTime_inf_Str = value; CreateTime_inf = DateTime.Parse(value); }
+        }
         #endregion
     }
 }
