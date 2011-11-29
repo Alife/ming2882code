@@ -8,18 +8,27 @@
     <script type="text/javascript">
         $(function() {
             var Info_Grid = $('#Info_Grid').datagrid({
-                title: '文章管理', rownumbers: true, animate: true, border: false, singleSelect: false,
-                url: 'Info.aspx?type=load',
-                idField: 'ID_inf',
-                remoteSort: false, pagination: true,
+                title: '文章管理', url: 'Info.aspx?type=load', idField: 'ID_inf', rownumbers: true, animate: true, border: false, singleSelect: false,
+                remoteSort: false, pagination: true, fit: true,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '标题', field: 'Title_inf', width: 400}]],
-                columns: [[{ title: '点击率', field: 'Hits_inf', width: 60 }, { title: '发布时间', field: 'CreateTime', width: 100}]],
-                onDblClickRow: function(row) { Info_Form.form('load', row); Info_Form.url = 'Info.aspx?type=form&action=edit'; Info_Dialog.dialog('open'); },
+                columns: [[{ title: '点击率', field: 'Hits_inf', width: 60 },
+                { title: '发布时间', field: 'CreateTime_inf', width: 130, formatter: function(value, rec) {
+                    return value.replace(/T/g, " ");
+                }
+                }
+                ]],
+                onDblClickRow: function(rowIndex, row) {
+                    addTab('info-' + row.ID_inf, '编辑文章-' + row.Title_inf, 'InfoDetail.aspx?id=' + row.ID_inf, 'frame', 'icon icon-info');
+                    //Info_Form.form('load', row); Info_Form.url = 'Info.aspx?type=form&action=edit'; Info_Dialog.dialog('open');
+                },
                 toolbar: [{
                     id: 'btnAdd_inf',
                     text: '添加',
                     iconCls: 'application_add',
-                    handler: function() { Info_Dialog.dialog('open'); Info_Form.form('clear'); Info_Form.url = 'Info.aspx?type=form&action=add'; }
+                    handler: function() {
+                        addTab('info-0', '新增文章', 'InfoDetail.aspx?id=0', 'frame', 'icon icon-info');
+                        //Info_Dialog.dialog('open'); Info_Form.form('clear'); Info_Form.url = 'Info.aspx?type=form&action=add';
+                    }
                 }, '-', {
                     id: 'btnEdit_inf',
                     text: '编辑',
@@ -36,9 +45,10 @@
                             return;
                         }
                         else {
-                            Info_Dialog.dialog('open');
-                            Info_Form.form('load', rows[0]);
-                            Info_Form.url = 'Info.aspx?type=form&action=edit';
+                            addTab('info-' + rows[0].ID_inf, '编辑文章-' + rows[0].Title_inf, 'InfoDetail.aspx?id=' + rows[0].ID_inf, 'frame', 'icon icon-info');
+                            //Info_Dialog.dialog('open');
+                            //Info_Form.form('load', rows[0]);
+                            //Info_Form.url = 'Info.aspx?type=form&action=edit';
                         }
                     }
                 }, '-', {
@@ -85,61 +95,12 @@
                 }
                 ]
             });
-            var Info_Dialog = $('#Info_Dialog');
-            var Info_Form = Info_Dialog.find('form');
-            var Info_Form_Action = '';
-            $('#btn_Info_Save').click(function() {
-                if (Info_Form.form('validate')) {
-                    Info_Form.form('submit', {
-                        url: Info_Form.url,
-                        success: function(data) {
-                            data = eval("(" + data + ")");
-                            $.messager.alert('系统提示', data.msg, "info", function() {
-                                if (data.success) { Info_Form.form('clear'); Info_Dialog.dialog('close'); Info_Grid.datagrid('reload'); }
-                            });
-                        }
-                    });
-                }
-            });
-            $('#btn_Info_Cancel').click(function() {
-                Info_Form.form('clear');
-                Info_Dialog.dialog('close');
-            });
         });
     </script>
 
 </head>
 <body>
     <div id="Info_Grid">
-    </div>
-    <div id="Info_Dialog" class="easyui-dialog" icon="icon icon-nav" closed="true" modal="true"
-        style="padding: 10px 30px;" title="文章管理" buttons="#Info_buttons">
-        <form id="Info_Form" method="post" action="">
-        <table cellpadding="3">
-            <tr>
-                <td align="right">
-                    标题：
-                </td>
-                <td>
-                    <input name="ID_inf" type="hidden" />
-                    <input name="Title_inf" type="text" class="easyui-validatebox frmText" required="true"
-                        missingmessage="标题必须填写" />
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    排序：
-                </td>
-                <td>
-                    <input name="Sort_inf" type="number" class="easyui-numberbox frmText" />
-                </td>
-            </tr>
-        </table>
-        </form>
-    </div>
-    <div id="Info_buttons">
-        <a id="btn_Info_Save" class="easyui-linkbutton" href="javascript:void(0)">确定</a>
-        <a id="btn_Info_Cancel" class="easyui-linkbutton" href="javascript:void(0)">取消</a>
     </div>
 </body>
 </html>
