@@ -16,9 +16,9 @@ namespace Web.SysAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack && Request.QueryString.Count > 0 && string.IsNullOrEmpty(Request.QueryString["_"]))
+            string type = ReqHelper.Get<string>("type");
+            if (!Page.IsPostBack && !string.IsNullOrEmpty(type) && string.IsNullOrEmpty(Request.QueryString["_"]))
             {
-                string type = ReqHelper.Get<string>("type");
                 string json = string.Empty;
                 int v = 0;
                 switch (type)
@@ -28,7 +28,8 @@ namespace Web.SysAdmin
                         break;
                     case "loadtree":
                         var tree = LoadTree(0);
-                        tree.Insert(0, new TreeEntity { id = 0, text = "请选择" });
+                        if (ReqHelper.Get<int>("hasFrist") == 0)
+                            tree.Insert(0, new TreeEntity { id = 0, text = "请选择" });
                         json = JsonConvert.SerializeObject(tree, Formatting.None);
                         break;
                     case "form":

@@ -14,7 +14,7 @@
                 remoteSort: false, pagination: true,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '分类', field: 'Name_itg', width: 400}]],
                 columns: [[{ title: '排序', field: 'Sort_itg', width: 60}]],
-                onDblClickRow: function(row) { IndexTag_Form.form('load', row); IndexTag_Form.url = 'IndexTag.aspx?type=form&action=edit'; IndexTag_Dialog.dialog('open'); },
+                onDblClickRow: function(rowIndex, row) { IndexTag_Form.form('load', row); IndexTag_Form.url = 'IndexTag.aspx?type=form&action=edit'; IndexTag_Dialog.dialog('open'); },
                 toolbar: [{
                     id: 'btnAdd_itg',
                     text: '添加',

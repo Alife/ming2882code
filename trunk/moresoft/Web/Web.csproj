@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Dimac.JMail.Smtp.dll</HintPath>
     </Reference>
+    <Reference Include="LitJSON, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\LitJSON.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\log4net.dll</HintPath>
@@ -849,6 +853,13 @@
     <Compile Include="SysAdmin\IndexTag.aspx.designer.cs">
       <DependentUpon>IndexTag.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysAdmin\InfoDetail.aspx.cs">
+      <DependentUpon>InfoDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\InfoDetail.aspx.designer.cs">
+      <DependentUpon>InfoDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysAdmin\InfoType.aspx.cs">
       <DependentUpon>InfoType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -879,6 +890,7 @@
     <Content Include="Js\themes\default\css\images\application_edit.png" />
     <Content Include="Js\themes\default\css\images\refresh.png" />
     <Content Include="SysAdmin\IndexTag.aspx" />
+    <Content Include="SysAdmin\InfoDetail.aspx" />
     <Content Include="SysAdmin\InfoType.aspx" />
     <Content Include="SysAdmin\Info.aspx" />
   </ItemGroup>
@@ -897,7 +909,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="kindeditor\asp.net\file_manager_json.ashx" />
+    <Content Include="kindeditor\asp.net\upload_json.ashx" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\upload\" />
     <Folder Include="Log\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

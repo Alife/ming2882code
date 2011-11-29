@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,15 +18,23 @@ namespace Web.SysAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack && Request.QueryString.Count > 0 && string.IsNullOrEmpty(Request.QueryString["_"]))
+            string type = ReqHelper.Get<string>("type");
+            if (!Page.IsPostBack && !string.IsNullOrEmpty(type) && string.IsNullOrEmpty(Request.QueryString["_"]))
             {
-                string type = ReqHelper.Get<string>("type");
                 string json = string.Empty;
                 int v = 0;
                 switch (type)
                 {
                     case "load":
                         json = JsonConvert.SerializeObject(IndexTag_itgBLL.GetPageList(Funs.GetQueryInfo()), Formatting.None);
+                        break;
+                    case "loadall":
+                        var list = IndexTag_itgBLL.GetList(Funs.GetQueryInfo());
+                        ArrayList lst = new ArrayList();
+                        foreach(var item in list)
+                            lst.Add(new { id = item.ID_itg, text = item.Name_itg });
+                        lst.Insert(0, new { id = 0, text = "请选择" });
+                        json = JsonConvert.SerializeObject(lst, Formatting.None);
                         break;
                     case "form":
                         IndexTag_itg ift = new IndexTag_itg();
