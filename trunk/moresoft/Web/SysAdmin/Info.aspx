@@ -3,17 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>主页分类</title>
+    <title>文章管理</title>
 
     <script type="text/javascript">
         $(function() {
             var Info_Grid = $('#Info_Grid').datagrid({
-                title: '主页分类',rownumbers: true, animate: true, border: false, singleSelect: false,
+                title: '文章管理', rownumbers: true, animate: true, border: false, singleSelect: false,
                 url: 'Info.aspx?type=load',
                 idField: 'ID_inf',
                 remoteSort: false, pagination: true,
-                frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '分类', field: 'Name_inf', width: 400}]],
-                columns: [[{ title: '排序', field: 'Sort_inf', width: 60}]],
+                frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '标题', field: 'Title_inf', width: 400}]],
+                columns: [[{ title: '点击率', field: 'Hits_inf', width: 60 }, { title: '发布时间', field: 'CreateTime', width: 100}]],
                 onDblClickRow: function(row) { Info_Form.form('load', row); Info_Form.url = 'Info.aspx?type=form&action=edit'; Info_Dialog.dialog('open'); },
                 toolbar: [{
                     id: 'btnAdd_inf',
@@ -112,19 +112,18 @@
 <body>
     <div id="Info_Grid">
     </div>
-    <div id="Info_Dialog" class="easyui-dialog" icon="icon icon-nav" closed="true"
-        modal="true" style="padding: 10px 30px;" title="主页分类"
-        buttons="#Info_buttons">
+    <div id="Info_Dialog" class="easyui-dialog" icon="icon icon-nav" closed="true" modal="true"
+        style="padding: 10px 30px;" title="文章管理" buttons="#Info_buttons">
         <form id="Info_Form" method="post" action="">
         <table cellpadding="3">
             <tr>
                 <td align="right">
-                    名称：
+                    标题：
                 </td>
                 <td>
                     <input name="ID_inf" type="hidden" />
-                    <input name="Name_inf" type="text" class="easyui-validatebox frmText" required="true"
-                        missingmessage="名称必须填写" />
+                    <input name="Title_inf" type="text" class="easyui-validatebox frmText" required="true"
+                        missingmessage="标题必须填写" />
                 </td>
             </tr>
             <tr>
