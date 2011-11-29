@@ -12,8 +12,8 @@
       <result property="Content_inf" column="Content_inf" />
       <result property="Hits_inf" column="Hits_inf" />
       <result property="TopType_inf" column="TopType_inf" />
-      <result property="IndexTag_inf" column="IndexTag_inf" />
-      <result property="CreateTime" column="CreateTime" />
+      <result property="IndexTagID_inf" column="IndexTagID_inf" />
+      <result property="CreateTime_inf" column="CreateTime_inf" />
     </resultMap>
   </resultMaps>
   <statements>
@@ -37,11 +37,11 @@
         <isNotNull prepend="AND" property="TopType_inf">
           TopType_inf = #TopType_inf#
         </isNotNull>
-        <isNotNull prepend="AND" property="IndexTag_inf">
-          IndexTag_inf = #IndexTag_inf#
+        <isNotNull prepend="AND" property="IndexTagID_inf">
+          IndexTagID_inf = #IndexTagID_inf#
         </isNotNull>
-        <isNotNull prepend="AND" property="CreateTime">
-          CreateTime = #CreateTime#
+        <isNotNull prepend="AND" property="CreateTime_inf">
+          CreateTime_inf = #CreateTime_inf#
         </isNotNull>
       </dynamic>
     </sql>
@@ -49,8 +49,8 @@
       Select count(1) FROM Info_inf <include refid="MC.Model.Info_inf.sqlwhere"/>
     </select>
     <select id="MC.Model.Info_inf.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTag_inf,CreateTime FROM(
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTag_inf,CreateTime
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf FROM(
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
@@ -69,7 +69,7 @@
       </dynamic>
     </select>
     <select id="MC.Model.Info_inf.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTag_inf,CreateTime FROM Info_inf
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf FROM Info_inf
       <dynamic prepend="WHERE">
         <isNotNull prepend="AND" property="ID_inf">
           ID_inf = #ID_inf#
@@ -89,11 +89,11 @@
         <isNotNull prepend="AND" property="TopType_inf">
           TopType_inf = #TopType_inf#
         </isNotNull>
-        <isNotNull prepend="AND" property="IndexTag_inf">
-          IndexTag_inf = #IndexTag_inf#
+        <isNotNull prepend="AND" property="IndexTagID_inf">
+          IndexTagID_inf = #IndexTagID_inf#
         </isNotNull>
-        <isNotNull prepend="AND" property="CreateTime">
-          CreateTime = #CreateTime#
+        <isNotNull prepend="AND" property="CreateTime_inf">
+          CreateTime_inf = #CreateTime_inf#
         </isNotNull>
       </dynamic>
       <dynamic>
@@ -109,16 +109,16 @@
       ,Content_inf
       ,Hits_inf
       ,TopType_inf
-      ,IndexTag_inf
-      ,CreateTime
+      ,IndexTagID_inf
+      ,CreateTime_inf
       )values (
       #InfoTypeID_inf#
       ,#Title_inf#
       ,#Content_inf#
       ,#Hits_inf#
       ,#TopType_inf#
-      ,#IndexTag_inf#
-      ,#CreateTime#
+      ,#IndexTagID_inf#
+      ,#CreateTime_inf#
       )
       <selectKey property="ID_inf" type="post" resultClass="int">
         ${selectKey}
@@ -131,8 +131,8 @@
       ,Content_inf = #Content_inf#
       ,Hits_inf = #Hits_inf#
       ,TopType_inf = #TopType_inf#
-      ,IndexTag_inf = #IndexTag_inf#
-      ,CreateTime = #CreateTime#
+      ,IndexTagID_inf = #IndexTagID_inf#
+      ,CreateTime_inf = #CreateTime_inf#
       WHERE
       ID_inf = #ID_inf#
     </update>
