@@ -838,7 +838,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InfoType.aspx.cs">
+      <DependentUpon>InfoType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InfoType.aspx.designer.cs">
+      <DependentUpon>InfoType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages.aspx.cs">
+      <DependentUpon>Pages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages.aspx.designer.cs">
+      <DependentUpon>Pages.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowInfo.aspx.cs">
+      <DependentUpon>ShowInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShowInfo.aspx.designer.cs">
+      <DependentUpon>ShowInfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysAdmin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -909,6 +930,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InfoType.aspx" />
     <Content Include="kindeditor\asp.net\file_manager_json.ashx" />
     <Content Include="kindeditor\asp.net\upload_json.ashx" />
     <Content Include="kindeditor\kindeditor-min.js" />
@@ -1096,6 +1118,8 @@
     <Content Include="kindeditor\themes\default\default.css" />
     <Content Include="kindeditor\themes\default\default.png" />
     <Content Include="kindeditor\themes\simple\simple.css" />
+    <Content Include="Pages.aspx" />
+    <Content Include="ShowInfo.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
