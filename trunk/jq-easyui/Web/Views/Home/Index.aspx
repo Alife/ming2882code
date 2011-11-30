@@ -12,6 +12,7 @@
 
     <script src="<%= path%>/js/jquery.easyui-1.2.3.min.js" type="text/javascript"></script>
 
+    <script src="Js/lib/jquery.datagrid.js" type="text/javascript"></script>
     <script src="<%= path%>/js/easyui-lang-zh_CN.js" type="text/javascript"></script>
 
     <script src="<%= path%>/js/lib/util.js" type="text/javascript"></script>
