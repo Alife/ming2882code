@@ -69,7 +69,7 @@
       </dynamic>
     </select>
     <select id="MC.Model.Info_inf.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf FROM Info_inf
+      Select $top$ ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf FROM Info_inf
       <dynamic prepend="WHERE">
         <isNotNull prepend="AND" property="ID_inf">
           ID_inf = #ID_inf#
@@ -87,7 +87,7 @@
           Hits_inf = #Hits_inf#
         </isNotNull>
         <isNotNull prepend="AND" property="TopType_inf">
-          TopType_inf = #TopType_inf#
+          TopType_inf like '%'+#TopType_inf#+'%'
         </isNotNull>
         <isNotNull prepend="AND" property="IndexTagID_inf">
           IndexTagID_inf = #IndexTagID_inf#
