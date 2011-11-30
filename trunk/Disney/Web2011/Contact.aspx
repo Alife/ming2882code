@@ -36,7 +36,6 @@
         <div id="main">
             <div class="content">
                 <div class="content_left">
-                    <h2><label>迪士尼系列相冊</label></h2>
                 </div>
                 <div class="content_right" style="width:600px;display:none;">
                     台灣獨家代理迪士尼畢業寫真專輯
