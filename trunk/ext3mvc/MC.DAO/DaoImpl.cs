@@ -13,9 +13,20 @@ using MC.Model;
 
 namespace MC.DAO
 {
-    public class DaoImpl : IBatiseHelper, IDao
+    public class DaoImpl : IDao
     {
-        public DaoImpl() { }
+        public DaoImpl() { myBatisHelper.LoadDataBase(); }
+
+        private MyBatisHelper _myBatisHelper = null;
+        public MyBatisHelper myBatisHelper 
+        {
+            get
+            {
+                if (_myBatisHelper == null)
+                    _myBatisHelper = new SqlBatisHelper();
+                return _myBatisHelper;
+            }
+        }
 
         #region 错误日志
         public T TryFunc<T>(string xmlID, Func<T> func)
@@ -26,7 +37,7 @@ namespace MC.DAO
             }
             catch (Exception ex)
             {
-                if (_logger.IsErrorEnabled)
+                if (myBatisHelper._logger.IsErrorEnabled)
                 {
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("XML ID=" + xmlID.PadRight(8));
@@ -35,7 +46,7 @@ namespace MC.DAO
                     string user = System.Web.HttpContext.Current.User.Identity.Name;
                     if (string.IsNullOrEmpty(user)) user = "游客";
                     sb.Append("\r\n" + user + "----------------");
-                    _logger.Error(sb.ToString());
+                    myBatisHelper._logger.Error(sb.ToString());
                 }
                 return default(T);
             }
@@ -45,10 +56,10 @@ namespace MC.DAO
         #region 查询返回指定字段
         public object QueryForObject(QueryInfo queryInfo)
         {
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
             return TryFunc(xmlID, () =>
             {
-                return dataMapper.QueryForObject(xmlID, queryInfo.Parameters);
+                return myBatisHelper.dataMapper.QueryForObject(xmlID, queryInfo.Parameters);
             });
         }
         #endregion
@@ -57,10 +68,10 @@ namespace MC.DAO
 
         public int TotalCount(string sTableName, IDictionary iDictionary, string xmlID)
         {
-            xmlID = sPreFix + sTableName + (!string.IsNullOrEmpty(xmlID) ? "." + xmlID : ".Count");
+            xmlID = myBatisHelper.sPreFix + sTableName + (!string.IsNullOrEmpty(xmlID) ? "." + xmlID : ".Count");
             return TryFunc(xmlID, () =>
             {
-                return Convert.ToInt32(dataMapper.QueryForObject(xmlID, iDictionary));
+                return Convert.ToInt32(myBatisHelper.dataMapper.QueryForObject(xmlID, iDictionary));
             });
         }
 
@@ -94,7 +105,7 @@ namespace MC.DAO
                 T obj = new T();
                 queryInfo.MappingName = obj.GetTableName();
             }
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
             return TryFunc(xmlID, () =>
             {
                 #region order by
@@ -121,7 +132,7 @@ namespace MC.DAO
 
                 }
                 #endregion
-                return dataMapper.QueryForList<T>(xmlID, queryInfo.Parameters);
+                return myBatisHelper.dataMapper.QueryForList<T>(xmlID, queryInfo.Parameters);
             });
         }
         #endregion
@@ -134,14 +145,14 @@ namespace MC.DAO
         /// <returns></returns>
         public IList GetList(QueryInfo queryInfo)
         {
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadList");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadList");
             return TryFunc(xmlID, () =>
             {
                 IList list = null;
                 if (queryInfo.MapQueryValue != null)
-                    list = dataMapper.QueryForList(xmlID, queryInfo.MapQueryValue);
+                    list = myBatisHelper.dataMapper.QueryForList(xmlID, queryInfo.MapQueryValue);
                 else
-                    list = dataMapper.QueryForList(xmlID, queryInfo.Parameters);
+                    list = myBatisHelper.dataMapper.QueryForList(xmlID, queryInfo.Parameters);
                 return list;
             });
         }
@@ -184,12 +195,12 @@ namespace MC.DAO
         //    }
         //    #endregion
         //    T lstEntity = new T();
-        //    string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
+        //    string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
         //    try
         //    {
         //        lstEntity.records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
         //        if (lstEntity.records > 0)
-        //            lstEntity.data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
+        //            lstEntity.data = myBatisHelper.dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
         //        if (lstEntity.data == null) lstEntity.data = new List<Entity>();
         //    }
         //    catch (Exception e)
@@ -207,7 +218,7 @@ namespace MC.DAO
                 T obj = new T();
                 queryInfo.MappingName = obj.GetType().Name;
             }
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
             return TryFunc(xmlID, () =>
             {
                 #region order by
@@ -237,7 +248,7 @@ namespace MC.DAO
                 int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 IList<Entity> list = new List<Entity>();
                 if (records > 0)
-                    list = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
+                    list = myBatisHelper.dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
                 return new PagedList<T>(records, list);
             });
         }
@@ -279,14 +290,14 @@ namespace MC.DAO
         //    }
         //    #endregion
         //    IDictionary lstEntity = new Hashtable();
-        //    string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
+        //    string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
         //    try
         //    {
         //        int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
         //        lstEntity.Add("records", records);
         //        if (records > 0)
         //        {
-        //            var data = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
+        //            var data = myBatisHelper.dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
         //            lstEntity.Add("data", data);
         //            if (data == null) lstEntity.Add("data", new List<Entity>());
         //        }
@@ -307,13 +318,13 @@ namespace MC.DAO
                 queryInfo.MappingName = obj.GetTableName();
             }
             IDictionary lstEntity = new Hashtable();
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageList");
             return TryFunc(xmlID, () =>
             {
                 int records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 IList list = new List<Entity>();
                 if (records > 0)
-                    list = dataMapper.QueryForList(xmlID, queryInfo.Parameters);
+                    list = myBatisHelper.dataMapper.QueryForList(xmlID, queryInfo.Parameters);
                 return new PagedIList<T>(records, list);
             });
         }
@@ -333,10 +344,10 @@ namespace MC.DAO
                 T obj = new T();
                 queryInfo.MappingName = obj.GetTableName();
             }
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
             return TryFunc(xmlID, () =>
             {
-                return dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
+                return myBatisHelper.dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
             });
         }
         /// <summary>
@@ -350,7 +361,7 @@ namespace MC.DAO
             string xmlID = objEntity.GetSelectXmlID();
             return TryFunc(xmlID, () =>
             {
-                return dataMapper.QueryForObject<T>(xmlID, objEntity);
+                return myBatisHelper.dataMapper.QueryForObject<T>(xmlID, objEntity);
             });
         }
 
@@ -367,10 +378,10 @@ namespace MC.DAO
             string[] arrPK = obj.GetKeyCols();
             queryInfo.Parameters.Add(arrPK[0], sPK);
             queryInfo.MappingName = obj.GetTableName();
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
             return TryFunc(xmlID, () =>
             {
-                return dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
+                return myBatisHelper.dataMapper.QueryForObject<T>(xmlID, queryInfo.Parameters);
             });
         }
         #endregion
@@ -386,16 +397,16 @@ namespace MC.DAO
             string xmlID = objEntity.GetInsertXmlID();
             return TryFunc(xmlID, () =>
             {
-                return Convert.ToInt32(dataMapper.Insert(xmlID, objEntity));
+                return Convert.ToInt32(myBatisHelper.dataMapper.Insert(xmlID, objEntity));
             });
         }
 
         public int Insert(QueryInfo queryInfo)
         {
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Insert");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Insert");
             return TryFunc(xmlID, () =>
             {
-                return Convert.ToInt32(dataMapper.Insert(xmlID, queryInfo.Parameters));
+                return Convert.ToInt32(myBatisHelper.dataMapper.Insert(xmlID, queryInfo.Parameters));
             });
         }
         #endregion
@@ -411,15 +422,15 @@ namespace MC.DAO
             string xmlID = objEntity.GetUpdateXmlID();
             return TryFunc(xmlID, () =>
             {
-                return dataMapper.Update(xmlID, objEntity);
+                return myBatisHelper.dataMapper.Update(xmlID, objEntity);
             });
         }
         public int Update(QueryInfo queryInfo)
         {
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Update");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Update");
             return TryFunc(xmlID, () =>
             {
-                return Convert.ToInt32(dataMapper.Update(xmlID, queryInfo.Parameters));
+                return Convert.ToInt32(myBatisHelper.dataMapper.Update(xmlID, queryInfo.Parameters));
             });
         }
         #endregion
@@ -435,16 +446,16 @@ namespace MC.DAO
             string xmlID = objEntity.GetDeleteXmlID();
             return TryFunc(xmlID, () =>
             {
-                return dataMapper.Delete(xmlID, objEntity);
+                return myBatisHelper.dataMapper.Delete(xmlID, objEntity);
             });
         }
 
         public int Delete(QueryInfo queryInfo)
         {
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Delete");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Delete");
             return TryFunc(xmlID, () =>
             {
-                return Convert.ToInt32(dataMapper.Delete(xmlID, queryInfo.Parameters));
+                return Convert.ToInt32(myBatisHelper.dataMapper.Delete(xmlID, queryInfo.Parameters));
             });
         }
         #endregion
@@ -513,7 +524,7 @@ namespace MC.DAO
         public DataTable GetDataTable(QueryInfo queryInfo)
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".Load");
             return TryFunc(xmlID, () =>
             {
                 #region order by
@@ -539,7 +550,7 @@ namespace MC.DAO
                     }
                 }
                 #endregion
-                return dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
+                return myBatisHelper.dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
             });
         }
         #endregion
@@ -548,7 +559,7 @@ namespace MC.DAO
         public PagedTable GetListPage(QueryInfo queryInfo)
         {
             if (queryInfo == null) queryInfo = new QueryInfo();
-            string xmlID = sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
+            string xmlID = myBatisHelper.sPreFix + queryInfo.MappingName + (!string.IsNullOrEmpty(queryInfo.XmlID) ? "." + queryInfo.XmlID : ".LoadPageListByTable");
             return TryFunc(xmlID, () =>
             {
                 int records = 0;
@@ -578,20 +589,9 @@ namespace MC.DAO
                 #endregion
                 records = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 if (records > 0)
-                    dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
+                    dt = myBatisHelper.dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
                 return new PagedTable(records, dt);
             });
-        }
-        #endregion
-
-        #region 事务
-        public ITransaction ITransaction
-        {
-            get
-            {
-                ISession session = sessionFactory.OpenSession();
-                return session.BeginTransaction();
-            }
         }
         #endregion
     }

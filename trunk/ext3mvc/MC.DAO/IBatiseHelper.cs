@@ -16,16 +16,19 @@ using MyBatis.DataMapper.Session;
 
 namespace MC.DAO
 {
-    public class IBatiseHelper
+    public class SqlBatisHelper : MyBatisHelper
     {
-        protected static IDataMapper dataMapper = null;
-        protected static ISessionFactory sessionFactory = null;
-        protected ISessionStore sessionStore = null;
-        protected ConfigurationSetting configurationSetting;
-        protected readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        public IDataMapper dataMapper { get; set; }
+        public ISessionFactory sessionFactory { get; set; }
+        public ISessionStore sessionStore { get; set; }
+        public ConfigurationSetting configurationSetting { get; set; }
+        public log4net.ILog _logger { get; set; }
+        public string sPreFix { get; set; }
 
-        public IBatiseHelper()
+        public void LoadDataBase()
         {
+            _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            sPreFix = "MC.Model.";
             string uri = "assembly://MC.DAO/MC.DAO/sqlmap.config";
             try
             {
@@ -54,15 +57,15 @@ namespace MC.DAO
                 _logger.Error(sb.ToString());
             }
         }
-
-        protected const string sPreFix = "MC.Model.";
-
-        protected void SetLoading<T>(IList<T> lis) where T : Entity, new()
-        {
-            foreach (Entity t in lis)
-            {
-                t.SetLoading();
-            }
-        }
+    }
+    public interface MyBatisHelper
+    {
+        IDataMapper dataMapper { get; set; }
+        ISessionFactory sessionFactory { get; set; }
+        ISessionStore sessionStore { get; set; }
+        ConfigurationSetting configurationSetting { get; set; }
+        log4net.ILog _logger { get; set; }
+        string sPreFix { get; set; }
+        void LoadDataBase();
     }
 }
