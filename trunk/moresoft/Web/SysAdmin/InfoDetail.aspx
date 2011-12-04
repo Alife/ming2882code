@@ -111,6 +111,10 @@
                 </td>
                 <td>
                     <input name="CreateTime_inf_Str" type="text" class="easyui-datetimebox frmText" style="width: 150px;" value="<%= id > 0 ? item.CreateTime_inf_Str : string.Empty%>" />
+                    作者：
+                    <input name="Author_inf" type="text" class="easyui-validatebox frmText" value="<%= id > 0 ? item.Author_inf : string.Empty %>" />
+                    关键字：
+                    <input name="Keywords_inf" type="text" class="easyui-validatebox frmText" style="width:250px;" value="<%= id > 0 ? item.Keywords_inf : string.Empty %>" />
                 </td>
             </tr>
             <tr>

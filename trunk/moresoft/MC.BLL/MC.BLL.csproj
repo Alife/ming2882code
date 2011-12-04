@@ -48,6 +48,8 @@
     <Compile Include="Info\IndexTag_itgBLL.cs" />
     <Compile Include="Info\InfoType_iftBLL.cs" />
     <Compile Include="Info\Info_infBLL.cs" />
+    <Compile Include="Set\Page_pagBLL.cs" />
+    <Compile Include="Set\Setting_setBLL.cs" />
     <Compile Include="Users\mc_UserBLL.cs" />
     <Compile Include="BLLService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

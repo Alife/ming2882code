@@ -12,7 +12,7 @@ using CoolCode.Web;
 
 namespace Web.SysAdmin
 {
-    public partial class InfoDetail : AdminBasePage
+    public partial class PageDetail : AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,19 +26,15 @@ namespace Web.SysAdmin
                         int id = ReqHelper.Get<int>("id");
                         JsonSerializerSettings jsonSs = new JsonSerializerSettings();
                         jsonSs.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter());
-                        //jsonSs.Converters.Add(new Newtonsoft.Json.Converters.DataTableConverter());
-                        json = JsonConvert.SerializeObject(Info_infBLL.GetItem(id), Formatting.None, jsonSs);
+                        json = JsonConvert.SerializeObject(Page_pagBLL.GetItem(id), Formatting.None, jsonSs);
                         break;
                     case "form":
-                        Info_inf ift = new Info_inf();
+                        Page_pag ift = new Page_pag();
                         this.TryUpdateModel(ift);
-                        if (ift.IndexTagID_inf.HasValue && ift.IndexTagID_inf.Value == 0) ift.IndexTagID_inf = null;
-                        if (ift.InfoTypeID_inf.HasValue && ift.InfoTypeID_inf.Value == 0) ift.InfoTypeID_inf = null;
-                        ift.TopType_inf = ReqHelper.Get<string>("TopType_inf");
                         if (ReqHelper.Get<string>("action") == "add")
-                            v = Info_infBLL.Insert(ift);
+                            v = Page_pagBLL.Insert(ift);
                         else
-                            v = Info_infBLL.Update(ift);
+                            v = Page_pagBLL.Update(ift);
                         if (v > 0)
                             json = JsonConvert.SerializeObject(new { success = true, msg = "保存成功" }, Formatting.None);
                         else

@@ -808,6 +808,7 @@
     <Compile Include="Class\AdminBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Class\RssCode\Channel.cs" />
     <Compile Include="Class\CoolCode\BindAttribute.cs" />
     <Compile Include="Class\CoolCode\Controller.cs" />
     <Compile Include="Class\CoolCode\ControllerBase.cs" />
@@ -828,12 +829,42 @@
     <Compile Include="Class\CoolCode\ValueProviderResult.cs" />
     <Compile Include="Class\Funs.cs" />
     <Compile Include="Class\PageExtension.cs" />
+    <Compile Include="Class\RssCode\Item.cs" />
+    <Compile Include="Class\RssCode\Rss.cs" />
     <Compile Include="Default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Feed\latest\rss.aspx.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feed\latest\rss.aspx.designer.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Feed\news\rss.aspx.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feed\news\rss.aspx.designer.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Feed\openquestions\rss.aspx.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feed\openquestions\rss.aspx.designer.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Feed\topten\rss.aspx.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feed\topten\rss.aspx.designer.cs">
+      <DependentUpon>rss.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -902,6 +933,27 @@
     <Compile Include="SysAdmin\Info.aspx.designer.cs">
       <DependentUpon>Info.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysAdmin\Page.aspx.cs">
+      <DependentUpon>Page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\Page.aspx.designer.cs">
+      <DependentUpon>Page.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysAdmin\PageDetail.aspx.cs">
+      <DependentUpon>PageDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\PageDetail.aspx.designer.cs">
+      <DependentUpon>PageDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysAdmin\Setting.aspx.cs">
+      <DependentUpon>Setting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\Setting.aspx.designer.cs">
+      <DependentUpon>Setting.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="database.config" />
@@ -930,6 +982,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Feed\latest\rss.aspx" />
+    <Content Include="Feed\news\rss.aspx" />
+    <Content Include="Feed\openquestions\rss.aspx" />
+    <Content Include="Feed\topten\rss.aspx" />
     <Content Include="InfoType.aspx" />
     <Content Include="kindeditor\asp.net\file_manager_json.ashx" />
     <Content Include="kindeditor\asp.net\upload_json.ashx" />
@@ -1120,6 +1176,9 @@
     <Content Include="kindeditor\themes\simple\simple.css" />
     <Content Include="Pages.aspx" />
     <Content Include="ShowInfo.aspx" />
+    <Content Include="SysAdmin\Page.aspx" />
+    <Content Include="SysAdmin\PageDetail.aspx" />
+    <Content Include="SysAdmin\Setting.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

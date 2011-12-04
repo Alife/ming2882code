@@ -14,62 +14,12 @@
       <result property="TopType_inf" column="TopType_inf" />
       <result property="IndexTagID_inf" column="IndexTagID_inf" />
       <result property="CreateTime_inf" column="CreateTime_inf" />
+      <result property="Author_inf" column="Author_inf" />
+      <result property="Keywords_inf" column="Keywords_inf" />
     </resultMap>
   </resultMaps>
   <statements>
     <sql id="MC.Model.Info_inf.sqlwhere">
-      <dynamic prepend="WHERE">
-        <isNotNull prepend="AND" property="ID_inf">
-          ID_inf = #ID_inf#
-        </isNotNull>
-        <isNotNull prepend="AND" property="InfoTypeID_inf">
-          InfoTypeID_inf = #InfoTypeID_inf#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Title_inf">
-          Title_inf = #Title_inf#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Content_inf">
-          Content_inf = #Content_inf#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Hits_inf">
-          Hits_inf = #Hits_inf#
-        </isNotNull>
-        <isNotNull prepend="AND" property="TopType_inf">
-          TopType_inf = #TopType_inf#
-        </isNotNull>
-        <isNotNull prepend="AND" property="IndexTagID_inf">
-          IndexTagID_inf = #IndexTagID_inf#
-        </isNotNull>
-        <isNotNull prepend="AND" property="CreateTime_inf">
-          CreateTime_inf = #CreateTime_inf#
-        </isNotNull>
-      </dynamic>
-    </sql>
-    <select id="MC.Model.Info_inf.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
-      Select count(1) FROM Info_inf <include refid="MC.Model.Info_inf.sqlwhere"/>
-    </select>
-    <select id="MC.Model.Info_inf.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf FROM(
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf
-      ,ROW_NUMBER() Over(
-      <dynamic>
-        <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
-        <isNull property="sort">order by ID_inf desc</isNull>
-      </dynamic>) as rowNum
-      FROM Info_inf
-      <include refid="MC.Model.Info_inf.sqlwhere"/>
-      ) as temptable
-      <dynamic prepend="WHERE">
-        <isNotNull prepend="AND" property="start">
-          rowNum BETWEEN #start#+1
-          <isNotNull prepend="AND" property="limit">
-            #start#+#limit#
-          </isNotNull>
-        </isNotNull>
-      </dynamic>
-    </select>
-    <select id="MC.Model.Info_inf.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select $top$ ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf FROM Info_inf
       <dynamic prepend="WHERE">
         <isNotNull prepend="AND" property="ID_inf">
           ID_inf = #ID_inf#
@@ -95,7 +45,40 @@
         <isNotNull prepend="AND" property="CreateTime_inf">
           CreateTime_inf = #CreateTime_inf#
         </isNotNull>
+        <isNotNull prepend="AND" property="Author_inf">
+          Author_inf = #Author_inf#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Keywords_inf">
+          Keywords_inf = #Keywords_inf#
+        </isNotNull>
       </dynamic>
+    </sql>
+    <select id="MC.Model.Info_inf.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
+      Select count(1) FROM Info_inf <include refid="MC.Model.Info_inf.sqlwhere"/>
+    </select>
+    <select id="MC.Model.Info_inf.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf FROM(
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf
+      ,ROW_NUMBER() Over(
+      <dynamic>
+        <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
+        <isNull property="sort">order by ID_inf desc</isNull>
+      </dynamic>) as rowNum
+      FROM Info_inf
+      <include refid="MC.Model.Info_inf.sqlwhere"/>
+      ) as temptable
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="start">
+          rowNum BETWEEN #start#+1
+          <isNotNull prepend="AND" property="limit">
+            #start#+#limit#
+          </isNotNull>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="MC.Model.Info_inf.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf FROM Info_inf
+     <include refid="MC.Model.Info_inf.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
           $OrderBy$
@@ -111,6 +94,8 @@
       ,TopType_inf
       ,IndexTagID_inf
       ,CreateTime_inf
+      ,Author_inf
+      ,Keywords_inf
       )values (
       #InfoTypeID_inf#
       ,#Title_inf#
@@ -119,6 +104,8 @@
       ,#TopType_inf#
       ,#IndexTagID_inf#
       ,#CreateTime_inf#
+      ,#Author_inf#
+      ,#Keywords_inf#
       )
       <selectKey property="ID_inf" type="post" resultClass="int">
         ${selectKey}
@@ -133,6 +120,8 @@
       ,TopType_inf = #TopType_inf#
       ,IndexTagID_inf = #IndexTagID_inf#
       ,CreateTime_inf = #CreateTime_inf#
+      ,Author_inf = #Author_inf#
+      ,Keywords_inf = #Keywords_inf#
       WHERE
       ID_inf = #ID_inf#
     </update>
