@@ -1,15 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ShowInfo.aspx.cs" Inherits="Web.ShowInfo" %>
-<%MC.Model.Info_inf info = MC.BLL.Info_infBLL.GetItem(Web.ReqHelper.Get<int>("id")); %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Web.Search" %>
 <%MC.Model.Setting_set setting = (MC.Model.Setting_set)Application["setting"]; %>
+<%string keyword = Web.ReqHelper.Get<string>("keyword"); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title><%= info.Title_inf%>-<%= setting.WebName_set%></title>
+    <title>搜索<%= keyword%>-<%= setting.WebName_set%></title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-    <meta name="title" content="<%= info.Title_inf%>-<%= setting.WebName_set%>" />
-    <meta name="keywords" content="<%= info.Keywords_inf%>" />
-    <meta name="author" content="<%= info.Author_inf%>" />
+    <meta name="title" content="<%= keyword%>-<%= setting.Title_set%>" />
+    <meta name="keywords" content="<%= setting.Keywords_set%>" />
+    <meta name="author" content="<%= setting.Author_set%>" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link href="css/Style.css" rel="stylesheet" type="text/css" media="screen" />
     <link rel="alternate" title="News RSS Feed" type="application/rss+xml" href="feed/news/rss.aspx" />
@@ -49,7 +48,7 @@
                     <div id="categories">
                     <ul>
                         <li class="home"><a href="/">MES基础指南首页</a></li><%var clist = MC.BLL.InfoType_iftBLL.GetList(new MC.Model.QueryInfo());foreach(var citem in clist){ %>
-                        <li><a href="category<%= citem.ID_ift%>.html"<%= Web.ReqHelper.Get<int>("cid")==citem.ID_ift?" class=\"active\"":""%>><%= citem.Name_ift%></a></li><%if(citem.Parent_ift>0){%> <img src="images/more.gif" width="11" height="11" alt="more MES" style="border: none; vertical-align: middle;" /><%} %><%} %>
+                        <li><a href="category<%= citem.ID_ift%>.html"><%= citem.Name_ift%></a></li><%if(citem.Parent_ift>0){%> <img src="images/more.gif" width="11" height="11" alt="more MES" style="border: none; vertical-align: middle;" /><%} %><%} %>
                         <li><a href="/sitemap-A_zh.html">Sitemap</a></li>
                     </ul>
                     </div>
@@ -79,13 +78,11 @@
         </div>
         <div class="centercolumn">
             <div class="centerpadding">
-                <div class="main-content" id="main"><%MC.Model.InfoType_ift infoType = MC.BLL.InfoType_iftBLL.GetItem(info.InfoTypeID_inf); %>
-                    <h2 id="article_category"><a title="" href="category<%= infoType.ID_ift%>.html"><%= infoType.Name_ift%></a><br /></h2>
-                    <div id="solution_id">ID #<%= info.ID_inf%></div>
-                    <h2><%= info.Title_inf%></h2>
-                    <%= info.Content_inf%>
-                    <p>作者:<a href='http://www.moresoft.cn/' target=_blank><%= info.Author_inf%></a>@<a href='http://www.moresoft.cn/' target=_blank>摩尔社区</a>&nbsp;&nbsp;<%= info.CreateTime_inf.ToShortDateString()%><br />摩尔社区-国内最专业的MES服务商<br/>本文摩尔社区版权所有，未经批准转载必究。<br/></p>
-                    <p>对此文章有什么疑问，请提交在<a href="http://www.moresoft.cn/bbs/" >摩尔社区论坛</a></p>
+                <div class="main-content" id="main">
+                    <h2>搜索:<%= keyword%></h2>
+	                <ul class="phpmyfaq_ul"><%var listqi = new MC.Model.QueryInfo(); listqi.Parameters.Add("Title_inf", keyword);listqi.Orderby.Add("CreateTime_inf", "desc");infos = MC.BLL.Info_infBLL.GetList(listqi); foreach (var item in infos) { %>
+	                <li><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a><br /><div class="little">(<%= item.Hits_inf%> 次阅读)</div></li><%} %>
+	                </ul>
                 </div>
             </div>
         </div>
