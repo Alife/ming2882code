@@ -88,3 +88,27 @@ div{border:0;margin:0;padding:0;}
 #copyright{margin-top:12px;font-size:80%;text-align:center;}
 #footer{margin-top:10px;clear:both;border-top:1px solid;padding-top:10px;text-align:right;}
 #footer p#copyrightnote{text-align:center;}
+
+#categories {background-color: #F2F2F2;border-color: #C1C1C1;}
+#categories li {border-color: #FF0084;}
+#categories li a {border-color: #C1C1C1;background-color: #F2F2F2;color: #000000;}
+#categories li a:hover {background-color: #C1C1C1;color: #000000;}
+#categories .active {background-color: #D0D9D9;}
+#categories .subcat a {background-color: #F2ECEC;}
+#categories .subcat .active {background-color: #ECF2ED;} 
+#topten h3, #latest h3 {border-color: #a9a9a9;}
+#topten ol, #latest ol {}
+#topten li, #latest li {}
+.main-content h2, .main-content h3 {color: #000000;border-color: #a9a9a9;}
+.main-content table {border-color: #a9a9a9;}
+td, th, .main-content td {border-color: #a9a9a9;}
+.main-content th {border-bottom-color: transparent;}
+.main-content fieldset {border-color: #e7e7e7;}
+.main-content form textarea, .main-content form .inputfield {color: #333333;background-color: #ffffff;border-color: #e7e7e7;border-top-color: #999999;border-left-color: #999999;}
+.main-content form textarea:focus, .main-content form input[type=text]:focus {background: #f5f5f5;}
+.main-content form input[type=radio], .main-content form input[type=checkbox] {background-color: transparent;}
+select {background-color: #ffffff;color: inherit;}
+input[type=submit] {color: Black;background: #EDF2F2;border-color: #ffffff;border-bottom-color: #dddddd;border-right-color: #dddddd;}
+.highlight {background-color: #F8F8FF;font-weight: bold;border: 1px dotted #FF6347;}
+#footer {color: #666666;border-color: #666666;}
+#footer, #footer a, #footer a:visited {color: #666666;}

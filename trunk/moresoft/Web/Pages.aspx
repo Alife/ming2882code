@@ -26,7 +26,7 @@
     <div id="wrapper2">
     <div class="header" id="header">
         <h1>
-            <a title="摩尔社区-国内最专业的MES服务商" href="<%= setting.WebUrl_set%>">摩尔社区-国内最专业的MES服务商</a></h1>
+            <a title="<%= setting.Title_set%>" href="<%= setting.WebUrl_set%>"><%= setting.WebName_set%></a></h1>
         <ul>
             <li class="frist"></li>
 	        <li class="current"><a href="/" target="_blank">MES首页</a></li>

@@ -954,6 +954,13 @@
     <Compile Include="SysAdmin\Setting.aspx.designer.cs">
       <DependentUpon>Setting.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="database.config" />
@@ -1179,6 +1186,7 @@
     <Content Include="SysAdmin\Page.aspx" />
     <Content Include="SysAdmin\PageDetail.aspx" />
     <Content Include="SysAdmin\Setting.aspx" />
+    <Content Include="Search.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
