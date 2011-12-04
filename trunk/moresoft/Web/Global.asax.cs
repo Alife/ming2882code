@@ -12,7 +12,7 @@ namespace Web
 
         protected void Application_Start(object sender, EventArgs e)
         {
-
+            Application["setting"] = MC.BLL.Setting_setBLL.GetItem(1);
         }
 
         protected void Session_Start(object sender, EventArgs e)

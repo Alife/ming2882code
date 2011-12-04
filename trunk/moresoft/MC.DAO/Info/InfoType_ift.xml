@@ -14,6 +14,7 @@
       <result property="Parent_ift" column="Parent_ift" />
       <result property="Path_ift" column="Path_ift" />
       <result property="IsHide_ift" column="IsHide_ift" />
+      <result property="Keywords_ift" column="Keywords_ift" />
     </resultMap>
   </resultMaps>
   <statements>
@@ -43,39 +44,17 @@
         <isNotNull prepend="AND" property="IsHide_ift">
           IsHide_ift = #IsHide_ift#
         </isNotNull>
+        <isNotNull prepend="AND" property="Keywords_ift">
+          Keywords_ift = #Keywords_ift#
+        </isNotNull>
       </dynamic>
     </sql>
     <select id="MC.Model.InfoType_ift.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
       Select count(1) FROM InfoType_ift <include refid="MC.Model.InfoType_ift.sqlwhere"/>
     </select>
     <select id="MC.Model.InfoType_ift.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_ift,Name_ift,Code_ift,Url_ift,Sort_ift,Parent_ift,Path_ift,IsHide_ift FROM InfoType_ift
-      <dynamic prepend="WHERE">
-        <isNotNull prepend="AND" property="ID_ift">
-          ID_ift = #ID_ift#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Name_ift">
-          Name_ift = #Name_ift#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Code_ift">
-          Code_ift = #Code_ift#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Url_ift">
-          Url_ift = #Url_ift#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Sort_ift">
-          Sort_ift = #Sort_ift#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Parent_ift">
-          Parent_ift = #Parent_ift#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Path_ift">
-          Path_ift = #Path_ift#
-        </isNotNull>
-        <isNotNull prepend="AND" property="IsHide_ift">
-          IsHide_ift = #IsHide_ift#
-        </isNotNull>
-      </dynamic>
+      Select ID_ift,Name_ift,Code_ift,Url_ift,Sort_ift,Parent_ift,Path_ift,IsHide_ift,Keywords_ift FROM InfoType_ift
+      <include refid="MC.Model.InfoType_ift.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
           $OrderBy$
@@ -91,6 +70,7 @@
       ,Parent_ift
       ,Path_ift
       ,IsHide_ift
+      ,Keywords_ift
       )values (
       #Name_ift#
       ,#Code_ift#
@@ -99,6 +79,7 @@
       ,#Parent_ift#
       ,#Path_ift#
       ,#IsHide_ift#
+      ,#Keywords_ift#
       )
       <selectKey property="ID_ift" type="post" resultClass="int">
         ${selectKey}
@@ -113,6 +94,7 @@
       ,Parent_ift = #Parent_ift#
       ,Path_ift = #Path_ift#
       ,IsHide_ift = #IsHide_ift#
+      ,Keywords_ift = #Keywords_ift#
       WHERE
       ID_ift = #ID_ift#
     </update>

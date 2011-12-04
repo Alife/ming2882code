@@ -18,6 +18,7 @@
                  { title: '编号', field: 'Code_ift', width: 100 },
                  { title: '是否禁用', field: 'IsHide_ift', width: 60, formatter: function(value, row) { return value == true ? '是' : '否'; } },
                  { title: '排序', field: 'Sort_ift', width: 60 },
+                 { title: '关键字', field: 'Keywords_ift', width: 200 },
                  { title: 'Url', field: 'Url_ift', width: 200}]],
                 onDblClickRow: function(row) { infoType_Form.form('load', row); infoType_Form.url = 'InfoType.aspx?type=form&action=edit'; infoType_Dialog.dialog('open'); },
                 toolbar: [{
@@ -137,6 +138,14 @@
                 </td>
                 <td>
                     <input name="Code_ift" type="text" class="frmText" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    关键字：
+                </td>
+                <td>
+                    <input name="Keywords_ift" type="text" class="frmText" style="width:400px" />
                 </td>
             </tr>
             <tr>

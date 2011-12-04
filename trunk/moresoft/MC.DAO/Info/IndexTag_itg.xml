@@ -50,17 +50,7 @@
     </select>
     <select id="MC.Model.IndexTag_itg.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
       Select ID_itg,Name_itg,Sort_itg FROM IndexTag_itg
-      <dynamic prepend="WHERE">
-        <isNotNull prepend="AND" property="ID_itg">
-          ID_itg = #ID_itg#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Name_itg">
-          Name_itg = #Name_itg#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Sort_itg">
-          Sort_itg = #Sort_itg#
-        </isNotNull>
-      </dynamic>
+      <include refid="MC.Model.IndexTag_itg.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
           $OrderBy$

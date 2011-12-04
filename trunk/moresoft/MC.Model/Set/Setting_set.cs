@@ -5,10 +5,10 @@ using System.Collections.Generic;
 namespace MC.Model
 {
     /// <summary>
-    /// InfoType_ift
+    /// Setting_set
     /// </summary>
     [Serializable]
-    public partial class InfoType_ift : Entity
+    public partial class Setting_set : Entity
     {
         #region method
         /// <summary>
@@ -16,14 +16,14 @@ namespace MC.Model
         /// </summary>
         public override string GetTableName()
         {
-            return "InfoType_ift";
+            return "Setting_set";
         }
         /// <summary>
         /// Keys
         /// </summary>
         public override string[] GetKeyCols()
         {
-            return new string[] { "ID_ift" };
+            return new string[] { "ID_set" };
         }
         #endregion
 
@@ -32,46 +32,37 @@ namespace MC.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? ID_ift { get; set; }
+        public int? ID_set { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Name_ift { get; set; }
+        public string WebName_set { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Code_ift { get; set; }
+        public string WebUrl_set { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Url_ift { get; set; }
+        public string Title_set { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int? Sort_ift { get; set; }
+        public string Keywords_set { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int? Parent_ift { get; set; }
+        public string Author_set { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int? Path_ift { get; set; }
-
-        public string Keywords_ift { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool? IsHide_ift { get; set; }
-
-        public IList<InfoType_ift> children { get; set; }
+        public string ICP_set { get; set; }
         #endregion
     }
 }

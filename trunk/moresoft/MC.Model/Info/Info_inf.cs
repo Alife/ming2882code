@@ -69,6 +69,15 @@ namespace MC.Model
         /// </summary>
         public DateTime CreateTime_inf { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Author_inf { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Keywords_inf { get; set; }
         private string _CreateTime_inf_Str;
         public string CreateTime_inf_Str
         {

@@ -1,41 +1,33 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Info.aspx.cs" Inherits="Web.SysAdmin.Info" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Page.aspx.cs" Inherits="Web.SysAdmin.Page" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>文章管理</title>
+    <title>页面信息管理</title>
 
     <script type="text/javascript">
         $(function() {
-            var Info_Grid = $('#Info_Grid').datagrid({
-                title: '文章管理', url: 'Info.aspx?type=load', idField: 'ID_inf', rownumbers: true, animate: true, border: false, singleSelect: false,
-                remoteSort: false, pagination: true, fit: true,
-                frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '标题', field: 'Title_inf', width: 400}]],
-                columns: [[{ title: '点击率', field: 'Hits_inf', width: 60 }, { title: '作者', field: 'Author_inf', width: 60 },
-                { title: '关键字', field: 'Keywords_inf', width: 160 },
-                { title: '发布时间', field: 'CreateTime_inf', width: 130, formatter: function(value, rec) {
-                    return value.replace(/T/g, " ");
-                }
-                }
-                ]],
+            var Page_Grid = $('#Page_Grid').datagrid({
+                title: '页面信息管理', url: 'Page.aspx?type=load', idField: 'ID_pag', rownumbers: true, animate: true, border: false, singleSelect: false,
+                remoteSort: false, fit: true,
+                frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '名称', field: 'Name_pag', width: 400}]],
+                columns: [[{ title: '编号', field: 'Code_pag', width: 160 }, { title: '排序', field: 'Sort_pag', width: 60}]],
                 onDblClickRow: function(rowIndex, row) {
-                    addTab('info-' + row.ID_inf, '编辑文章-' + row.Title_inf, 'InfoDetail.aspx?id=' + row.ID_inf, 'frame', 'icon icon-info');
-                    //Info_Form.form('load', row); Info_Form.url = 'Info.aspx?type=form&action=edit'; Info_Dialog.dialog('open');
+                    addTab('Page-' + row.ID_pag, '编辑页面信息-' + row.Name_pag, 'PageDetail.aspx?id=' + row.ID_pag, 'frame', 'icon icon-Page');
                 },
                 toolbar: [{
-                    id: 'btnAdd_inf',
+                    id: 'btnAdd_pag',
                     text: '添加',
                     iconCls: 'application_add',
                     handler: function() {
-                        addTab('info-0', '新增文章', 'InfoDetail.aspx?id=0', 'frame', 'icon icon-info');
-                        //Info_Dialog.dialog('open'); Info_Form.form('clear'); Info_Form.url = 'Info.aspx?type=form&action=add';
+                        addTab('Page-0', '新增页面信息', 'PageDetail.aspx?id=0', 'frame', 'icon icon-Page');
                     }
                 }, '-', {
-                    id: 'btnEdit_inf',
+                    id: 'btnEdit_pag',
                     text: '编辑',
                     iconCls: 'application_edit',
                     handler: function() {
-                        var rows = Info_Grid.datagrid('getSelections');
+                        var rows = Page_Grid.datagrid('getSelections');
                         var num = rows.length;
                         if (num == 0) {
                             $.messager.alert('提示', '请选择一条记录进行操作!', 'info');
@@ -46,34 +38,31 @@
                             return;
                         }
                         else {
-                            addTab('info-' + rows[0].ID_inf, '编辑文章-' + rows[0].Title_inf, 'InfoDetail.aspx?id=' + rows[0].ID_inf, 'frame', 'icon icon-info');
-                            //Info_Dialog.dialog('open');
-                            //Info_Form.form('load', rows[0]);
-                            //Info_Form.url = 'Info.aspx?type=form&action=edit';
+                            addTab('Page-' + rows[0].ID_pag, '编辑页面信息-' + rows[0].Name_pag, 'PageDetail.aspx?id=' + rows[0].ID_pag, 'frame', 'icon icon-Page');
                         }
                     }
                 }, '-', {
-                    id: 'btnDelete_inf',
+                    id: 'btnDelete_pag',
                     text: '删除',
                     iconCls: 'application_delete',
                     handler: function() {
                         var ids = [];
-                        var rows = Info_Grid.datagrid('getSelections');
+                        var rows = Page_Grid.datagrid('getSelections');
                         for (var i = 0; i < rows.length; i++) {
-                            ids.push(rows[i].ID_inf);
+                            ids.push(rows[i].ID_pag);
                         }
                         if (ids.length > 0) {
                             $.messager.confirm('提示信息', '您确认要删除吗?', function(data) {
                                 if (data) {
                                     $.ajax({
-                                        url: 'Info.aspx?type=del&id=' + ids.join(','),
+                                        url: 'Page.aspx?type=del&id=' + ids.join(','),
                                         type: 'GET',
                                         timeout: 1000,
                                         error: function() {
                                             $.messager.alert('错误', '删除失败!', 'error');
                                         },
                                         success: function(data) {
-                                            if (data.success) Info_Grid.datagrid('reload');
+                                            if (data.success) Page_Grid.datagrid('reload');
                                             else $.messager.alert('错误', data.msg, 'error');
                                         }
                                     });
@@ -87,11 +76,11 @@
                         }
                     }
                 }, '-', {
-                    id: 'btnRefresh_inf',
+                    id: 'btnRefresh_pag',
                     text: '刷新',
                     iconCls: 'refresh',
                     handler: function() {
-                        Info_Grid.datagrid('reload');
+                        Page_Grid.datagrid('reload');
                     }
                 }
                 ]
@@ -101,7 +90,7 @@
 
 </head>
 <body>
-    <div id="Info_Grid">
+    <div id="Page_Grid">
     </div>
 </body>
 </html>
