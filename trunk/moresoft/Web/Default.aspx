@@ -78,7 +78,7 @@
             <div class="centerpadding">
                 <div class="main-content" id="main">
                     <div id="news">
-                    <%= MC.BLL.Page_pagBLL.GetItem("indexinto").Content_pag%>
+                    <%= MC.BLL.Page_pagBLL.GetItem("indexinfo").Content_pag%>
                     <%var indexTags = MC.BLL.IndexTag_itgBLL.GetList(new MC.Model.QueryInfo());foreach(var tag in indexTags){ %>
                     <p><strong><%= tag.Name_itg%></strong></p>
                     <ul><%var listqi = new MC.Model.QueryInfo();listqi.Parameters.Add("IndexTagID_inf", tag.ID_itg); listqi.Parameters.Add("top", "top 10"); listqi.Orderby.Add("CreateTime_inf", "desc");
