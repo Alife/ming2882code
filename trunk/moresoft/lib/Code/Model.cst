@@ -48,9 +48,5 @@ namespace <%= Namespace %>
 		<% }%>
 		#endregion
 	}
-	/// <summary>
-    /// <%= SourceTable.Name %>List
-    /// </summary>
-	public class <%= SourceTable.Name %>List : EntityList { }
 	<!-- #include file="function.inc" -->
 }
