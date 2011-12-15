@@ -1,13 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InfoType.aspx.cs" Inherits="Web.InfoType" %>
-<%MC.Model.InfoType_ift infoType = MC.BLL.InfoType_iftBLL.GetItem(Web.ReqHelper.Get<int>("id")); %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Push.aspx.cs" Inherits="Web.Push" %>
 <%MC.Model.Setting_set setting = (MC.Model.Setting_set)Application["setting"]; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title><%= infoType.Name_ift%>-<%= setting.WebName_set%></title>
+    <title>我要发布需求-<%= setting.WebName_set%></title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-    <meta name="title" content="<%= infoType.Name_ift%>-<%= setting.Title_set%>" />
-    <meta name="keywords" content="<%= infoType.Keywords_ift%>" />
+    <meta name="title" content="<%= setting.Title_set%>" />
+    <meta name="keywords" content="<%= setting.Keywords_set%>" />
     <meta name="author" content="<%= setting.Author_set%>" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link href="css/Style.css" rel="stylesheet" type="text/css" media="screen" />
@@ -48,8 +48,7 @@
                     <div id="categories">
                     <ul>
                         <li class="home"><a href="/">MES基础指南首页</a></li><%var clist = MC.BLL.InfoType_iftBLL.GetList(new MC.Model.QueryInfo());foreach(var citem in clist){ %>
-                        <li><a href="category<%= citem.ID_ift%>.html"<%= Web.ReqHelper.Get<int>("id")==citem.ID_ift?" class=\"active\"":""%>><%= citem.Name_ift%></a></li><%if(citem.Parent_ift>0){%> <img src="images/more.gif" width="11" height="11" alt="more MES" style="border: none; vertical-align: middle;" /><%} %><%} %>
-                        <li><a href="/sitemap-A_zh.html">Sitemap</a></li>
+                        <li><a href="category<%= citem.ID_ift%>.html"><%= citem.Name_ift%></a></li><%if(citem.Parent_ift>0){%> <img src="images/more.gif" width="11" height="11" alt="more MES" style="border: none; vertical-align: middle;" /><%} %><%} %>
                     </ul>
                     </div>
                 </div>
@@ -79,10 +78,8 @@
         <div class="centercolumn">
             <div class="centerpadding">
                 <div class="main-content" id="main">
-                    <h2><%= infoType.Name_ift%></h2>
-	                <ul class="phpmyfaq_ul"><%var listqi = new MC.Model.QueryInfo(); listqi.Parameters.Add("InfoTypeID_inf", infoType.ID_ift);listqi.Orderby.Add("CreateTime_inf", "desc");infos = MC.BLL.Info_infBLL.GetList(listqi); foreach (var item in infos) { %>
-	                <li><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a><br /><div class="little">(<%= item.Hits_inf%> 次阅读)</div></li><%} %>
-	                </ul>
+                    <h2>我要发布需求</h2>
+                    
                 </div>
             </div>
         </div>
@@ -102,4 +99,3 @@
 </div>
 </body>
 </html>
-
