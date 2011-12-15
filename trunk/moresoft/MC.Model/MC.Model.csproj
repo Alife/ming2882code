@@ -50,6 +50,7 @@
     <Compile Include="Info\IndexTag_itg.cs" />
     <Compile Include="Info\InfoType_ift.cs" />
     <Compile Include="Info\Info_inf.cs" />
+    <Compile Include="Info\Require_req.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryInfo.cs" />
     <Compile Include="Set\Page_pag.cs" />

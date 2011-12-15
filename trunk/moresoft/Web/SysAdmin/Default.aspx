@@ -27,7 +27,8 @@
 									{ "menuid": "3", "menuname": "文章分类", "icon": "icon-nav", "url": "infotype.aspx", "urlType": "load" },
 									{ "menuid": "4", "menuname": "主页分类", "icon": "icon-nav", "url": "indextag.aspx", "urlType": "load" },
 									{ "menuid": "5", "menuname": "页面信息", "icon": "icon-set", "url": "page.aspx", "urlType": "load" },
-									{ "menuid": "6", "menuname": "关键字管理", "icon": "icon-set", "url": "keywords.aspx", "urlType": "load" }
+									{ "menuid": "6", "menuname": "关键字管理", "icon": "icon-set", "url": "keywords.aspx", "urlType": "load" },
+									{ "menuid": "11", "menuname": "需求管理", "icon": "icon-nav", "url": "require.aspx", "urlType": "load" }
 								]
 						}, { "menuid": "7", "icon": "icon-set", "menuname": "系统设置",
 						    "menus": [{ "menuid": "8", "menuname": "管理员管理", "icon": "icon-users", "url": "users.aspx", "urlType": "load" },

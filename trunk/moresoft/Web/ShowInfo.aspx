@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ShowInfo.aspx.cs" Inherits="Web.ShowInfo" %>
-<%MC.Model.Info_inf info = MC.BLL.Info_infBLL.GetItem(Web.ReqHelper.Get<int>("id")); %>
+<%MC.Model.Info_inf info = MC.BLL.Info_infBLL.GetItem(Web.ReqHelper.Get<int>("id")); info.Hits_inf += 1; MC.BLL.Info_infBLL.Update(info); %>
 <%MC.Model.Setting_set setting = (MC.Model.Setting_set)Application["setting"]; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
