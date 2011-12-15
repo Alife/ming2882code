@@ -119,7 +119,7 @@
     <div id="infoType_Grid">
     </div>
     <div id="infoType_Dialog" class="easyui-dialog" icon="icon icon-nav" closed="true" modal="true"
-        style="width: 400px; height: 250px; padding: 10px 30px;" title="文章分类" buttons="#infoType_buttons">
+        style="width: 600px; height: 250px; padding: 10px 30px;" title="文章分类" buttons="#infoType_buttons">
         <form id="infoType_Form" method="post" action="">
         <table cellpadding="3">
             <tr>

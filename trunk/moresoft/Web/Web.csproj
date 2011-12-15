@@ -926,6 +926,13 @@
     <Compile Include="SysAdmin\InfoType.aspx.designer.cs">
       <DependentUpon>InfoType.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysAdmin\Keywords.aspx.cs">
+      <DependentUpon>Keywords.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\Keywords.aspx.designer.cs">
+      <DependentUpon>Keywords.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysAdmin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1191,6 +1198,7 @@
     <Content Include="Pages.aspx" />
     <Content Include="Push.aspx" />
     <Content Include="ShowInfo.aspx" />
+    <Content Include="SysAdmin\Keywords.aspx" />
     <Content Include="SysAdmin\Page.aspx" />
     <Content Include="SysAdmin\PageDetail.aspx" />
     <Content Include="SysAdmin\Setting.aspx" />
@@ -1216,7 +1224,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2973</DevelopmentServerPort>
+          <DevelopmentServerPort>3564</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
