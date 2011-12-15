@@ -37,7 +37,10 @@ namespace Web.SysAdmin
                         else
                             v = Setting_setBLL.Update(ift);
                         if (v > 0)
+                        {
+                            Application["setting"] = ift;
                             json = JsonConvert.SerializeObject(new { success = true, msg = "保存成功" }, Formatting.None);
+                        }
                         else
                             json = JsonConvert.SerializeObject(new { success = false, msg = "保存失败" }, Formatting.None);
                         break;
