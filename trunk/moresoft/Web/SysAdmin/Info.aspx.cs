@@ -34,6 +34,8 @@ namespace Web.SysAdmin
                         Info_inf inf = new Info_inf();
                         this.TryUpdateModel(inf);
                         if (inf.IndexTagID_inf.HasValue && inf.IndexTagID_inf.Value == 0) inf.IndexTagID_inf = null;
+                        if (inf.InfoTypeID_inf.HasValue && inf.InfoTypeID_inf.Value == 0) inf.InfoTypeID_inf = null;
+                        inf.TopType_inf = ReqHelper.Get<string>("TopType_inf");
                         string resultContent = inf.Content_inf; 
                         IList<Keywords_key> keys = Keywords_keyBLL.GetList(new QueryInfo());
                         foreach (var key in keys)
