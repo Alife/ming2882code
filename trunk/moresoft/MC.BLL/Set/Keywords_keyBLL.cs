@@ -12,6 +12,10 @@ namespace MC.BLL
         {
             return BLLService.GetList<Keywords_key>(queryInfo);
         }
+        public static PagedIList<Keywords_key> GetPageList(QueryInfo queryInfo)
+        {
+            return BLLService.GetIListPage<Keywords_key>(queryInfo);
+        }
         public static Keywords_key GetItem(int ID_pag)
         {
             return BLLService.GetItem<Keywords_key>(ID_pag);

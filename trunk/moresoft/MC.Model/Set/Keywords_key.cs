@@ -47,7 +47,7 @@ namespace MC.Model
         /// <summary>
         /// 
         /// </summary>
-        public int Num_key { get; set; }
+        public int? Num_key { get; set; }
         #endregion
     }
 }

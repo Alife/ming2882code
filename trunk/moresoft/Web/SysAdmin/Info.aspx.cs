@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using MC.BLL;
@@ -30,13 +31,24 @@ namespace Web.SysAdmin
                         json = JsonConvert.SerializeObject(Info_infBLL.GetPageList(Funs.GetQueryInfo()), Formatting.None, jsonSs);
                         break;
                     case "form":
-                        Info_inf ift = new Info_inf();
-                        this.TryUpdateModel(ift);
-                        if (ift.IndexTagID_inf.HasValue && ift.IndexTagID_inf.Value == 0) ift.IndexTagID_inf = null;
+                        Info_inf inf = new Info_inf();
+                        this.TryUpdateModel(inf);
+                        if (inf.IndexTagID_inf.HasValue && inf.IndexTagID_inf.Value == 0) inf.IndexTagID_inf = null;
+                        string resultContent = inf.Content_inf; 
+                        IList<Keywords_key> keys = Keywords_keyBLL.GetList(new QueryInfo());
+                        foreach (var key in keys)
+                        {
+                            int replace_time = 0;
+                            resultContent = Regex.Replace(resultContent, @"(?i)(?<=^|>[^<>]*?)(?<!<a[^>]*>((?!</a).)*)" + key.Name_key, delegate(Match m)
+                            {
+                                return replace_time++ < key.Num_key.Value ? string.Format("<a href=\"{1}\">{0}</a>", key.Name_key, key.Url_key) : m.Value;
+                            });
+                        }
+                        inf.Content_inf = resultContent;
                         if (ReqHelper.Get<string>("action") == "add")
-                            v = Info_infBLL.Insert(ift);
+                            v = Info_infBLL.Insert(inf);
                         else
-                            v = Info_infBLL.Update(ift);
+                            v = Info_infBLL.Update(inf);
                         if (v > 0)
                             json = JsonConvert.SerializeObject(new { success = true, msg = "保存成功" }, Formatting.None);
                         else
