@@ -19,6 +19,8 @@
 	<script type="text/javascript" src="js/ie_png.js"></script>  
 	<script type="text/javascript">ie_png.fix('#header h1 a,#header form input.keyword,#header form input.search,');</script>	
 	<![endif]-->
+    <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
 </head>
 <body>
     <div id="wrapper1">
@@ -79,7 +81,31 @@
             <div class="centerpadding">
                 <div class="main-content" id="main">
                     <h2>我要发布需求</h2>
-                    
+                    <form id="frm" action="" method="post">
+                    <fieldset>
+                    <dl>
+                        <dt>联系人：</dt>
+                        <dd><input name="truename_req" type="text" class="required" maxlength="50" /></dd>
+                        <dt>联系电话：</dt>
+                        <dd><input name="tel_req" type="text" class="required" maxlength="50"/></dd>
+                        <dt>联系手机：</dt>
+                        <dd><input name="Mobile_req" type="text" class="required" maxlength="50" /></dd>
+                        <dt>公司名称：</dt>
+                        <dd><input name="Company_req" type="text" class="required" maxlength="50" /></dd>
+                        <dt>所属行业：</dt>
+                        <dd><input name="Industry_req" type="text" class="required" maxlength="50" /></dd>
+                        <dt>备注说明：</dt>
+                        <dd><textarea name="Remark_req" cols="50" rows="10" class="required" maxlength="500"></textarea></dd>
+                        <dt>&nbsp;</dt>
+                        <dd><button id="btn_req">提交需求</button></dd>
+                    </dl>
+                    </fieldset>
+                    </form>
+                    <script type="text/javascript">
+                        $(function() {
+                            $('#frm').validate();    
+                        });
+                    </script>
                 </div>
             </div>
         </div>

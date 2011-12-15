@@ -975,6 +975,13 @@
     <Compile Include="Search.aspx.designer.cs">
       <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysAdmin\Require.aspx.cs">
+      <DependentUpon>Require.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\Require.aspx.designer.cs">
+      <DependentUpon>Require.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="database.config" />
@@ -1007,7 +1014,9 @@
     <Content Include="Feed\news\rss.aspx" />
     <Content Include="Feed\openquestions\rss.aspx" />
     <Content Include="Feed\topten\rss.aspx" />
+    <Content Include="Images\error.gif" />
     <Content Include="InfoType.aspx" />
+    <Content Include="Js\validate.js" />
     <Content Include="kindeditor\asp.net\file_manager_json.ashx" />
     <Content Include="kindeditor\asp.net\upload_json.ashx" />
     <Content Include="kindeditor\kindeditor-min.js" />
@@ -1203,6 +1212,7 @@
     <Content Include="SysAdmin\PageDetail.aspx" />
     <Content Include="SysAdmin\Setting.aspx" />
     <Content Include="Search.aspx" />
+    <Content Include="SysAdmin\Require.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
