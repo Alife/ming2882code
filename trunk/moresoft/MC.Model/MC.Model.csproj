@@ -54,6 +54,7 @@
     <Compile Include="QueryInfo.cs" />
     <Compile Include="Set\Page_pag.cs" />
     <Compile Include="Set\Setting_set.cs" />
+    <Compile Include="Set\Keywords_key.cs" />
     <Compile Include="Users\mc_User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
