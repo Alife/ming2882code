@@ -29,12 +29,12 @@
             <a title="<%= setting.Title_set%>" href="<%= setting.WebUrl_set%>"><%= setting.WebName_set%></a></h1>
         <ul>
             <li class="frist"></li>
-	        <li class="current"><a href="/" target="_blank">MES首页</a></li>
-	        <li><a href="/info/"target="_blank">MES资讯</a></li>
-	        <li><a href="/bbs/"target="_blank">MES论坛</a></li>
-            <li><a href="/job/"target="_blank" >MES人才</a></li>
-            <li><a href="/edu/"target="_blank">MES研究院</a></li>
-            <li><a href="/push/"target="_blank">我要发布需求</a></li>
+	        <li class="current"><a href="/">MES首页</a></li>
+	        <li><a href="http://www.moresoft.cn/bbs/portal.php">MES资讯</a></li>
+	        <li><a href="/bbs/">MES论坛</a></li>
+            <li><a href="http://www.moresoft.com.cn/main.aspx?pagetype=SYZP_CODE&logoimg=~/images/qiyezhaopin.swf&subimg=~/images/%C8%CB%B2%C5%D5%D0%C6%B8.jpg&dhName=%C6%F3%D2%B5%D5%D0%C6%B8">MES人才</a></li>
+            <li><a href="http://www.moresoft.cn/bbs/forum.php?mod=forumdisplay&fid=40">MES研究院</a></li>
+            <li><a href="push.html">我要发布需求</a></li>
             <li class="last"></li>
         </ul>
         <form action="search.aspx" method="get" > 
