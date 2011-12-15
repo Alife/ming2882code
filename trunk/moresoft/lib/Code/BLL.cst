@@ -23,9 +23,9 @@ namespace <%= Namespace %>
         {
             return BLLService.GetList<<%= SourceTable.Name %>>(queryInfo);
         }
-        public static <%= SourceTable.Name %>List GetPageList(QueryInfo queryInfo)
+        public static PagedIList<<%= SourceTable.Name %>> GetPageList(QueryInfo queryInfo)
         {
-            return BLLService.GetListPage<<%= SourceTable.Name %>List>(queryInfo);
+            return BLLService.GetIListPage<<%= SourceTable.Name %>>(queryInfo);
         }
         public static <%= SourceTable.Name %> GetItem(object <%=AddSqlTrim(SourceTable.PrimaryKey.MemberColumns[0])%>)
         {

@@ -57,13 +57,7 @@
     </select>
     <select id="<%=Namespace%>.<%=SourceTable.Name%>.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
 		Select <%=GetSqlCol()%> FROM <%=SourceTable.Name%> 
-		<dynamic prepend="WHERE">
-		<% foreach(ColumnSchema column in SourceTable.Columns) {%>
-			<isNotNull prepend="AND" property="<%=column.Name%>">
-				<%=AddSqlTrim(column)%> = #<%=column.Name%>#
-			</isNotNull>
-		<%}%>
-		</dynamic>
+		<include refid="<%=Namespace%>.<%=SourceTable.Name%>.sqlwhere"/>
 		<dynamic>
           <isNotNull property="OrderBy">
           $OrderBy$
