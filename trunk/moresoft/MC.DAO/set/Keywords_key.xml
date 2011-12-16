@@ -42,7 +42,7 @@
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
-        <isNull property="sort">order by ID_key desc</isNull>
+        <isNull property="sort">order by Sort_key</isNull>
       </dynamic>) as rowNum
       FROM Keywords_key
       <include refid="MC.Model.Keywords_key.sqlwhere"/>
