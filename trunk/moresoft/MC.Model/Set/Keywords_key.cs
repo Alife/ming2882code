@@ -48,6 +48,10 @@ namespace MC.Model
         /// 
         /// </summary>
         public int? Num_key { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? Sort_key { get; set; }
         #endregion
     }
 }

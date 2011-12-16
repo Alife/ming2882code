@@ -37,9 +37,9 @@ namespace Web.SysAdmin
                             if (Keywords_keyBLL.IsHasName(key.Name_key))
                                 json = JsonConvert.SerializeObject(new { success = false, msg = "保存失败，已经有相同的关键字" }, Formatting.None);
                         }
-                        else
+                        if (json == string.Empty)
                         {
-                            if (!key.Num_key.HasValue) key.Num_key = 5;
+                            if (!key.Sort_key.HasValue) key.Sort_key = 5;
                             if (ReqHelper.Get<string>("action") == "add")
                                 v = Keywords_keyBLL.Insert(key);
                             else

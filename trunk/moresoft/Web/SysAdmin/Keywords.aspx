@@ -13,7 +13,7 @@
                 idField: 'ID_key',
                 remoteSort: false, pagination: true,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '关键字', field: 'Name_key', width: 200}]],
-                columns: [[{ title: '连接', field: 'Url_key', width: 250 }, { title: '每篇更替个数', field: 'Num_key', width: 100}]],
+                columns: [[{ title: '连接', field: 'Url_key', width: 250 }, { title: '每篇更替个数', field: 'Num_key', width: 100}, { title: '排序', field: 'Sort_key', width: 80}]],
                 onDblClickRow: function(rowIndex, row) { row.Name_key_Old = row.Name_key; Keywords_Form.form('load', row); Keywords_Form.url = 'Keywords.aspx?type=form&action=edit'; Keywords_Dialog.dialog('open'); },
                 toolbar: [{
                     id: 'btnAdd_key',
@@ -145,6 +145,14 @@
                 </td>
                 <td>
                     <input name="Num_key" type="number" class="easyui-numberbox frmText" value="0" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    排序：
+                </td>
+                <td>
+                    <input name="Sort_key" type="number" class="easyui-numberbox frmText" />
                 </td>
             </tr>
         </table>
