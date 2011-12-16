@@ -141,7 +141,7 @@
                     每篇更替个数：
                 </td>
                 <td>
-                    <input name="Num_key" type="number" class="easyui-numberbox frmText" />
+                    <input name="Num_key" type="number" class="easyui-numberbox frmText" value="0" />
                 </td>
             </tr>
         </table>

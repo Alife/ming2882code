@@ -43,7 +43,10 @@ namespace Web.SysAdmin
                             int replace_time = 0;
                             resultContent = Regex.Replace(resultContent, @"(?i)(?<=^|>[^<>]*?)(?<!<a[^>]*>((?!</a).)*)" + key.Name_key, delegate(Match m)
                             {
-                                return replace_time++ < key.Num_key.Value ? string.Format("<a href=\"{1}\" title=\"{0}\">{0}</a>", key.Name_key, key.Url_key) : m.Value;
+                                if (key.Num_key.Value == 0)
+                                    return string.Format("<a href=\"{1}\" title=\"{0}\">{0}</a>", key.Name_key, key.Url_key);
+                                else
+                                    return replace_time++ < key.Num_key.Value ? string.Format("<a href=\"{1}\" title=\"{0}\">{0}</a>", key.Name_key, key.Url_key) : m.Value;
                             }, RegexOptions.IgnoreCase);
                         }
                         inf.Content_inf = resultContent;
