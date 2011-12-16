@@ -11,8 +11,8 @@
                 title: '文章管理', url: 'Info.aspx?type=load', idField: 'ID_inf', rownumbers: true, animate: true, border: false, singleSelect: false,
                 remoteSort: false, pagination: true, fit: true,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '标题', field: 'Title_inf', width: 400}]],
-                columns: [[{ title: '点击率', field: 'Hits_inf', width: 60 }, { title: '作者', field: 'Author_inf', width: 60 },
-                { title: '关键字', field: 'Keywords_inf', width: 160 },
+                columns: [[{ title: '点击率', field: 'Hits_inf', width: 60 }, { title: '作者', field: 'Author_inf', width: 100 },
+                { title: '关键字', field: 'Keywords_inf', width: 300 },
                 { title: '发布时间', field: 'CreateTime_inf', width: 130, formatter: function(value, rec) {
                     return value.replace(/T/g, " ");
                 }
