@@ -10,7 +10,7 @@
       <result property="Name_key" column="Name_key" />
       <result property="Url_key" column="Url_key" />
       <result property="Num_key" column="Num_key" />
-      <result property="Sort_key" column="Num_key" />
+      <result property="Sort_key" column="Sort_key" />
     </resultMap>
   </resultMaps>
   <statements>
