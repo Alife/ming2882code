@@ -10,6 +10,7 @@
       <result property="Name_key" column="Name_key" />
       <result property="Url_key" column="Url_key" />
       <result property="Num_key" column="Num_key" />
+      <result property="Sort_key" column="Num_key" />
     </resultMap>
   </resultMaps>
   <statements>
@@ -27,14 +28,17 @@
         <isNotNull prepend="AND" property="Num_key">
           Num_key = #Num_key#
         </isNotNull>
+        <isNotNull prepend="AND" property="Sort_key">
+          Sort_key = #Sort_key#
+        </isNotNull>
       </dynamic>
     </sql>
     <select id="MC.Model.Keywords_key.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
       Select count(1) FROM Keywords_key <include refid="MC.Model.Keywords_key.sqlwhere"/>
     </select>
     <select id="MC.Model.Keywords_key.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_key,Name_key,Url_key,Num_key FROM(
-      Select ID_key,Name_key,Url_key,Num_key
+      Select ID_key,Name_key,Url_key,Num_key,Sort_key FROM(
+      Select ID_key,Name_key,Url_key,Num_key,Sort_key
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
@@ -53,7 +57,7 @@
       </dynamic>
     </select>
     <select id="MC.Model.Keywords_key.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_key,Name_key,Url_key,Num_key FROM Keywords_key
+      Select ID_key,Name_key,Url_key,Num_key,Sort_key FROM Keywords_key
       <include refid="MC.Model.Keywords_key.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
@@ -66,10 +70,12 @@
       Name_key
       ,Url_key
       ,Num_key
+      ,Sort_key
       )values (
       #Name_key#
       ,#Url_key#
       ,#Num_key#
+      ,#Sort_key#
       )
       <selectKey property="ID_key" type="post" resultClass="int">
         ${selectKey}
@@ -80,6 +86,7 @@
       Name_key = #Name_key#
       ,Url_key = #Url_key#
       ,Num_key = #Num_key#
+      ,Sort_key = #Sort_key#
       WHERE
       ID_key = #ID_key#
     </update>
