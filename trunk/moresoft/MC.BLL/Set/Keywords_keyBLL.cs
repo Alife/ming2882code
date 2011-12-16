@@ -15,8 +15,6 @@ namespace MC.BLL
         }
         public static PagedIList<Keywords_key> GetPageList(QueryInfo queryInfo)
         {
-            queryInfo.Parameters.Add("sort", "Sort_key");
-            queryInfo.Parameters.Add("dir", "asc");
             return BLLService.GetIListPage<Keywords_key>(queryInfo);
         }
         public static Keywords_key GetItem(int ID_pag)
