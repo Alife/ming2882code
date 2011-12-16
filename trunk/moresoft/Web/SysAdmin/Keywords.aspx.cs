@@ -32,7 +32,7 @@ namespace Web.SysAdmin
                         Keywords_key key = new Keywords_key();
                         this.TryUpdateModel(key);
                         string Name_key_Old = ReqHelper.Get<string>("Name_key_Old");
-                        if (string.IsNullOrEmpty(Name_key_Old) && Name_key_Old != key.Name_key)
+                        if (string.IsNullOrEmpty(Name_key_Old) || Name_key_Old != key.Name_key)
                         {
                             if (Keywords_keyBLL.IsHasName(key.Name_key))
                                 json = JsonConvert.SerializeObject(new { success = false, msg = "保存失败，已经有相同的关键字" }, Formatting.None);
