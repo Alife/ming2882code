@@ -8,13 +8,13 @@
     <script type="text/javascript">
         $(function() {
             var Keywords_Grid = $('#Keywords_Grid').datagrid({
-                title: '关键字管理',rownumbers: true, animate: true, border: false, singleSelect: false,
+                title: '关键字管理', rownumbers: true, animate: true, border: false, singleSelect: false,
                 url: 'Keywords.aspx?type=load',
                 idField: 'ID_key',
                 remoteSort: false, pagination: true,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '关键字', field: 'Name_key', width: 200}]],
                 columns: [[{ title: '连接', field: 'Url_key', width: 250 }, { title: '每篇更替个数', field: 'Num_key', width: 100}]],
-                onDblClickRow: function(rowIndex, row) { Keywords_Form.form('load', row); Keywords_Form.url = 'Keywords.aspx?type=form&action=edit'; Keywords_Dialog.dialog('open'); },
+                onDblClickRow: function(rowIndex, row) { row.Name_key_Old = row.Name_key; Keywords_Form.form('load', row); Keywords_Form.url = 'Keywords.aspx?type=form&action=edit'; Keywords_Dialog.dialog('open'); },
                 toolbar: [{
                     id: 'btnAdd_key',
                     text: '添加',
@@ -37,7 +37,9 @@
                         }
                         else {
                             Keywords_Dialog.dialog('open');
-                            Keywords_Form.form('load', rows[0]);
+                            var row = rows[0];
+                            row.Name_key_Old = row.Name_key;
+                            Keywords_Form.form('load', row);
                             Keywords_Form.url = 'Keywords.aspx?type=form&action=edit';
                         }
                     }
@@ -123,6 +125,7 @@
                 </td>
                 <td>
                     <input name="ID_key" type="hidden" />
+                    <input name="Name_key_Old" type="hidden" />
                     <input name="Name_key" type="text" class="easyui-validatebox frmText" required="true" style="width:200px;"
                         missingmessage="关键字必须填写" />
                 </td>
