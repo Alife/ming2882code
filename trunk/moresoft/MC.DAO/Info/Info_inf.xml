@@ -68,10 +68,10 @@
       <include refid="MC.Model.Info_inf.sqlwhere"/>
       ) as temptable
       <dynamic prepend="WHERE">
-        <isNotNull prepend="AND" property="start">
-          rowNum BETWEEN #start#+1
-          <isNotNull prepend="AND" property="limit">
-            #start#+#limit#
+        <isNotNull prepend="AND" property="page">
+          rowNum BETWEEN (#page#-1)*#rows#+1
+          <isNotNull prepend="AND" property="rows">
+            #page#*#rows#
           </isNotNull>
         </isNotNull>
       </dynamic>

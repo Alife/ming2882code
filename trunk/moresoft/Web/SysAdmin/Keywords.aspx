@@ -11,7 +11,7 @@
                 title: '关键字管理', rownumbers: true, animate: true, border: false, singleSelect: false,
                 url: 'Keywords.aspx?type=load',
                 idField: 'ID_key',
-                remoteSort: false, pagination: true,
+                remoteSort: false, pagination: true, pageSize: 20,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '关键字', field: 'Name_key', width: 200}]],
                 columns: [[{ title: '连接', field: 'Url_key', width: 250 }, { title: '每篇更替个数', field: 'Num_key', width: 100}, { title: '排序', field: 'Sort_key', width: 80}]],
                 onDblClickRow: function(rowIndex, row) { row.Name_key_Old = row.Name_key; Keywords_Form.form('load', row); Keywords_Form.url = 'Keywords.aspx?type=form&action=edit'; Keywords_Dialog.dialog('open'); },

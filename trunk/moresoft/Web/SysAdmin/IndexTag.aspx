@@ -11,7 +11,7 @@
                 title: '主页分类',rownumbers: true, animate: true, border: false, singleSelect: false,
                 url: 'IndexTag.aspx?type=load',
                 idField: 'ID_itg',
-                remoteSort: false, pagination: true,
+                remoteSort: false, pagination: true, pageSize: 20,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '分类', field: 'Name_itg', width: 400}]],
                 columns: [[{ title: '排序', field: 'Sort_itg', width: 60}]],
                 onDblClickRow: function(rowIndex, row) { IndexTag_Form.form('load', row); IndexTag_Form.url = 'IndexTag.aspx?type=form&action=edit'; IndexTag_Dialog.dialog('open'); },

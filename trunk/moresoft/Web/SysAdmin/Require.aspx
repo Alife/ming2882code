@@ -11,7 +11,7 @@
                 title: '需求管理', rownumbers: true, animate: true, border: false, singleSelect: false,
                 url: 'Require.aspx?type=load',
                 idField: 'ID_req',
-                remoteSort: false, pagination: true,
+                remoteSort: false, pagination: true, pageSize: 20,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '联系人', field: 'Name_req', width: 180}]],
                 columns: [[{ title: '公司', field: 'Company_req', width: 250 }, { title: '行业', field: 'Industry_req', width: 200 }, { title: '联系电话', field: 'Tel_req', width: 100 },
                 { title: '联系手机', field: 'Mobile_req', width: 100}]],
