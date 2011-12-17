@@ -9,7 +9,7 @@
         $(function() {
             var Info_Grid = $('#Info_Grid').datagrid({
                 title: '文章管理', url: 'Info.aspx?type=load', idField: 'ID_inf', rownumbers: true, animate: true, border: false, singleSelect: false,
-                remoteSort: false, pagination: true, fit: true,
+                remoteSort: false, pagination: true, pageSize: 20, fit: true,
                 frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '标题', field: 'Title_inf', width: 400}]],
                 columns: [[{ title: '点击率', field: 'Hits_inf', width: 60 }, { title: '作者', field: 'Author_inf', width: 100 },
                 { title: '关键字', field: 'Keywords_inf', width: 300 },
