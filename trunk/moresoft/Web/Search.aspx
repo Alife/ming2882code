@@ -10,7 +10,7 @@
     <meta name="keywords" content="<%= setting.Keywords_set%>" />
     <meta name="author" content="<%= setting.Author_set%>" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link href="css/Style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="css/stylev2.css" rel="stylesheet" type="text/css" media="screen" />
     <link rel="alternate" title="News RSS Feed" type="application/rss+xml" href="feed/news/rss.aspx" />
     <link rel="alternate" title="TopTen RSS Feed" type="application/rss+xml" href="feed/topten/rss.aspx" />
     <link rel="alternate" title="Latest FAQ Records RSS Feed" type="application/rss+xml" href="feed/latest/rss.aspx" />
@@ -21,26 +21,39 @@
 	<![endif]-->
 </head>
 <body>
-    <div id="wrapper1">
-    <div id="wrapper2">
-    <div class="header" id="header">
-        <h1>
-            <a title="<%= setting.Title_set%>" href="<%= setting.WebUrl_set%>"><%= setting.WebName_set%></a></h1>
-        <ul>
-            <li class="frist"></li>
-	        <li class="current"><a href="/">MES首页</a></li>
-	        <li><a href="http://www.moresoft.cn/bbs/portal.php">MES资讯</a></li>
-	        <li><a href="/bbs/">MES论坛</a></li>
-            <li><a href="http://www.moresoft.com.cn/main.aspx?pagetype=SYZP_CODE&logoimg=~/images/qiyezhaopin.swf&subimg=~/images/%C8%CB%B2%C5%D5%D0%C6%B8.jpg&dhName=%C6%F3%D2%B5%D5%D0%C6%B8">MES人才</a></li>
-            <li><a href="http://www.moresoft.cn/bbs/forum.php?mod=forumdisplay&fid=40">MES研究院</a></li>
-            <li><a href="push.html">我要发布需求</a></li>
-            <li class="last"></li>
-        </ul>
-        <form action="search.aspx" method="get" > 
-            <input type="text" name="keyword" class="keyword" size="38" />
-            <input type="submit" name="submit" class="search" value="" />
-        </form>
+    <div id="header">
+        <div class="top">
+            <h1>
+                <a title="<%= setting.Title_set%>" href="<%= setting.WebUrl_set%>"><img src="images/v2/logo_a.gif" alt="<%= setting.Title_set%>" /></a></h1>
+            <ul>
+	            <li><a href="/">摩尔社区</a></li>
+	            <li><a href="/bbs/">摩尔论坛</a></li>
+	            <li><a href="http://www.weibo.com/moresoft">新浪微博</a></li>
+                <li><a href="http://t.qq.com/moresoft">腾讯微博</a></li>
+	            <li><a href="http://www.moresoft.cn/bbs/portal.php">门户网站</a></li>
+            </ul>
+            <div class="tel"><img src="images/v2/tel.gif" alt="联系电话：400-887-4949" />400-887-4949</div>
+        </div>
+        <div class="bottom">
+            <div class="logo"><a title="<%= setting.Title_set%>" href="<%= setting.WebUrl_set%>"><img src="images/v2/logo.gif" alt="<%= setting.Title_set%>" /></a></div>
+            <div class="meun">
+            <ul>
+	            <li class="current"><em><a href="/">MES首页</a></em></li>
+	            <li><em><a href="http://www.moresoft.cn/bbs/portal.php">MES资讯</a></em></li>
+	            <li><em><a href="/bbs/">MES论坛</a></em></li>
+                <li><em><a href="http://www.moresoft.com.cn/main.aspx?pagetype=SYZP_CODE&logoimg=~/images/qiyezhaopin.swf&subimg=~/images/%C8%CB%B2%C5%D5%D0%C6%B8.jpg&dhName=%C6%F3%D2%B5%D5%D0%C6%B8">MES人才</a></em></li>
+                <li><em><a href="http://www.moresoft.cn/bbs/forum.php?mod=forumdisplay&fid=40">MES研究院</a></em></li>
+                <li><em><a href="push.html">我要发布需求</a></em></li>
+            </ul>
+            <form action="search.aspx" method="get" > 
+                <input type="text" name="keyword" class="keyword" size="38" />
+                <input type="submit" name="submit" class="search" value="搜 索" />
+            </form>
+            </div>
+            <div class="clear"></div>
+        </div>
     </div>
+    <div id="wrapper">
     <div class="columns">
         <div class="leftcolumn sidebar" id="sidebar-left">
             <div class="leftpadding">
@@ -68,7 +81,7 @@
                 </div>
 		        <div class="content">
                     <div id="topten">
-                    <h3>10个MES常见问题:</h3><ol><%var commonqi = new MC.Model.QueryInfo(); commonqi.Parameters.Add("TopType_inf", "comment"); commonqi.Parameters.Add("top", "top 10"); commonqi.Orderby.Add("CreateTime_inf", "desc");
+                    <h3>10个MES常见问题:</h3><ol><%var commonqi = new MC.Model.QueryInfo(); commonqi.Parameters.Add("TopType_inf", "common"); commonqi.Parameters.Add("top", "top 10"); commonqi.Orderby.Add("CreateTime_inf", "desc");
                                               infos = MC.BLL.Info_infBLL.GetList(commonqi); foreach (var item in infos) { %>
 	                    <li><%= item.Hits_inf%> 次阅读: <br /><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a></li><%} %>
                     </ol>
@@ -99,7 +112,6 @@
         <a href="http://www.miibeian.gov.cn/">粤ICP备08003897号</a> </p>
     </div>
     </div>
-</div>
 </body>
 </html>
 
