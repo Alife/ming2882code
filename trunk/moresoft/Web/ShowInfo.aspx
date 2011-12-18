@@ -16,10 +16,6 @@
     <link rel="alternate" title="TopTen RSS Feed" type="application/rss+xml" href="feed/topten/rss.aspx" />
     <link rel="alternate" title="Latest FAQ Records RSS Feed" type="application/rss+xml" href="feed/latest/rss.aspx" />
     <link rel="alternate" title="Open Questions RSS Feed" type="application/rss+xml" href="feed/openquestions/rss.aspx" />
-    <!--[if lt IE 7]>
-	<script type="text/javascript" src="js/ie_png.js"></script>  
-	<script type="text/javascript">ie_png.fix('#header h1 a,#header form input.keyword,#header form input.search,');</script>	
-	<![endif]-->
 </head>
 <body>
     <div id="header">
@@ -28,10 +24,10 @@
                 <a title="<%= setting.Title_set%>" href="<%= setting.WebUrl_set%>"><img src="images/v2/logo_a.gif" alt="<%= setting.Title_set%>" /></a></h1>
             <ul>
 	            <li><a href="/">摩尔社区</a></li>
-	            <li><a href="/bbs/">摩尔论坛</a></li>
-	            <li><a href="http://www.weibo.com/moresoft">新浪微博</a></li>
-                <li><a href="http://t.qq.com/moresoft">腾讯微博</a></li>
-	            <li><a href="http://www.moresoft.cn/bbs/portal.php">门户网站</a></li>
+	            <li><a href="bbs/forum.php" target="_blank">摩尔论坛</a></li>
+	            <li><a href="http://www.weibo.com/moresoft" target="_blank">新浪微博</a></li>
+                <li><a href="http://t.qq.com/moresoft" target="_blank">腾讯微博</a></li>
+	            <li><a href="http://www.moresoft.cn/bbs/portal.php" target="_blank">门户网站</a></li>
             </ul>
             <div class="tel"><img src="images/v2/tel.gif" alt="联系电话：400-887-4949" />400-887-4949</div>
         </div>
@@ -40,10 +36,10 @@
             <div class="meun">
             <ul>
 	            <li class="current"><em><a href="/">MES首页</a></em></li>
-	            <li><em><a href="http://www.moresoft.cn/bbs/portal.php">MES资讯</a></em></li>
-	            <li><em><a href="/bbs/">MES论坛</a></em></li>
-                <li><em><a href="http://www.moresoft.com.cn/main.aspx?pagetype=SYZP_CODE&logoimg=~/images/qiyezhaopin.swf&subimg=~/images/%C8%CB%B2%C5%D5%D0%C6%B8.jpg&dhName=%C6%F3%D2%B5%D5%D0%C6%B8">MES人才</a></em></li>
-                <li><em><a href="http://www.moresoft.cn/bbs/forum.php?mod=forumdisplay&fid=40">MES研究院</a></em></li>
+	            <li><em><a href="bbs/portal.php" target="_blank">MES资讯</a></em></li>
+	            <li><em><a href="bbs/forum.php" target="_blank">MES论坛</a></em></li>
+                <li><em><a href="http://www.moresoft.com.cn/main.aspx?pagetype=SYZP_CODE&logoimg=~/images/qiyezhaopin.swf&subimg=~/images/%C8%CB%B2%C5%D5%D0%C6%B8.jpg&dhName=%C6%F3%D2%B5%D5%D0%C6%B8" target="_blank">MES人才</a></em></li>
+                <li><em><a href="bbs/forum.php?mod=forumdisplay&fid=40" target="_blank">MES研究院</a></em></li>
                 <li><em><a href="push.html">我要发布需求</a></em></li>
             </ul>
             <form action="search.aspx" method="get" > 
@@ -112,7 +108,7 @@
         <a href="help.html">人文关怀</a>
         <a href="http://www.moresoft.com.cn/">摩尔软件</a>
         <a href="bbs/">MES论坛</a>
-        <a href="http://www.miibeian.gov.cn/">粤ICP备08003897号</a> </p>
+        <a href="http://www.miibeian.gov.cn/"><%= setting.ICP_set%></a> </p>
     </div>
     </div>
 </body>
