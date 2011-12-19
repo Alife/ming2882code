@@ -55,6 +55,10 @@
           </isNotNull>
         </isNotNull>
       </dynamic>
+      <dynamic>
+        <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
+        <isNull property="sort">order by Sort_key</isNull>
+      </dynamic>
     </select>
     <select id="MC.Model.Keywords_key.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
       Select ID_key,Name_key,Url_key,Num_key,Sort_key FROM Keywords_key
