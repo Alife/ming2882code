@@ -20,7 +20,7 @@ public class FileManager : IHttpHandler
 {
 	public void ProcessRequest(HttpContext context)
 	{
-		String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
+        String aspxUrl = "";//context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
 
 		//根目录路径，相对路径
         String rootPath = "/images/upload/";
