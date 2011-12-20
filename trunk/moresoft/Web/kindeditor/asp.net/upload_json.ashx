@@ -21,7 +21,7 @@ public class Upload : IHttpHandler
 
 	public void ProcessRequest(HttpContext context)
 	{
-		String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
+        String aspxUrl = "";// context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
 		
 		//文件保存目录路径
         String savePath = "/images/upload/";
