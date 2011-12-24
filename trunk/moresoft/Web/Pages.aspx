@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Pages.aspx.cs" Inherits="Web.Pages" %>
+<%@ Register src="Right.ascx" tagname="Right" tagprefix="uc1" %>
 <%MC.Model.Page_pag page = MC.BLL.Page_pagBLL.GetItem(Web.ReqHelper.Get<string>("id")); %>
 <%MC.Model.Setting_set setting = (MC.Model.Setting_set)Application["setting"]; %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -65,25 +66,7 @@
             </div>
         </div>
         <div class="rightcolumn sidebar" id="sidebar-right">
-            <div class="rightpadding">
-		        <div class="content">
-		            <div id="latest">
-		            <h3>18个MES新问题:&nbsp;<a href="feed/latest/rss.aspx" target="_blank"><img src="images/rss.png" width="28" height="16" alt="MES RSS" /></a></h3>
-		            <ol><%var newqi = new MC.Model.QueryInfo(); newqi.Parameters.Add("TopType_inf", "news"); newqi.Parameters.Add("top", "top 18"); newqi.Orderby.Add("CreateTime_inf", "desc");
-		                    var infos = MC.BLL.Info_infBLL.GetList(newqi);foreach(var item in infos){ %>
-		                <li><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a></li><%} %>
-		            </ol>
-                    </div>
-                </div>
-		        <div class="content">
-                    <div id="topten">
-                    <h3>10个MES常见问题:</h3><ol><%var commonqi = new MC.Model.QueryInfo(); commonqi.Parameters.Add("TopType_inf", "common"); commonqi.Parameters.Add("top", "top 10"); commonqi.Orderby.Add("CreateTime_inf", "desc");
-                                              infos = MC.BLL.Info_infBLL.GetList(commonqi); foreach (var item in infos) { %>
-	                    <li><%= item.Hits_inf%> 次阅读: <br /><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a></li><%} %>
-                    </ol>
-                    </div>
-                </div>
-            </div>
+            <uc1:Right ID="Right1" runat="server" />
         </div>
         <div class="centercolumn">
             <div class="centerpadding">

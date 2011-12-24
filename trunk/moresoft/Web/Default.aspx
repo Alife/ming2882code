@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Web._Default" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register src="Right.ascx" tagname="Right" tagprefix="uc1" %>
 <%MC.Model.Setting_set setting = (MC.Model.Setting_set)Application["setting"]; %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <title><%= setting.WebName_set%></title>
@@ -40,10 +41,8 @@
                 <li><em><a href="bbs/forum.php?mod=forumdisplay&fid=40" target="_blank">MES研究院</a></em></li>
                 <li><em><a href="push.html">我要发布需求</a></em></li>
             </ul>
-            <form action="search.aspx" method="get" > 
                 <input type="text" name="keyword" class="keyword" size="38" />
                 <input type="submit" name="submit" class="search" value="搜 索" />
-            </form>
             </div>
             <div class="clear"></div>
         </div>
@@ -63,25 +62,7 @@
             </div>
         </div>
         <div class="rightcolumn sidebar" id="sidebar-right">
-            <div class="rightpadding">
-		        <div class="content">
-		            <div id="latest">
-		            <h3>18个MES新问题:&nbsp;<a href="feed/latest/rss.aspx" target="_blank"><img src="images/rss.png" width="28" height="16" alt="MES RSS" /></a></h3>
-		            <ol><%var newqi = new MC.Model.QueryInfo(); newqi.Parameters.Add("TopType_inf", "news"); newqi.Parameters.Add("top", "top 18"); newqi.Orderby.Add("CreateTime_inf", "desc");
-		                    var infos = MC.BLL.Info_infBLL.GetList(newqi);foreach(var item in infos){ %>
-		                <li><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a></li><%} %>
-		            </ol>
-                    </div>
-                </div>
-		        <div class="content">
-                    <div id="topten">
-                    <h3>10个MES常见问题:</h3><ol><%var commonqi = new MC.Model.QueryInfo(); commonqi.Parameters.Add("TopType_inf", "common"); commonqi.Parameters.Add("top", "top 10"); commonqi.Orderby.Add("CreateTime_inf", "desc");
-                                              infos = MC.BLL.Info_infBLL.GetList(commonqi); foreach (var item in infos) { %>
-	                    <li><%= item.Hits_inf%> 次阅读: <br /><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a></li><%} %>
-                    </ol>
-                    </div>
-                </div>
-            </div>
+            <uc1:Right ID="Right1" runat="server" />
         </div>
         <div class="centercolumn">
             <div class="centerpadding">
@@ -90,8 +71,8 @@
                     <%= MC.BLL.Page_pagBLL.GetItem("indexinfo").Content_pag%>
                     <%var indexTags = MC.BLL.IndexTag_itgBLL.GetList(new MC.Model.QueryInfo());foreach(var tag in indexTags){ %>
                     <p><strong><%= tag.Name_itg%></strong></p>
-                    <ul><%var listqi = new MC.Model.QueryInfo();listqi.Parameters.Add("IndexTagID_inf", tag.ID_itg); listqi.Parameters.Add("top", "top 10"); listqi.Orderby.Add("CreateTime_inf", "desc");
-                                              infos = MC.BLL.Info_infBLL.GetList(listqi); foreach (var item in infos) {%>
+                    <ul><%var listqi = new MC.Model.QueryInfo();listqi.Parameters.Add("IndexTagID_inf", tag.ID_itg); listqi.Parameters.Add("top", "10"); listqi.Orderby.Add("CreateTime_inf", "desc");
+                                            var infos = MC.BLL.Info_infBLL.GetList(listqi); foreach (var item in infos) {%>
                     <li><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a></li><%} %>
                     </ul>
                     <p /><p /><%} %>

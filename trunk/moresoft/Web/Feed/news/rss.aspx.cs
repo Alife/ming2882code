@@ -23,7 +23,7 @@ namespace Web.Feed.news
             channel.Generator = "";
 
             var qi = new MC.Model.QueryInfo();
-            qi.Parameters.Add("top", "top 18");
+            qi.Parameters.Add("top", "18");
             qi.Orderby.Add("CreateTime_inf", "desc");
             var infos = MC.BLL.Info_infBLL.GetList(qi);
             foreach (var item in infos)

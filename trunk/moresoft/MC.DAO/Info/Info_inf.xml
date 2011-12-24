@@ -77,7 +77,7 @@
       </dynamic>
     </select>
     <select id="MC.Model.Info_inf.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf FROM Info_inf
+      Select <isNotNull prepend="top" property="top">$top$</isNotNull> ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf FROM Info_inf
      <include refid="MC.Model.Info_inf.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">

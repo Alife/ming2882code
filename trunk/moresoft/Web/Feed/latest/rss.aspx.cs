@@ -24,7 +24,7 @@ namespace Web.Feed.latest
 
             var qi = new MC.Model.QueryInfo();
             qi.Parameters.Add("TopType_inf", "news");
-            qi.Parameters.Add("top", "top 18");
+            qi.Parameters.Add("top", "18");
             qi.Orderby.Add("CreateTime_inf", "desc");
             var infos = MC.BLL.Info_infBLL.GetList(qi);
             foreach (var item in infos)
