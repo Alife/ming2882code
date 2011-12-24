@@ -17,14 +17,14 @@ namespace Web.Feed.topten
             Channel channel = new Channel();
             List<Item> items = new List<Item>();
             channel.Copyright = "摩尔社区";
-            channel.Description = "10个推荐MES信息";
+            channel.Description = "18个常见问题";
             channel.Link = "http://www.moresoft.cn";
-            channel.RssTitle = "摩尔社区-国内最专业的MES服务商 - 10个推荐MES信息:";
+            channel.RssTitle = "摩尔社区-国内最专业的MES服务商 - 18个常见问题:";
             channel.Generator = "";
 
             var qi = new MC.Model.QueryInfo();
             qi.Parameters.Add("TopType_inf", "commen");
-            qi.Parameters.Add("top", "top 18");
+            qi.Parameters.Add("top", "18");
             qi.Orderby.Add("CreateTime_inf", "desc");
             var infos = MC.BLL.Info_infBLL.GetList(qi);
             foreach (var item in infos)

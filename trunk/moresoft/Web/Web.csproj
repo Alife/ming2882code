@@ -891,6 +891,13 @@
     <Compile Include="Push.aspx.designer.cs">
       <DependentUpon>Push.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Right.ascx.cs">
+      <DependentUpon>Right.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Right.ascx.designer.cs">
+      <DependentUpon>Right.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ShowInfo.aspx.cs">
       <DependentUpon>ShowInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1219,6 +1226,7 @@
     <Content Include="kindeditor\themes\simple\simple.css" />
     <Content Include="Pages.aspx" />
     <Content Include="Push.aspx" />
+    <Content Include="Right.ascx" />
     <Content Include="ShowInfo.aspx" />
     <Content Include="SysAdmin\Keywords.aspx" />
     <Content Include="SysAdmin\Page.aspx" />
