@@ -104,10 +104,8 @@
                 <td>
                     <select name="TopType_inf" class="easyui-combobox" multiple="true" panelheight="auto"
                         style="width: 200px;">
-                        <option value="news" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("news") ? " selected" : string.Empty%>>
-                            最新</option>
-                        <option value="common" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("common") ? " selected" : string.Empty%>>
-                            常见(浏览量排序)</option>
+                        <option value="news" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("news") ? " selected" : string.Empty%>>最新</option>
+                        <option value="common" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("common") ? " selected" : string.Empty%>>常见(浏览量排序)</option>
                     </select>
                     点击率：<input name="Hits_inf" type="number" class="easyui-numberbox frmText" style="width: 60px;"
                         value="<%= id > 0 ? item.Hits_inf : id %>" />
