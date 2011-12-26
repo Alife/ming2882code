@@ -41,8 +41,10 @@
                 <li><em><a href="bbs/forum.php?mod=forumdisplay&fid=40" target="_blank">MES研究院</a></em></li>
                 <li><em><a href="push.html">我要发布需求</a></em></li>
             </ul>
+            <form action="search.aspx" method="get"> 
                 <input type="text" name="keyword" class="keyword" size="38" />
                 <input type="submit" name="submit" class="search" value="搜 索" />
+            </form>
             </div>
             <div class="clear"></div>
         </div>
