@@ -72,7 +72,7 @@
             <div class="centerpadding">
                 <div class="main-content" id="main">
                     <h2>搜索:<%= keyword%></h2>
-	                <ul class="phpmyfaq_ul"><%var listqi = new MC.Model.QueryInfo(); listqi.Parameters.Add("Title_inf", keyword);listqi.Orderby.Add("CreateTime_inf", "desc");infos = MC.BLL.Info_infBLL.GetList(listqi); foreach (var item in infos) { %>
+	                <ul class="phpmyfaq_ul"><%var listqi = new MC.Model.QueryInfo(); listqi.Parameters.Add("Title_inf", keyword);listqi.Orderby.Add("CreateTime_inf", "desc");var infos = MC.BLL.Info_infBLL.GetList(listqi); foreach (var item in infos) { %>
 	                <li><a href="<%= item.InfoTypeID_inf%>_<%= item.ID_inf%>_zh.html" title="<%= item.Title_inf%>"><%= item.Title_inf%></a><br /><div class="little">(<%= item.Hits_inf%> 次阅读)</div></li><%} %>
 	                </ul>
                 </div>
