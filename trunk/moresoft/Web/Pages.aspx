@@ -24,11 +24,9 @@
             <h1>
                 <a title="<%= setting.Title_set%>" href="<%= setting.WebUrl_set%>"><img src="images/v2/logo_a.gif" alt="<%= setting.Title_set%>" /></a></h1>
             <ul>
-	            <li><a href="/">摩尔社区</a></li>
-	            <li><a href="bbs/forum.php" target="_blank">摩尔论坛</a></li>
 	            <li><a href="http://www.weibo.com/moresoft" target="_blank">新浪微博</a></li>
                 <li><a href="http://t.qq.com/moresoft" target="_blank">腾讯微博</a></li>
-	            <li><a href="http://www.moresoft.cn/bbs/portal.php" target="_blank">门户网站</a></li>
+	            <li><a href="http://www.moresoft.com.cn/" target="_blank">官方网站</a></li>
             </ul>
             <div class="tel"><img src="images/v2/tel.gif" alt="联系电话：400-887-4949" />400-887-4949</div>
         </div>
