@@ -96,15 +96,19 @@ namespace Web.Controllers
         public JsonResult getUserButtons(int sysMenuId)
         {
             ArrayList lst = new ArrayList();
-            lst.Add(new { nodeId = 1, menuName = "功能测试", actionPath = "" });
-            lst.Add(new { nodeId = 2, menuName = "wcf REST应用", actionPath = "" });
-            lst.Add(new { nodeId = 3, menuName = "功能测试2", actionPath = "" });
+            lst.Add(new { nodeId = 1, menuName = "报表应用", actionPath = "" });
+            lst.Add(new { nodeId = 2, menuName = "功能测试", actionPath = "" });
+            lst.Add(new { nodeId = 3, menuName = "wcf REST应用", actionPath = "" });
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
         public JsonResult getUserTree(int parantNodeId, string menuName)
         {
             ArrayList lst = new ArrayList();
             if (parantNodeId == 1)
+            {
+                lst.Add(new { id = 15, text = "下载报表", url = "/report/down", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+            }
+            else if (parantNodeId == 2)
             {
                 lst.Add(new { id = 1, text = "动态GRID", jsUrl = "/js/view/DynamicGrid.js;/js/view/fundyngird.js", iconCls = "chart_organisation", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.DynamicGrid", mainClass = "com.ms.basic.DynamicGrid" });
                 lst.Add(new { id = 2, text = "纯extjs-Grid", jsUrl = "/js/view/ResourcePanel.js", iconCls = "application_xp", leaf = true, path = 1, type = "jsclass", namespace1 = "com.ms.basic.ResourcePanel", mainClass = "com.ms.basic.ResourcePanel" });
@@ -116,7 +120,7 @@ namespace Web.Controllers
                 lst.Add(new { id = 8, text = "ContentType的推送,可怜只在FF有效", url = "/home/LongPolling", leaf = true, iconCls = "bell", path = 1, type = "iframe" });
                 lst.Add(new { id = 9, text = "Websocket", url = "/home/Websocket", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
             }
-            else if (parantNodeId == 2)
+            else if (parantNodeId == 3)
             {
                 lst.Add(new { id = 10, text = "WCF REST", url = "/home/wcfrest/abc", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
                 lst.Add(new { id = 11, text = "WCF REST read return xml", url = "/home/wcfread?name=haode&position=china", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
@@ -124,8 +128,6 @@ namespace Web.Controllers
                 lst.Add(new { id = 13, text = "UploadString add", url = "/home/wcfadd1/1", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
                 lst.Add(new { id = 14, text = "WebRequest add", url = "/home/wcfadd1/2", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
             }
-            else
-                return Json("", JsonRequestBehavior.AllowGet);
             return Json(lst, JsonRequestBehavior.AllowGet);
         }
         [CompressFilter]
