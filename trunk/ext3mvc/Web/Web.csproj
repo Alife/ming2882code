@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=5.3.1.0, Culture=neutral, PublicKeyToken=9ec0ff091d04b091, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Aspose.Cells.dll</HintPath>
+    </Reference>
     <Reference Include="Dimac.JMail, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Dimac.JMail.dll</HintPath>
@@ -79,8 +83,10 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\DALHelper.cs" />
     <Compile Include="Controllers\CometController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SysController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1772,6 +1778,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="ReportTemplate\Aspose.CellsTemplate1.xls" />
     <Content Include="ExtJs\ext-all-debug.js" />
     <Content Include="Js\jquery-1.4.4.min.js" />
     <Content Include="Js\login.js" />
@@ -1782,6 +1789,10 @@
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DBUtility\DBUtility.csproj">
+      <Project>{B55FC860-E0BC-493D-A3A9-89127B0CF7BB}</Project>
+      <Name>DBUtility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MC.BLL\MC.BLL.csproj">
       <Project>{8BCBDDCE-5FC4-4956-B27A-9B1F4894A65F}</Project>
       <Name>MC.BLL</Name>
@@ -1811,7 +1822,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Class\" />
     <Folder Include="ExtJs\resources\images\indigo\button\" />
     <Folder Include="ExtJs\resources\images\indigo\editor\" />
     <Folder Include="ExtJs\resources\images\indigo\form\" />
