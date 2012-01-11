@@ -107,6 +107,7 @@ namespace Web.Controllers
             if (parantNodeId == 1)
             {
                 lst.Add(new { id = 15, text = "下载报表", url = "/report/down", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
+                lst.Add(new { id = 16, text = "输出表格", url = "/report/writeTable", leaf = true, iconCls = "brick", path = 1, type = "iframe" });
             }
             else if (parantNodeId == 2)
             {

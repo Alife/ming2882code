@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
+using System.Text;
 using Aspose.Cells;
 
 namespace Web.Controllers
@@ -39,6 +41,12 @@ namespace Web.Controllers
             designer = null;
             Response.End();
             return View();
+        }
+        public ContentResult writeTable()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            return Content(sb.ToString());
         }
     }
 }
