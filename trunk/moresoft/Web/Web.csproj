@@ -954,6 +954,13 @@
     <Compile Include="SysAdmin\Info.aspx.designer.cs">
       <DependentUpon>Info.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysAdmin\Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysAdmin\Page.aspx.cs">
       <DependentUpon>Page.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1229,6 +1236,7 @@
     <Content Include="Right.ascx" />
     <Content Include="ShowInfo.aspx" />
     <Content Include="SysAdmin\Keywords.aspx" />
+    <Content Include="SysAdmin\Logout.aspx" />
     <Content Include="SysAdmin\Page.aspx" />
     <Content Include="SysAdmin\PageDetail.aspx" />
     <Content Include="SysAdmin\Setting.aspx" />
