@@ -41,7 +41,7 @@ namespace Web.SysAdmin
                             json = JsonConvert.SerializeObject(new { success = false, msg = "保存失败" }, Formatting.None);
                         break;
                 }
-                Response.ContentType = "application/json;charset=utf-8";
+                Response.ContentType = "text/plain;charset=utf-8";
                 Response.Write(json);
                 Response.End();
             }

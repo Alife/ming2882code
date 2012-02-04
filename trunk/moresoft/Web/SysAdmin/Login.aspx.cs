@@ -46,7 +46,7 @@ namespace Web.SysAdmin
                 }
                 else
                     json = JsonConvert.SerializeObject(new { success = false, msg = "用户名或者密码错误" }, Formatting.None);
-                Response.ContentType = "application/json;charset=utf-8";
+                Response.ContentType = "text/plain;charset=utf-8";
                 Response.Write(json);
                 Response.End();
             }

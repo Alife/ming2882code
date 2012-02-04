@@ -33,7 +33,7 @@
 </head>
 <body>
     <div id="loginWin" class="easyui-window" title="管理员登录" collapsible="false" minimizable="false"
-        maximizable="false" icon="icon icon-users" style="width: 300px; height: 190px; padding: 5px;
+        maximizable="false" icon="icon icon-users" style="width: 300px; height: 210px; padding: 5px;
         background: #fafafa;">
         <div class="easyui-layout" fit="true">
             <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
