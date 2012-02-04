@@ -33,7 +33,8 @@
 						}, { "menuid": "7", "icon": "icon-set", "menuname": "系统设置",
 						    "menus": [{ "menuid": "8", "menuname": "管理员管理", "icon": "icon-users", "url": "users.aspx", "urlType": "load" },
 									{ "menuid": "9", "menuname": "系统设置", "icon": "icon-set", "url": "setting.aspx?id=1", "urlType": "load" },
-									{ "menuid": "10", "menuname": "日志查看", "icon": "icon-log", "url": "log.aspx", "urlType": "load" }
+									{ "menuid": "10", "menuname": "友情连接", "icon": "icon-nav", "url": "link.aspx", "urlType": "load" },
+									{ "menuid": "11", "menuname": "日志查看", "icon": "icon-log", "url": "log.aspx", "urlType": "load" }
 								]
 						}
 				]
