@@ -26,14 +26,14 @@ namespace Web
                 userInfo = (MC.Model.mc_User)JsonConvert.DeserializeObject(authTicket.UserData, typeof(MC.Model.mc_User), jsonSs);
                 if (userInfo == null)
                 {
-                    Response.ContentType = "application/json;charset=utf-8";
+                    Response.ContentType = "text/plain;charset=utf-8";
                     HttpContext.Current.Response.Write(JsonConvert.SerializeObject(new { success = false, msg = "用户不存在" }, Formatting.None));
                     HttpContext.Current.Response.End();
                 }
             }
             catch
             {
-                Response.ContentType = "application/json;charset=utf-8";
+                Response.ContentType = "text/plain;charset=utf-8";
                 HttpContext.Current.Response.Write(JsonConvert.SerializeObject(new { success = false, msg = "没有权限" }, Formatting.None));
                 HttpContext.Current.Response.End();
             }
