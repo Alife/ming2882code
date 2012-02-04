@@ -83,6 +83,10 @@
     </div>
     <div class="clearing"></div>
     <div id="footer" class="footer">
+        <ul class="link"><%var linkqi = new MC.Model.QueryInfo(); linkqi.Parameters.Add("IsHide", true);linkqi.Parameters.Add("top", 20);linkqi.Orderby.Add("Sort_lnk","desc"); var links = MC.BLL.Link_lnkBLL.GetList(linkqi); foreach (var item in links)
+               { %><li><a href="link.aspx?url=<%= item.Url_lnk%>" target="_blank"><%= item.Name_lnk%></a></li>
+        <%} %></ul>
+        <div class="clear"></div>
         <p id="copyrightnote">
         <a href="about.html">关于我们</a>
         <a href="concact.html">联系我们</a>

@@ -126,6 +126,9 @@ input[type=submit] {color: Black;background: #EDF2F2;border-color: #ffffff;borde
 .highlight {background-color: #F8F8FF;font-weight: bold;border: 1px dotted #FF6347;}
 #footer {color: #666666;border-color: #666666;}
 #footer, #footer a, #footer a:visited {color: #666666;}
+#footer .link{text-align:left;}
+#footer .link li{list-style-type:none;float:left;padding-right:5px;}
+#footer .link a{color:#333;}
 
 fieldset{margin:1em 0;padding:1em;}
 fieldset dt{float:left;padding:8px 4px 4px 0px;width:120px;text-align:right;}
