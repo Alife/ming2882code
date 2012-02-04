@@ -996,6 +996,13 @@
     <Compile Include="SysAdmin\Require.aspx.designer.cs">
       <DependentUpon>Require.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysAdmin\Link.aspx.cs">
+      <DependentUpon>Link.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysAdmin\Link.aspx.designer.cs">
+      <DependentUpon>Link.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="database.config" />
@@ -1242,6 +1249,7 @@
     <Content Include="SysAdmin\Setting.aspx" />
     <Content Include="Search.aspx" />
     <Content Include="SysAdmin\Require.aspx" />
+    <Content Include="SysAdmin\Link.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
