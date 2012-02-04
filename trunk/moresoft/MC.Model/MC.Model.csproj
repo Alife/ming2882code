@@ -53,6 +53,7 @@
     <Compile Include="Info\Require_req.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryInfo.cs" />
+    <Compile Include="Set\Link_lnk.cs" />
     <Compile Include="Set\Page_pag.cs" />
     <Compile Include="Set\Setting_set.cs" />
     <Compile Include="Set\Keywords_key.cs" />
