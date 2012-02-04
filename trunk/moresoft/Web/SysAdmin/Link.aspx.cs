@@ -37,13 +37,14 @@ namespace Web.SysAdmin
                         json = JsonConvert.SerializeObject(lst, Formatting.None);
                         break;
                     case "form":
-                        Link_lnk ift = new Link_lnk();
-                        this.TryUpdateModel(ift);
-                        if (!ift.Sort_lnk.HasValue) ift.Sort_lnk = 99;
+                        Link_lnk lnk = new Link_lnk();
+                        this.TryUpdateModel(lnk);
+                        if (!lnk.Sort_lnk.HasValue) lnk.Sort_lnk = 99;
+                        lnk.IsHide_lnk = lnk.IsHide_lnk ?? false;
                         if (ReqHelper.Get<string>("action") == "add")
-                            v = Link_lnkBLL.Insert(ift);
+                            v = Link_lnkBLL.Insert(lnk);
                         else
-                            v = Link_lnkBLL.Update(ift);
+                            v = Link_lnkBLL.Update(lnk);
                         if (v > 0)
                             json = JsonConvert.SerializeObject(new { success = true, msg = "保存成功" }, Formatting.None);
                         else

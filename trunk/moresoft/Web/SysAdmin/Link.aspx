@@ -141,7 +141,7 @@
                     是否隐藏：
                 </td>
                 <td>
-                    <input name="IsHide_lnk" type="checkbox" class="easyui-validatebox frmText" />
+                    <input name="IsHide_lnk" type="checkbox" class="easyui-validatebox frmText" value="true" />
                 </td>
             </tr>
             <tr>
