@@ -2,7 +2,8 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
+    <% int id = Web.ReqHelper.Get<int>("id"); var item = MC.BLL.Info_infBLL.GetItem(id);%>
     <title></title>
     <link rel="stylesheet" type="text/css" href="../js/themes/default/easyui.css" />
     <link rel="stylesheet" type="text/css" href="../js/themes/default/css/default.css" />
@@ -52,10 +53,13 @@
                         url: 'InfoDetail.aspx?type=form&action=' + (id == 0 ? 'add' : 'edit'),
                         success: function(data) {
                             data = eval("(" + data + ")");
-                            if (data.success)
-                                $.messager.confirm('系统提示', data.msg + ',是否关闭当前表单', "info", function(data) {
-                                    if (data) { $('#tabs').tabs('close', subtitle); }
-                                });
+                            if (data.success) {
+                                $.messager.confirm('系统提示', data.msg + ',是否关闭当前表单', function(isOK) {
+                                    if (isOK) {
+                                        //$('#tabs', window.parent.document).tabs('close', '<%= id > 0 ? "编辑文章-"+item.Title_inf : "新增文章" %>');
+                                    }
+                                }); 
+                            }
                             else
                                 $.messager.alert('系统提示', data.msg, "info");
                         }
@@ -73,7 +77,6 @@
     <div id="Info_Dialog" region="center" border="false" class="easyui-panel" icon="icon icon-nav"
         fit="true" style="background: #fff;" title="文章管理">
         <form id="Info_Form" name="Info_Form" method="post" action="">
-        <% int id = Web.ReqHelper.Get<int>("id"); var item = MC.BLL.Info_infBLL.GetItem(id);%>
         <table cellpadding="3">
             <tr>
                 <td align="right" width="100">
@@ -104,8 +107,10 @@
                 <td>
                     <select name="TopType_inf" class="easyui-combobox" multiple="true" panelheight="auto"
                         style="width: 200px;">
-                        <option value="news" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("news") ? " selected" : string.Empty%>>最新</option>
-                        <option value="common" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("common") ? " selected" : string.Empty%>>常见(浏览量排序)</option>
+                        <option value="news" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("news") ? " selected" : string.Empty%>>
+                            最新</option>
+                        <option value="common" <%= id > 0 && !string.IsNullOrEmpty(item.TopType_inf) && item.TopType_inf.Contains("common") ? " selected" : string.Empty%>>
+                            常见(浏览量排序)</option>
                     </select>
                     点击率：<input name="Hits_inf" type="number" class="easyui-numberbox frmText" style="width: 60px;"
                         value="<%= id > 0 ? item.Hits_inf : id %>" />
