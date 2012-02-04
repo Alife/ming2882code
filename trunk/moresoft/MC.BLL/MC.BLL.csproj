@@ -49,6 +49,7 @@
     <Compile Include="Info\InfoType_iftBLL.cs" />
     <Compile Include="Info\Info_infBLL.cs" />
     <Compile Include="Info\Require_reqBLL.cs" />
+    <Compile Include="Set\Link_lnkBLL.cs" />
     <Compile Include="Set\Page_pagBLL.cs" />
     <Compile Include="Set\Setting_setBLL.cs" />
     <Compile Include="Set\Keywords_keyBLL.cs" />
