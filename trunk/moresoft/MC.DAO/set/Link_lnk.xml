@@ -42,7 +42,7 @@
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
-        <isNull property="sort">order by ID_lnk desc</isNull>
+        <isNull property="sort">order by Sort_lnk desc</isNull>
       </dynamic>) as rowNum
       FROM Link_lnk
       <include refid="MC.Model.Link_lnk.sqlwhere"/>
