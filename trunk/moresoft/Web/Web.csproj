@@ -876,6 +876,13 @@
     <Compile Include="InfoType.aspx.designer.cs">
       <DependentUpon>InfoType.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Link.aspx.cs">
+      <DependentUpon>Link.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Link.aspx.designer.cs">
+      <DependentUpon>Link.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages.aspx.cs">
       <DependentUpon>Pages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1238,6 +1245,7 @@
     <Content Include="kindeditor\themes\default\default.css" />
     <Content Include="kindeditor\themes\default\default.png" />
     <Content Include="kindeditor\themes\simple\simple.css" />
+    <Content Include="Link.aspx" />
     <Content Include="Pages.aspx" />
     <Content Include="Push.aspx" />
     <Content Include="Right.ascx" />
