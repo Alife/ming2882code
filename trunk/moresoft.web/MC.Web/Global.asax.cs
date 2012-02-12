@@ -44,6 +44,11 @@ namespace MC.Web
                 return;
             }
             string langFromBrowser = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+            if (string.Compare(langFromBrowser, "zh-HK", true) == 0 || string.Compare(langFromBrowser, "zh-MO", true) == 0
+                || string.Compare(langFromBrowser, "zh-SG", true) == 0 || string.Compare(langFromBrowser, "zh-TW", true) == 0)
+                langFromBrowser = "zh-Hant";
+            else if (string.Compare(langFromBrowser, "zh-Hans", true) == 0)
+                langFromBrowser = "zh-CN";
             if (Response.ContentType == "text/html" || Response.ContentType == "application/json")
                 Response.Filter = new LocalizationHandler(Response.Filter, langFromBrowser);
         }
