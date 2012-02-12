@@ -11,10 +11,16 @@ using MC.IBLL;
 
 namespace MC.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            ViewBag.MetaTitle = ViewBag.Setting.Title_set;
+            ViewBag.MetaKeywords = ViewBag.Setting.Keywords_set;
+            ViewBag.MetaAuthor = ViewBag.Setting.Author_set;
+            base.OnActionExecuted(filterContext);
+        }
         private readonly Imc_User _mc_UserService;
-
         public AccountController(Imc_User mc_UserService)
         {
             _mc_UserService = mc_UserService;
@@ -23,7 +29,6 @@ namespace MC.Web.Controllers
         {
             return View();
         }
-
         /// <summary>
         /// 用户登录
         /// </summary>
@@ -75,7 +80,6 @@ namespace MC.Web.Controllers
         {
             return View();
         }
-
         /// <summary>
         /// 注册事件
         /// </summary>

@@ -16,16 +16,16 @@
         <h1>
             <a title="@ViewBag.Setting.Title_set" href="@ViewBag.Setting.WebUrl_set"><img src="@Url.Content("~/content/images/logo.jpg")" alt="@ViewBag.Setting.Title_set" /></a></h1>
         @Html.Partial("_LogOnPartial")
-        <div class="tel"><img src="@Url.Content("~/content/images/tel.gif")" alt="联系电话：400-887-4949" />400-887-4949</div>
+        <div class="tel"><img src="@Url.Content("~/content/images/tel.gif")" alt="<=Tel>：400-887-4949" />400-887-4949</div>
     </div>
     <div class="menu">
         <ul>
-            <li class="current"><a href="">首页</a></li>
-            <li><a href="company">公司简介</a></li>
-            <li><a href="news">公司新闻</a></li>
-            <li><a href="job">企业招聘</a></li>
-            <li><a href="http://www.moresoft.cn">摩尔社区</a></li>
-            <li><a href="server.html">服务支持</a></li>
+            <li class="current"><a href="@Url.Content("~/")"><=Home></a></li>
+            <li><a href="@Url.Content("~/")company.html"><=Company></a></li>
+            <li><a href="@Url.Content("~/")news"><=News></a></li>
+            <li><a href="@Url.Content("~/")job"><=Job></a></li>
+            <li><a href="http://www.moresoft.cn"><=Forum></a></li>
+            <li><a href="@Url.Content("~/")service.html"><=Service></a></li>
         </ul>
     </div>
     <div id="wrapper">
@@ -34,23 +34,23 @@
     <div id="footer">
         @if (ViewBag.Link!=null){
         <ul class="link">@foreach (var item in ViewBag.Link)
-               { <li><a href="link.aspx?url=@item.Url_lnk" target="_blank">@item.Name_lnk</a></li>
+               { <li><a href="@Url.Content("~/")link.aspx?url=@item.Url_lnk" target="_blank">@item.Name_lnk</a></li>
         }</ul>}
         <div class="clear"></div>
         <p>
-            <a href="product">产品</a> | 
-            <a href="concact.html">行业</a> | 
-            <a href="server.html">服务和支持</a> | 
-            <a href="help.html">合作伙伴</a> | 
-            <a href="help.html">成功案例</a> | 
-            <a href="help.html">新闻和事件</a> | 
-            <a href="help.html">公司</a> | 
-            <a href="concact.html">联系我们</a> | 
-            <a href="help.html">网站地图</a> | 
-            <a href="">资源</a>
+            <a href="@Url.Content("~/")product"><=Product></a> | 
+            <a href="@Url.Content("~/")industry.html"><=Industry></a> | 
+            <a href="@Url.Content("~/")service.html"><=Service1></a> | 
+            <a href="@Url.Content("~/")partners.html"><=Partners></a> | 
+            <a href="@Url.Content("~/")case.html"><=Case></a> | 
+            <a href="@Url.Content("~/")news"><=News1></a> | 
+            <a href="@Url.Content("~/")company.html"><=Company></a> | 
+            <a href="@Url.Content("~/")concact.html"><=Concact></a> | 
+            <a href="@Url.Content("~/")sitemap.html"><=SiteMap></a> | 
+            <a href="@Url.Content("~/")download.html"><=Download></a>
         </p>
-        <p>＠2009-2011 福建摩尔软件有限公司版权所有 <a href="http://www.miibeian.gov.cn/">@ViewBag.Setting.ICP_set</a></p>
-        <p>A + 福建省福州市软件大道89号软件园C区30幢5层   P + 350003</p>
+        <p><=CopyRight> <a href="http://www.miibeian.gov.cn/">@ViewBag.Setting.ICP_set</a></p>
+        <p><=CompanyAddress></p>
     </div>
 </div>
 </body>

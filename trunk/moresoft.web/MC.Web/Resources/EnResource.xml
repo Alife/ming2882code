@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Localization>
-  <Module name="主页">
-    <item name="Home">Home</item>
-    <item name="About">About</item>
-    <item name="Register">Register</item>
+  <Module name="Common">
     <item name="LogOn">Log On</item>
+    <item name="Register">Register</item>
+    <item name="LogOff">Log Off</item>
     <item name="SaveError">Some error occured,please contact the administrator</item>
     <item name="SaveSuccess">Save Success!</item>
     <item name="DeleteSuccess">Delete Success!</item>
     <item name="DeleteFail">Delete Fail!</item>
     <item name="Active">Active</item>
+    <item name="Invalid">Invalid</item>
     <item name="Yes">Yes</item>
     <item name="No">No</item>
     <item name="Search">Search</item>
@@ -17,5 +17,28 @@
     <item name="Delete">Delete</item>
     <item name="New">New</item>
     <item name="Clear">Clear</item>
+  </Module>
+  <Module name="Layout">
+    <item name="Home">Home</item>
+    <item name="Tel">Tel</item>
+    <item name="Welcome">Welcome</item>
+    <item name="ChooesLang">Select language</item>
+    <item name="CopyRight">@2009-2011 Fujian Moore Software Co., Ltd. All rights reserved.</item>
+    <item name="CompanyAddress">A + 30, Road 89, Fuzhou, Fujian Software Software Zone C   P + 350003</item>
+    <item name="Feedback">Feedback</item>
+    <item name="Company">Company</item>
+    <item name="News">News</item>
+    <item name="News1">News and events</item>
+    <item name="Job">Recruitment</item>
+    <item name="Forum">Forum</item>
+    <item name="Service">Service</item>
+    <item name="Service1">Service support</item>
+    <item name="Product">Product</item>
+    <item name="Industry">Industry</item>
+    <item name="Concact">Concact</item>
+    <item name="SiteMap">SiteMap</item>
+    <item name="Download">Download</item>
+    <item name="Partners">Partners</item>
+    <item name="Case">Case</item>
   </Module>
 </Localization>

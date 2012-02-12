@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Localization>
-  <Module name="主页">
-    <item name="Home">主页</item>
-    <item name="About">关于</item>
+  <Module name="Common">
     <item name="LogOn">登录</item>
     <item name="Register">注册</item>
+    <item name="LogOff">注销</item>
     <item name="SaveError">保存出错，请联系联系管理员</item>
     <item name="SaveSuccess">保存成功</item>
     <item name="DeleteSuccess">删除成功</item>
     <item name="DeleteFail">删除失败</item>
     <item name="Active">有效</item>
+    <item name="Invalid">无效</item>
     <item name="Yes">是</item>
     <item name="No">否</item>
     <item name="Search">查询</item>
@@ -18,7 +18,27 @@
     <item name="New">新增</item>
     <item name="Clear">清空</item>    
    </Module>
-  <Module name="12">
-    <item name="Clear1">清空1</item>
+  <Module name="Layout">
+    <item name="Home">首页</item>
+    <item name="Tel">联系电话</item>
+    <item name="Welcome">欢迎</item>
+    <item name="ChooesLang">选择语言</item>
+    <item name="CopyRight">@2009-2011 福建摩尔软件有限公司版权所有</item>
+    <item name="CompanyAddress">A + 福建省福州市软件大道89号软件园C区30幢5层   P + 350003</item>
+    <item name="Feedback">产品反馈系统</item>
+    <item name="Company">公司简介</item>
+    <item name="News">公司新闻</item>
+    <item name="News1">新闻和事件</item>
+    <item name="Job">企业招聘</item>
+    <item name="Forum">摩尔社区</item>
+    <item name="Service">服务支持</item>
+    <item name="Service1">服务和支持</item>
+    <item name="Product">产品</item>
+    <item name="Industry">行业</item>
+    <item name="Concact">联系我们</item>
+    <item name="SiteMap">网站地图</item>
+    <item name="Download">资源</item>
+    <item name="Partners">合作伙伴</item>
+    <item name="Case">成功案例</item>
   </Module>
 </Localization>
