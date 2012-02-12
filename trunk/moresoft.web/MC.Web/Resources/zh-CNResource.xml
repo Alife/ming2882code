@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Localization>
+  <Module name="主页">
+    <item name="Home">主页</item>
+    <item name="About">关于</item>
+    <item name="LogOn">登录</item>
+    <item name="Register">注册</item>
+    <item name="SaveError">保存出错，请联系联系管理员</item>
+    <item name="SaveSuccess">保存成功</item>
+    <item name="DeleteSuccess">删除成功</item>
+    <item name="DeleteFail">删除失败</item>
+    <item name="Active">有效</item>
+    <item name="Yes">是</item>
+    <item name="No">否</item>
+    <item name="Search">查询</item>
+    <item name="Save">保存</item>
+    <item name="Delete">删除</item>
+    <item name="New">新增</item>
+    <item name="Clear">清空</item>    
+   </Module>
+  <Module name="12">
+    <item name="Clear1">清空1</item>
+  </Module>
+</Localization>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Localization>
+  <Module name="主页">
+    <item name="Home">Home</item>
+    <item name="About">About</item>
+    <item name="Register">Register</item>
+    <item name="LogOn">Log On</item>
+    <item name="SaveError">Some error occured,please contact the administrator</item>
+    <item name="SaveSuccess">Save Success!</item>
+    <item name="DeleteSuccess">Delete Success!</item>
+    <item name="DeleteFail">Delete Fail!</item>
+    <item name="Active">Active</item>
+    <item name="Yes">Yes</item>
+    <item name="No">No</item>
+    <item name="Search">Search</item>
+    <item name="Save">Save</item>
+    <item name="Delete">Delete</item>
+    <item name="New">New</item>
+    <item name="Clear">Clear</item>
+  </Module>
+</Localization>
