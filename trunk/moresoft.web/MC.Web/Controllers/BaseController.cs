@@ -19,17 +19,8 @@ namespace MC.Web.Controllers
         protected readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         protected override void OnException(ExceptionContext filterContext)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(filterContext.Exception.Message
-                + (filterContext.Exception.InnerException != null ? filterContext.Exception.InnerException.Message : ""));
-            sb.AppendLine("1.错误：" + filterContext.Exception.HelpLink);
-            sb.AppendLine("2.错误：" + filterContext.Exception.Source);
-            sb.AppendLine("3.错误：" + filterContext.Exception.StackTrace);
-            sb.AppendLine("4.错误：" + filterContext.Exception.TargetSite);
-            string user = System.Web.HttpContext.Current.User.Identity.Name;
-            if (string.IsNullOrEmpty(user)) user = "游客";
-            sb.Append("\r\n" + user + "----------------");
-            _logger.Error(sb.ToString());
+            _logger.Error(string.Format("\r\n Unhandled exception: {0}.\r\n Stack trace: {1}\r\n{2}----------------"
+                , filterContext.Exception.Message, filterContext.Exception.StackTrace, User.Identity.Name));
             base.OnException(filterContext);
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

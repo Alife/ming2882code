@@ -21,7 +21,23 @@ namespace MC.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            /* 
+              <appSettings>
+                <add key="csses" value="/extjs/resources/css/ext-all.css,/extjs/resources/css/ext-all-notheme.css,/css/icon.css"/>
+                <add key="jses" value="/extjs/adapter/ext/ext-base-min.js,/extjs/ext-all-min.js,/extjs/src/locale/ext-lang-zh_CN.js,/extjs/ux/RowExpander.js,&#xD;&#xA;      /js/util/mc.util.js,/js/TabCloseMenu.js,/js/CookieTheme.js,/js/MenuTreePanel.js,/js/login.js,/js/app.js"/>
+                <add key="blue" value="/ExtJS/resources/css/xtheme-blue.css"/>
+                <add key="gray" value="/ExtJS/resources/css/xtheme-gray.css"/>
+                <add key="indigo" value="/ExtJS/resources/css/xtheme-indigo.css"/>
+                <add key="pink" value="/ExtJS/resources/css/xtheme-pink.css"/>
+                <add key="tp" value="/ExtJS/resources/css/xtheme-tp.css"/>
+              </appSettings>
+              <link rel="stylesheet" type="text/css" href="/compress/cachecontent/csses/css?version=1.0"/>
+		      <script type="text/javascript" src="/compress/cachecontent/jses/javascript?version=1.0"></script>
+            */
+            routes.Add(new Route("compress/{action}/{key}/{type}", new MvcRouteHandler())
+            {
+                Defaults = new RouteValueDictionary(new { controller = "Compress", action = "CacheContent", key = "", type = "" }),
+            });
             routes.MapRoute(
                 "Pages", 
                 "{id}.html", 
