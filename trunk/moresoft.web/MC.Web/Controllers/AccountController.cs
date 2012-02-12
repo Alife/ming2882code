@@ -9,7 +9,7 @@ using Web.Models;
 using MC.Model;
 using MC.IBLL;
 
-namespace Web.Controllers
+namespace MC.Web.Controllers
 {
     public class AccountController : Controller
     {

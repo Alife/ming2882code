@@ -9,7 +9,7 @@ using Microsoft.Practices.Unity;
 using MC.Model;
 using MC.IBLL;
 
-namespace Web.Controllers
+namespace MC.Web.Controllers
 {
     [HandleError]
     public class BaseController : Controller

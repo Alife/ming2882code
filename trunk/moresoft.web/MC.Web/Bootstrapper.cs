@@ -5,7 +5,7 @@ using MC.DAO;
 using MC.Service;
 using MC.IBLL;
 
-namespace Web
+namespace MC.Web
 {
     public static class Bootstrapper
     {
