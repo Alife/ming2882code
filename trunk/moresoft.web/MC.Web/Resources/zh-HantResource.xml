@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Localization>
+  <Module name="主页">
+    <item name="Home">主頁</item>
+    <item name="About">關於</item>
+    <item name="Register">注册</item>
+    <item name="LogOn">登錄</item>
+    <item name="SaveError">保存出錯，請聯繫管理員</item>
+    <item name="SaveSuccess">保存成功</item>
+    <item name="DeleteSuccess">刪除成功</item>
+    <item name="DeleteFail">刪除失敗</item>
+    <item name="Active">有效</item>
+    <item name="Yes">是</item>
+    <item name="No">否</item>
+    <item name="Search">查詢</item>
+    <item name="Save">保存</item>
+    <item name="Delete">刪除</item>
+    <item name="New">新增</item>
+    <item name="Clear">清空</item>
+  </Module>
+</Localization>
