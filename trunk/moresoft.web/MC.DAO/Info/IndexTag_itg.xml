@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="IndexTag_itg" xmlns="http://ibatis.apache.org/mapping"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  >
+  <alias>
+    <typeAlias alias="IndexTag_itg" type="MC.Model.IndexTag_itg,MC.Model" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="IndexTag_itg" >
+      <result property="ID_itg" column="ID_itg" />
+      <result property="Name_itg" column="Name_itg" />
+      <result property="Sort_itg" column="Sort_itg" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <sql id="MC.Model.IndexTag_itg.sqlwhere">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID_itg">
+          ID_itg = #ID_itg#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Name_itg">
+          Name_itg = #Name_itg#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Sort_itg">
+          Sort_itg = #Sort_itg#
+        </isNotNull>
+      </dynamic>
+    </sql>
+    <select id="MC.Model.IndexTag_itg.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
+      Select count(1) FROM IndexTag_itg <include refid="MC.Model.IndexTag_itg.sqlwhere"/>
+    </select>
+    <select id="MC.Model.IndexTag_itg.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_itg,Name_itg,Sort_itg FROM(
+      Select ID_itg,Name_itg,Sort_itg
+      ,ROW_NUMBER() Over(
+      <dynamic>
+        <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
+        <isNull property="sort">order by ID_itg desc</isNull>
+      </dynamic>) as rowNum
+      FROM IndexTag_itg
+      <include refid="MC.Model.IndexTag_itg.sqlwhere"/>
+      ) as temptable
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="page">
+          rowNum BETWEEN (#page#-1)*#rows#+1
+          <isNotNull prepend="AND" property="rows">
+            #page#*#rows#
+          </isNotNull>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="MC.Model.IndexTag_itg.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_itg,Name_itg,Sort_itg FROM IndexTag_itg
+      <include refid="MC.Model.IndexTag_itg.sqlwhere"/>
+      <dynamic>
+        <isNotNull property="OrderBy">
+          $OrderBy$
+        </isNotNull>
+      </dynamic>
+    </select>
+    <insert id="MC.Model.IndexTag_itg.Insert" parameterClass="IndexTag_itg">
+      insert into IndexTag_itg(
+      Name_itg
+      ,Sort_itg
+      )values (
+      #Name_itg#
+      ,#Sort_itg#
+      )
+      <selectKey property="ID_itg" type="post" resultClass="int">
+        ${selectKey}
+      </selectKey>
+    </insert>
+    <update id="MC.Model.IndexTag_itg.Update" parameterClass="IndexTag_itg">
+      update IndexTag_itg set
+      Name_itg = #Name_itg#
+      ,Sort_itg = #Sort_itg#
+      WHERE
+      ID_itg = #ID_itg#
+    </update>
+    <delete id="MC.Model.IndexTag_itg.Delete" parameterClass="list">
+      delete
+      FROM IndexTag_itg
+      WHERE ID_itg IN
+      <iterate property="ids" open="(" close=")"  conjunction="," >
+        #ids[]#
+      </iterate>
+    </delete>
+  </statements>
+</sqlMap>
+

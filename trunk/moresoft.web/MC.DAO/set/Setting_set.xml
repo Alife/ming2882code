@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Setting_set" xmlns="http://ibatis.apache.org/mapping"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  >
+     <alias>
+         <typeAlias alias="Setting_set" type="MC.Model.Setting_set,MC.Model" />
+     </alias>
+
+<resultMaps>
+   <resultMap id="SelectResult" class="Setting_set" > 
+		<result property="ID_set" column="ID_set" /> 	
+		<result property="WebName_set" column="WebName_set" /> 	
+		<result property="WebUrl_set" column="WebUrl_set" /> 	
+		<result property="Title_set" column="Title_set" /> 	
+		<result property="Keywords_set" column="Keywords_set" /> 	
+		<result property="Author_set" column="Author_set" /> 	
+		<result property="ICP_set" column="ICP_set" /> 	
+   </resultMap> 
+  </resultMaps>
+  <statements>
+    <sql id="MC.Model.Setting_set.sqlwhere">	
+      <dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="ID_set">
+				ID_set = #ID_set#
+        	</isNotNull>
+			<isNotNull prepend="AND" property="WebName_set">
+				WebName_set = #WebName_set#
+        	</isNotNull>
+			<isNotNull prepend="AND" property="WebUrl_set">
+				WebUrl_set = #WebUrl_set#
+        	</isNotNull>
+			<isNotNull prepend="AND" property="Title_set">
+				Title_set = #Title_set#
+        	</isNotNull>
+			<isNotNull prepend="AND" property="Keywords_set">
+				Keywords_set = #Keywords_set#
+        	</isNotNull>
+			<isNotNull prepend="AND" property="Author_set">
+				Author_set = #Author_set#
+        	</isNotNull>
+			<isNotNull prepend="AND" property="ICP_set">
+				ICP_set = #ICP_set#
+        	</isNotNull>
+      </dynamic>
+	</sql>
+    <select id="MC.Model.Setting_set.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
+		Select count(1) FROM Setting_set <include refid="MC.Model.Setting_set.sqlwhere"/>
+    </select>
+    <select id="MC.Model.Setting_set.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_set,WebName_set,WebUrl_set,Title_set,Keywords_set,Author_set,ICP_set FROM(
+      Select ID_set,WebName_set,WebUrl_set,Title_set,Keywords_set,Author_set,ICP_set
+      ,ROW_NUMBER() Over(
+	  <dynamic>
+        <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
+        <isNull property="sort">order by ID_set desc</isNull>
+      </dynamic>) as rowNum
+      FROM Setting_set
+	  <include refid="MC.Model.Setting_set.sqlwhere"/>
+      ) as temptable
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="page">
+          rowNum BETWEEN (#page#-1)*#rows#+1
+          <isNotNull prepend="AND" property="rows">
+            #page#*#rows#
+          </isNotNull>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="MC.Model.Setting_set.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+		Select ID_set,WebName_set,WebUrl_set,Title_set,Keywords_set,Author_set,ICP_set FROM Setting_set 
+		<include refid="MC.Model.Setting_set.sqlwhere"/>
+		<dynamic>
+          <isNotNull property="OrderBy">
+          $OrderBy$
+          </isNotNull>
+		</dynamic>
+    </select>
+    <insert id="MC.Model.Setting_set.Insert" parameterClass="Setting_set">
+       insert into Setting_set(
+			WebName_set
+			,WebUrl_set
+			,Title_set
+			,Keywords_set
+			,Author_set
+			,ICP_set
+         )values (  
+			#WebName_set#
+			,#WebUrl_set#
+			,#Title_set#
+			,#Keywords_set#
+			,#Author_set#
+			,#ICP_set#
+        ) 
+      <selectKey property="ID_set" type="post" resultClass="int">
+        ${selectKey}
+      </selectKey>
+    </insert>
+    <update id="MC.Model.Setting_set.Update" parameterClass="Setting_set">
+       update Setting_set set 
+			WebName_set = #WebName_set#
+			,WebUrl_set = #WebUrl_set#
+			,Title_set = #Title_set#
+			,Keywords_set = #Keywords_set#
+			,Author_set = #Author_set#
+			,ICP_set = #ICP_set#
+       WHERE 
+			ID_set = #ID_set#
+    </update>
+    <delete id="MC.Model.Setting_set.Delete" parameterClass="list">
+      delete
+      FROM Setting_set
+      WHERE ID_set IN
+      <iterate property="ids" open="(" close=")"  conjunction="," >
+        #ids[]#
+      </iterate>
+    </delete>
+  </statements>
+</sqlMap>
+

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="InfoType_ift" xmlns="http://ibatis.apache.org/mapping"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  >
+  <alias>
+    <typeAlias alias="InfoType_ift" type="MC.Model.InfoType_ift,MC.Model" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="InfoType_ift" >
+      <result property="ID_ift" column="ID_ift" />
+      <result property="Name_ift" column="Name_ift" />
+      <result property="Code_ift" column="Code_ift" />
+      <result property="Url_ift" column="Url_ift" />
+      <result property="Sort_ift" column="Sort_ift" />
+      <result property="Parent_ift" column="Parent_ift" />
+      <result property="Path_ift" column="Path_ift" />
+      <result property="IsHide_ift" column="IsHide_ift" />
+      <result property="Keywords_ift" column="Keywords_ift" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <sql id="MC.Model.InfoType_ift.sqlwhere">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID_ift">
+          ID_ift = #ID_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Name_ift">
+          Name_ift = #Name_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Code_ift">
+          Code_ift = #Code_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Url_ift">
+          Url_ift = #Url_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Sort_ift">
+          Sort_ift = #Sort_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Parent_ift">
+          Parent_ift = #Parent_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Path_ift">
+          Path_ift = #Path_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="IsHide_ift">
+          IsHide_ift = #IsHide_ift#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Keywords_ift">
+          Keywords_ift = #Keywords_ift#
+        </isNotNull>
+      </dynamic>
+    </sql>
+    <select id="MC.Model.InfoType_ift.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
+      Select count(1) FROM InfoType_ift <include refid="MC.Model.InfoType_ift.sqlwhere"/>
+    </select>
+    <select id="MC.Model.InfoType_ift.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_ift,Name_ift,Code_ift,Url_ift,Sort_ift,Parent_ift,Path_ift,IsHide_ift,Keywords_ift FROM InfoType_ift
+      <include refid="MC.Model.InfoType_ift.sqlwhere"/>
+      <dynamic>
+        <isNotNull property="OrderBy">
+          $OrderBy$
+        </isNotNull>
+      </dynamic>
+    </select>
+    <insert id="MC.Model.InfoType_ift.Insert" parameterClass="InfoType_ift">
+      insert into InfoType_ift(
+      Name_ift
+      ,Code_ift
+      ,Url_ift
+      ,Sort_ift
+      ,Parent_ift
+      ,Path_ift
+      ,IsHide_ift
+      ,Keywords_ift
+      )values (
+      #Name_ift#
+      ,#Code_ift#
+      ,#Url_ift#
+      ,#Sort_ift#
+      ,#Parent_ift#
+      ,#Path_ift#
+      ,#IsHide_ift#
+      ,#Keywords_ift#
+      )
+      <selectKey property="ID_ift" type="post" resultClass="int">
+        ${selectKey}
+      </selectKey>
+    </insert>
+    <update id="MC.Model.InfoType_ift.Update" parameterClass="InfoType_ift">
+      update InfoType_ift set
+      Name_ift = #Name_ift#
+      ,Code_ift = #Code_ift#
+      ,Url_ift = #Url_ift#
+      ,Sort_ift = #Sort_ift#
+      ,Parent_ift = #Parent_ift#
+      ,Path_ift = #Path_ift#
+      ,IsHide_ift = #IsHide_ift#
+      ,Keywords_ift = #Keywords_ift#
+      WHERE
+      ID_ift = #ID_ift#
+    </update>
+    <delete id="MC.Model.InfoType_ift.Delete" parameterClass="int">
+      if not exists (select ID_ift from InfoType_ift where Parent_ift=#value#)
+      begin
+      delete FROM InfoType_ift WHERE ID_ift=#value#
+      end
+    </delete>
+  </statements>
+</sqlMap>
+
