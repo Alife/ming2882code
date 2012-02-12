@@ -22,6 +22,7 @@ namespace MC.Web.Controllers
             ViewBag.MetaAuthor = ViewBag.Setting.Author_set;
             base.OnActionExecuted(filterContext);
         }
+        [Unity.Mvc3.Filter.CompressFilter]
         public ActionResult Index()
         {
             var linkqi = new MC.Model.QueryInfo(); 
