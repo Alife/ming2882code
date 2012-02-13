@@ -73,18 +73,28 @@ namespace Unity.Mvc3
         {
             string sBuffer = System.Text.UTF8Encoding.UTF8.GetString(buffer, offset, count);
             //string pattern = @"(<|<)=(.*?)(>|>)";//正则替换类似页面格式为这样的字符串如：<=OtherContent>
-            string pattern = @"(\\u003c|&lt;|<)=(.*?)(>|&gt;|\\u003e)";
+            string pattern = @"(\\u003c|&amp;lt;|&lt;|<)=(.*?)(>|&gt;|&amp;gt;|\\u003e)";
             sBuffer = Regex.Replace(sBuffer, pattern, delegate(Match c)
             {
-                return ReadLocalizationResource().FirstOrDefault(d => d.Key == c.Groups[2].Value).Value;
+                return new LoadResources().ReadLocalizationResource(Lang).FirstOrDefault(d => d.Key == c.Groups[2].Value).Value;
             });
-            ReadLocalizationResource();
+            //ReadLocalizationResource();
             byte[] data = System.Text.UTF8Encoding.UTF8.GetBytes(sBuffer);
             responseStream.Write(data, 0, data.Length);
         }
-
+    }
+    public class LoadResources
+    {
         ObjectCache cache = MemoryCache.Default;
-        private Dictionary<string, string> ReadLocalizationResource()
+        public string GetString(string item)
+        {
+            string lang = "zh-CN";
+            HttpCookie langCookie = System.Web.HttpContext.Current.Request.Cookies["Lang"];
+            if (lang != null) lang = langCookie.Value;
+            Dictionary<string, string> cacheData = ReadLocalizationResource(lang);
+            return cacheData[item];
+        }
+        public Dictionary<string, string> ReadLocalizationResource(string lang)
         {
             string _XMLPath = string.Empty;
             Dictionary<string, string> cacheData = null;
@@ -92,14 +102,14 @@ namespace Unity.Mvc3
                 return cacheData;
             Dictionary<string, string> cachedData = new Dictionary<string, string>();
             string serverPath = System.Web.HttpContext.Current.Server.MapPath("~");
-            _XMLPath = Path.Combine(serverPath,  string.Format(@"Resources\{0}Resource.xml", Lang));
+            _XMLPath = Path.Combine(serverPath, string.Format(@"Resources\{0}Resource.xml", lang));
             if (!File.Exists(_XMLPath))
             {
-                Lang = "zh-CN";
+                lang = "zh-CN";
                 _XMLPath = Path.Combine(serverPath, string.Format(@"Resources\{0}Resource.xml", "zh-CN"));
             }
             //建立缓存（使用.net4.0最新缓存机制：System.Runtime.Caching;）
-            if (cache["myCache-" + Lang] == null)
+            if (cache["myCache-" + lang] == null)
             {
                 CacheItemPolicy policy = new CacheItemPolicy();
                 policy.SlidingExpiration = TimeSpan.FromMinutes(60);
@@ -112,10 +122,17 @@ namespace Unity.Mvc3
                     string value = item.Value;
                     cachedData.Add(key, value);
                 }
-                cache.Set("myCache-" + Lang, cachedData, policy);
+                cache.Set("myCache-" + lang, cachedData, policy);
                 return cachedData;
             }
-            return (Dictionary<string, string>)cache["myCache-" + Lang];
+            return (Dictionary<string, string>)cache["myCache-" + lang];
+        }
+    }
+    public class Resources
+    {
+        public static string GetString(string item)
+        {
+            return new LoadResources().GetString(item);
         }
     }
 }

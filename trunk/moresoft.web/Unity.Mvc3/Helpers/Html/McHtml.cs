@@ -85,3 +85,54 @@ namespace Unity.Mvc3.Helpers.Html
         }
     }
 }
+namespace System.Web.Mvc.Html
+{
+    /// <summary>
+    /// Format 
+    /// </summary>
+    public static class FormatExtensions
+    {
+        public static MvcHtmlString Format(this HtmlHelper html, string format, object arg0)
+        {
+            return new MvcHtmlString(string.Format(format, arg0));
+        }
+        public static MvcHtmlString Format(this HtmlHelper html, string format, params object[] args)
+        {
+            return new MvcHtmlString(string.Format(format, args));
+        }
+        public static MvcHtmlString Format(this HtmlHelper html, string format, object arg0, object arg1)
+        {
+            return new MvcHtmlString(string.Format(format, arg0, arg1));
+        }
+        public static MvcHtmlString Format(this HtmlHelper html, string format, object arg0, object arg1, object arg2)
+        {
+            return new MvcHtmlString(string.Format(format, arg0, arg1, arg2));
+        }
+    }
+    /// <summary>
+    /// ResourceFormat 
+    /// </summary>
+    public static class ResourceFormatExtensions
+    {
+        public static MvcHtmlString ResourceFormat(this HtmlHelper html, string format, object arg0)
+        {
+            format = Unity.Mvc3.Resources.GetString(format.TrimStart('<').TrimStart('=').TrimEnd('>'));
+            return new MvcHtmlString(string.Format(format, arg0));
+        }
+        public static MvcHtmlString ResourceFormat(this HtmlHelper html, string format, params object[] args)
+        {
+            format = Unity.Mvc3.Resources.GetString(format.TrimStart('<').TrimStart('=').TrimEnd('>'));
+            return new MvcHtmlString(string.Format(format, args));
+        }
+        public static MvcHtmlString ResourceFormat(this HtmlHelper html, string format, object arg0, object arg1)
+        {
+            format = Unity.Mvc3.Resources.GetString(format.TrimStart('<').TrimStart('=').TrimEnd('>'));
+            return new MvcHtmlString(string.Format(format, arg0, arg1));
+        }
+        public static MvcHtmlString ResourceFormat(this HtmlHelper html, string format, object arg0, object arg1, object arg2)
+        {
+            format = Unity.Mvc3.Resources.GetString(format.TrimStart('<').TrimStart('=').TrimEnd('>'));
+            return new MvcHtmlString(string.Format(format, arg0, arg1, arg2));
+        }
+    }
+}
