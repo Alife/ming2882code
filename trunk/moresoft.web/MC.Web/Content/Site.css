@@ -33,7 +33,7 @@ input.buttonhover{border:#003a7b 1px solid;line-height:23px;width:auto!important
     .menu ul{list-style:none;margin:0;padding:0;padding-left:22%;}
     .menu ul li{float:left;display:inline;height:42px;line-height:42px;}
     .menu ul li a{display:inline-block;height:40px;line-height:40px;color:#CEE2FF;font-size:14px;font-weight:bold;padding:0px 20px;cursor:pointer;border:1px solid #0C3994;}
-    .menu ul li.current a,.menu ul li a:hover{color:#FFFFFF;border:1px solid #0B5196;background:#031F69;}
+    .menu ul li a.selected,.menu ul li a:hover{color:#FFFFFF;border:1px solid #0B5196;background:#031F69;}
 div{border:0;margin:0;padding:0;}
 .b1,.b2,.b3,.b4,.b1b,.b2b,.b3b,.b4b,.b{display:block;overflow:hidden;}
 .b1,.b2,.b3,.b1b,.b2b,.b3b{height:1px;}

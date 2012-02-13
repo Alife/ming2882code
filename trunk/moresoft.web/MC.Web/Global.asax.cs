@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Unity.Mvc3;
+using MC.DAO;
+using MC.Service;
+using MC.IBLL;
+using Microsoft.Practices.Unity;
 
 namespace MC.Web
 {
@@ -17,7 +21,6 @@ namespace MC.Web
         {
             filters.Add(new HandleErrorAttribute());
         }
-
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -39,8 +42,8 @@ namespace MC.Web
                 Defaults = new RouteValueDictionary(new { controller = "Compress", action = "CacheContent", key = "", type = "" }),
             });
             routes.MapRoute(
-                "Pages", 
-                "{id}.html", 
+                "Pages",
+                "{id}.html",
                 new { controller = "Pages", action = "Index", id = UrlParameter.Optional }
             );
 
@@ -76,6 +79,35 @@ namespace MC.Web
             RegisterRoutes(RouteTable.Routes);
 
             Bootstrapper.Initialise();
+        }
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            Response.Clear();
+            HttpException httpException = exception as HttpException;
+            RouteData routeData = new RouteData();
+            routeData.Values.Add("controller", "Error");
+            if (httpException == null)
+                routeData.Values.Add("action", "Index");
+            else
+            {
+                switch (httpException.GetHttpCode())
+                {
+                    case 404:
+                        routeData.Values.Add("action", "httperror404");
+                        break;
+                    case 500:
+                        routeData.Values.Add("action", "httperror500");
+                        break;
+                    default:
+                        routeData.Values.Add("action", "general");
+                        break;
+                }
+            }
+            routeData.Values.Add("error", exception.Message);
+            Server.ClearError();
+            IController errorController = new MC.Web.Controllers.ErrorController();
+            errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
         }
     }
 }
