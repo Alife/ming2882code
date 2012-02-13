@@ -11,10 +11,9 @@ namespace MC.Web.Controllers
     {
         public ActionResult Index(string url)
         {
-            if (Url.IsLocalUrl(url))
+            if (Unity.Mvc3.Helpers.RegexUnity.IsUrl(url))
                 return Redirect(url);
-            //return Redirect(Url.Action("index", "error", new { error = "操作有误" }));
-            return View();
+            return Redirect(Url.Action("index", "error", new { error = "URL格式不正确" }));
         }
     }
 }
