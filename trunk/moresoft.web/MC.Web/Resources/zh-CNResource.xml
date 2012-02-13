@@ -55,6 +55,8 @@
     <item name="ConfirmPassword1">确认密码</item>
     <item name="ConfirmPassword1ErrorMessage">密码和确认密码不匹配。</item>
     <item name="RegisterErrorMessage">注册失败请重新填写或联系管理员。</item>
+    <item name="CheckUserNameExistsErrorMessage">用户账号已存在。</item>
+    <item name="CheckEmailExistsErrorMessage">邮件已存在。</item>
     <!--end register-->
     <!--login-->
     <item name="RememberMe">记住我?</item>

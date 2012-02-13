@@ -36,11 +36,5 @@ namespace MC.Web.Controllers
         {
             return View();
         }
-        public JsonResult SetLang(string id)
-        {
-            Response.Cookies["lang"].Value = id;
-            Response.Cookies["lang"].Expires = DateTime.Now.AddDays(365);
-            return Json(new { msg = "" });
-        }
     }
 }

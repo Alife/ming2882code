@@ -46,11 +46,13 @@ namespace MC.Web.Models
     {
         [Required]
         [Display(Name = "<=UserName>")]
+        [Remote("checkusernameexists", "account", ErrorMessage = "<=CheckUserNameExistsErrorMessage>")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "<=Email>")]
+        [Remote("checkemailexists", "account", ErrorMessage = "<=CheckEmailExistsErrorMessage>")]
         public string Email { get; set; }
 
         [Required]

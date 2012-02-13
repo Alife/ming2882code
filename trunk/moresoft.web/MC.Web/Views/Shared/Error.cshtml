@@ -1,9 +1,14 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
-
 @{
-    ViewBag.Title = "错误";
+    ViewBag.Title = "错误信息";
 }
-
 <h2>
     抱歉，处理您的请求时出错。
 </h2>
+@if (Model != null)
+{
+    <p>@Model.Exception.GetType().Name<br />
+    thrown in @Model.ControllerName @Model.ActionName</p>
+    <p>Error Details:</p>
+    <p>@Model.Exception.Message</p>
+}

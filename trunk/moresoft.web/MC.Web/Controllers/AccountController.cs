@@ -28,6 +28,14 @@ namespace MC.Web.Controllers
         {
             _mc_UserService = mc_UserService;
         }
+        #region 设置语言
+        public JsonResult SetLang(string id)
+        {
+            Response.Cookies["lang"].Value = id;
+            Response.Cookies["lang"].Expires = DateTime.Now.AddDays(365);
+            return Json(new { msg = "" });
+        }
+        #endregion
         #region 用户登录
         public ActionResult LogOn()
         {
@@ -186,43 +194,16 @@ namespace MC.Web.Controllers
             return View();
         }
         #endregion
-        #region Status Codes
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        #region 用户是否存在
+        public JsonResult CheckUserNameExists(string userName)
         {
-            // 请参见 http://go.microsoft.com/fwlink/?LinkID=177550 以查看
-            // 状态代码的完整列表。
-            switch (createStatus)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return "用户名已存在。请输入不同的用户名。";
-
-                case MembershipCreateStatus.DuplicateEmail:
-                    return "该电子邮件地址的用户名已存在。请输入不同的电子邮件地址。";
-
-                case MembershipCreateStatus.InvalidPassword:
-                    return "提供的密码无效。请输入有效的密码值。";
-
-                case MembershipCreateStatus.InvalidEmail:
-                    return "提供的电子邮件地址无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "提供的密码取回答案无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "提供的密码取回问题无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return "提供的用户名无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.ProviderError:
-                    return "身份验证提供程序返回了错误。请验证您的输入并重试。如果问题仍然存在，请与系统管理员联系。";
-
-                case MembershipCreateStatus.UserRejected:
-                    return "已取消用户创建请求。请验证您的输入并重试。如果问题仍然存在，请与系统管理员联系。";
-
-                default:
-                    return "发生未知错误。请验证您的输入并重试。如果问题仍然存在，请与系统管理员联系。";
-            }
+            return Json(!_mc_UserService.IsUserExists(userName), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region 邮件是否存在
+        public JsonResult CheckEmailExists(string email)
+        {
+            return Json(!_mc_UserService.IsEmailExists(email), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
