@@ -41,4 +41,33 @@
     <item name="Partners">合作伙伴</item>
     <item name="Case">成功案例</item>
   </Module>
+  <Module name="Account">
+    <item name="AccountLegend">帐户信息</item>
+    <item name="UserName">用户名</item>
+    <item name="Password">密码</item>
+    <!--register-->
+    <item name="CreateAccount">创建新帐户</item>
+    <item name="CreateAccountRemark">使用以下表单创建新帐户。</item>
+    <item name="CreateAccountTip">密码必须至少包含{0}个字符。</item>
+    <item name="CreateAccountValidationSummary">帐户创建不成功。请更正错误并重试。</item>
+    <item name="Email">电子邮件地址</item>
+    <item name="PasswordErrorMessage">确认密码必须至少包含{0}个字符。</item>
+    <item name="ConfirmPassword1">确认密码</item>
+    <item name="ConfirmPassword1ErrorMessage">密码和确认密码不匹配。</item>
+    <item name="RegisterErrorMessage">注册失败请重新填写或联系管理员。</item>
+    <!--end register-->
+    <!--login-->
+    <item name="RememberMe">记住我?</item>
+    <item name="LoginRemark">请输入用户名和密码。如果您没有帐户，请 {0}。</item>
+    <item name="LoginErrorMessage">提供的用户名或密码不正确。</item>
+    <item name="LoginValidationSummary">登录不成功。请更正错误并重试。</item>
+    <!--end login-->
+    <!--ChangePassword-->
+    <item name="OldPassword">当前密码</item>
+    <item name="NewPassword">新密码</item>
+    <item name="ConfirmPassword">确认新密码</item>
+    <item name="NewPasswordErrorMessage">密码必须至少包含{0}个字符。</item>
+    <item name="ConfirmPasswordErrorMessage">新密码和确认密码不匹配。</item>
+    <!--end ChangePassword-->
+  </Module>
 </Localization>

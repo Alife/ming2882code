@@ -114,6 +114,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\btn01.jpg" />
+    <Content Include="Content\Images\btn02.jpg" />
     <Content Include="Content\Images\eg1.gif" />
     <Content Include="Content\Images\eg2.gif" />
     <Content Include="Content\Images\eg3.gif" />

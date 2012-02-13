@@ -5,9 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Security.Cryptography;
 using MC.Web.Models;
 using MC.Model;
 using MC.IBLL;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MC.Web.Controllers
 {
@@ -25,6 +28,7 @@ namespace MC.Web.Controllers
         {
             _mc_UserService = mc_UserService;
         }
+        #region 用户登录
         public ActionResult LogOn()
         {
             return View();
@@ -40,38 +44,57 @@ namespace MC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                var userInfo = _mc_UserService.GetUserLogin(model.UserName, Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password), Request.UserHostAddress);
+                if (userInfo != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    SetCookie(userInfo, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
                         return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return Redirect("/");
                 }
                 else
-                {
-                    ModelState.AddModelError("", "提供的用户名或密码不正确。");
-                }
+                    ModelState.AddModelError("", "<=LoginErrorMessage>");
             }
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return View(model);
         }
+        #endregion
+        #region 写入用户Cookie
+        private void SetCookie(mc_User userInfo, bool rememberMe)
+        {
+            FormsAuthentication.SetAuthCookie(userInfo.UserName, rememberMe);
+            //bool isPersistent = rememberMe;
+            //int expires = rememberMe ? 24 * 60 * 14 : 30;
+            //JsonSerializerSettings jsonSs = new JsonSerializerSettings();
+            //jsonSs.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+            //string userData = JsonConvert.SerializeObject(userInfo, Newtonsoft.Json.Formatting.None, jsonSs);
+            //FormsAuthentication.SetAuthCookie(userInfo.UserName, isPersistent, FormsAuthentication.FormsCookiePath);
+            //FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, userInfo.Password, DateTime.Now, DateTime.Now.AddMinutes(expires),
+            //    isPersistent, userData, FormsAuthentication.FormsCookiePath);
+            //FormsIdentity identity = new FormsIdentity(ticket);
+            //string encTicket = FormsAuthentication.Encrypt(ticket);
+            //HttpCookie userCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)
+            //{
+            //    HttpOnly = true,
+            //    Path = ticket.CookiePath,
+            //    Expires = ticket.IsPersistent ? ticket.Expiration : DateTime.MinValue,
+            //    Domain = FormsAuthentication.CookieDomain,
+            //};
+            //Response.Cookies.Add(userCookie);
+        }
+        #endregion
+        #region 注销登录
         /// <summary>
-        /// 注释登录
+        /// 注销登录
         /// </summary>
         /// <returns></returns>
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-
-            return RedirectToAction("Index", "Home");
+            return Redirect("/");
         }
+        #endregion
+        #region 用户注册
         /// <summary>
         /// 注册UI
         /// </summary>
@@ -90,25 +113,23 @@ namespace MC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // 尝试注册用户
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
+                mc_User userInfo = new mc_User();
+                userInfo.Email = model.Email;
+                userInfo.Password = Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password);
+                userInfo.UserName = model.UserName;
+                userInfo.DeptID = 1;
+                if (_mc_UserService.Insert(userInfo) > 0)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+                    return Redirect("/");
                 }
                 else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
+                    ModelState.AddModelError("", "<=RegisterErrorMessage>");
             }
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return View(model);
         }
-
+        #endregion
+        #region 修改密码
         /// <summary>
         /// 修改密码UI
         /// </summary>
@@ -164,7 +185,7 @@ namespace MC.Web.Controllers
         {
             return View();
         }
-
+        #endregion
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

@@ -17,6 +17,9 @@ code{white-space:pre;}img{border:0px}
 .more{text-align:right;}
 label.error{background: url(images/error.gif) no-repeat 0px 0px;color: Red;padding-left: 20px;}
 input.error{border: dashed 1px red;}
+.button{border:#ccc 1px solid;line-height:23px;width:auto!important;padding:0px 6px 0px 6px;background:url(images/btn01.jpg) #f3f3f3 repeat-x 0px center;height:23px;color:#000;font-size:1em;overflow:visible;cursor:pointer;_line-height:19px;}
+.button:hover,.button:hover{border:#003a7b 1px solid;line-height:23px;width:auto!important;padding:0px 6px 0px 6px;background:url(images/btn02.jpg) #49a5d6 repeat-x 0px center;height:23px;color:#fff;font-size:1em;overflow:visible;cursor:pointer;_line-height:19px;}
+input.buttonhover{border:#003a7b 1px solid;line-height:23px;width:auto!important;padding:0px 6px 0px 6px;background:url(images/btn02.jpg) #49a5d6 repeat-x 0px center;height:23px;color:#fff;font-size:1em;overflow:visible;cursor:pointer;_line-height:19px;}
 #container{margin:0px auto;width:1003px;}
 #header{position:relative;min-height:84px;height:84px;padding:0px;margin:0px;width:1003px;background: url(images/headbg.jpg) repeat-x;}
     #header h1{position:absolute;top:10px;left:20px;padding:0px;margin:0px;}
@@ -115,8 +118,6 @@ td, th, .main-content td {border-color: #a9a9a9;}
 .main-content form textarea, .main-content form .inputfield {color: #333333;background-color: #ffffff;border-color: #e7e7e7;border-top-color: #999999;border-left-color: #999999;}
 .main-content form textarea:focus, .main-content form input[type=text]:focus {background: #f5f5f5;}
 .main-content form input[type=radio], .main-content form input[type=checkbox] {background-color: transparent;}
-select {background-color: #ffffff;color: inherit;}
-input[type=submit] {color: Black;background: #EDF2F2;border-color: #ffffff;border-bottom-color: #dddddd;border-right-color: #dddddd;}
 .highlight {background-color: #F8F8FF;font-weight: bold;border: 1px dotted #FF6347;}
 
 fieldset{margin:1em 0;padding:1em;}
