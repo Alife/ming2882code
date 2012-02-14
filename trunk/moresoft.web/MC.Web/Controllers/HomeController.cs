@@ -36,5 +36,9 @@ namespace MC.Web.Controllers
         {
             return View();
         }
+        public ActionResult error()
+        {
+            return View();
+        }
     }
 }

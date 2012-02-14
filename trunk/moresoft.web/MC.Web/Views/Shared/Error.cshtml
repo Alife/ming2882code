@@ -2,13 +2,20 @@
 @{
     ViewBag.Title = "错误信息";
 }
-<h2>
-    抱歉，处理您的请求时出错。
-</h2>
-@if (Model != null)
-{
-    <p>@Model.Exception.GetType().Name<br />
-    thrown in @Model.ControllerName @Model.ActionName</p>
-    <p>Error Details:</p>
-    <p>@Model.Exception.Message</p>
-}
+@{  
+        var exception = ViewData.Model;  
+        var statusCode = exception == null ? 404 : 500;  
+        Response.StatusCode = statusCode;  
+        if (statusCode == 404)  
+        {  
+            <h2>404 Page not found!</h2>  
+            <p>没有找到该网页!</p>  
+        }  
+        else if (statusCode == 500)  
+        {  
+            <h2>500 程序异常</h2>  
+            <p>@exception.Exception.Message</p>  
+        }  
+    }  
+    <p>错误位置:@exception.ControllerName/@exception.ActionName</p>
+    <p style="font-size: 12px; color: Gray">请使用浏览器的后退功能已保证您填写的数据没有丢失！</p>  

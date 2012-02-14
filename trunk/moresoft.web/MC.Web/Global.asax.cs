@@ -80,34 +80,5 @@ namespace MC.Web
 
             Bootstrapper.Initialise();
         }
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            Exception exception = Server.GetLastError();
-            Response.Clear();
-            HttpException httpException = exception as HttpException;
-            RouteData routeData = new RouteData();
-            routeData.Values.Add("controller", "Error");
-            if (httpException == null)
-                routeData.Values.Add("action", "Index");
-            else
-            {
-                switch (httpException.GetHttpCode())
-                {
-                    case 404:
-                        routeData.Values.Add("action", "httperror404");
-                        break;
-                    case 500:
-                        routeData.Values.Add("action", "httperror500");
-                        break;
-                    default:
-                        routeData.Values.Add("action", "general");
-                        break;
-                }
-            }
-            routeData.Values.Add("error", exception.Message);
-            Server.ClearError();
-            IController errorController = new MC.Web.Controllers.ErrorController();
-            errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
-        }
     }
 }
