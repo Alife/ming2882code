@@ -19,9 +19,28 @@ namespace MC.Web.Controllers
         protected readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         protected override void OnException(ExceptionContext filterContext)
         {
-            _logger.Error(string.Format("\r\n Unhandled exception: {0}.\r\n Stack trace: {1}\r\n{2}----------------"
-                , filterContext.Exception.Message, filterContext.Exception.StackTrace, User.Identity.Name));
-            base.OnException(filterContext);
+            if (filterContext == null)
+                throw new ArgumentNullException("filterContext");
+            var ex = filterContext.Exception ?? new Exception("No further infomation exists.");
+            _logger.Error("Error general OnException", ex);
+            if (filterContext.HttpContext.Request.IsAjaxRequest())
+            {
+                filterContext.Result = new JsonResult { Data = new { message = filterContext.Exception.Message, success = false } };
+            }
+            else
+            {
+                HandleErrorInfo data = new HandleErrorInfo(ex, (string)filterContext.RouteData.Values["controller"], (string)filterContext.RouteData.Values["action"]);
+                filterContext.Controller.ViewData.Model = data;
+                filterContext.Result = new ViewResult
+                {
+                    ViewName = "Error",
+                    ViewData = filterContext.Controller.ViewData
+                };
+            }
+            filterContext.ExceptionHandled = true;
+            filterContext.HttpContext.Response.Clear();
+            filterContext.HttpContext.Response.StatusCode = 500;
+            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
