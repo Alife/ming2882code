@@ -10,6 +10,8 @@
       <result property="Name_pag" column="Name_pag" />
       <result property="Code_pag" column="Code_pag" />
       <result property="Content_pag" column="Content_pag" />
+      <result property="Parent_pag" column="Parent_pag" />
+      <result property="Path_pag" column="Path_pag" />
       <result property="Sort_pag" column="Sort_pag" />
     </resultMap>
   </resultMaps>
@@ -31,14 +33,20 @@
         <isNotNull prepend="AND" property="Sort_pag">
           Sort_pag = #Sort_pag#
         </isNotNull>
+        <isNotNull prepend="AND" property="Parent_pag">
+          Parent_pag = #Parent_pag#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Path_pag">
+          Path_pag = #Path_pag#
+        </isNotNull>
       </dynamic>
     </sql>
     <select id="MC.Model.Page_pag.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
       Select count(1) FROM Page_pag <include refid="MC.Model.Page_pag.sqlwhere"/>
     </select>
     <select id="MC.Model.Page_pag.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag FROM(
-      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag
+      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag,Parent_pag,Path_pag FROM(
+      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag,Parent_pag,Path_pag
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
@@ -57,7 +65,7 @@
       </dynamic>
     </select>
     <select id="MC.Model.Page_pag.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag FROM Page_pag
+      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag,Parent_pag,Path_pag FROM Page_pag
       <include refid="MC.Model.Page_pag.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
@@ -70,12 +78,12 @@
       Name_pag
       ,Code_pag
       ,Content_pag
-      ,Sort_pag
+      ,Sort_pag,Parent_pag,Path_pag
       )values (
       #Name_pag#
       ,#Code_pag#
       ,#Content_pag#
-      ,#Sort_pag#
+      ,#Sort_pag#,#Parent_pag#,#Path_pag#
       )
       <selectKey property="ID_pag" type="post" resultClass="int">
         ${selectKey}
@@ -87,6 +95,8 @@
       ,Code_pag = #Code_pag#
       ,Content_pag = #Content_pag#
       ,Sort_pag = #Sort_pag#
+      ,Parent_pag = #Parent_pag#
+      ,Path_pag = #Path_pag#
       WHERE
       ID_pag = #ID_pag#
     </update>

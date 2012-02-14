@@ -1,5 +1,23 @@
 ﻿@{
     ViewBag.Title = ViewBag.Pages.Name_pag + "-" + ViewBag.Setting.WebName_set;
+    if (ViewBag.ParentPage.Code_pag.ToLower() == "company")
+    {
+        ViewBag.SelectedMenu = "Company";
+    }
+    else if (ViewBag.ParentPage.Code_pag.ToLower() == "service")
+    {
+        ViewBag.SelectedMenu = "Service";
+    }
 }
-                    <h2>@ViewBag.Pages.Name_pag</h2>
-                    @ViewBag.Pages.Content_pag
+        <div class="buttomcolumns">
+            <div class="leftcolumn">
+                @Html.Partial("_Pages")
+                <p></p>
+                @Html.Partial("_Industry")
+            </div>
+            <div class="contentcolumns">
+                <h2>@ViewBag.Pages.Name_pag</h2>
+                @Html.Raw((string.IsNullOrEmpty(ViewBag.Pages.Content_pag) && ViewBag.ChilePages.Count > 0 ? ViewBag.ChilePages[0].Content_pag : ViewBag.Pages.Content_pag))
+            </div>
+            <div class="clear"></div>
+        </div>

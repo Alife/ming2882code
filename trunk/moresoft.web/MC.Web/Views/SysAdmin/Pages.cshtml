@@ -5,13 +5,13 @@
 }
     <script type="text/javascript">
     $(function () {
-        var Page_Grid = $('#Page_Grid').datagrid({
-            title: '页面信息管理', url: '@Url.Content("~/sysadmin/pageslist")', idField: 'ID_pag', rownumbers: true, animate: true, border: false, singleSelect: false,
-            remoteSort: false, pagination: true, pageSize: 20, fit: true,
+        var Page_Grid = $('#Page_Grid').treegrid({
+            title: '页面信息管理', url: '@Url.Content("~/sysadmin/pageslist")', idField: 'ID_pag', treeField: 'Name_pag',
+            fit: true, rownumbers: true, animate: true, border: false, //singleSelect: false,
             frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '名称', field: 'Name_pag', width: 400}]],
             columns: [[{ title: '编号', field: 'Code_pag', width: 160 }, { title: '排序', field: 'Sort_pag', width: 60}]],
-            onDblClickRow: function (rowIndex, row) {
-                addTab('Page-' + row.ID_pag, '编辑页面信息-' + row.Name_pag, 'PageDetail.aspx?id=' + row.ID_pag, 'frame', 'icon icon-Page');
+            onDblClickRow: function (row) {
+                addTab('Page-' + row.ID_pag, '编辑页面信息-' + row.Name_pag, '@Url.Content("~/sysadmin/pagesdetail/")' + row.ID_pag, 'frame', 'icon icon-Page');
             },
             toolbar: [{
                 id: 'btnAdd_pag',
@@ -25,7 +25,7 @@
                 text: '编辑',
                 iconCls: 'application_edit',
                 handler: function () {
-                    var rows = Page_Grid.datagrid('getSelections');
+                    var rows = Page_Grid.treegrid('getSelections');
                     var num = rows.length;
                     if (num == 0) {
                         $.messager.alert('提示', '请选择一条记录进行操作!', 'info');
@@ -36,7 +36,7 @@
                         return;
                     }
                     else {
-                        addTab('Page-' + rows[0].ID_pag, '编辑页面信息-' + rows[0].Name_pag, 'PageDetail.aspx?id=' + rows[0].ID_pag, 'frame', 'icon icon-Page');
+                        addTab('Page-' + rows[0].ID_pag, '编辑页面信息-' + rows[0].Name_pag, '@Url.Content("~/sysadmin/pagesdetail/")' + rows[0].ID_pag, 'frame', 'icon icon-Page');
                     }
                 }
             }, '-', {
@@ -45,7 +45,7 @@
                 iconCls: 'application_delete',
                 handler: function () {
                     var ids = [];
-                    var rows = Page_Grid.datagrid('getSelections');
+                    var rows = Page_Grid.treegrid('getSelections');
                     for (var i = 0; i < rows.length; i++) {
                         ids.push(rows[i].ID_pag);
                     }
@@ -78,7 +78,7 @@
                 text: '刷新',
                 iconCls: 'refresh',
                 handler: function () {
-                    Page_Grid.datagrid('reload');
+                    Page_Grid.treegrid('reload');
                 }
             }
         ]

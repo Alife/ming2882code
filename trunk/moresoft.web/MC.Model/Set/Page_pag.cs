@@ -53,6 +53,9 @@ namespace MC.Model
         /// 
         /// </summary>
         public int? Sort_pag { get; set; }
+        public int? Parent_pag { get; set; }
+        public int? Path_pag { get; set; }
+        public IList<Page_pag> children { get; set; }
         #endregion
     }
 }
