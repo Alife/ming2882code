@@ -89,6 +89,7 @@ div{border:0;margin:0;padding:0;}
     .buttomcolumns .centercolumn .cpts li{border:0px;margin:0px;padding:0px;}
     .buttomcolumns .centercolumn .cpts li p{padding:2px 0px;margin:0px;}
 .buttomcolumns .rightcolumn{float:left;width:300px;}
+.buttomcolumns .contentcolumns{float:left;width:695px;padding:0px 0px 0px 15px;}
 
 #version{margin-top:20px;text-align:center;}
 #copyright{margin-top:12px;font-size:80%;text-align:center;}

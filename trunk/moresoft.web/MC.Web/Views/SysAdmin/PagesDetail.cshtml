@@ -1,0 +1,111 @@
+﻿@model MC.Model.Page_pag
+@{
+    ViewBag.Title = "PagesDetail";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    int id = Model != null ? Model.ID_pag.Value : 0;
+}
+    <script src="@Url.Content("~/kindeditor/kindeditor-min.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/kindeditor/lang/zh_CN.js")" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        //var editor = K.create('textarea[name="Content_pag"]', options);
+        //editor.sync();
+        $(function () {
+            var editor;
+            KindEditor.ready(function (K) {
+                editor = K.create('#Content_pag', {
+                    uploadJson: '@Url.Content("~/kindeditor/asp.net/upload_json.ashx")',
+                    fileManagerJson: '@Url.Content("~/kindeditor/asp.net/file_manager_json.ashx")',
+                    allowFileManager: true,
+                    afterCreate: function () {
+                        var self = this;
+                        K.ctrl(document, 13, function () {
+                            self.sync();
+                            K('form[name=Page_Form]')[0].submit();
+                        });
+                        K.ctrl(self.edit.doc, 13, function () {
+                            self.sync();
+                            K('form[name=Page_Form]')[0].submit();
+                        });
+                    }
+                });
+            });
+            var id = '@id';
+            var Page_Dialog = $('#Page_Dialog');
+            var Page_Form = Page_Dialog.find('form');
+            //if (id > 0)
+            //    Page_Form.form('load', 'PageDetail.aspx?type=load&id=' + id);
+            $('#btn_Page_Save').click(function () {
+                editor.sync();
+                if (Page_Form.form('validate')) {
+                    Page_Form.form('submit', {
+                        url: '@Url.Content("~/sysadmin/savepagesdetail?a=" + (id == 0 ? "add" : "edit"))',
+                        success: function (data) {
+                            data = eval("(" + data + ")");
+                            $.messager.alert('系统提示', data.msg, "info", function () {
+                                if (data.success) { }
+                            });
+                        }
+                    });
+                }
+            });
+            $('#btn_Page_Cancel').click(function () {
+                //Page_Form.form('clear');
+            });
+        });
+    </script>
+    <div id="Page_Dialog" region="center" border="false" class="easyui-panel" icon="icon icon-nav"
+        fit="true" style="background: #fff;" title="页面信息管理">
+        <form id="Page_Form" name="Page_Form" method="post" action="">
+        <table cellpadding="3">
+            <tr>
+                <td align="right" width="100">
+                    标题：
+                </td>
+                <td>
+                    <input name="ID_pag" type="hidden" value="@(id > 0 ? Model.ID_pag : id)" />
+                    <input name="Name_pag" type="text" class="easyui-validatebox frmText" style="width:600px;" required="true"
+                        missingmessage="名称必须填写" value="@(id > 0 ? Model.Name_pag : string.Empty)" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    编号：
+                </td>
+                <td>
+                    <input name="Code_pag" type="text" class="easyui-validatebox frmText" required="true"
+                        missingmessage="编号必须填写" value="@(id > 0 ? Model.Code_pag : string.Empty)" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    上级：
+                </td>
+                <td>
+                    <input name="Parent_pag" type="text" class="easyui-combotree" url="@Url.Content("~/sysadmin/pagestree/0")"
+                        value="@(id > 0 ? Model.Parent_pag : 0)" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    排序：
+                </td>
+                <td>
+                    <input name="Sort_pag" type="number" class="easyui-numberbox frmText" style="width:60px;" value="@(id > 0 ? Model.Sort_pag : 99)" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    内容：
+                </td>
+                <td>
+                    <textarea id="Content_pag" name="Content_pag" style="width: 850px; height: 400px;
+                        visibility: hidden;">@(id > 0 ? Model.Content_pag : string.Empty)</textarea>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
+        <a id="btn_Page_Save" class="easyui-linkbutton" href="javascript:void(0)">确定</a>
+        <a id="btn_Page_Cancel" class="easyui-linkbutton" href="javascript:void(0)">取消</a>
+    </div>

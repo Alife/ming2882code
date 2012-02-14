@@ -1,0 +1,10 @@
+﻿                <b class="b1"></b><b class="b2 d1"></b><b class="b3 d1"></b><b class="b4 d1"></b>
+                <div class="b d1">
+                    <div class="content">
+                        <h2>@ViewBag.ParentPage.Name_pag</h2>
+                        <ul class="list">@foreach(var item in ViewBag.ChilePages){
+                            <li><a href="@(item.Code_pag.ToLower()).html">@item.Name_pag</a></li>}
+                        </ul>
+                    </div>
+                </div>
+                <b class="b4b d1"></b><b class="b3b d1"></b><b class="b2b d1"></b><b class="b1b"></b>

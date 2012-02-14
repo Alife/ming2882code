@@ -293,7 +293,7 @@ namespace MC.Web
     }
     public class TreeEntity
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         public string text { get; set; }
         public List<TreeEntity> children { get; set; }
     }

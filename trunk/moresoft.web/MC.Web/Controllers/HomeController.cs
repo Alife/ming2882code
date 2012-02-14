@@ -32,10 +32,6 @@ namespace MC.Web.Controllers
             ViewBag.Link = _Link_lnkService.GetList(linkqi);
             return View();
         }
-        public ActionResult About()
-        {
-            return View();
-        }
         public ActionResult error()
         {
             return View();

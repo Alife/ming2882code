@@ -20,6 +20,11 @@ namespace MC.Web.Controllers
             ViewBag.MetaKeywords = ViewBag.Setting.Keywords_set;
             ViewBag.MetaAuthor = ViewBag.Setting.Author_set;
             ViewBag.Pages = _Page_pagService.GetItem(id);
+            ViewBag.ParentPage = ViewBag.Pages.Parent_pag == 0 ? ViewBag.Pages : _Page_pagService.GetItem(ViewBag.Pages.Parent_pag);
+            var qi = new QueryInfo();
+            qi.Parameters.Add("Parent_pag", ViewBag.Pages.Parent_pag == 0 ? ViewBag.Pages.ID_pag : ViewBag.Pages.Parent_pag);
+            qi.Orderby.Add("Sort_pag", null);
+            ViewBag.ChilePages = _Page_pagService.GetList(qi);
             return View();
         }
     }
