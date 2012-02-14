@@ -1,4 +1,4 @@
-.icon{ background:url(images/tabicons.png) no-repeat;width:18px; line-height:18px; display:inline-block;}
+.icon{ background:url(icons/tabicons.png) no-repeat;width:18px; line-height:18px; display:inline-block;}
 .icon-sys{ background-position:0px -200px;}
 .icon-set{ background-position:-380px -200px;}
 .icon-add{background-position: -20px 0px;}
@@ -14,8 +14,8 @@
 .icon-database{ background-position:-20px -140px;}
 .icon-save{background-position: 0px -20px;}
 .icon-cancel{background-position: -360px -200px;}
-.application_add{ background:url(images/application_add.png) no-repeat;}
-.application_edit{ background:url(images/application_edit.png) no-repeat;}
-.application_delete{ background:url(images/application_delete.png) no-repeat;}
-.refresh{ background:url(images/refresh.png) no-repeat;}
+.application_add{ background:url(icons/application_add.png) no-repeat;}
+.application_edit{ background:url(icons/application_edit.png) no-repeat;}
+.application_delete{ background:url(icons/application_delete.png) no-repeat;}
+.refresh{ background:url(icons/refresh.png) no-repeat;}
 .icon-blank{background:url(icons/blank.gif) no-repeat;}
