@@ -18,7 +18,7 @@
                 text: '添加',
                 iconCls: 'application_add',
                 handler: function () {
-                    addTab('Page-0', '新增页面信息', 'PageDetail.aspx?id=0', 'frame', 'icon icon-Page');
+                    addTab('Page-0', '新增页面信息', '@Url.Content("~/sysadmin/pagesdetail/0")', 'frame', 'icon icon-Page');
                 }
             }, '-', {
                 id: 'btnEdit_pag',
@@ -53,7 +53,7 @@
                         $.messager.confirm('提示信息', '您确认要删除吗?', function (data) {
                             if (data) {
                                 $.ajax({
-                                    url: 'Page.aspx?type=del&id=' + ids.join(','),
+                                    url: '@Url.Content("~/sysadmin/pagesdelete/")' + ids.join(','),
                                     type: 'GET',
                                     timeout: 1000,
                                     error: function () {
