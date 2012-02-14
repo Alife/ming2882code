@@ -61,7 +61,7 @@ namespace MC.Web.Controllers
             return tree;
         }
         #endregion
-        #region 页面信息增加修改
+        #region 页面信息增加修改删除 
         public ActionResult PagesDetail(int id)
         {
             if (id > 0)
@@ -81,6 +81,12 @@ namespace MC.Web.Controllers
             if (v > 0)
                 return Json(new { success = true, msg = "保存成功" }, JsonRequestBehavior.AllowGet);
             return Json(new { success = false, msg = "保存失败" }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PagesDelete(string id)
+        {
+            if (_Page_pagServer.Delete(id.Split(',').ToList()) > 0)
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #endregion
