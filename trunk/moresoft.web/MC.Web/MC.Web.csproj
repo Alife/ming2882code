@@ -348,27 +348,12 @@
     <Content Include="Scripts\themes\gray\validatebox.css" />
     <Content Include="Scripts\themes\gray\window.css" />
     <Content Include="Scripts\themes\icon.css" />
-    <Content Include="Scripts\themes\icons\back.png" />
+    <Content Include="Scripts\themes\icons\application_add.png" />
+    <Content Include="Scripts\themes\icons\application_delete.png" />
+    <Content Include="Scripts\themes\icons\application_edit.png" />
     <Content Include="Scripts\themes\icons\blank.gif" />
-    <Content Include="Scripts\themes\icons\cancel.png" />
-    <Content Include="Scripts\themes\icons\cut.png" />
-    <Content Include="Scripts\themes\icons\edit_add.png" />
-    <Content Include="Scripts\themes\icons\edit_remove.png" />
-    <Content Include="Scripts\themes\icons\filesave.png" />
-    <Content Include="Scripts\themes\icons\help.png" />
-    <Content Include="Scripts\themes\icons\mini_add.png" />
-    <Content Include="Scripts\themes\icons\mini_edit.png" />
-    <Content Include="Scripts\themes\icons\mini_refresh.png" />
-    <Content Include="Scripts\themes\icons\no.png" />
-    <Content Include="Scripts\themes\icons\ok.png" />
-    <Content Include="Scripts\themes\icons\pencil.png" />
-    <Content Include="Scripts\themes\icons\print.png" />
-    <Content Include="Scripts\themes\icons\redo.png" />
-    <Content Include="Scripts\themes\icons\reload.png" />
-    <Content Include="Scripts\themes\icons\search.png" />
-    <Content Include="Scripts\themes\icons\sum.png" />
-    <Content Include="Scripts\themes\icons\tip.png" />
-    <Content Include="Scripts\themes\icons\undo.png" />
+    <Content Include="Scripts\themes\icons\refresh.png" />
+    <Content Include="Scripts\themes\icons\tabicons.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
