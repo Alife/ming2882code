@@ -9,6 +9,7 @@ using MC.IBLL;
 
 namespace MC.Web.Controllers
 {
+    [HandleError]
     public class PagesController : BaseController
     {
         [Dependency]
