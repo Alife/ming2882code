@@ -34,7 +34,7 @@ public class Upload : IHttpHandler
 		extTable.Add("image", "gif,jpg,jpeg,png,bmp");
 		extTable.Add("flash", "swf,flv");
 		extTable.Add("media", "swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb");
-		extTable.Add("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
+		extTable.Add("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2,pdf");
 
 		//最大文件大小
 		int maxSize = 1000000;
