@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Entity.cs" />
     <Compile Include="EntityState.cs" />
+    <Compile Include="InfoType.cs" />
     <Compile Include="Info\IndexTag_itg.cs" />
     <Compile Include="Info\InfoType_ift.cs" />
     <Compile Include="Info\Info_inf.cs" />

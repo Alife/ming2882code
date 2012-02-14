@@ -16,6 +16,10 @@ namespace MC.Service
         {
             return _dao.GetList<Page_pag>(queryInfo);
         }
+        public PagedIList<Page_pag> GetPageList(QueryInfo queryInfo)
+        {
+            return _dao.GetIListPage<Page_pag>(queryInfo);
+        }
         public Page_pag GetItem(int ID_pag)
         {
             return _dao.GetItem<Page_pag>(ID_pag);

@@ -11,7 +11,6 @@ using MC.IBLL;
 
 namespace MC.Web.Controllers
 {
-    [HandleError]
     public class BaseController : Controller
     {
         [Dependency]
@@ -38,9 +37,6 @@ namespace MC.Web.Controllers
                 };
             }
             filterContext.ExceptionHandled = true;
-            filterContext.HttpContext.Response.Clear();
-            filterContext.HttpContext.Response.StatusCode = 500;
-            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
         }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {

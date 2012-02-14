@@ -9,6 +9,7 @@ namespace MC.IBLL
     public interface IPage_pag
     {
         IList<Page_pag> GetList(QueryInfo queryInfo);
+        PagedIList<Page_pag> GetPageList(QueryInfo queryInfo);
         Page_pag GetItem(int ID_pag);
         Page_pag GetItem(string Code_pag);
         int Insert(Page_pag item);
