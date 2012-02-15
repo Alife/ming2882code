@@ -16,7 +16,7 @@
                 @Html.Partial("_Industry")
             </div>
             <div class="contentcolumns">
-                <h2>@ViewBag.Pages.Name_pag</h2>
+                <h2>@Html.Raw((string.IsNullOrEmpty(ViewBag.Pages.Content_pag) && ViewBag.ChilePages.Count > 0 ? ViewBag.ChilePages[0].Name_pag : ViewBag.Pages.Name_pag))</h2>
                 @Html.Raw((string.IsNullOrEmpty(ViewBag.Pages.Content_pag) && ViewBag.ChilePages.Count > 0 ? ViewBag.ChilePages[0].Content_pag : ViewBag.Pages.Content_pag))
             </div>
             <div class="clear"></div>

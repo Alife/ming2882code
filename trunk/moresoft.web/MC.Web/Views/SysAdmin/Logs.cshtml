@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "日志信息";
+    Layout = "";
+}
+<script type="text/javascript">
+    $(function () {
+        var Log_Grid = $('#Log_Grid').datagrid({
+            title: '日志信息', url: '@Url.Content("~/sysadmin/logslist")', idField: 'FileName',
+            rownumbers: true, animate: true, border: false, singleSelect: false, fit: true,
+            frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '文件名称', field: 'FileName', width: 400}]],
+            columns: [[{ title: '文件大小', field: 'FileSize', width: 160 }]],
+            onDblClickRow: function (rowIndex, row) {
+                addTab('Log-' + row.FileName, '查看日志信息-' + row.FileName, '@Url.Content("~/sysadmin/logsdetail/")' + row.FileName, 'frame', 'icon icon-log');
+            },
+            toolbar: [{
+                id: 'btnEdit_pag',
+                text: '查看',
+                iconCls: 'application_edit',
+                handler: function () {
+                    var rows = Log_Grid.datagrid('getSelections');
+                    var num = rows.length;
+                    if (num == 0) {
+                        $.messager.alert('提示', '请选择一条记录进行操作!', 'info');
+                        return;
+                    }
+                    else if (num > 1) {
+                        $.messager.alert('提示', '您选择了多条记录,只能选择一条记录进行修改!', 'info');
+                        return;
+                    }
+                    else {
+                        addTab('Log-' + rows[0].FileName, '编辑页面信息-' + rows[0].FileName, '@Url.Content("~/sysadmin/logsdetail/")' + rows[0].FileName, 'frame', 'icon icon-log');
+                    }
+                }
+            }, '-', {
+                id: 'btnDelete_pag',
+                text: '删除',
+                iconCls: 'application_delete',
+                handler: function () {
+                    var ids = [];
+                    var rows = Log_Grid.datagrid('getSelections');
+                    for (var i = 0; i < rows.length; i++) {
+                        ids.push(rows[i].FileName);
+                    }
+                    if (ids.length > 0) {
+                        $.messager.confirm('提示信息', '您确认要删除吗?', function (data) {
+                            if (data) {
+                                $.ajax({
+                                    url: '@Url.Content("~/sysadmin/logsdelete/")' + ids.join(','),
+                                    type: 'GET',
+                                    timeout: 1000,
+                                    error: function () {
+                                        $.messager.alert('错误', '删除失败!', 'error');
+                                    },
+                                    success: function (data) {
+                                        if (data.success) Log_Grid.datagrid('reload');
+                                        else $.messager.alert('错误', data.msg, 'error');
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        $.messager.show({
+                            title: '警告',
+                            msg: '请先选择要删除的记录。'
+                        });
+                    }
+                }
+            }, '-', {
+                id: 'btnRefresh_pag',
+                text: '刷新',
+                iconCls: 'refresh',
+                handler: function () {
+                    Log_Grid.datagrid('reload');
+                }
+            }
+        ]
+        });
+    });
+</script>
+<div id="Log_Grid">
+</div>

@@ -9,6 +9,7 @@
       <result property="ID_pag" column="ID_pag" />
       <result property="Name_pag" column="Name_pag" />
       <result property="Code_pag" column="Code_pag" />
+      <result property="Remark_pag" column="Remark_pag" />
       <result property="Content_pag" column="Content_pag" />
       <result property="Parent_pag" column="Parent_pag" />
       <result property="Path_pag" column="Path_pag" />
@@ -26,6 +27,9 @@
         </isNotNull>
         <isNotNull prepend="AND" property="Code_pag">
           Code_pag = #Code_pag#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Remark_pag">
+          Remark_pag = #Remark_pag#
         </isNotNull>
         <isNotNull prepend="AND" property="Content_pag">
           Content_pag = #Content_pag#
@@ -45,8 +49,8 @@
       Select count(1) FROM Page_pag <include refid="MC.Model.Page_pag.sqlwhere"/>
     </select>
     <select id="MC.Model.Page_pag.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag,Parent_pag,Path_pag FROM(
-      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag,Parent_pag,Path_pag
+      Select ID_pag,Name_pag,Code_pag,Remark_pag,Content_pag,Sort_pag,Parent_pag,Path_pag FROM(
+      Select ID_pag,Name_pag,Code_pag,Remark_pag,Content_pag,Sort_pag,Parent_pag,Path_pag
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
@@ -65,7 +69,7 @@
       </dynamic>
     </select>
     <select id="MC.Model.Page_pag.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_pag,Name_pag,Code_pag,Content_pag,Sort_pag,Parent_pag,Path_pag FROM Page_pag
+      Select <isNotNull prepend="top" property="top">$top$</isNotNull> ID_pag,Name_pag,Code_pag,Remark_pag,Content_pag,Sort_pag,Parent_pag,Path_pag FROM Page_pag
       <include refid="MC.Model.Page_pag.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
@@ -77,11 +81,13 @@
       insert into Page_pag(
       Name_pag
       ,Code_pag
+      ,Remark_pag
       ,Content_pag
       ,Sort_pag,Parent_pag,Path_pag
       )values (
       #Name_pag#
       ,#Code_pag#
+      ,#Remark_pag#
       ,#Content_pag#
       ,#Sort_pag#,#Parent_pag#,#Path_pag#
       )
@@ -93,6 +99,7 @@
       update Page_pag set
       Name_pag = #Name_pag#
       ,Code_pag = #Code_pag#
+      ,Remark_pag = #Remark_pag#
       ,Content_pag = #Content_pag#
       ,Sort_pag = #Sort_pag#
       ,Parent_pag = #Parent_pag#
