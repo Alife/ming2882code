@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="User_usr" xmlns="http://ibatis.apache.org/mapping"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  >
+  <alias>
+    <typeAlias alias="User_usr" type="MC.Model.User_usr,MC.Model" />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="SelectResult" class="User_usr" >
+      <result property="ID_usr" column="ID_usr" />
+      <result property="UserName_usr" column="UserName_usr" />
+      <result property="Password_usr" column="Password_usr" />
+      <result property="LoginNum_usr" column="LoginNum_usr" />
+      <result property="Email_usr" column="Email_usr" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <sql id="MC.Model.User_usr.sqlwhere">
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID_usr">
+          ID_usr = #ID_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="UserName_usr">
+          UserName_usr = #UserName_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Password_usr">
+          Password_usr = #Password_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="LoginNum_usr">
+          LoginNum_usr = #LoginNum_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Email_usr">
+          Email_usr = #Email_usr#
+        </isNotNull>
+      </dynamic>
+    </sql>
+    <select id="MC.Model.User_usr.Count" parameterClass="System.Collections.IDictionary" resultClass="int">
+      Select count(1) FROM User_usr <include refid="MC.Model.User_usr.sqlwhere"/>
+    </select>
+    <select id="MC.Model.User_usr.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr FROM(
+      Select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr
+      ,ROW_NUMBER() Over(
+      <dynamic>
+        <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
+        <isNull property="sort">order by ID_usr desc</isNull>
+      </dynamic>) as rowNum
+      FROM User_usr
+      <include refid="MC.Model.User_usr.sqlwhere"/>
+      ) as temptable
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="page">
+          rowNum BETWEEN (#page#-1)*#rows#+1
+          <isNotNull prepend="AND" property="rows">
+            #page#*#rows#
+          </isNotNull>
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="MC.Model.User_usr.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
+      Select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr FROM User_usr
+      <dynamic prepend="WHERE">
+        <isNotNull prepend="AND" property="ID_usr">
+          ID_usr = #ID_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="UserName_usr">
+          UserName_usr = #UserName_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Password_usr">
+          Password_usr = #Password_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="LoginNum_usr">
+          LoginNum_usr = #LoginNum_usr#
+        </isNotNull>
+        <isNotNull prepend="AND" property="Email_usr">
+          Email_usr = #Email_usr#
+        </isNotNull>
+      </dynamic>
+      <dynamic>
+        <isNotNull property="OrderBy">
+          $OrderBy$
+        </isNotNull>
+      </dynamic>
+    </select>
+    <select id="MC.Model.User_usr.GetUserLogin" parameterClass="User_usr" resultMap="SelectResult">
+      <![CDATA[
+      declare @ID_usr int;
+      if exists (select ID_usr from User_usr where UserName_usr=#UserName_usr# and Password_usr=#Password_usr#)
+      begin
+      select @ID_usr=ID_usr from User_usr where UserName_usr=#UserName_usr# and Password_usr=#Password_usr#;
+      update User_usr set LoginNum_usr=LoginNum_usr+1 where ID_usr=@ID_usr;
+      select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr FROM User_usr where ID_usr=@ID_usr;
+      end]]>
+    </select>
+    <insert id="MC.Model.User_usr.Insert" parameterClass="User_usr">
+      insert into User_usr(
+      UserName_usr
+      ,Password_usr
+      ,LoginNum_usr
+      ,Email_usr
+      )values (
+      #UserName_usr#
+      ,#Password_usr#
+      ,#LoginNum_usr#
+      ,#Email_usr#
+      )
+      <selectKey property="ID_usr" type="post" resultClass="int">
+        ${selectKey}
+      </selectKey>
+    </insert>
+    <update id="MC.Model.User_usr.Update" parameterClass="User_usr">
+      update User_usr set
+      UserName_usr = #UserName_usr#
+      ,Password_usr = #Password_usr#
+      ,LoginNum_usr = #LoginNum_usr#
+      ,Email_usr = #Email_usr#
+      WHERE
+      ID_usr = #ID_usr#
+    </update>
+    <update id="MC.Model.User_usr.UpdatePassword_usr">
+      update User_usr set
+      Password_usr = #NewPassword_usr#
+      WHERE
+      ID_usr = #ID_usr# and Password_usr = #OldPassword_usr#
+    </update>
+    <delete id="MC.Model.User_usr.Delete" parameterClass="list">
+      delete
+      FROM User_usr
+      WHERE ID_usr IN
+      <iterate property="ids" open="(" close=")"  conjunction="," >
+        #ids[]#
+      </iterate>
+    </delete>
+  </statements>
+</sqlMap>
+

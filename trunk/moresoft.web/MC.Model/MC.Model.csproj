@@ -80,7 +80,7 @@
     <Compile Include="Set\Page_pag.cs" />
     <Compile Include="Set\Setting_set.cs" />
     <Compile Include="Set\Keywords_key.cs" />
-    <Compile Include="Users\mc_User.cs" />
+    <Compile Include="Users\User_usr.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

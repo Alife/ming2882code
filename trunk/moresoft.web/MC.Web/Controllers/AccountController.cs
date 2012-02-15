@@ -23,10 +23,10 @@ namespace MC.Web.Controllers
             ViewBag.MetaAuthor = ViewBag.Setting.Author_set;
             base.OnActionExecuted(filterContext);
         }
-        private readonly Imc_User _mc_UserService;
-        public AccountController(Imc_User mc_UserService)
+        private readonly IUser_usr _User_usrService;
+        public AccountController(IUser_usr User_usrService)
         {
-            _mc_UserService = mc_UserService;
+            _User_usrService = User_usrService;
         }
         #region 设置语言
         public JsonResult SetLang(string id)
@@ -52,7 +52,7 @@ namespace MC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userInfo = _mc_UserService.GetUserLogin(model.UserName, Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password), Request.UserHostAddress);
+                var userInfo = _User_usrService.GetUserLogin(model.UserName, Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password), Request.UserHostAddress);
                 if (userInfo != null)
                 {
                     SetCookie(userInfo, model.RememberMe);
@@ -68,7 +68,7 @@ namespace MC.Web.Controllers
         }
         #endregion
         #region 写入用户Cookie
-        private void SetCookie(mc_User userInfo, bool rememberMe)
+        private void SetCookie(User_usr userInfo, bool rememberMe)
         {
             FormsAuthentication.SetAuthCookie(userInfo.UserName, rememberMe);
             //bool isPersistent = rememberMe;
@@ -121,12 +121,12 @@ namespace MC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                mc_User userInfo = new mc_User();
+                User_usr userInfo = new User_usr();
                 userInfo.Email = model.Email;
                 userInfo.Password = Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password);
                 userInfo.UserName = model.UserName;
                 userInfo.DeptID = 1;
-                if (_mc_UserService.Insert(userInfo) > 0)
+                if (_User_usrService.Insert(userInfo) > 0)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return Redirect("/");
@@ -197,13 +197,13 @@ namespace MC.Web.Controllers
         #region 用户是否存在
         public JsonResult CheckUserNameExists(string userName)
         {
-            return Json(!_mc_UserService.IsUserExists(userName), JsonRequestBehavior.AllowGet);
+            return Json(!_User_usrService.IsUserExists(userName), JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region 邮件是否存在
         public JsonResult CheckEmailExists(string email)
         {
-            return Json(!_mc_UserService.IsEmailExists(email), JsonRequestBehavior.AllowGet);
+            return Json(!_User_usrService.IsEmailExists(email), JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

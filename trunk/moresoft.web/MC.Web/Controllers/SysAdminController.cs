@@ -10,12 +10,16 @@ using MC.IBLL;
 
 namespace MC.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Users = "admin")]
     [HandleError]
     public class SysAdminController : BaseController
     {
         [Dependency]
         public IPage_pag _Page_pagServer { get; set; }
+        [Dependency]
+        public IKeywords_key _Keywords_keyServer { get; set; }
+        [Dependency]
+        public ILink_lnk _Link_lnkServer { get; set; }
         public ActionResult Index()
         {
             return View();
@@ -79,16 +83,106 @@ namespace MC.Web.Controllers
             else
                 v = _Page_pagServer.Update(model);
             if (v > 0)
-                return Json(new { success = true, msg = "保存成功" }, JsonRequestBehavior.AllowGet);
-            return Json(new { success = false, msg = "保存失败" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, msg = "保存成功" }, "text/plain");
+            return Json(new { success = false, msg = "保存失败" }, "text/plain");
         }
         public JsonResult PagesDelete(string id)
         {
             if (_Page_pagServer.Delete(id.Split(',').ToList()) > 0)
-                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
-            return Json(new { success = false, msg = "删除失败" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, msg = "删除成功" }, "text/plain");
+            return Json(new { success = false, msg = "删除失败" }, "text/plain");
         }
         #endregion
+        #endregion
+        #region 关键字管理
+        #region UI
+        public ActionResult Keywords()
+        {
+            return View();
+        }
+        #endregion
+        #region 关键字管理列表
+        public JsonResult KeywordsList()
+        {
+            return Json(_Keywords_keyServer.GetPageList(Funs.GetQueryInfo()), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region 关键字管理增加修改删除
+        public JsonResult KeywordsSave(string a, Keywords_key model)
+        {
+            int v = 0;
+            if (a == "add")
+                v = _Keywords_keyServer.Insert(model);
+            else
+                v = _Keywords_keyServer.Update(model);
+            if (v > 0)
+                return Json(new { success = true, msg = "保存成功" }, "text/plain");
+            return Json(new { success = false, msg = "保存失败" }, "text/plain");
+        }
+        public JsonResult KeywordsDelete(string id)
+        {
+            if (_Keywords_keyServer.Delete(id.Split(',').ToList()) > 0)
+                return Json(new { success = true, msg = "删除成功" }, "text/plain");
+            return Json(new { success = false, msg = "删除失败" }, "text/plain");
+        }
+        #endregion
+        #endregion
+        #region 网站配置
+        public ActionResult Settings(int id)
+        {
+            return View(ViewBag.Setting);
+        }
+        public JsonResult SettingsSave(string a, Setting_set model)
+        {
+            int v = 0;
+            if (a == "add")
+                v = _Setting_setServer.Insert(model);
+            else
+                v = _Setting_setServer.Update(model);
+            if (v > 0)
+                return Json(new { success = true, msg = "保存成功" }, "text/plain");
+            return Json(new { success = false, msg = "保存失败" }, "text/plain");
+        }
+        #endregion
+        #region 友情连接管理
+        #region UI
+        public ActionResult Links()
+        {
+            return View();
+        }
+        #endregion
+        #region 友情连接列表
+        public JsonResult LinksList()
+        {
+            return Json(_Link_lnkServer.GetPageList(Funs.GetQueryInfo()), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region 友情连接增加修改删除
+        public JsonResult LinksSave(string a, Link_lnk model)
+        {
+            int v = 0;
+            model.IsHide_lnk = model.IsHide_lnk ?? false;
+            if (a == "add")
+                v = _Link_lnkServer.Insert(model);
+            else
+                v = _Link_lnkServer.Update(model);
+            if (v > 0)
+                return Json(new { success = true, msg = "保存成功" }, "text/plain");
+            return Json(new { success = false, msg = "保存失败" }, "text/plain");
+        }
+        public JsonResult LinksDelete(string id)
+        {
+            if (_Link_lnkServer.Delete(id.Split(',').ToList()) > 0)
+                return Json(new { success = true, msg = "删除成功" }, "text/plain");
+            return Json(new { success = false, msg = "删除失败" }, "text/plain");
+        }
+        #endregion
+        #endregion
+        #region 用户管理
+        public ActionResult Users()
+        {
+            return View();
+        }
         #endregion
     }
 }

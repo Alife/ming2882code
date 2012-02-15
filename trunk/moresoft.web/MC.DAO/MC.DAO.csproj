@@ -97,7 +97,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Users\mc_User.xml" />
+    <EmbeddedResource Include="Users\User_usr.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Info\InfoType_ift.xml" />
