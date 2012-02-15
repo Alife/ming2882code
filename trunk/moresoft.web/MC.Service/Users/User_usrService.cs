@@ -23,14 +23,14 @@ namespace MC.Service
         public User_usr GetForget(string _userName, string _email)
         {
             QueryInfo query = new QueryInfo();
-            query.Parameters.Add("UserName", _userName);
-            query.Parameters.Add("Email", _email);
+            query.Parameters.Add("UserName_usr", _userName);
+            query.Parameters.Add("Email_usr", _email);
             return _dao.GetItem<User_usr>(query);
         }
         public bool IsUserExists(string _userName)
         {
             QueryInfo query = new QueryInfo();
-            query.Parameters.Add("UserName", _userName);
+            query.Parameters.Add("UserName_usr", _userName);
             if (_dao.GetItem<User_usr>(query) == null)
                 return false;
             return true;
@@ -38,7 +38,7 @@ namespace MC.Service
         public bool IsEmailExists(string _email)
         {
             QueryInfo query = new QueryInfo();
-            query.Parameters.Add("Email", _email);
+            query.Parameters.Add("Email_usr", _email);
             if (_dao.GetItem<User_usr>(query) == null)
                 return false;
             return true;
@@ -46,18 +46,18 @@ namespace MC.Service
         public User_usr GetUserLogin(string _userName, string _password, string _loginIP)
         {
             QueryInfo query = new QueryInfo();
-            query.Parameters.Add("UserName", _userName);
-            query.Parameters.Add("Password", _password);
-            query.Parameters.Add("LoginIP", _loginIP);
+            query.Parameters.Add("UserName_usr", _userName);
+            query.Parameters.Add("Password_usr", _password);
+            query.Parameters.Add("LoginIP_usr", _loginIP);
             query.XmlID = "GetUserLogin";
             return _dao.GetItem<User_usr>(query);
         }
         public int UpdatePassword(string ID, string oldPassword, string newPassword)
         {
             QueryInfo query = new QueryInfo();
-            query.Parameters.Add("ID", ID);
-            query.Parameters.Add("OldPassword", oldPassword);
-            query.Parameters.Add("NewPassword", newPassword);
+            query.Parameters.Add("ID_usr", ID);
+            query.Parameters.Add("OldPassword_usr", oldPassword);
+            query.Parameters.Add("NewPassword_usr", newPassword);
             query.XmlID = "UpdatePassword";
             query.MappingName = "User_usr";
             return _dao.Update(query);
