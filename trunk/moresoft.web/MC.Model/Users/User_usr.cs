@@ -5,10 +5,10 @@ using System.Collections.Generic;
 namespace MC.Model
 {
     /// <summary>
-    /// mc_User
+    /// User_usr
     /// </summary>
     [Serializable]
-    public partial class mc_User : Entity
+    public partial class User_usr : Entity
     {
         #region method
         /// <summary>
@@ -16,7 +16,7 @@ namespace MC.Model
         /// </summary>
         public override string GetTableName()
         {
-            return "mc_User";
+            return "User_usr";
         }
         /// <summary>
         /// Keys

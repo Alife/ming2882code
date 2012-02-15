@@ -12,7 +12,7 @@ namespace MC.Web.Controllers
     public class HomeController : BaseController
     {
         [Dependency]
-        public Imc_User _mc_UserService { get; set; }
+        public IUser_usr _User_usrService { get; set; }
         [Dependency]
         public ILink_lnk _Link_lnkService { get; set; }
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
@@ -25,8 +25,8 @@ namespace MC.Web.Controllers
         [Unity.Mvc3.Filter.CompressFilter]
         public ActionResult Index()
         {
-            var linkqi = new MC.Model.QueryInfo(); 
-            linkqi.Parameters.Add("IsHide", true);
+            var linkqi = new MC.Model.QueryInfo();
+            linkqi.Parameters.Add("IsHide_lnk", false);
             linkqi.Parameters.Add("top", 20);
             linkqi.Orderby.Add("Sort_lnk","desc");
             ViewBag.Link = _Link_lnkService.GetList(linkqi);

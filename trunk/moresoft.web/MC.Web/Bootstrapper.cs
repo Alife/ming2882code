@@ -20,7 +20,7 @@ namespace MC.Web
         {
             var container = new UnityContainer();
 
-            container.RegisterType<Imc_User, mc_UserService>();
+            container.RegisterType<IUser_usr, User_usrService>();
             container.RegisterType<IKeywords_key, Keywords_keyService>();
             container.RegisterType<ILink_lnk, Link_lnkService>();
             container.RegisterType<IPage_pag, Page_pagService>();

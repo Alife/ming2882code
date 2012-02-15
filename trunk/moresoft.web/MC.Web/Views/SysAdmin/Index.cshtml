@@ -12,18 +12,18 @@
         var _menus = { "menus": [
 						{ "menuid": "1", "icon": "icon-sys", "menuname": "文章管理",
 						    "menus": [
-									{ "menuid": "2", "menuname": "文章管理", "icon": "icon-info", "url": "info.aspx", "urlType": "load" },
-									{ "menuid": "3", "menuname": "文章分类", "icon": "icon-nav", "url": "infotype.aspx", "urlType": "load" },
+									{ "menuid": "2", "menuname": "信息管理", "icon": "icon-info", "url": "@Url.Content("~/sysadmin/infos")", "urlType": "load" },
+									{ "menuid": "3", "menuname": "信息分类", "icon": "icon-nav", "url": "@Url.Content("~/sysadmin/infotypes")", "urlType": "load" },
 									{ "menuid": "4", "menuname": "主页分类", "icon": "icon-nav", "url": "indextag.aspx", "urlType": "load" },
 									{ "menuid": "5", "menuname": "页面信息", "icon": "icon-set", "url": "@Url.Content("~/sysadmin/pages")", "urlType": "load" },
-									{ "menuid": "6", "menuname": "关键字管理", "icon": "icon-set", "url": "keywords.aspx", "urlType": "load" },
-									{ "menuid": "11", "menuname": "需求管理", "icon": "icon-nav", "url": "require.aspx", "urlType": "load" }
+									{ "menuid": "6", "menuname": "关键字管理", "icon": "icon-set", "url": "@Url.Content("~/sysadmin/keywords")", "urlType": "load" },
+									{ "menuid": "11", "menuname": "需求管理", "icon": "icon-nav", "url": "@Url.Content("~/sysadmin/requires")", "urlType": "load" }
 								]
 						}, { "menuid": "7", "icon": "icon-set", "menuname": "系统设置",
-						    "menus": [{ "menuid": "8", "menuname": "管理员管理", "icon": "icon-users", "url": "users.aspx", "urlType": "load" },
-									{ "menuid": "9", "menuname": "系统设置", "icon": "icon-set", "url": "setting.aspx?id=1", "urlType": "load" },
-									{ "menuid": "10", "menuname": "友情连接", "icon": "icon-nav", "url": "link.aspx", "urlType": "load" },
-									{ "menuid": "11", "menuname": "日志查看", "icon": "icon-log", "url": "log.aspx", "urlType": "load" }
+						    "menus": [{ "menuid": "8", "menuname": "用户管理", "icon": "icon-users", "url": "@Url.Content("~/sysadmin/users")", "urlType": "load" },
+									{ "menuid": "9", "menuname": "系统设置", "icon": "icon-set", "url": "@Url.Content("~/sysadmin/settings/1")", "urlType": "load" },
+									{ "menuid": "10", "menuname": "友情连接", "icon": "icon-nav", "url": "@Url.Content("~/sysadmin/links")", "urlType": "load" },
+									{ "menuid": "11", "menuname": "日志查看", "icon": "icon-log", "url": "@Url.Content("~/sysadmin/logs")", "urlType": "load" }
 								]
 						}
 				]
@@ -63,7 +63,7 @@
             $('#btnCa').click(function () { closePwd(); })
             $('#loginOut').click(function () {
                 $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function (r) {
-                    if (r) { location.href = 'logout.aspx'; }
+                    if (r) { location.href = '@Url.Content("~/account/logoff")'; }
                 });
             })
         });    </script>
@@ -140,7 +140,7 @@
                         </tr>
                         <tr bgcolor="#f9fbf0">
                             <td width="50%">
-                                &nbsp;<b>开机运行时长</b>：@(System.Environment.TickCount / 3600000).ToString("N2")
+                                &nbsp;<b>开机运行时长</b>：@((System.Environment.TickCount / 3600000).ToString("N2"))
                                 小时
                             </td>
                             <td width="50%">

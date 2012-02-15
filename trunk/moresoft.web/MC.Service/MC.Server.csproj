@@ -75,7 +75,7 @@
     <Compile Include="Set\Page_pagService.cs" />
     <Compile Include="Set\Setting_setService.cs" />
     <Compile Include="Set\Keywords_keyService.cs" />
-    <Compile Include="Users\mc_UserService.cs" />
+    <Compile Include="Users\User_usrService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

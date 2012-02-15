@@ -49,7 +49,7 @@
     <Compile Include="Set\ILink_lnk.cs" />
     <Compile Include="Set\IPage_pag.cs" />
     <Compile Include="Set\ISetting_set.cs" />
-    <Compile Include="Users\Imc_User.cs" />
+    <Compile Include="Users\IUser_usr.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MC.Model\MC.Model.csproj">

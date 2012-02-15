@@ -8,30 +8,30 @@ using MC.IBLL;
 
 namespace MC.Service
 {
-    public class mc_UserService : Imc_User
+    public class User_usrService : IUser_usr
     {
         private readonly IDao _dao;
-        public mc_UserService(IDao dao) { _dao = dao; }
-        public PagedList<mc_User> GetListPage(QueryInfo queryInfo)
+        public User_usrService(IDao dao) { _dao = dao; }
+        public PagedList<User_usr> GetListPage(QueryInfo queryInfo)
         {
-            return _dao.GetListPage<mc_User>(queryInfo);
+            return _dao.GetListPage<User_usr>(queryInfo);
         }
-        public IList<mc_User> GetList(QueryInfo queryInfo)
+        public IList<User_usr> GetList(QueryInfo queryInfo)
         {
-            return _dao.GetList<mc_User>(queryInfo);
+            return _dao.GetList<User_usr>(queryInfo);
         }
-        public mc_User GetForget(string _userName, string _email)
+        public User_usr GetForget(string _userName, string _email)
         {
             QueryInfo query = new QueryInfo();
             query.Parameters.Add("UserName", _userName);
             query.Parameters.Add("Email", _email);
-            return _dao.GetItem<mc_User>(query);
+            return _dao.GetItem<User_usr>(query);
         }
         public bool IsUserExists(string _userName)
         {
             QueryInfo query = new QueryInfo();
             query.Parameters.Add("UserName", _userName);
-            if (_dao.GetItem<mc_User>(query) == null)
+            if (_dao.GetItem<User_usr>(query) == null)
                 return false;
             return true;
         }
@@ -39,18 +39,18 @@ namespace MC.Service
         {
             QueryInfo query = new QueryInfo();
             query.Parameters.Add("Email", _email);
-            if (_dao.GetItem<mc_User>(query) == null)
+            if (_dao.GetItem<User_usr>(query) == null)
                 return false;
             return true;
         }
-        public mc_User GetUserLogin(string _userName, string _password, string _loginIP)
+        public User_usr GetUserLogin(string _userName, string _password, string _loginIP)
         {
             QueryInfo query = new QueryInfo();
             query.Parameters.Add("UserName", _userName);
             query.Parameters.Add("Password", _password);
             query.Parameters.Add("LoginIP", _loginIP);
             query.XmlID = "GetUserLogin";
-            return _dao.GetItem<mc_User>(query);
+            return _dao.GetItem<User_usr>(query);
         }
         public int UpdatePassword(string ID, string oldPassword, string newPassword)
         {
@@ -59,30 +59,30 @@ namespace MC.Service
             query.Parameters.Add("OldPassword", oldPassword);
             query.Parameters.Add("NewPassword", newPassword);
             query.XmlID = "UpdatePassword";
-            query.MappingName = "mc_User";
+            query.MappingName = "User_usr";
             return _dao.Update(query);
         }
-        public mc_User GetItem(string ID)
+        public User_usr GetItem(string ID)
         {
-            return _dao.GetItem<mc_User>(ID);
+            return _dao.GetItem<User_usr>(ID);
         }
-        public mc_User GetItem(int userID)
+        public User_usr GetItem(int userID)
         {
             QueryInfo query = new QueryInfo();
             query.Parameters.Add("ID", userID);
-            return _dao.GetItem<mc_User>(query);
+            return _dao.GetItem<User_usr>(query);
         }
-        public int Insert(mc_User item)
+        public int Insert(User_usr item)
         {
             item.SetState(EntityState.Added);
             return _dao.Save(item);
         }
-        public int Update(mc_User item)
+        public int Update(User_usr item)
         {
             item.SetState(EntityState.Modified);
             return _dao.Save(item);
         }
-        public int Delete(mc_User item)
+        public int Delete(User_usr item)
         {
             return _dao.Delete(item);
         }
@@ -90,7 +90,7 @@ namespace MC.Service
         {
             QueryInfo query = new QueryInfo();
             query.Parameters.Add("ids", ids);
-            query.MappingName = typeof(mc_User).Name;
+            query.MappingName = typeof(User_usr).Name;
             return _dao.Delete(query);
         }
     }
