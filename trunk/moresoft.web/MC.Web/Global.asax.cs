@@ -46,6 +46,11 @@ namespace MC.Web
                 "{id}.html",
                 new { controller = "Pages", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                "Industry",
+                "industry/cat-{id}",
+                new { controller = "Industry", action = "Index", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 "Default", // 路由名称

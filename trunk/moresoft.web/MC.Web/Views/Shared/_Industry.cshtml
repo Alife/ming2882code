@@ -1,29 +1,11 @@
 ﻿                <b class="b1"></b><b class="b2 d1"></b><b class="b3 d1"></b><b class="b4 d1"></b>
                 <div class="b d1">
                     <div class="content">
-                        <h2>行业资讯</h2>
-                        <ul class="list">
-                            <li><a href="">电子装配行业:</a>
-                                <p>(<a href="">EMS电子代工</a> <a href="">电脑及IT产品、家电 数码产品</a> <a href="">光通讯产品</a> <a href="">手机</a> <a href="">设备仪器</a> <a href="">SMT/PCBA</a>)</p>
-                            </li>
-                            <li><a href="">光伏太阳能行业:</a>
-                                <p>(<a href="">硅片-电池片-组件制造全产业链解决方案</a> <a href="">薄膜组件太阳能产品方案</a>)</p>
-                            </li>
-                            <li><a href="">汽车行业:</a>
-                                <p>(<a href="">整车装配</a> <a href="">动力/制动系统</a> <a href="">变速系统</a> <a href="">转向系统</a> <a href="">空调系统</a> <a href="">车用电子数码产品</a> <a href="">轮胎</a>)</p>
-                            </li>
-                            <li><a href="">机械行业:</a>
-                                <p>(<a href="">大型设备、装备、精密组件配件</a> <a href="">钟表</a> <a href="">机床</a> <a href="">轴承</a>)</p>
-                            </li>
-                            <li><a href="">半导体行业:</a>
-                                <p>(<a href="">半导体靶材</a> <a href="">前道</a> <a href="">后道生产</a>)</p>
-                            </li>
-                            <li><a href="">军工行业:</a>
-                                <p>(<a href="">武器</a> <a href="">装备</a> <a href="">设备</a> <a href="">测控</a> <a href="">器件</a>)</p>
-                            </li>
-                            <li><a href="">其它行业:</a>
-                                <p>(<a href="">光学产品</a> <a href="">家具制造</a> <a href="">卫浴制造</a> <a href="">制鞋、制衣</a> <a href="">其它对产品追溯性有需求的各类制造业</a>)</p>
-                            </li>
+                        <h2><=Industry1></h2>
+                        <ul class="list">@foreach(var item in ViewBag.InfoType){
+                            <li><a href="@Url.Content("~/industry/cat-" + item.ID_ift)">@item.Name_ift:</a>
+                                <p>(@foreach(var citem in item.children){<a href="@Url.Content("~/industry/cat-" + citem.ID_ift)">@citem.Name_ift</a> })</p>
+                            </li>}
                         </ul>
                     </div>
                 </div>

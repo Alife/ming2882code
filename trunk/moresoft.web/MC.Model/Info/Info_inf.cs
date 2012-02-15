@@ -62,7 +62,7 @@ namespace MC.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? IndexTagID_inf { get; set; }
+        public int? Type_inf { get; set; }
 
         /// <summary>
         /// 

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = ViewBag.CurrentInfoType == null ? "<=Industry>" : ViewBag.CurrentInfoType.Name_ift + "-<=Industry>";
+}
+        <div class="buttomcolumns">
+            <div class="leftcolumn">
+                @Html.Partial("_Industry")
+            </div>
+            <div class="contentcolumns">
+                <h2>@(ViewBag.CurrentInfoType == null ? "<=Industry>" : @ViewBag.CurrentInfoType.Name_ift)</h2>
+                <ul>
+                @foreach (var item in ViewBag.Infos.rows)
+                {
+                    <li><a href="@Url.Content("~/info/info-" + item.ID_inf)">@item.Title_inf</a></li>
+                }
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>

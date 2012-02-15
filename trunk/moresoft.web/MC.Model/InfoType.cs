@@ -10,10 +10,10 @@ namespace MC.Model
         /// <summary>
         /// 公司新闻
         /// </summary>
-        News,
+        News = 1,
         /// <summary>
         /// 行业资讯
         /// </summary>
-        Industry
+        Industry = 2
     }
 }

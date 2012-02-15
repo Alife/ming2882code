@@ -12,7 +12,7 @@
       <result property="Content_inf" column="Content_inf" />
       <result property="Hits_inf" column="Hits_inf" />
       <result property="TopType_inf" column="TopType_inf" />
-      <result property="IndexTagID_inf" column="IndexTagID_inf" />
+      <result property="Type_inf" column="Type_inf" />
       <result property="CreateTime_inf" column="CreateTime_inf" />
       <result property="Author_inf" column="Author_inf" />
       <result property="Keywords_inf" column="Keywords_inf" />
@@ -39,8 +39,8 @@
         <isNotNull prepend="AND" property="TopType_inf">
           TopType_inf like '%'+#TopType_inf#+'%'
         </isNotNull>
-        <isNotNull prepend="AND" property="IndexTagID_inf">
-          IndexTagID_inf = #IndexTagID_inf#
+        <isNotNull prepend="AND" property="Type_inf">
+          Type_inf = #Type_inf#
         </isNotNull>
         <isNotNull prepend="AND" property="CreateTime_inf">
           CreateTime_inf = #CreateTime_inf#
@@ -57,8 +57,8 @@
       Select count(1) FROM Info_inf <include refid="MC.Model.Info_inf.sqlwhere"/>
     </select>
     <select id="MC.Model.Info_inf.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf FROM(
-      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,Type_inf,CreateTime_inf,Author_inf,Keywords_inf FROM(
+      Select ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,Type_inf,CreateTime_inf,Author_inf,Keywords_inf
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
@@ -77,7 +77,7 @@
       </dynamic>
     </select>
     <select id="MC.Model.Info_inf.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select <isNotNull prepend="top" property="top">$top$</isNotNull> ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,IndexTagID_inf,CreateTime_inf,Author_inf,Keywords_inf FROM Info_inf
+      Select <isNotNull prepend="top" property="top">$top$</isNotNull> ID_inf,InfoTypeID_inf,Title_inf,Content_inf,Hits_inf,TopType_inf,Type_inf,CreateTime_inf,Author_inf,Keywords_inf FROM Info_inf
      <include refid="MC.Model.Info_inf.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
@@ -92,7 +92,7 @@
       ,Content_inf
       ,Hits_inf
       ,TopType_inf
-      ,IndexTagID_inf
+      ,Type_inf
       ,CreateTime_inf
       ,Author_inf
       ,Keywords_inf
@@ -102,7 +102,7 @@
       ,#Content_inf#
       ,#Hits_inf#
       ,#TopType_inf#
-      ,#IndexTagID_inf#
+      ,#Type_inf#
       ,#CreateTime_inf#
       ,#Author_inf#
       ,#Keywords_inf#
@@ -118,7 +118,7 @@
       ,Content_inf = #Content_inf#
       ,Hits_inf = #Hits_inf#
       ,TopType_inf = #TopType_inf#
-      ,IndexTagID_inf = #IndexTagID_inf#
+      ,Type_inf = #Type_inf#
       ,CreateTime_inf = #CreateTime_inf#
       ,Author_inf = #Author_inf#
       ,Keywords_inf = #Keywords_inf#
