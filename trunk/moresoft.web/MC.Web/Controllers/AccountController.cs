@@ -70,7 +70,7 @@ namespace MC.Web.Controllers
         #region 写入用户Cookie
         private void SetCookie(User_usr userInfo, bool rememberMe)
         {
-            FormsAuthentication.SetAuthCookie(userInfo.UserName, rememberMe);
+            FormsAuthentication.SetAuthCookie(userInfo.UserName_usr, rememberMe);
             //bool isPersistent = rememberMe;
             //int expires = rememberMe ? 24 * 60 * 14 : 30;
             //JsonSerializerSettings jsonSs = new JsonSerializerSettings();
@@ -122,10 +122,10 @@ namespace MC.Web.Controllers
             if (ModelState.IsValid)
             {
                 User_usr userInfo = new User_usr();
-                userInfo.Email = model.Email;
-                userInfo.Password = Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password);
-                userInfo.UserName = model.UserName;
-                userInfo.DeptID = 1;
+                userInfo.Email_usr = model.Email;
+                userInfo.Password_usr = Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password);
+                userInfo.UserName_usr = model.UserName;
+                userInfo.LoginNum_usr = 1;
                 if (_User_usrService.Insert(userInfo) > 0)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
