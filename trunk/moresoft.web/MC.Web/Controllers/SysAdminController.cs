@@ -292,5 +292,65 @@ namespace MC.Web.Controllers
         }
         #endregion
         #endregion
+        #region 行业分类管理
+        #region UI
+        public ActionResult InfoTypes()
+        {
+            return View();
+        }
+        #endregion
+        #region 行业分类列表
+        public JsonResult InfoTypesList()
+        {
+            return Json(LoadInfoTypesChild(0), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult InfoTypesTree(int? id)
+        {
+            var tree = LoadInfoTypesTree(0);
+            if (id.HasValue)
+                tree.Insert(0, new TreeEntity { id = 0, text = "请选择" });
+            return Json(tree, JsonRequestBehavior.AllowGet);
+        }
+        private List<TreeEntity> LoadInfoTypesTree(int parentID)
+        {
+            List<TreeEntity> tree = new List<TreeEntity>();
+            QueryInfo info = new QueryInfo();
+            info.Parameters.Add("Parent_ift", parentID);
+            info.Orderby.Add("Sort_ift", null);
+            var list = _InfoType_iftServer.GetList(info);
+            foreach (var item in list)
+                tree.Add(new TreeEntity { id = item.ID_ift.Value, text = item.Name_ift, children = LoadInfoTypesTree(item.ID_ift.Value) });
+            return tree;
+        }
+        #endregion
+        #region 行业分类增加修改删除
+        public ActionResult InfoTypesDetail(int id)
+        {
+            if (id > 0)
+                return View(_InfoType_iftServer.GetItem(id));
+            return View();
+        }
+        [ValidateInput(false)]
+        public JsonResult InfoTypesSave(string a, InfoType_ift model)
+        {
+            int v = 0;
+            if (model.Parent_ift > 0) model.Path_ift = _InfoType_iftServer.GetItem(model.Parent_ift.Value).Path_ift + 1;
+            else { model.Parent_ift = 0; model.Path_ift = 1; }
+            if (a == "add")
+                v = _InfoType_iftServer.Insert(model);
+            else
+                v = _InfoType_iftServer.Update(model);
+            if (v > 0)
+                return Json(new { success = true, msg = "保存成功" }, "text/plain");
+            return Json(new { success = false, msg = "保存失败" }, "text/plain");
+        }
+        public JsonResult InfoTypesDelete(int id)
+        {
+            if (_InfoType_iftServer.Delete(id) > 0)
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败，分类下有子类无法删除" }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #endregion
     }
 }

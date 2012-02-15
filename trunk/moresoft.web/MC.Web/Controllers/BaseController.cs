@@ -15,6 +15,8 @@ namespace MC.Web.Controllers
     {
         [Dependency]
         public ISetting_set _Setting_setServer { get; set; }
+        [Dependency]
+        public IInfoType_ift _InfoType_iftServer { get; set; }
         protected readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         protected override void OnException(ExceptionContext filterContext)
         {
@@ -42,7 +44,18 @@ namespace MC.Web.Controllers
         {
             ViewBag.Setting = _Setting_setServer.GetItem(1);
             ViewBag.Lang = Request.Cookies["Lang"] != null ? Request.Cookies["Lang"].Value : System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+            ViewBag.InfoType = LoadInfoTypesChild(0);
             base.OnActionExecuting(filterContext);
+        }
+        public IList<InfoType_ift> LoadInfoTypesChild(int parentID)
+        {
+            QueryInfo info = new QueryInfo();
+            info.Parameters.Add("Parent_ift", parentID);
+            info.Orderby.Add("Sort_ift", null);
+            var list = _InfoType_iftServer.GetList(info);
+            foreach (var item in list)
+                item.children = LoadInfoTypesChild(item.ID_ift.Value);
+            return list;
         }
     }
 }
