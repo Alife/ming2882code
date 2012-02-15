@@ -42,14 +42,21 @@ namespace MC.Web
                 Defaults = new RouteValueDictionary(new { controller = "Compress", action = "CacheContent", key = "", type = "" }),
             });
             routes.MapRoute(
-                "Pages",
-                "{id}.html",
-                new { controller = "Pages", action = "Index", id = UrlParameter.Optional }
+                "Industry1",
+                "{controller}.html",
+                new { controller = "Industry", action = "Index", id = UrlParameter.Optional },
+                new { controller = @"industry|news" }
             );
             routes.MapRoute(
                 "Industry",
-                "industry/cat-{id}",
-                new { controller = "Industry", action = "Index", id = UrlParameter.Optional }
+                "{controller}/detail-{id}.html",
+                new { controller = "Industry", action = "Index", id = UrlParameter.Optional },
+                new { controller = @"industry|info|news" }
+            );
+            routes.MapRoute(
+                "Pages",
+                "{id}.html",
+                new { controller = "Pages", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

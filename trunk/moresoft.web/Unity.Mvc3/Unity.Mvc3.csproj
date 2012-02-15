@@ -62,7 +62,9 @@
     <Compile Include="Filter\CompressFilterAttribute.cs" />
     <Compile Include="Helpers\Encoders\MD5.cs" />
     <Compile Include="Helpers\Html\McHtml.cs" />
+    <Compile Include="Helpers\PagerHelper.cs" />
     <Compile Include="Helpers\RegexUnity.cs" />
+    <Compile Include="Helpers\RenderPager.cs" />
     <Compile Include="HttpCompress\FileBase.cs" />
     <Compile Include="HttpCompress\IFileBase.cs" />
     <Compile Include="HttpCompress\JavaScriptMinifier.cs" />

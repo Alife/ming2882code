@@ -16,7 +16,10 @@
     <item name="Save">保存</item>
     <item name="Delete">删除</item>
     <item name="New">新增</item>
-    <item name="Clear">清空</item>    
+    <item name="Clear">清空</item>
+    <item name="Prev">前一页</item>
+    <item name="Next">下一页</item>
+    <item name="Jump">跳转</item>
    </Module>
   <Module name="Layout">
     <item name="Home">首页</item>

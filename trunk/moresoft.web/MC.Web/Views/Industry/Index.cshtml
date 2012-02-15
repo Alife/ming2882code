@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Unity.Mvc3.Helpers
+@{
     ViewBag.Title = ViewBag.CurrentInfoType == null ? "<=Industry>" : ViewBag.CurrentInfoType.Name_ift + "-<=Industry>";
 }
         <div class="buttomcolumns">
@@ -10,9 +11,12 @@
                 <ul>
                 @foreach (var item in ViewBag.Infos.rows)
                 {
-                    <li><a href="@Url.Content("~/info/info-" + item.ID_inf)">@item.Title_inf</a></li>
+                    <li><a href="@Url.Content("~/info/detail-" + item.ID_inf + ".html")">@item.Title_inf</a></li>
                 }
                 </ul>
+                <div class="pager">
+                    @Html.Raw(Html.Pager((int)ViewBag.Infos.pageIndex, (int)ViewBag.Infos.pageSize, (int)ViewBag.Infos.total, (int)ViewBag.Infos.pageIndex))
+                </div>
             </div>
             <div class="clear"></div>
         </div>

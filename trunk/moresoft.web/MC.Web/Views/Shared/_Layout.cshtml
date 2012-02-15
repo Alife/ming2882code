@@ -21,11 +21,11 @@
     <div class="menu">
         <ul>
             <li><a href="@Url.Content("~/")"@Html.Raw(ViewBag.SelectedMenu == null ? "class=\"selected\"" : "")><=Home></a></li>
-            <li><a href="@Url.Content("~/")company.html"@Html.Raw(ViewBag.SelectedMenu == "Company" ? " class=\"selected\"" : "")><=Company></a></li>
-            <li><a href="@Url.Content("~/")news"@Html.Raw(ViewBag.SelectedMenu == "News" ? " class=\"selected\"" : "")><=News></a></li>
-            <li><a href="@Url.Content("~/")job"@Html.Raw(ViewBag.SelectedMenu == "Job" ? " class=\"selected\"" : "")><=Job></a></li>
+            <li><a href="@Url.Content("~/company.html")"@Html.Raw(ViewBag.SelectedMenu == "Company" ? " class=\"selected\"" : "")><=Company></a></li>
+            <li><a href="@Url.Content("~/news.html")"@Html.Raw(ViewBag.SelectedMenu == "News" ? " class=\"selected\"" : "")><=News></a></li>
+            <li><a href="@Url.Content("~/job.html")"@Html.Raw(ViewBag.SelectedMenu == "Job" ? " class=\"selected\"" : "")><=Job></a></li>
             <li><a href="http://www.moresoft.cn"><=Forum></a></li>
-            <li><a href="@Url.Content("~/")service.html"@Html.Raw(ViewBag.SelectedMenu == "Service" ? " class=\"selected\"" : "")><=Service></a></li>
+            <li><a href="@Url.Content("~/service.html")"@Html.Raw(ViewBag.SelectedMenu == "Service" ? " class=\"selected\"" : "")><=Service></a></li>
         </ul>
     </div>
     <div id="wrapper">
@@ -37,12 +37,12 @@
         </ul>}
         <div class="clear"></div>
         <p>
-            @Html.ActionLink("<=Product>", "index", "product") | 
-            <a href="@Url.Content("~/industry")"><=Industry></a> | 
+            <a href="@Url.Content("~/product.html")"><=Product></a> | 
+            <a href="@Url.Content("~/industry.html")"><=Industry></a> | 
             @Html.RouteLink("<=Service1>", new { controller = "Pages", action = "Index", id = "service" }) | 
             @Html.RouteLink("<=Partners>", new { controller = "Pages", action = "Index", id = "partners" }) | 
             @Html.RouteLink("<=Case>", new { controller = "Pages", action = "Index", id = "case" }) | 
-            @Html.ActionLink("<=News1>", "index", "news") | 
+            <a href="@Url.Content("~/news.html")"><=News1></a> | 
             @Html.RouteLink("<=Company>", new { controller = "Pages", action = "Index", id = "company" }) | 
             @Html.RouteLink("<=Concact>", new { controller = "Pages", action = "Index", id = "concact" }) | 
             @Html.RouteLink("<=SiteMap>", new { controller = "Pages", action = "Index", id = "sitemap" }) | 
