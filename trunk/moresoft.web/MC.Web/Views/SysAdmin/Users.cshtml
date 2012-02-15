@@ -7,18 +7,18 @@
         var Users_Grid = $('#Users_Grid').datagrid({
             title: '用户管理', rownumbers: true, animate: true, border: false, singleSelect: false,
             url: '@Url.Content("~/sysadmin/userslist")',
-            idField: 'ID_key',
+            idField: 'ID_usr',
             remoteSort: false, pagination: true, fit: true, pageSize: 20,
-            frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '关键字', field: 'Name_key', width: 200}]],
-            columns: [[{ title: '连接', field: 'Url_key', width: 250 }, { title: '每篇更替个数', field: 'Num_key', width: 100 }, { title: '排序', field: 'Sort_key', width: 80}]],
-            onDblClickRow: function (rowIndex, row) { row.Name_key_Old = row.Name_key; Users_Form.form('load', row); Users_Form.url = '@Url.Content("~/sysadmin/userssave?a=edit")'; Users_Dialog.dialog('open'); },
+            frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '用户名', field: 'UserName_usr', width: 200}]],
+            columns: [[{ title: '邮箱', field: 'Email_usr', width: 250 }, { title: '登录次数', field: 'LoginNum_usr', width: 100 }]],
+            onDblClickRow: function (rowIndex, row) { row.UserName_usr_Old = row.UserName_usr; Users_Form.form('load', row); Users_Form.url = '@Url.Content("~/sysadmin/userssave?a=edit")'; Users_Dialog.dialog('open'); },
             toolbar: [{
-                id: 'btnAdd_key',
+                id: 'btnAdd_usr',
                 text: '添加',
                 iconCls: 'application_add',
                 handler: function () { Users_Dialog.dialog('open'); Users_Form.form('clear'); Users_Form.url = '@Url.Content("~/sysadmin/userssave?a=add")'; }
             }, '-', {
-                id: 'btnEdit_key',
+                id: 'btnEdit_usr',
                 text: '编辑',
                 iconCls: 'application_edit',
                 handler: function () {
@@ -35,20 +35,20 @@
                     else {
                         Users_Dialog.dialog('open');
                         var row = rows[0];
-                        row.Name_key_Old = row.Name_key;
+                        row.UserName_usr_Old = row.UserName_usr;
                         Users_Form.form('load', row);
                         Users_Form.url = '@Url.Content("~/sysadmin/userssave?a=edit")';
                     }
                 }
             }, '-', {
-                id: 'btnDelete_key',
+                id: 'btnDelete_usr',
                 text: '删除',
                 iconCls: 'application_delete',
                 handler: function () {
                     var ids = [];
                     var rows = Users_Grid.datagrid('getSelections');
                     for (var i = 0; i < rows.length; i++) {
-                        ids.push(rows[i].ID_key);
+                        ids.push(rows[i].ID_usr);
                     }
                     if (ids.length > 0) {
                         $.messager.confirm('提示信息', '您确认要删除吗?', function (data) {
@@ -75,7 +75,7 @@
                     }
                 }
             }, '-', {
-                id: 'btnRefresh_key',
+                id: 'btnRefresh_usr',
                 text: '刷新',
                 iconCls: 'refresh',
                 handler: function () {
@@ -115,38 +115,30 @@
         <table cellpadding="3">
             <tr>
                 <td align="right">
-                    关键字：
+                    用户名：
                 </td>
                 <td>
-                    <input name="ID_key" type="hidden" />
-                    <input name="Name_key_Old" type="hidden" />
-                    <input name="Name_key" type="text" class="easyui-validatebox frmText" required="true" style="width:200px;"
+                    <input name="ID_usr" type="hidden" />
+                    <input name="UserName_usr_Old" type="hidden" />
+                    <input name="UserName_usr" type="text" class="easyui-validatebox frmText" required="true" style="width:200px;"
                         missingmessage="关键字必须填写" />
                 </td>
             </tr>
             <tr>
                 <td align="right">
-                    URL：
+                    邮箱：
                 </td>
                 <td>
-                    <input name="Url_key" type="text" class="easyui-validatebox frmText" required="true" style="width:400px;"
+                    <input name="Email_usr" type="text" class="easyui-validatebox frmText" required="true" style="width:400px;"
                         missingmessage="URL必须填写" />
                 </td>
             </tr>
             <tr>
                 <td align="right">
-                    每篇更替个数：
+                    密码：
                 </td>
                 <td>
-                    <input name="Num_key" type="number" class="easyui-numberbox frmText" value="0" />
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    排序：
-                </td>
-                <td>
-                    <input name="Sort_key" type="number" class="easyui-numberbox frmText" />
+                    <input name="Password_usr" type="password" class="easyui-validatebox frmText" value="" />
                 </td>
             </tr>
         </table>
