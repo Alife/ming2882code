@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Reflection;
 using Microsoft.Practices.Unity;
 using MC.Model;
@@ -25,6 +26,8 @@ namespace MC.Web.Controllers
         public ILink_lnk _Link_lnkServer { get; set; }
         [Dependency]
         public IUser_usr _User_usrServer { get; set; }
+        [Dependency]
+        public IInfo_inf _Info_infServer { get; set; }
         #endregion
         public ActionResult Index()
         {
@@ -377,6 +380,75 @@ namespace MC.Web.Controllers
             return Json(new { success = false, msg = "删除失败，分类下有子类无法删除" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+        #endregion
+        #region 行业信息管理
+        #region UI
+        public ActionResult Infos()
+        {
+            return View();
+        }
+        #endregion
+        #region 行业信息管理列表
+        public JsonResult InfosList()
+        {
+            return Json(_Info_infServer.GetPageList(Funs.GetQueryInfo()), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region 行业信息管理增加修改删除
+        public ActionResult InfosDetail(int id)
+        {
+            if (id > 0)
+                return View(_Info_infServer.GetItem(id));
+            return View();
+        }
+        [ValidateInput(false)]
+        public JsonResult InfosSave(string a, Info_inf model)
+        {
+            int v = 0;
+            //model.Type_inf = (int)InfoType.Industry;
+            model.TopType_inf = ReqHelper.Get<string>("TopType_inf");
+            if (model.InfoTypeID_inf.HasValue && model.InfoTypeID_inf.Value == 0) model.InfoTypeID_inf = null;
+            string resultContent = model.Content_inf;
+            IList<Keywords_key> keys = _Keywords_keyServer.GetList(new QueryInfo());
+            foreach (var key in keys)
+            {
+                int replace_time = 0;
+                resultContent = Regex.Replace(resultContent, @"(?i)(?<=^|>[^<>]*?)(?<!<a[^>]*>((?!</a).)*)" + key.Name_key, delegate(Match m)
+                {
+                    if (key.Num_key.Value == 0)
+                        return string.Format("<a href=\"{1}\" title=\"{0}\">{0}</a>", key.Name_key, key.Url_key);
+                    else
+                        return replace_time++ < key.Num_key.Value ? string.Format("<a href=\"{1}\" title=\"{0}\">{0}</a>", key.Name_key, key.Url_key) : m.Value;
+                }, RegexOptions.IgnoreCase);
+            }
+            model.Content_inf = resultContent;
+            if (a == "add")
+                v = _Info_infServer.Insert(model);
+            else
+                v = _Info_infServer.Update(model);
+            if (v > 0)
+                return Json(new { success = true, msg = "保存成功" }, "text/plain");
+            return Json(new { success = false, msg = "保存失败" }, "text/plain");
+        }
+        public JsonResult InfosDelete(string id)
+        {
+            if (_Info_infServer.Delete(id.Split(',').ToList()) > 0)
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败" }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #endregion
+        #region 公司新闻
+        public ActionResult News()
+        {
+            return View();
+        }
+        public ActionResult NewsDetail(int id)
+        {
+            if (id > 0)
+                return View(_Info_infServer.GetItem(id));
+            return View();
+        }
         #endregion
     }
 }
