@@ -56,7 +56,7 @@ namespace MC.Web.Controllers
             info.Orderby.Add("Sort_pag", null);
             var list = _Page_pagServer.GetList(info);
             foreach (var item in list)
-                item.children = LoadPagesChild(item.ID_pag.Value);
+                item.children = item.IsHasChild_pag.Value ? LoadPagesChild(item.ID_pag.Value) : null;
             return list;
         }
         private List<TreeEntity> LoadPagesTree(int parentID)
@@ -67,7 +67,12 @@ namespace MC.Web.Controllers
             info.Orderby.Add("Sort_pag", null);
             var list = _Page_pagServer.GetList(info);
             foreach (var item in list)
-                tree.Add(new TreeEntity { id = item.ID_pag.Value, text = item.Name_pag, children = LoadPagesTree(item.ID_pag.Value) });
+                tree.Add(new TreeEntity
+                {
+                    id = item.ID_pag.Value,
+                    text = item.Name_pag,
+                    children = item.IsHasChild_pag.Value ? LoadPagesTree(item.ID_pag.Value) : null
+                });
             return tree;
         }
         #endregion
@@ -85,9 +90,17 @@ namespace MC.Web.Controllers
             if (model.Parent_pag > 0) model.Path_pag = _Page_pagServer.GetItem(model.Parent_pag.Value).Path_pag + 1;
             else { model.Parent_pag = 0; model.Path_pag = 1; }
             if (a == "add")
+            {
+                model.IsHasChild_pag = false;
                 v = _Page_pagServer.Insert(model);
+            }
             else
+            {
+                var qi = new QueryInfo();
+                qi.Parameters.Add("Parent_pag", model.ID_pag);
+                model.IsHasChild_pag = _Page_pagServer.GetList(qi).Count > 0;
                 v = _Page_pagServer.Update(model);
+            }
             if (v > 0)
                 return Json(new { success = true, msg = "保存成功" }, "text/plain");
             return Json(new { success = false, msg = "保存失败" }, "text/plain");
@@ -319,7 +332,12 @@ namespace MC.Web.Controllers
             info.Orderby.Add("Sort_ift", null);
             var list = _InfoType_iftServer.GetList(info);
             foreach (var item in list)
-                tree.Add(new TreeEntity { id = item.ID_ift.Value, text = item.Name_ift, children = LoadInfoTypesTree(item.ID_ift.Value) });
+                tree.Add(new TreeEntity
+                {
+                    id = item.ID_ift.Value,
+                    text = item.Name_ift,
+                    children = item.IsHasChild_ift.Value ? LoadInfoTypesTree(item.ID_ift.Value) : null
+                });
             return tree;
         }
         #endregion
@@ -337,9 +355,17 @@ namespace MC.Web.Controllers
             if (model.Parent_ift > 0) model.Path_ift = _InfoType_iftServer.GetItem(model.Parent_ift.Value).Path_ift + 1;
             else { model.Parent_ift = 0; model.Path_ift = 1; }
             if (a == "add")
+            {
+                model.IsHasChild_ift = false;
                 v = _InfoType_iftServer.Insert(model);
+            }
             else
+            {
+                var qi = new QueryInfo();
+                qi.Parameters.Add("Parent_ift", model.ID_ift);
+                model.IsHasChild_ift = _InfoType_iftServer.GetList(qi).Count > 0;
                 v = _InfoType_iftServer.Update(model);
+            }
             if (v > 0)
                 return Json(new { success = true, msg = "保存成功" }, "text/plain");
             return Json(new { success = false, msg = "保存失败" }, "text/plain");

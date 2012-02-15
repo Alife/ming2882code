@@ -13,6 +13,7 @@
       <result property="Sort_ift" column="Sort_ift" />
       <result property="Parent_ift" column="Parent_ift" />
       <result property="Path_ift" column="Path_ift" />
+      <result property="IsHasChild_ift" column="IsHasChild_ift" />
       <result property="IsHide_ift" column="IsHide_ift" />
       <result property="Keywords_ift" column="Keywords_ift" />
     </resultMap>
@@ -41,6 +42,9 @@
         <isNotNull prepend="AND" property="Path_ift">
           Path_ift = #Path_ift#
         </isNotNull>
+        <isNotNull prepend="AND" property="IsHasChild_ift">
+          IsHasChild_ift = #IsHasChild_ift#
+        </isNotNull>
         <isNotNull prepend="AND" property="IsHide_ift">
           IsHide_ift = #IsHide_ift#
         </isNotNull>
@@ -53,7 +57,7 @@
       Select count(1) FROM InfoType_ift <include refid="MC.Model.InfoType_ift.sqlwhere"/>
     </select>
     <select id="MC.Model.InfoType_ift.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_ift,Name_ift,Code_ift,Url_ift,Sort_ift,Parent_ift,Path_ift,IsHide_ift,Keywords_ift FROM InfoType_ift
+      Select ID_ift,Name_ift,Code_ift,Url_ift,Sort_ift,Parent_ift,Path_ift,IsHasChild_ift,IsHide_ift,Keywords_ift FROM InfoType_ift
       <include refid="MC.Model.InfoType_ift.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
@@ -69,6 +73,7 @@
       ,Sort_ift
       ,Parent_ift
       ,Path_ift
+      ,IsHasChild_ift
       ,IsHide_ift
       ,Keywords_ift
       )values (
@@ -78,6 +83,7 @@
       ,#Sort_ift#
       ,#Parent_ift#
       ,#Path_ift#
+      ,#IsHasChild_ift#
       ,#IsHide_ift#
       ,#Keywords_ift#
       )
@@ -93,6 +99,7 @@
       ,Sort_ift = #Sort_ift#
       ,Parent_ift = #Parent_ift#
       ,Path_ift = #Path_ift#
+      ,IsHasChild_ift = #IsHasChild_ift#
       ,IsHide_ift = #IsHide_ift#
       ,Keywords_ift = #Keywords_ift#
       WHERE

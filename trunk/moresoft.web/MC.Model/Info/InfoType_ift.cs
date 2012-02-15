@@ -70,6 +70,7 @@ namespace MC.Model
         /// 
         /// </summary>
         public bool? IsHide_ift { get; set; }
+        public bool? IsHasChild_ift { get; set; }
 
         public IList<InfoType_ift> children { get; set; }
         #endregion

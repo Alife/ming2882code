@@ -54,7 +54,7 @@ namespace MC.Web.Controllers
             info.Orderby.Add("Sort_ift", null);
             var list = _InfoType_iftServer.GetList(info);
             foreach (var item in list)
-                item.children = LoadInfoTypesChild(item.ID_ift.Value);
+                item.children = item.IsHasChild_ift.Value ? LoadInfoTypesChild(item.ID_ift.Value) : null;
             return list;
         }
     }
