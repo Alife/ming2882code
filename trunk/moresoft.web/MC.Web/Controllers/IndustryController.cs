@@ -15,10 +15,10 @@ namespace MC.Web.Controllers
         public IInfo_inf _Info_infServer { get; set; }
         public ActionResult Index(int? id, int rows = 15, int page = 1)
         {
-            ViewBag.CurrentInfoType = _InfoType_iftServer.GetItem(id);
             QueryInfo queryInfo = new QueryInfo();
             if (id.HasValue)
             {
+                ViewBag.CurrentInfoType = _InfoType_iftServer.GetItem(id);
                 int? parentID = ViewBag.CurrentInfoType.Parent_ift;
                 if (parentID > 0)
                     queryInfo.Parameters.Add("InfoTypeID_inf", parentID);
