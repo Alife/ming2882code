@@ -44,7 +44,7 @@ div{border:0;margin:0;padding:0;}
 .b4,.b4b{height:2px;margin:0 1px;}
 .d1{background:#fff;}
 .d1 .content{padding:0px 10px 5px 10px;}
-.leftcolumn h2,.rightcolumn h2,.centercolumn h2{font-size:14px;color:#40B2E8;*margin-top:0px;*margin-bottom:10px;*padding-top:10px;}
+.leftcolumn h2,.rightcolumn h2,.centercolumn h2,.contentcolumns h2{font-size:14px;color:#40B2E8;*margin-top:0px;*margin-bottom:10px;*padding-top:10px;}
 #wrapper{width:983px;margin:0;padding:10px;}
 .topcolumns{padding-bottom:5px;}
 .topcolumns .leftcolumn{width:270px;float:left;}

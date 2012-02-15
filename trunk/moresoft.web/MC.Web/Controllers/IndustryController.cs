@@ -13,7 +13,7 @@ namespace MC.Web.Controllers
     {
         [Dependency]
         public IInfo_inf _Info_infServer { get; set; }
-        public ActionResult Index(int? id, int rows = 1, int page = 20)
+        public ActionResult Index(int? id, int rows = 20, int page = 1)
         {
             QueryInfo queryInfo = new QueryInfo();
             if (id.HasValue)
@@ -34,8 +34,24 @@ namespace MC.Web.Controllers
             }
             queryInfo.Parameters.Add("rows", rows);
             queryInfo.Parameters.Add("page", page);
+            queryInfo.Parameters.Add("Type_inf", (int)InfoType.Industry);
             ViewBag.Infos = _Info_infServer.GetPageList(queryInfo);
+            ViewBag.MetaTitle = ViewBag.CurrentInfoType == null ? "<=Industry1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Name_ift + "-<=Industry1>-" + ViewBag.Setting.Title_set;
+            ViewBag.MetaKeywords = ViewBag.CurrentInfoType == null ? "<=Industry1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Keywords_ift + "-<=Industry1>-" + ViewBag.Setting.Title_set;
+            ViewBag.MetaAuthor = ViewBag.Setting.Author_set;
+            ViewBag.Title = ViewBag.CurrentInfoType == null ? "<=Industry1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Name_ift + "-<=Industry1>" + ViewBag.Setting.Title_set;
             return View();
+        }
+        public ActionResult Detail(int? id)
+        {
+            dynamic viewModel = new System.Dynamic.ExpandoObject();
+            viewModel.Info = _Info_infServer.GetItem(id);
+            viewModel.InfoType = _InfoType_iftServer.GetItem(viewModel.Info.InfoTypeID_inf);
+            ViewBag.MetaTitle = string.Format("{0}-{1}-{2}", viewModel.Info.Title_inf, viewModel.InfoType.Name_ift, ViewBag.Setting.Title_set);
+            ViewBag.MetaKeywords = viewModel.Info.Keywords_inf;
+            ViewBag.MetaAuthor = viewModel.Info.Author_inf;
+            ViewBag.Title = string.Format("{0}-{1}-{2}", viewModel.Info.Title_inf, viewModel.InfoType.Name_ift, ViewBag.Setting.Title_set);
+            return View(viewModel);
         }
     }
 }

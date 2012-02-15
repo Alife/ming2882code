@@ -49,9 +49,9 @@ namespace MC.Web
             );
             routes.MapRoute(
                 "Industry",
-                "{controller}/detail-{id}.html",
+                "{controller}/{action}-{id}.html",
                 new { controller = "Industry", action = "Index", id = UrlParameter.Optional },
-                new { controller = @"industry|info|news" }
+                new { controller = @"industry|news" }
             );
             routes.MapRoute(
                 "Pages",
