@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text;
+using System.IO;
 using System.Reflection;
 using Microsoft.Practices.Unity;
 using MC.Model;
@@ -93,8 +95,8 @@ namespace MC.Web.Controllers
         public JsonResult PagesDelete(string id)
         {
             if (_Page_pagServer.Delete(id.Split(',').ToList()) > 0)
-                return Json(new { success = true, msg = "删除成功" }, "text/plain");
-            return Json(new { success = false, msg = "删除失败" }, "text/plain");
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #endregion
@@ -126,8 +128,8 @@ namespace MC.Web.Controllers
         public JsonResult KeywordsDelete(string id)
         {
             if (_Keywords_keyServer.Delete(id.Split(',').ToList()) > 0)
-                return Json(new { success = true, msg = "删除成功" }, "text/plain");
-            return Json(new { success = false, msg = "删除失败" }, "text/plain");
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #endregion
@@ -177,8 +179,8 @@ namespace MC.Web.Controllers
         public JsonResult LinksDelete(string id)
         {
             if (_Link_lnkServer.Delete(id.Split(',').ToList()) > 0)
-                return Json(new { success = true, msg = "删除成功" }, "text/plain");
-            return Json(new { success = false, msg = "删除失败" }, "text/plain");
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #endregion
@@ -216,8 +218,77 @@ namespace MC.Web.Controllers
         public JsonResult UsersDelete(string id)
         {
             if (_User_usrServer.Delete(id.Split(',').ToList()) > 0)
-                return Json(new { success = true, msg = "删除成功" }, "text/plain");
-            return Json(new { success = false, msg = "删除失败" }, "text/plain");
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败" }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #endregion
+        #region 日志
+        #region UI
+        public ActionResult Logs()
+        {
+            return View();
+        }
+        #endregion
+        #region 日志列表
+        public JsonResult LogsList()
+        {
+            string[] arrFiles = Directory.GetFiles(Server.MapPath("/log/"), "*.log", SearchOption.AllDirectories);
+            List<object> files = new List<object>();
+            foreach (string item in arrFiles)
+            {
+                FileInfo fileinfo = new FileInfo(item);
+                files.Add(new { FileName = fileinfo.Name, FileSize = fileinfo.Length });
+            }
+            return Json(files, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region 日志明细
+        public ActionResult LogsDetail(string id)
+        {
+            string path = Server.MapPath("/log/" + id);
+            StringBuilder content = new StringBuilder();
+            FileStream fs = null; StreamReader sr = null;
+            try
+            {
+                fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                sr = new StreamReader(fs, Encoding.GetEncoding("gb2312"));
+                //byte[] data = new byte[fs.Length];
+                //fs.Read(data, 0, data.Length);
+                sr.BaseStream.Seek(0, System.IO.SeekOrigin.Begin);
+                string s1;
+                while ((s1 = sr.ReadLine()) != null)
+                    content.AppendLine("<tr bgcolor=\"#f9fbf0\"><td style=\"height: 24px\">" + s1 + "</td></tr>");
+            }
+            finally
+            {
+                fs.Close();
+                sr.Close();
+            }
+            ViewBag.LogContent = content.ToString();
+            return View();
+        }
+        #endregion
+        #region 删除日志
+        public JsonResult LogsDelete(string id)
+        {
+            string[] ids = id.Split(',');
+            int delCount = 0;
+            foreach (string fileName in ids)
+            {
+                try
+                {
+                    FileInfo fileInfo = new FileInfo(Server.MapPath("/log/" + fileName));
+                    fileInfo.Delete();
+                    delCount += 1;
+                }
+                catch
+                {
+                }
+            }
+            if (ids.Length == delCount)
+                return Json(new { success = true, msg = "删除成功" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, msg = "删除失败,今日日志正在使用中无法删除" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #endregion

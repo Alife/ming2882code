@@ -47,6 +47,7 @@ namespace MC.Model
         /// <summary>
         /// 
         /// </summary>
+        public string Remark_pag { get; set; }
         public string Content_pag { get; set; }
 
         /// <summary>

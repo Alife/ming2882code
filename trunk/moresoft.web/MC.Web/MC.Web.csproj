@@ -621,6 +621,9 @@
     <Content Include="Views\SysAdmin\Settings.cshtml" />
     <Content Include="Views\SysAdmin\Links.cshtml" />
     <Content Include="Views\SysAdmin\Users.cshtml" />
+    <Content Include="Views\SysAdmin\Logs.cshtml" />
+    <Content Include="Views\SysAdmin\LogsDetail.cshtml" />
+    <Content Include="Views\Shared\_Case.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

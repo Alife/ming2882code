@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "日志明细";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<style type="text/css">.layout{overflow:scroll;}</style>
+<script type="text/javascript">
+    window.onload = function () {
+        document.body.setAttribute("scroll", "yes");
+        document.body.style.overflow = "scroll";
+    } 
+</script>
+<table cellspacing="1" cellpadding="3" width="100%" align="center" bgcolor="#ffffff"
+    border="0">
+    <tbody>
+        @Html.Raw(ViewBag.LogContent)
+    </tbody>
+</table>

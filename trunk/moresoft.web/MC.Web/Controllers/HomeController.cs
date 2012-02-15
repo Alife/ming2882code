@@ -11,10 +11,14 @@ namespace MC.Web.Controllers
 {
     public class HomeController : BaseController
     {
+        #region properties
         [Dependency]
         public IUser_usr _User_usrService { get; set; }
         [Dependency]
         public ILink_lnk _Link_lnkService { get; set; }
+        [Dependency]
+        public IPage_pag _Page_pagService { get; set; }
+        #endregion
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             ViewBag.MetaTitle = ViewBag.Setting.Title_set;
@@ -25,11 +29,17 @@ namespace MC.Web.Controllers
         [Unity.Mvc3.Filter.CompressFilter]
         public ActionResult Index()
         {
-            var linkqi = new MC.Model.QueryInfo();
+            var linkqi = new QueryInfo();
             linkqi.Parameters.Add("IsHide_lnk", false);
             linkqi.Parameters.Add("top", 20);
             linkqi.Orderby.Add("Sort_lnk","desc");
             ViewBag.Link = _Link_lnkService.GetList(linkqi);
+
+            var caseqi = new QueryInfo();
+            caseqi.Parameters.Add("Parent_pag", _Page_pagService.GetItem("case").ID_pag);
+            caseqi.Parameters.Add("top", 4);
+            caseqi.Orderby.Add("Sort_pag", "desc");
+            ViewBag.CasePages = _Page_pagService.GetList(caseqi);
             return View();
         }
         public ActionResult error()
