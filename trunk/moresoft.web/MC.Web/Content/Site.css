@@ -145,3 +145,9 @@ fieldset dd.likepalce label{width:80px;float:left;}
 .text-box {width: 30em;}
 .text-box.multi-line {height: 6.5em;}
 .tri-state {width: 6em;}
+
+.pager{width:100.5%;text-align:right;padding:10px 0;clear:both;}
+.pager span,.pager a{font-size:12px;font-family:Arial, Helvetica, sans-serif;border:1px solid #5FA623;background:#fff;padding:2px 6px;text-decoration:none}
+.pager span.current{color:#f00;font-size:12px;}
+.pager span.pagerInput{border:0px;}.pager span.pagerInput input{width:40px;}
+.pager a:hover{background:#7AB63F;color:#fff;}

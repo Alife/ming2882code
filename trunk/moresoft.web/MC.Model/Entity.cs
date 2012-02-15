@@ -101,34 +101,46 @@ namespace MC.Model
     [Serializable]
     public class PagedList<T> where T : Entity, new()
     {
-        public PagedList(int _total, IList<Entity> _rows)
+        public PagedList(int _total, IList<Entity> _rows, int _pageIndex, int _pageSize)
         {
             total = _total;
             rows = _rows;
+            pageIndex = _pageIndex;
+            pageSize = _pageSize;
         }
         public int total { get; set; }
         public IList<Entity> rows { get; set; }
+        public int pageIndex { get; set; }
+        public int pageSize { get; set; }
     }
     [Serializable]
     public class PagedIList<T> where T : Entity, new()
     {
-        public PagedIList(int _total, IList _rows)
+        public PagedIList(int _total, IList _rows, int _pageIndex, int _pageSize)
         {
             total = _total;
             rows = _rows;
+            pageIndex = _pageIndex;
+            pageSize = _pageSize;
         }
         public int total { get; set; }
         public IList rows { get; set; }
+        public int pageIndex { get; set; }
+        public int pageSize { get; set; }
     }
     [Serializable]
     public class PagedTable
     {
-        public PagedTable(int _total, DataTable _rows)
+        public PagedTable(int _total, DataTable _rows, int _pageIndex, int _pageSize)
         {
             total = _total;
             rows = _rows;
+            pageIndex = _pageIndex;
+            pageSize = _pageSize;
         }
         public int total { get; set; }
         public DataTable rows { get; set; }
+        public int pageIndex { get; set; }
+        public int pageSize { get; set; }
     }
 }

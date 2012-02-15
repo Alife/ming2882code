@@ -27,6 +27,12 @@
         <isNotNull prepend="AND" property="InfoTypeID_inf">
           InfoTypeID_inf = #InfoTypeID_inf#
         </isNotNull>
+        <isNotNull prepend="AND" property="InfoTypeIDs">
+          InfoTypeID_inf IN
+          <iterate property="InfoTypeIDs" open="(" close=")"  conjunction="," >
+            #InfoTypeIDs[]#
+          </iterate>
+        </isNotNull>
         <isNotNull prepend="AND" property="Title_inf">
           Title_inf like '%'+#Title_inf#+'%'
         </isNotNull>

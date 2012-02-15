@@ -3,8 +3,8 @@
                     <div class="content">
                         <h2><=Industry1></h2>
                         <ul class="list">@foreach(var item in ViewBag.InfoType){
-                            <li><a href="@Url.Content("~/industry/cat-" + item.ID_ift)">@item.Name_ift:</a>
-                                <p>(@foreach(var citem in item.children){<a href="@Url.Content("~/industry/cat-" + citem.ID_ift)">@citem.Name_ift</a> })</p>
+                            <li><a href="@Url.Content("~/industry/detail-" + item.ID_ift + ".html")">@item.Name_ift:</a>
+                                <p>(@foreach(var citem in item.children){<a href="@Url.Content("~/industry/detail-" + citem.ID_ift + ".html")">@citem.Name_ift</a> })</p>
                             </li>}
                         </ul>
                     </div>

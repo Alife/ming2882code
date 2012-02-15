@@ -238,7 +238,7 @@ namespace MC.DAO
                 IList<Entity> list = new List<Entity>();
                 if (total > 0)
                     list = dataMapper.QueryForList<Entity>(xmlID, queryInfo.Parameters);
-                return new PagedList<T>(total, list);
+                return new PagedList<T>(total, list, Convert.ToInt32(queryInfo.Parameters["page"]), Convert.ToInt32(queryInfo.Parameters["rows"]));
             });
         }
         #endregion
@@ -314,7 +314,7 @@ namespace MC.DAO
                 IList list = new List<Entity>();
                 if (total > 0)
                     list = dataMapper.QueryForList(xmlID, queryInfo.Parameters);
-                return new PagedIList<T>(total, list);
+                return new PagedIList<T>(total, list, Convert.ToInt32(queryInfo.Parameters["page"]), Convert.ToInt32(queryInfo.Parameters["rows"]));
             });
         }
         #endregion
@@ -579,7 +579,7 @@ namespace MC.DAO
                 total = TotalCount(queryInfo.MappingName, queryInfo.Parameters, queryInfo.XmlPageCountID);
                 if (total > 0)
                     dt = dataMapper.QueryForDataTable(xmlID, queryInfo.Parameters);
-                return new PagedTable(total, dt);
+                return new PagedTable(total, dt, Convert.ToInt32(queryInfo.Parameters["page"]), Convert.ToInt32(queryInfo.Parameters["rows"]));
             });
         }
         #endregion
