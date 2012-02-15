@@ -8,7 +8,6 @@
     <resultMap id="SelectResult" class="User_usr" >
       <result property="ID_usr" column="ID_usr" />
       <result property="UserName_usr" column="UserName_usr" />
-      <result property="Password_usr" column="Password_usr" />
       <result property="LoginNum_usr" column="LoginNum_usr" />
       <result property="Email_usr" column="Email_usr" />
     </resultMap>
@@ -37,8 +36,8 @@
       Select count(1) FROM User_usr <include refid="MC.Model.User_usr.sqlwhere"/>
     </select>
     <select id="MC.Model.User_usr.LoadPageList" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr FROM(
-      Select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr
+      Select ID_usr,UserName_usr,LoginNum_usr,Email_usr FROM(
+      Select ID_usr,UserName_usr,LoginNum_usr,Email_usr
       ,ROW_NUMBER() Over(
       <dynamic>
         <isNotNull property="sort">order by $sort$ $dir$</isNotNull>
@@ -57,24 +56,8 @@
       </dynamic>
     </select>
     <select id="MC.Model.User_usr.Load" parameterClass="System.Collections.IDictionary" resultMap="SelectResult">
-      Select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr FROM User_usr
-      <dynamic prepend="WHERE">
-        <isNotNull prepend="AND" property="ID_usr">
-          ID_usr = #ID_usr#
-        </isNotNull>
-        <isNotNull prepend="AND" property="UserName_usr">
-          UserName_usr = #UserName_usr#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Password_usr">
-          Password_usr = #Password_usr#
-        </isNotNull>
-        <isNotNull prepend="AND" property="LoginNum_usr">
-          LoginNum_usr = #LoginNum_usr#
-        </isNotNull>
-        <isNotNull prepend="AND" property="Email_usr">
-          Email_usr = #Email_usr#
-        </isNotNull>
-      </dynamic>
+      Select ID_usr,UserName_usr,LoginNum_usr,Email_usr FROM User_usr
+      <include refid="MC.Model.User_usr.sqlwhere"/>
       <dynamic>
         <isNotNull property="OrderBy">
           $OrderBy$
@@ -88,7 +71,7 @@
       begin
       select @ID_usr=ID_usr from User_usr where UserName_usr=#UserName_usr# and Password_usr=#Password_usr#;
       update User_usr set LoginNum_usr=LoginNum_usr+1 where ID_usr=@ID_usr;
-      select ID_usr,UserName_usr,Password_usr,LoginNum_usr,Email_usr FROM User_usr where ID_usr=@ID_usr;
+      select ID_usr,UserName_usr,LoginNum_usr,Email_usr FROM User_usr where ID_usr=@ID_usr;
       end]]>
     </select>
     <insert id="MC.Model.User_usr.Insert" parameterClass="User_usr">
@@ -110,8 +93,7 @@
     <update id="MC.Model.User_usr.Update" parameterClass="User_usr">
       update User_usr set
       UserName_usr = #UserName_usr#
-      ,Password_usr = #Password_usr#
-      ,LoginNum_usr = #LoginNum_usr#
+      <isNotNull property="Password_usr">,Password_usr = #Password_usr#</isNotNull>
       ,Email_usr = #Email_usr#
       WHERE
       ID_usr = #ID_usr#

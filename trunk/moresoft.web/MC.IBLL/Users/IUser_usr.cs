@@ -8,7 +8,7 @@ namespace MC.IBLL
 {
     public interface IUser_usr
     {
-        PagedList<User_usr> GetListPage(QueryInfo queryInfo);
+        PagedIList<User_usr> GetPageList(QueryInfo queryInfo);
         IList<User_usr> GetList(QueryInfo queryInfo);
         User_usr GetForget(string _userName, string _email);
         bool IsUserExists(string _userName);

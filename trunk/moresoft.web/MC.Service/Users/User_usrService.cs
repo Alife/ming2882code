@@ -12,9 +12,9 @@ namespace MC.Service
     {
         private readonly IDao _dao;
         public User_usrService(IDao dao) { _dao = dao; }
-        public PagedList<User_usr> GetListPage(QueryInfo queryInfo)
+        public PagedIList<User_usr> GetPageList(QueryInfo queryInfo)
         {
-            return _dao.GetListPage<User_usr>(queryInfo);
+            return _dao.GetIListPage<User_usr>(queryInfo);
         }
         public IList<User_usr> GetList(QueryInfo queryInfo)
         {

@@ -14,12 +14,16 @@ namespace MC.Web.Controllers
     [HandleError]
     public class SysAdminController : BaseController
     {
+        #region properties
         [Dependency]
         public IPage_pag _Page_pagServer { get; set; }
         [Dependency]
         public IKeywords_key _Keywords_keyServer { get; set; }
         [Dependency]
         public ILink_lnk _Link_lnkServer { get; set; }
+        [Dependency]
+        public IUser_usr _User_usrServer { get; set; }
+        #endregion
         public ActionResult Index()
         {
             return View();
@@ -179,10 +183,43 @@ namespace MC.Web.Controllers
         #endregion
         #endregion
         #region 用户管理
+        #region UI
         public ActionResult Users()
         {
             return View();
         }
+        #endregion
+        #region 用户列表
+        public JsonResult UsersList()
+        {
+            return Json(_User_usrServer.GetPageList(Funs.GetQueryInfo()), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region 用户增加修改删除
+        public JsonResult UsersSave(string a, User_usr model, string UserName_usr_Old)
+        {
+            if (string.IsNullOrEmpty(UserName_usr_Old) || UserName_usr_Old != model.UserName_usr)
+            {
+                if (_User_usrServer.IsUserExists(model.UserName_usr))
+                    return Json(new { success = false, msg = "保存失败，已经有相同的用户名" }, "text/plain");
+            }
+            int v = 0;
+            model.Password_usr = !string.IsNullOrEmpty(model.Password_usr) ? Unity.Mvc3.Helpers.Encoders.MD5.Encode(model.Password_usr) : null;
+            if (a == "add")
+                v = _User_usrServer.Insert(model);
+            else
+                v = _User_usrServer.Update(model);
+            if (v > 0)
+                return Json(new { success = true, msg = "保存成功" }, "text/plain");
+            return Json(new { success = false, msg = "保存失败" }, "text/plain");
+        }
+        public JsonResult UsersDelete(string id)
+        {
+            if (_User_usrServer.Delete(id.Split(',').ToList()) > 0)
+                return Json(new { success = true, msg = "删除成功" }, "text/plain");
+            return Json(new { success = false, msg = "删除失败" }, "text/plain");
+        }
+        #endregion
         #endregion
     }
 }

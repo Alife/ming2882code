@@ -32,27 +32,27 @@ namespace MC.Model
         /// <summary>
         /// 
         /// </summary>
-        public int? ID { get; set; }
+        public int? ID_usr { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string UserName { get; set; }
+        public string UserName_usr { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Password { get; set; }
+        public string Password_usr { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int? DeptID { get; set; }
+        public int? LoginNum_usr { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Email { get; set; }
+        public string Email_usr { get; set; }
         #endregion
     }
 }
