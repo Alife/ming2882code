@@ -4,7 +4,7 @@
                 @Html.Partial("_Industry")
             </div>
             <div class="contentcolumns">
-                <h2><a href="@Url.Content("~/industry.html")"><=Industry1></a> > <a href="@Url.Content("~/industry/detail-" + Model.InfoType.ID_ift + ".html")">@Model.InfoType.Name_ift</a> > @Model.Info.Title_inf</h2>
+                <h2><a href="@Url.Content("~/industry.html")"><=Industry1></a> > <a href="@Url.Content("~/industry-" + Model.InfoType.ID_ift + ".html")">@Model.InfoType.Name_ift</a> > @Model.Info.Title_inf</h2>
                 @Html.Raw(Model.Info.Content_inf)
             </div>
             <div class="clear"></div>
