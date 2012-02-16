@@ -90,7 +90,7 @@ namespace Unity.Mvc3
         {
             string lang = "zh-CN";
             HttpCookie langCookie = System.Web.HttpContext.Current.Request.Cookies["Lang"];
-            if (lang != null) lang = langCookie.Value;
+            if (langCookie != null) lang = langCookie.Value;
             Dictionary<string, string> cacheData = ReadLocalizationResource(lang);
             return cacheData[item];
         }
