@@ -87,7 +87,7 @@ namespace MC.Web.Controllers
             return View();
         }
         [ValidateInput(false)]
-        public JsonResult SavePagesDetail(string a, Page_pag model)
+        public JsonResult PagesSave(string a, Page_pag model)
         {
             int v = 0;
             if (model.Parent_pag > 0) model.Path_pag = _Page_pagServer.GetItem(model.Parent_pag.Value).Path_pag + 1;
@@ -102,8 +102,15 @@ namespace MC.Web.Controllers
                 var qi = new QueryInfo();
                 qi.Parameters.Add("Parent_pag", model.ID_pag);
                 model.IsHasChild_pag = _Page_pagServer.GetList(qi).Count > 0;
+                if (model.Parent_pag > 0)
+                {
+                    var p = _Page_pagServer.GetItem(model.Parent_pag.Value);
+                    p.IsHasChild_pag = true;
+                    _Page_pagServer.Update(p);
+                }
                 v = _Page_pagServer.Update(model);
             }
+
             if (v > 0)
                 return Json(new { success = true, msg = "保存成功" }, "text/plain");
             return Json(new { success = false, msg = "保存失败" }, "text/plain");
