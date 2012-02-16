@@ -990,3 +990,8 @@
 .ke-plugin-template .ke-right {
 	float: right;
 }
+.ke-icon-remote {
+    background-image: url(remote.png);
+    width: 16px;
+    height: 16px;
+}

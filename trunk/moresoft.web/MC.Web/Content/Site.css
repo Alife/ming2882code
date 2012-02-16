@@ -56,11 +56,11 @@ div{border:0;margin:0;padding:0;}
     .topcolumns .rightcolumn .top{position:relative;padding:6px 0px;width:682px;}
         *html .topcolumns .rightcolumn .top{padding:6px 0px 0px 0px;}
         *+html .topcolumns .rightcolumn .top{padding:6px 0px 0px 0px;} 
-    .topcolumns .rightcolumn .top .leftcolumn{width:240px;background: url(images/hdotted.gif) repeat-y right;}
+    .topcolumns .rightcolumn .top .leftcolumn{width:380px;background: url(images/hdotted.gif) repeat-y right;}
     .topcolumns .rightcolumn .top .leftcolumn .jjfa{list-style:none;margin:0;padding:0;}
     .topcolumns .rightcolumn .top .leftcolumn .jjfa li{display:block;padding:3px 0px;}
-    .topcolumns .rightcolumn .top .leftcolumn p{position:absolute;bottom:0px;left:100px;padding:0px;margin:0px;}
-    .topcolumns .rightcolumn .top .rightcolumn{width:422px;}
+    .topcolumns .rightcolumn .top .leftcolumn p{position:absolute;bottom:0px;right:312px;padding:0px;margin:0px;}
+    .topcolumns .rightcolumn .top .rightcolumn{width:282px;}
     .topcolumns .rightcolumn .top .rightcolumn .fghy{list-style:none;margin:0;padding:0;}
     .topcolumns .rightcolumn .top .rightcolumn .fghy li{float:left;display:inline;width:130px;height:26px;line-height:26px;padding:0 0 0 30px;background:url(images/icon.gif) no-repeat;}
     .topcolumns .rightcolumn .top .rightcolumn .fghy li.icon1{background-position:0px 0px;}

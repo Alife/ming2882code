@@ -46,6 +46,8 @@ namespace MC.Web.Controllers
         {
             dynamic viewModel = new System.Dynamic.ExpandoObject();
             viewModel.Info = _Info_infServer.GetItem(id);
+            viewModel.Info.Hits_inf += 1;
+            _Info_infServer.Update(viewModel.Info);
             viewModel.InfoType = _InfoType_iftServer.GetItem(viewModel.Info.InfoTypeID_inf);
             ViewBag.MetaTitle = string.Format("{0}-{1}-{2}", viewModel.Info.Title_inf, viewModel.InfoType.Name_ift, ViewBag.Setting.Title_set);
             ViewBag.MetaKeywords = viewModel.Info.Keywords_inf;

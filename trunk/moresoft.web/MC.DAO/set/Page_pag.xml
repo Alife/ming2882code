@@ -29,6 +29,12 @@
         <isNotNull prepend="AND" property="Code_pag">
           Code_pag = #Code_pag#
         </isNotNull>
+        <isNotNull prepend="AND" property="Code_pags">
+          Code_pag IN
+          <iterate property="Code_pags" open="(" close=")"  conjunction="," >
+            #Code_pags[]#
+          </iterate>
+        </isNotNull>
         <isNotNull prepend="AND" property="Remark_pag">
           Remark_pag = #Remark_pag#
         </isNotNull>

@@ -32,14 +32,24 @@ namespace MC.Web.Controllers
             var linkqi = new QueryInfo();
             linkqi.Parameters.Add("IsHide_lnk", false);
             linkqi.Parameters.Add("top", 20);
-            linkqi.Orderby.Add("Sort_lnk","desc");
+            linkqi.Orderby.Add("Sort_lnk", null);
             ViewBag.Link = _Link_lnkService.GetList(linkqi);
 
             var caseqi = new QueryInfo();
             caseqi.Parameters.Add("Parent_pag", _Page_pagService.GetItem("case").ID_pag);
             caseqi.Parameters.Add("top", 4);
-            caseqi.Orderby.Add("Sort_pag", "desc");
+            caseqi.Orderby.Add("Sort_pag", null);
             ViewBag.CasePages = _Page_pagService.GetList(caseqi);
+
+            var homePageQuery = new QueryInfo();
+            homePageQuery.Parameters.Add("Code_pags", new List<string> { "WhyMes", "Experience", "MS-MES" });
+            ViewBag.HomePages = _Page_pagService.GetList(homePageQuery);
+
+            var productsqi = new QueryInfo();
+            productsqi.Parameters.Add("Parent_pag", _Page_pagService.GetItem("product").ID_pag);
+            productsqi.Parameters.Add("top", 3);
+            productsqi.Orderby.Add("Sort_pag", null);
+            ViewBag.Products = _Page_pagService.GetList(productsqi).Where(p => !p.Code_pag.Contains("MS-MES"));
             return View();
         }
         public ActionResult error()

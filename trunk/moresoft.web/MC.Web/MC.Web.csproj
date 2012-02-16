@@ -337,6 +337,7 @@
     <Content Include="kindeditor\plugins\plainpaste\plainpaste.js" />
     <Content Include="kindeditor\plugins\preview\preview.js" />
     <Content Include="kindeditor\plugins\quickformat\quickformat.js" />
+    <Content Include="kindeditor\plugins\remote\remote.js" />
     <Content Include="kindeditor\plugins\table\table.js" />
     <Content Include="kindeditor\plugins\template\html\1.html" />
     <Content Include="kindeditor\plugins\template\html\2.html" />
@@ -352,6 +353,7 @@
     <Content Include="kindeditor\themes\default\bg.gif" />
     <Content Include="kindeditor\themes\default\default.css" />
     <Content Include="kindeditor\themes\default\default.png" />
+    <Content Include="kindeditor\themes\default\remote.png" />
     <Content Include="kindeditor\themes\simple\simple.css" />
     <Content Include="Resources\EnResource.xml" />
     <Content Include="Resources\zh-CNResource.xml" />
@@ -615,6 +617,7 @@
   <ItemGroup>
     <Content Include="kindeditor\asp.net\file_manager_json.ashx" />
     <Content Include="kindeditor\asp.net\upload_json.ashx" />
+    <Content Include="kindeditor\asp.net\remotefiles.ashx" />
     <None Include="Scripts\themes\default\images\Thumbs.db" />
     <None Include="Scripts\themes\gray\images\Thumbs.db" />
     <Content Include="Views\SysAdmin\PagesDetail.cshtml" />
@@ -636,6 +639,7 @@
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Detail.cshtml" />
     <Content Include="Views\Industry\Detail.cshtml" />
+    <Content Include="Views\Shared\_Product.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

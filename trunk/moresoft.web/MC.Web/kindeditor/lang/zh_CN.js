@@ -210,5 +210,6 @@ KindEditor.lang({
 		'1.html' : '图片和文字',
 		'2.html' : '表格',
 		'3.html' : '项目编号'
-	}
+	},
+    'remote': '上传远程图片'
 }, 'zh_CN');

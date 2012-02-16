@@ -38,7 +38,7 @@
                 editor.sync();
                 if (Page_Form.form('validate')) {
                     Page_Form.form('submit', {
-                        url: '@Url.Content("~/sysadmin/savepagesdetail?a=" + (id == 0 ? "add" : "edit"))',
+                        url: '@Url.Content("~/sysadmin/pagessave?a=" + (id == 0 ? "add" : "edit"))',
                         success: function (data) {
                             data = eval("(" + data + ")");
                             $.messager.alert('系统提示', data.msg, "info", function () {

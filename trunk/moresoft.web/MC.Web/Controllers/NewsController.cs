@@ -29,6 +29,8 @@ namespace MC.Web.Controllers
         public ActionResult Detail(int? id)
         {
             var Info = _Info_infServer.GetItem(id);
+            Info.Hits_inf += 1;
+            _Info_infServer.Update(Info);
             ViewBag.MetaTitle = string.Format("{0}-{1}-{2}", Info.Title_inf, "<=News>", ViewBag.Setting.Title_set);
             ViewBag.MetaKeywords = Info.Keywords_inf;
             ViewBag.MetaAuthor = Info.Author_inf;
