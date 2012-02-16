@@ -34,22 +34,26 @@ namespace MC.Web.Controllers
             linkqi.Parameters.Add("top", 20);
             linkqi.Orderby.Add("Sort_lnk", null);
             ViewBag.Link = _Link_lnkService.GetList(linkqi);
-
+            //成功案例
             var caseqi = new QueryInfo();
             caseqi.Parameters.Add("Parent_pag", _Page_pagService.GetItem("case").ID_pag);
             caseqi.Parameters.Add("top", 4);
             caseqi.Orderby.Add("Sort_pag", null);
             ViewBag.CasePages = _Page_pagService.GetList(caseqi);
-
+            //主页上几个单独模块
             var homePageQuery = new QueryInfo();
             homePageQuery.Parameters.Add("Code_pags", new List<string> { "WhyMes", "Experience", "MS-MES" });
             ViewBag.HomePages = _Page_pagService.GetList(homePageQuery);
-
+            //产品体系
             var productsqi = new QueryInfo();
             productsqi.Parameters.Add("Parent_pag", _Page_pagService.GetItem("product").ID_pag);
             productsqi.Parameters.Add("top", 3);
             productsqi.Orderby.Add("Sort_pag", null);
             ViewBag.Products = _Page_pagService.GetList(productsqi).Where(p => !p.Code_pag.Contains("MS-MES"));
+            //覆盖行业
+            ViewBag.IndustryCase = _Page_pagService.GetItem("IndustryCase");
+            //解决方案
+            ViewBag.Solution = _Page_pagService.GetItem("Solution");
             return View();
         }
         public ActionResult error()
