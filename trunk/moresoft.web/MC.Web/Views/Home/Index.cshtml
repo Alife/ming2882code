@@ -22,24 +22,14 @@
             <div class="rightcolumn">
                 <div class="top">
                     <div class="leftcolumn">
-                        <h2>我们的解决方案</h2>
-                        <ul class="jjfa">
-                            <li>→ 1</li>
-                            <li>→ 2</li>
-                            <li>→ 3</li>
-                            <li>→ 4</li>
-                            <li>→ 5</li>
-                        </ul>
-                        <p><img src="@Url.Content("~/content/images/eg2.gif")" alt="我们的解决方案" /></p>
+                        <h2><a href="@Url.Content("~/solution.html")"><=MySolution></a></h2>
+                        @Html.Raw(ViewBag.Solution.Remark_pag)
+                        <p><img src="@Url.Content("~/content/images/eg2.gif")" alt="<=MySolution>" /></p>
                     </div>
                     <div class="rightcolumn">
-                        <h2>我们覆盖的行业</h2>
-                        <ul class="fghy">
-                            <li class="icon1">电子行业</li>
-                            <li class="icon2">五金行业</li>
-                            <li class="icon3">包装印刷行业</li>
-                        </ul>
-                        <p><img src="@Url.Content("~/content/images/eg3.gif")" alt="我们覆盖的行业" /></p>
+                        <h2><=MyIndustry></h2>
+                        @Html.Raw(ViewBag.IndustryCase.Remark_pag)
+                        <p><img src="@Url.Content("~/content/images/eg3.gif")" alt="<=MyIndustry>" /></p>
                     </div>
                     <div class="clear"></div>
                 </div>

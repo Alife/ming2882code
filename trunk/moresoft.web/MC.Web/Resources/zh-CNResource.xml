@@ -45,6 +45,8 @@
     <item name="Download">资源</item>
     <item name="Partners">合作伙伴</item>
     <item name="Case">成功案例</item>
+    <item name="MySolution">我们的解决方案</item>
+    <item name="MyIndustry">我们覆盖的行业</item>
   </Module>
   <Module name="Account">
     <item name="AccountLegend">帐户信息</item>
