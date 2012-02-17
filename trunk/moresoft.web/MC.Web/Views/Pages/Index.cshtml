@@ -12,12 +12,16 @@
     {
         ViewBag.SelectedMenu = "Job";
     }
+    else if (ViewBag.ParentPage.Code_pag.ToLower() == "product")
+    {
+        ViewBag.SelectedMenu = "Product";
+    }
 }
         <div class="buttomcolumns">
             <div class="leftcolumn">
                 @Html.Partial("_Pages")
                 <p></p>
-                @Html.Partial("_Industry")
+                @Html.Partial("_Info")
             </div>
             <div class="contentcolumns">
                 <h2>@Html.Raw((string.IsNullOrEmpty(ViewBag.Pages.Content_pag) && ViewBag.ChilePages.Count > 0 ? ViewBag.ChilePages[0].Name_pag : ViewBag.Pages.Name_pag))</h2>

@@ -3,7 +3,9 @@
     IList<MC.Model.Page_pag> HomePages = (IList<MC.Model.Page_pag>)ViewBag.HomePages;
     var whymes = HomePages.FirstOrDefault(p => p.Code_pag == "WhyMes");
     var experience = HomePages.FirstOrDefault(p => p.Code_pag == "Experience");
-    var moresoft_Mes = HomePages.FirstOrDefault(p => p.Code_pag == "MS-MES");
+    var ms_Mes = HomePages.FirstOrDefault(p => p.Code_pag == "MS-MES");
+    var industry = HomePages.FirstOrDefault(p => p.Code_pag == "Industry");
+    var solution = HomePages.FirstOrDefault(p => p.Code_pag == "Solution");
 }
         <div class="topcolumns">
             <div class="leftcolumn">
@@ -14,7 +16,7 @@
                         @Html.Raw(whymes.Remark_pag)
                         <p class="more"><a href="@Url.Content("~/whymes.html")"><img src="@Url.Content("~/content/images/more.gif")" alt="more" /></a></p>
                         <br />
-                        <div class="area"><img src="@Url.Content("~/content/images/eg1.gif")" alt="为什么制造企业选择MS-MES解决方案"/></div>
+                        <div class="area"><img src="@Url.Content("~/content/images/eg1.gif")" alt="@whymes.Name_pag"/></div>
                     </div>
                 </div>
                 <b class="b4b d1"></b><b class="b3b d1"></b><b class="b2b d1"></b><b class="b1b"></b>
@@ -23,20 +25,20 @@
                 <div class="top">
                     <div class="leftcolumn">
                         <h2><a href="@Url.Content("~/solution.html")"><=MySolution></a></h2>
-                        @Html.Raw(ViewBag.Solution.Remark_pag)
+                        @Html.Raw(solution.Remark_pag)
                         <p><img src="@Url.Content("~/content/images/eg2.gif")" alt="<=MySolution>" /></p>
                     </div>
                     <div class="rightcolumn">
                         <h2><=MyIndustry></h2>
-                        @Html.Raw(ViewBag.IndustryCase.Remark_pag)
+                        @Html.Raw(industry.Remark_pag)
                         <p><img src="@Url.Content("~/content/images/eg3.gif")" alt="<=MyIndustry>" /></p>
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="bottom">
                     <div class="leftcolumn">
-                        <h2>@moresoft_Mes.Name_pag</h2>
-                        @Html.Raw(moresoft_Mes.Remark_pag)
+                        <h2>@ms_Mes.Name_pag</h2>
+                        @Html.Raw(ms_Mes.Remark_pag)
                         <p class="more"><a href="@Url.Content("~/ms-mes.html")"><img src="@Url.Content("~/content/images/more.gif")" alt="more" /></a></p>
                     </div>
                     <div class="rightcolumn">
@@ -54,7 +56,7 @@
         </div>
         <div class="buttomcolumns">
             <div class="leftcolumn">
-                @Html.Partial("_Industry")
+                @Html.Partial("_Info")
             </div>
             <div class="centercolumn">
                 @Html.Partial("_Product")
