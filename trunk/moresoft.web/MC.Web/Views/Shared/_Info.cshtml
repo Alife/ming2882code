@@ -1,10 +1,10 @@
 ﻿                <b class="b1"></b><b class="b2 d1"></b><b class="b3 d1"></b><b class="b4 d1"></b>
                 <div class="b d1">
                     <div class="content">
-                        <h2><=Industry1></h2>
+                        <h2><=Info1></h2>
                         <ul class="list">@foreach(var item in ViewBag.InfoType){
-                            <li><a href="@Url.Content("~/industry-" + item.ID_ift + ".html")">@item.Name_ift:</a>
-                                <p>(@foreach(var citem in item.children){<a href="@Url.Content("~/industry-" + citem.ID_ift + ".html")">@citem.Name_ift</a> })</p>
+                            <li><a href="@Url.Content("~/info-" + item.ID_ift + ".html")">@item.Name_ift:</a>
+                                <p>(@foreach(var citem in item.children){<a href="@Url.Content("~/info-" + citem.ID_ift + ".html")">@citem.Name_ift</a> })</p>
                             </li>}
                         </ul>
                     </div>

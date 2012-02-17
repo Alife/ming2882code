@@ -22,6 +22,7 @@
         <ul>
             <li><a href="@Url.Content("~/")"@Html.Raw(ViewBag.SelectedMenu == null ? "class=\"selected\"" : "")><=Home></a></li>
             <li><a href="@Url.Content("~/company.html")"@Html.Raw(ViewBag.SelectedMenu == "Company" ? " class=\"selected\"" : "")><=Company></a></li>
+            <li><a href="@Url.Content("~/product.html")"@Html.Raw(ViewBag.SelectedMenu == "Product" ? " class=\"selected\"" : "")><=Product2></a></li>
             <li><a href="@Url.Content("~/news.html")"@Html.Raw(ViewBag.SelectedMenu == "News" ? " class=\"selected\"" : "")><=News></a></li>
             <li><a href="@Url.Content("~/job.html")"@Html.Raw(ViewBag.SelectedMenu == "Job" ? " class=\"selected\"" : "")><=Job></a></li>
             <li><a href="http://www.moresoft.cn" target="_blank"><=Forum></a></li>
@@ -39,6 +40,7 @@
         <p>
             <a href="@Url.Content("~/product.html")"><=Product></a> | 
             <a href="@Url.Content("~/industry.html")"><=Industry></a> | 
+            <a href="@Url.Content("~/info.html")"><=Info></a> | 
             @Html.RouteLink("<=Service1>", new { controller = "Pages", action = "Index", id = "service" }) | 
             @Html.RouteLink("<=Partners>", new { controller = "Pages", action = "Index", id = "partners" }) | 
             @Html.RouteLink("<=Case>", new { controller = "Pages", action = "Index", id = "case" }) | 

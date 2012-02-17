@@ -1,15 +1,14 @@
 ﻿@using Unity.Mvc3.Helpers
-@{ViewBag.SelectedMenu = "News";}
         <div class="buttomcolumns">
             <div class="leftcolumn">
                 @Html.Partial("_Info")
             </div>
             <div class="contentcolumns">
-                <h2><=News></h2>
+                <h2>@(ViewBag.CurrentInfoType == null ? "<=Info1>" : @ViewBag.CurrentInfoType.Name_ift)</h2>
                 <ul>
                 @foreach (var item in ViewBag.Infos.rows)
                 {
-                    <li><a href="@Url.Content("~/news/detail-" + item.ID_inf + ".html")">@item.Title_inf</a></li>
+                    <li><a href="@Url.Content("~/info/detail-" + item.ID_inf + ".html")">@item.Title_inf</a></li>
                 }
                 </ul>
                 <div class="pager">
