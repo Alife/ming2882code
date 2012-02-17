@@ -40,9 +40,9 @@ namespace MC.Web.Controllers
             caseqi.Parameters.Add("top", 4);
             caseqi.Orderby.Add("Sort_pag", null);
             ViewBag.CasePages = _Page_pagService.GetList(caseqi);
-            //主页上几个单独模块
+            //主页上几个单独模块:为什么选择制造执行系统MS-MES,MS-MES给制造业客户带来的应用体验,摩尔制造执行系统MS-MES,覆盖行业,解决方案
             var homePageQuery = new QueryInfo();
-            homePageQuery.Parameters.Add("Code_pags", new List<string> { "WhyMes", "Experience", "MS-MES" });
+            homePageQuery.Parameters.Add("Code_pags", new List<string> { "WhyMes", "Experience", "MS-MES", "Industry", "Solution" });
             ViewBag.HomePages = _Page_pagService.GetList(homePageQuery);
             //产品体系
             var productsqi = new QueryInfo();
@@ -50,10 +50,6 @@ namespace MC.Web.Controllers
             productsqi.Parameters.Add("top", 3);
             productsqi.Orderby.Add("Sort_pag", null);
             ViewBag.Products = _Page_pagService.GetList(productsqi).Where(p => !p.Code_pag.Contains("MS-MES"));
-            //覆盖行业
-            ViewBag.IndustryCase = _Page_pagService.GetItem("IndustryCase");
-            //解决方案
-            ViewBag.Solution = _Page_pagService.GetItem("Solution");
             return View();
         }
         public ActionResult error()

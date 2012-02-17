@@ -14,6 +14,6 @@ namespace MC.Model
         /// <summary>
         /// 行业资讯
         /// </summary>
-        Industry = 2
+        Info = 2
     }
 }
