@@ -30,7 +30,7 @@ input.buttonhover{border:#003a7b 1px solid;line-height:23px;width:auto!important
     #header .tel img{position:absolute;top:3px;right:110px;}
     #header .tel{position:absolute;top:40px;right:20px;color:#054D88;font-size:16px;font-weight:bold;}
 .menu{width:1003px;background: url(images/menu_bg.jpg) repeat-x;height:46px;}
-    .menu ul{list-style:none;margin:0;padding:0;padding-left:22%;}
+    .menu ul{list-style:none;margin:0;padding:0;padding-left:18%;}
     .menu ul li{float:left;display:inline;height:42px;line-height:42px;}
     .menu ul li a{display:inline-block;height:40px;line-height:40px;color:#CEE2FF;font-size:14px;font-weight:bold;padding:0px 20px;cursor:pointer;border:1px solid #0C3994;}
     .menu ul li a.selected,.menu ul li a:hover{color:#FFFFFF;border:1px solid #0B5196;background:#031F69;}

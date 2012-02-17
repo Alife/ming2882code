@@ -38,8 +38,10 @@
     <item name="Service1">服务和支持</item>
     <item name="Product">产品</item>
     <item name="Product1">MS-MES产品体系</item>
+    <item name="Product2">产品体系</item>
     <item name="Industry">行业</item>
-    <item name="Industry1">行业资讯</item>
+    <item name="Info">资讯</item>
+    <item name="Info1">行业资讯</item>
     <item name="Concact">联系我们</item>
     <item name="SiteMap">网站地图</item>
     <item name="Download">资源</item>

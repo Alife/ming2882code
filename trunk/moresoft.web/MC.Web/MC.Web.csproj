@@ -106,7 +106,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IndustryController.cs" />
+    <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\SysAdminController.cs" />
@@ -621,7 +621,6 @@
     <None Include="Scripts\themes\default\images\Thumbs.db" />
     <None Include="Scripts\themes\gray\images\Thumbs.db" />
     <Content Include="Views\SysAdmin\PagesDetail.cshtml" />
-    <Content Include="Views\Shared\_Industry.cshtml" />
     <Content Include="Views\Shared\_Pages.cshtml" />
     <Content Include="Views\SysAdmin\Keywords.cshtml" />
     <Content Include="Views\SysAdmin\Settings.cshtml" />
@@ -631,15 +630,16 @@
     <Content Include="Views\SysAdmin\LogsDetail.cshtml" />
     <Content Include="Views\Shared\_Case.cshtml" />
     <Content Include="Views\SysAdmin\InfoTypes.cshtml" />
-    <Content Include="Views\Industry\Index.cshtml" />
+    <Content Include="Views\Info\Index.cshtml" />
     <Content Include="Views\SysAdmin\Infos.cshtml" />
     <Content Include="Views\SysAdmin\InfosDetail.cshtml" />
     <Content Include="Views\SysAdmin\news.cshtml" />
     <Content Include="Views\SysAdmin\NewsDetail.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Detail.cshtml" />
-    <Content Include="Views\Industry\Detail.cshtml" />
+    <Content Include="Views\Info\Detail.cshtml" />
     <Content Include="Views\Shared\_Product.cshtml" />
+    <Content Include="Views\Shared\_Info.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

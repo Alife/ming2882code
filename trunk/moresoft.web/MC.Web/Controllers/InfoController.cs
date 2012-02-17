@@ -9,7 +9,7 @@ using MC.IBLL;
 
 namespace MC.Web.Controllers
 {
-    public class IndustryController : BaseController
+    public class InfoController : BaseController
     {
         [Dependency]
         public IInfo_inf _Info_infServer { get; set; }
@@ -34,12 +34,12 @@ namespace MC.Web.Controllers
             }
             queryInfo.Parameters.Add("rows", rows);
             queryInfo.Parameters.Add("page", page);
-            queryInfo.Parameters.Add("Type_inf", (int)InfoType.Industry);
+            queryInfo.Parameters.Add("Type_inf", (int)InfoType.Info);
             ViewBag.Infos = _Info_infServer.GetPageList(queryInfo);
-            ViewBag.MetaTitle = ViewBag.CurrentInfoType == null ? "<=Industry1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Name_ift + "-<=Industry1>-" + ViewBag.Setting.Title_set;
-            ViewBag.MetaKeywords = ViewBag.CurrentInfoType == null ? "<=Industry1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Keywords_ift + "-<=Industry1>-" + ViewBag.Setting.Title_set;
+            ViewBag.MetaTitle = ViewBag.CurrentInfoType == null ? "<=Info1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Name_ift + "-<=Info1>-" + ViewBag.Setting.Title_set;
+            ViewBag.MetaKeywords = ViewBag.CurrentInfoType == null ? "<=Info1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Keywords_ift + "-<=Info1>-" + ViewBag.Setting.Title_set;
             ViewBag.MetaAuthor = ViewBag.Setting.Author_set;
-            ViewBag.Title = ViewBag.CurrentInfoType == null ? "<=Industry1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Name_ift + "-<=Industry1>" + ViewBag.Setting.Title_set;
+            ViewBag.Title = ViewBag.CurrentInfoType == null ? "<=Info1>-" + ViewBag.Setting.Title_set : ViewBag.CurrentInfoType.Name_ift + "-<=Info1>-" + ViewBag.Setting.Title_set;
             return View();
         }
         public ActionResult Detail(int? id)
