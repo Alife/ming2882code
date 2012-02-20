@@ -38,7 +38,8 @@ namespace MC.Web.Controllers
             QueryInfo qi = new QueryInfo();
             qi.Parameters.Add("Parent_pag", ViewBag.CurrentPage.ID_pag);
             qi.Orderby.Add("Sort_pag", null);
-            ViewBag.Content_pag = string.IsNullOrEmpty(ViewBag.CurrentPage.Content_pag) && ViewBag.ChilePages.Count > 0 ? _Page_pagServer.GetList(qi).First().Content_pag : ViewBag.CurrentPage.Content_pag;
+            var childs = _Page_pagServer.GetList(qi);
+            ViewBag.Content_pag = string.IsNullOrEmpty(ViewBag.CurrentPage.Content_pag) && childs.Count > 0 ? childs.First().Content_pag : ViewBag.CurrentPage.Content_pag;
             return View();
         }
         private IList<Page_pag> LoadPagesParent(int parentID)
