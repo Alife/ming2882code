@@ -25,10 +25,14 @@ namespace MC.Web.Controllers
             if (filterContext == null)
                 throw new ArgumentNullException("filterContext");
             var ex = filterContext.Exception ?? new Exception("No further infomation exists.");
-            _logger.Error("Error general OnException", ex);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine("错误原因：" + ex.Message);
+            sb.AppendLine("错误位置：" + filterContext.Exception.StackTrace);
+            _logger.Error(sb.ToString());
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                filterContext.Result = new JsonResult { Data = new { message = filterContext.Exception.Message, success = false } };
+                filterContext.Result = new JsonResult { Data = new { message = ex.Message, success = false } };
             }
             else
             {
