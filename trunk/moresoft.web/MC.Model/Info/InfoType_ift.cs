@@ -73,6 +73,7 @@ namespace MC.Model
         public bool? IsHasChild_ift { get; set; }
 
         public IList<InfoType_ift> children { get; set; }
+        public string state { get; set; }
         #endregion
     }
 }
