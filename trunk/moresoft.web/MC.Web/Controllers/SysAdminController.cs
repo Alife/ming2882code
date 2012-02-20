@@ -19,8 +19,6 @@ namespace MC.Web.Controllers
     {
         #region properties
         [Dependency]
-        public IPage_pag _Page_pagServer { get; set; }
-        [Dependency]
         public IKeywords_key _Keywords_keyServer { get; set; }
         [Dependency]
         public ILink_lnk _Link_lnkServer { get; set; }
@@ -51,16 +49,6 @@ namespace MC.Web.Controllers
             if (id.HasValue)
                 tree.Insert(0, new TreeEntity { id = 0, text = "请选择" });
             return Json(tree, JsonRequestBehavior.AllowGet);
-        }
-        private IList<Page_pag> LoadPagesChild(int parentID)
-        {
-            QueryInfo info = new QueryInfo();
-            info.Parameters.Add("Parent_pag", parentID);
-            info.Orderby.Add("Sort_pag", null);
-            var list = _Page_pagServer.GetList(info);
-            foreach (var item in list)
-                item.children = item.IsHasChild_pag.Value ? LoadPagesChild(item.ID_pag.Value) : null;
-            return list;
         }
         private List<TreeEntity> LoadPagesTree(int parentID)
         {

@@ -1,18 +1,17 @@
 ﻿@{
-    ViewBag.Title = ViewBag.Pages.Name_pag + "-" + ViewBag.Setting.WebName_set;
-    if (ViewBag.ParentPage.Code_pag.ToLower() == "company")
+    if (ViewBag.TopPage.Code_pag.ToLower() == "company")
     {
         ViewBag.SelectedMenu = "Company";
     }
-    else if (ViewBag.ParentPage.Code_pag.ToLower() == "service")
+    else if (ViewBag.TopPage.Code_pag.ToLower() == "service")
     {
         ViewBag.SelectedMenu = "Service";
     }
-    else if (ViewBag.ParentPage.Code_pag.ToLower() == "job")
+    else if (ViewBag.TopPage.Code_pag.ToLower() == "job")
     {
         ViewBag.SelectedMenu = "Job";
     }
-    else if (ViewBag.ParentPage.Code_pag.ToLower() == "product")
+    else if (ViewBag.TopPage.Code_pag.ToLower() == "product")
     {
         ViewBag.SelectedMenu = "Product";
     }
@@ -24,8 +23,8 @@
                 @Html.Partial("_Info")
             </div>
             <div class="contentcolumns">
-                <h2>@Html.Raw((string.IsNullOrEmpty(ViewBag.Pages.Content_pag) && ViewBag.ChilePages.Count > 0 ? ViewBag.ChilePages[0].Name_pag : ViewBag.Pages.Name_pag))</h2>
-                @Html.Raw((string.IsNullOrEmpty(ViewBag.Pages.Content_pag) && ViewBag.ChilePages.Count > 0 ? ViewBag.ChilePages[0].Content_pag : ViewBag.Pages.Content_pag))
+                <h2>@Html.Raw(ViewBag.Title_pag)</h2>
+                @Html.Raw(ViewBag.Content_pag)
             </div>
             <div class="clear"></div>
         </div>

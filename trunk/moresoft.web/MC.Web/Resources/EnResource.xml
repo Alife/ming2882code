@@ -17,6 +17,9 @@
     <item name="Delete">Delete</item>
     <item name="New">New</item>
     <item name="Clear">Clear</item>
+    <item name="Prev">Prev</item>
+    <item name="Next">Next</item>
+    <item name="Jump">Jump</item>
   </Module>
   <Module name="Layout">
     <item name="Home">Home</item>
@@ -35,10 +38,45 @@
     <item name="Service1">Service support</item>
     <item name="Product">Product</item>
     <item name="Industry">Industry</item>
+    <item name="Info">Info</item>
+    <item name="Info1">Industry Info</item>
     <item name="Concact">Concact</item>
     <item name="SiteMap">SiteMap</item>
     <item name="Download">Download</item>
     <item name="Partners">Partners</item>
     <item name="Case">Case</item>
+    <item name="MySolution">Our solutions</item>
+    <item name="MyIndustry">We cover the industry</item>
+  </Module>
+  <Module name="Account">
+    <item name="AccountLegend">Account Info</item>
+    <item name="UserName">UserName</item>
+    <item name="Password">Password</item>
+    <!--register-->
+    <item name="CreateAccount">Create Account</item>
+    <item name="CreateAccountRemark">Use the form below to create a new account.</item>
+    <item name="CreateAccountTip">The password must contain at least {0} characters.</item>
+    <item name="CreateAccountValidationSummary">Account creation is not successful. Please correct the error and try again.</item>
+    <item name="Email">Email</item>
+    <item name="PasswordErrorMessage">Confirm the password must contain at least {0} characters.</item>
+    <item name="ConfirmPassword1">Confirm Password</item>
+    <item name="ConfirmPassword1ErrorMessage">Password and Confirm Password do not match.</item>
+    <item name="RegisterErrorMessage">Registration failed, please write or contact the administrator.</item>
+    <item name="CheckUserNameExistsErrorMessage">The user account already exists.</item>
+    <item name="CheckEmailExistsErrorMessage">Email already exists.</item>
+    <!--end register-->
+    <!--login-->
+    <item name="RememberMe">Remember me?</item>
+    <item name="LoginRemark">Please enter your username and password. If you do not have an account, please {0}.</item>
+    <item name="LoginErrorMessage">User name or password is incorrect.</item>
+    <item name="LoginValidationSummary">Login unsuccessful. Please correct the error and try again.</item>
+    <!--end login-->
+    <!--ChangePassword-->
+    <item name="OldPassword">Old Password</item>
+    <item name="NewPassword">New Password</item>
+    <item name="ConfirmPassword">Confirm Password</item>
+    <item name="NewPasswordErrorMessage">The password must contain at least {0} characters.</item>
+    <item name="ConfirmPasswordErrorMessage">New Password and Confirm Password do not match.</item>
+    <!--end ChangePassword-->
   </Module>
 </Localization>
