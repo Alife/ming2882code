@@ -1,0 +1,9 @@
+User-agent: *
+
+Disallow: /App_Data/
+Disallow: /aspnet_client/
+Disallow: /Bin/
+Disallow: /SysAdmin/
+Disallow: /kindeditor/
+Disallow: /Views/
+Disallow: /Resources/

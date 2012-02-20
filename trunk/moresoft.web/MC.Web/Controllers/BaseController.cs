@@ -17,6 +17,8 @@ namespace MC.Web.Controllers
         public ISetting_set _Setting_setServer { get; set; }
         [Dependency]
         public IInfoType_ift _InfoType_iftServer { get; set; }
+        [Dependency]
+        public IPage_pag _Page_pagServer { get; set; }
         protected readonly log4net.ILog _logger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         protected override void OnException(ExceptionContext filterContext)
         {
@@ -55,6 +57,16 @@ namespace MC.Web.Controllers
             var list = _InfoType_iftServer.GetList(info);
             foreach (var item in list)
                 item.children = item.IsHasChild_ift.Value ? LoadInfoTypesChild(item.ID_ift.Value) : null;
+            return list;
+        }
+        public IList<Page_pag> LoadPagesChild(int parentID)
+        {
+            QueryInfo info = new QueryInfo();
+            info.Parameters.Add("Parent_pag", parentID);
+            info.Orderby.Add("Sort_pag", null);
+            var list = _Page_pagServer.GetList(info);
+            foreach (var item in list)
+                item.children = item.IsHasChild_pag.Value ? LoadPagesChild(item.ID_pag.Value) : null;
             return list;
         }
     }

@@ -358,6 +358,7 @@
     <Content Include="Resources\EnResource.xml" />
     <Content Include="Resources\zh-CNResource.xml" />
     <Content Include="Resources\zh-HantResource.xml" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\admin.main.js" />
     <Content Include="Scripts\easyui-lang-zh_CN.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
