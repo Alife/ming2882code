@@ -58,6 +58,7 @@ namespace MC.Model
         public int? Path_pag { get; set; }
         public bool? IsHasChild_pag { get; set; }
         public IList<Page_pag> children { get; set; }
+        public string state { get; set; }
         #endregion
     }
 }

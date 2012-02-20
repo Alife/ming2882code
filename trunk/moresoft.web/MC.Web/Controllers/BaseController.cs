@@ -60,7 +60,10 @@ namespace MC.Web.Controllers
             info.Orderby.Add("Sort_ift", null);
             var list = _InfoType_iftServer.GetList(info);
             foreach (var item in list)
+            {
+                item.state = item.IsHasChild_ift.Value ? "closed" : "";
                 item.children = item.IsHasChild_ift.Value ? LoadInfoTypesChild(item.ID_ift.Value) : null;
+            }
             return list;
         }
         public IList<Page_pag> LoadPagesChild(int parentID)
@@ -70,7 +73,10 @@ namespace MC.Web.Controllers
             info.Orderby.Add("Sort_pag", null);
             var list = _Page_pagServer.GetList(info);
             foreach (var item in list)
+            {
+                item.state = item.IsHasChild_pag.Value ? "closed" : "";
                 item.children = item.IsHasChild_pag.Value ? LoadPagesChild(item.ID_pag.Value) : null;
+            }
             return list;
         }
     }
