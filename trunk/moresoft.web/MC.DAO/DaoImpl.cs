@@ -585,14 +585,14 @@ namespace MC.DAO
         #endregion
 
         #region ÊÂÎñ
-        public ITransaction ITransaction
-        {
-            get
-            {
-                ISession session = sessionFactory.OpenSession();
-                return session.BeginTransaction();
-            }
-        }
+        //public ITransaction ITransaction
+        //{
+        //    get
+        //    {
+        //        ISession session = sessionFactory.OpenSession();
+        //        return session.BeginTransaction();
+        //    }
+        //}
         #endregion
     }
 }
