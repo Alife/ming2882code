@@ -35,7 +35,7 @@ namespace MC.Web.Controllers
             //成功案例
             var caseqi = new QueryInfo();
             caseqi.Parameters.Add("Parent_pag", _Page_pagServer.GetItem("case").ID_pag);
-            caseqi.Parameters.Add("top", 4);
+            caseqi.Parameters.Add("top", 7);
             caseqi.Orderby.Add("Sort_pag", null);
             ViewBag.CasePages = _Page_pagServer.GetList(caseqi);
             //主页上几个单独模块:为什么选择制造执行系统MS-MES,MS-MES给制造业客户带来的应用体验,摩尔制造执行系统MS-MES,覆盖行业,解决方案
