@@ -62,7 +62,10 @@
                                         $.messager.alert('错误', '删除失败!', 'error');
                                     },
                                     success: function (data) {
-                                        if (data.success) infoType_Grid.datagrid('reload');
+                                        if (data.success) {
+                                            infoType_Grid.datagrid('reload');
+                                            $('#Parent_iftTree').combotree('reload');
+                                        }
                                         else $.messager.alert('错误', data.msg, 'error');
                                     }
                                 });
@@ -83,7 +86,7 @@
                     infoType_Grid.treegrid('reload');
                 }
             }
-                ]
+            ]
         });
         var infoType_Dialog = $('#infoType_Dialog');
         var infoType_Form = infoType_Dialog.find('form');
@@ -95,7 +98,10 @@
                     success: function (data) {
                         data = eval("(" + data + ")");
                         $.messager.alert('系统提示', data.msg, "info", function () {
-                            if (data.success) { infoType_Form.form('clear'); infoType_Dialog.dialog('close'); infoType_Grid.treegrid('reload'); }
+                            if (data.success) {
+                                infoType_Form.form('clear'); infoType_Dialog.dialog('close'); infoType_Grid.treegrid('reload');
+                                $('#Parent_iftTree').combotree('reload');
+                            }
                         });
                     }
                 });
@@ -153,7 +159,7 @@
                 上级：
             </td>
             <td>
-                <input name="Parent_ift" type="text" class="easyui-combotree" url="@Url.Content("~/sysadmin/infotypestree/0")"
+                <input id="Parent_iftTree" name="Parent_ift" type="text" class="easyui-combotree" url="@Url.Content("~/sysadmin/infotypestree/0")"
                     value="" style="width: 200px;" />
             </td>
         </tr>
