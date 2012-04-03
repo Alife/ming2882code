@@ -10,7 +10,7 @@
             idField: 'ID_lnk',
             remoteSort: false, pagination: true, fit: true, pageSize: 20,
             frozenColumns: [[{ field: 'ck', checkbox: true }, { title: '名称', field: 'Name_lnk', width: 300 }, { title: '网址', field: 'Url_lnk', width: 400 }
-                , { title: '是否隐藏', field: 'IsHide_lnk', width: 140}]],
+                , { title: '是否隐藏', field: 'IsHide_lnk', width: 140, formatter: function (value, row) { return value == true ? '是' : '否'; } }]],
             columns: [[{ title: '排序', field: 'Sort_lnk', width: 60}]],
             onDblClickRow: function (rowIndex, row) { Link_Form.form('load', row); Link_Form.url = '@Url.Content("~/sysadmin/linkssave?a=edit")'; Link_Dialog.dialog('open'); },
             toolbar: [{
