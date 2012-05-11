@@ -1,7 +1,0 @@
-1) 在浏览器中输入https://59.56.182.121:4433，在弹出的登录页面输入用户名密码 (先拨入VPN)
-     user:  webadmin
-     pass:  webadmin9988
- 
-2) 打开远程桌面连接 190.160.5.2
-     user:  webadmin
-     pass:  moresoftweb8899

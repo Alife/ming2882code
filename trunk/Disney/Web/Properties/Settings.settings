@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Web.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="Web_DpUploads_Uploads" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://www.disneyphoto.com.tw/Uploads.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>
